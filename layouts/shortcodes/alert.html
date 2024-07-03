@@ -1,0 +1,13 @@
+{{- $type := .Get 0 | default "info" -}}
+{{- $icon := "" -}}
+{{- if eq $type "info" -}}{{- $icon = "info-circle" -}}
+{{- else if eq $type "warning" -}}{{- $icon = "alert-triangle" -}}
+{{- else if eq $type "success" -}}{{- $icon = "circle-check" -}}
+{{- else if eq $type "danger" -}}{{- $icon = "exclamation-circle" -}}
+{{- else -}}{{- errorf "unknown type of alert %s" $.Params -}}
+{{- end -}}
+
+<div class="alert {{ $type }}">
+  <div>{{ partial "helper/icon" $icon }}<div>{{ .Inner | markdownify }}</div></div>
+</div>
+

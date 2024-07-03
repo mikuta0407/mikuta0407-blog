@@ -1,0 +1,73 @@
+.codeblock--name {
+    width: fit-content;
+    margin: 1rem 0 0;
+    padding: 0.4rem;
+    font-size: 1.1rem;
+    color: rgb(255, 255, 255);
+    background-color: #707e80;
+}
+
+.codeblock--name+.codeblock--content {
+    margin-top: 0;
+}
+
+:root {
+    --sys-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Droid Sans", "Helvetica Neue";
+    --ja-font-family: "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "游ゴシック体", "Yu Gothic", YuGothic, "メイリオ", "Meiryo";
+    --base-font-family: var(--ja-font-family), var(--sys-font-family), sans-serif;
+    --code-font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.alert {
+    position: relative;
+    text-align: left;
+    padding: 10px 15px;
+    min-height: 30px;
+    margin: 1.5em 0 1.5em;
+    border: none;
+    border-left: 3px solid;
+    word-break: break-word
+  }
+  
+  .alert div:first-child {
+    display: flex;
+    align-items:center;
+    gap: 15px
+  }
+  
+  .alert div > div {
+    flex-flow: column;
+  }
+  
+  .alert ion-icon {
+    flex-shrink: 0;
+  }
+  
+  .alert p {
+    margin: 0 0 0
+  }
+  
+  .alert p:first-child {
+    margin: 0
+  }
+  
+  .alert.info {
+    border-color: #349ef3;
+    background-color: var(--background-secondary);
+  }
+  
+  .alert.success {
+    border-color: #4dc657;
+    background-color: var(--background-secondary);
+  }
+  
+  .alert.warning {
+    border-color: #f5aa0a;
+    background-color: var(--background-secondary);
+  }
+  
+  .alert.danger {
+    border-color: #f5311d;
+    background-color: var(--background-secondary);
+  }
+  
