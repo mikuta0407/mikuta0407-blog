@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>RDP on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/rdp/</link><description>Recent content in RDP on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Mon, 18 Mar 2019 16:56:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/rdp/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu 18.04.2でxrdp(のXorgモード)が使えないので一時的に凌ぐ</title><link>https://blog.mikuta0407.net/posts/2019/20190318-xrdp-with-ubuntu1804-workaround/</link><pubDate>Mon, 18 Mar 2019 16:56:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2019/20190318-xrdp-with-ubuntu1804-workaround/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>おそらくすでにたくさんある情報のn番煎じなんですが､Ubuntu18.04.2に関する情報がかなり少なかったので､同じような人がいたとき用に書いておきます。&lt;br>
+(ちなみに試した環境はXubuntuですが､コマンド的にどのフレーバーでも動きそうな気がします)&lt;/p>
+&lt;h2 id="xrdpがubuntu18042で使えないらしい">xrdpがUbuntu18.04.2で使えないらしい
+&lt;/h2>&lt;p>&lt;a class="link" href="https://note.spage.jp/archives/576" target="_blank" rel="noopener"
+>https://note.spage.jp/archives/576&lt;/a>&lt;br>
+&lt;a class="link" href="https://ubuntuforums.org/showthread.php?t=2413157" target="_blank" rel="noopener"
+>https://ubuntuforums.org/showthread.php?t=2413157&lt;/a>&lt;br>
+ここの情報のおかげでわかったのですが､どうも18.04.2ではxrdpのXorgモードを使う際に必要なxorgxrdpが対応していない?らしく､(少なくとも簡単には)動かないようです。&lt;/p>
+&lt;p>無理に弄って壊しても嫌ですし､いつか対応することを前提に､xorg経由ではなく、X11VNC経由でXRDPを使うことで凌ぎます。&lt;/p>
+&lt;h2 id="1-x11vncをインストールする">1. x11vncをインストールする
+&lt;/h2>&lt;p>本来であればsudo apt install xrdpと少しの操作で使えるようになるはずのxrdpがXorgモードで使えないということなので､できるだけ手間を省いていきます。
+(xrdpは入ってる前提)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install x11vnc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x11vnc -storepasswd &lt;span class="c1">#パスワードを設定します&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo nano /etc/xrdp/xrdp.ini&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="2-xrdpの設定を変える">2. xrdpの設定を変える
+&lt;/h2>&lt;p>xrdpの設定ファイルで､Xvncに関する設定を少し変更します&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/etc/xrdp/xrdp.ini&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Xvnc]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Xvnc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">lib&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">libvnc.so&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">username&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">ask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">ask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ip&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">localhost &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ↑ここを一応127.0.0.1からlocalhostに変えておく&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">5900 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ↑-1を5900に&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これで設定は終わりです。&lt;/p>
+&lt;h2 id="3-x11vncを起動してrdpクライアント経由でつなぐ">3. X11VNCを起動して、RDPクライアント経由でつなぐ
+&lt;/h2>&lt;p>あとは&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">x11vnc -localhost -forever -bg -display :0&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>を叩いておけば､&lt;/p>
+&lt;ul>
+&lt;li>localhostのみに(-localhost)､&lt;/li>
+&lt;li>ずっと(-forever)､&lt;/li>
+&lt;li>バックグラウンドで(-bg)&lt;/li>
+&lt;/ul>
+&lt;p>開くVNCサーバーが立ち上がります。&lt;/p>
+&lt;p>あとは、先程の設定のおかげでXRDPがVNC経由でつないでくれますので、お好きなRDPクライアントで接続しましょう。&lt;/p>
+&lt;p>VPSみたいに生VNCが危なくて使えないときには､xrdpを経由することでちょっと安全な認証が使えますので､そういうときにいいですね。&lt;br>
+xorgxrdpがちゃんと対応しない間はこれで凌ごうと思います。&lt;/p>
+&lt;p>(2020/02/03編集: XRDPの代わりにVNCで繋げばいいじゃんみたいな表現に見えた気がするのですこし修正しました)&lt;/p></description></item></channel></rss>

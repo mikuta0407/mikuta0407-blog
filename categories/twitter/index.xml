@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Twitter on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/twitter/</link><description>Recent content in Twitter on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Mon, 07 Aug 2023 18:58:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/twitter/index.xml" rel="self" type="application/rss+xml"/><item><title>リスナーが勝手にPodcast番組の更新通知Botを作って遊んだ話</title><link>https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/</link><pubDate>Mon, 07 Aug 2023 18:58:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/img/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2023-08-07-18.58.06.png" alt="Featured image of post リスナーが勝手にPodcast番組の更新通知Botを作って遊んだ話" />&lt;div class="alert warning">
+&lt;div>&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle">&lt;path stroke="none" d="M0 0h24v24H0z" fill="none"/>&lt;path d="M12 9v4" />&lt;path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />&lt;path d="M12 16h.01" />&lt;/svg>
+&lt;div>本記事の内容は2023年8月当時の実装です。現在はGoを使って完全にリファクタリングされ、更新検知の仕組みも変更されています。いつか記事を書きます。&lt;/div>&lt;/div>
+&lt;/div>
+&lt;div class="alert info">
+&lt;div>&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle">&lt;path stroke="none" d="M0 0h24v24H0z" fill="none"/>&lt;path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />&lt;path d="M12 9h.01" />&lt;path d="M11 12h1v4h1" />&lt;/svg>
+&lt;div>&lt;p>現在のBotのソースコードは &lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
+>mikuta0407/kuchihira-bot&lt;/a>で公開しています。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
+>&lt;img src="https://gh-card.dev/repos/mikuta0407/kuchihira-bot.svg"
+loading="lazy"
+alt="mikuta0407/kuchihira-bot"
+>&lt;/a>&lt;/p>
+&lt;/div>&lt;/div>
+&lt;/div>
+&lt;p>2023/05/31から、「本格雑談くちをひらく」というPodcast番組の更新通知Botを自アカウントで、2025/06/26からは &lt;a class="link" href="https://x.com/kuchihira_bot" target="_blank" rel="noopener"
+>（@kuchihira_bot）さん / X&lt;/a>で、公黙認(公式的に黙認)という立場で運営させていただいています。その開発経緯等について、なんとなくまとめておこうかと。&lt;/p>
+&lt;h2 id="twitterのapi周りの改悪と個人的な影響">TwitterのAPI周りの改悪と個人的な影響
+&lt;/h2>&lt;p>ツイッt……XがAPI周りを大幅に変更し、v1.1系を潰すことで便利な連携ツールを一層したり、極端に有料化して各所が悲鳴を上げてるのは記憶に新しいかと思います。&lt;br>
+Togetter等の広告収入がある媒体ではAPIの有料化に対応出来ましたが(Togetterは元々エンタープライズ契約だったそうですが)、サブスクリプション形式でユーザーからの直接的な収益によって運営していたIFTTTは、無料プランでのツイッt……X連携を辞めてしまいました。&lt;/p>
+&lt;p>&lt;a class="link" href="https://forest.watch.impress.co.jp/docs/digest/1501656.html" target="_blank" rel="noopener"
+>「IFTTT」無料プランのTwitter連携が終了へ、アプレット数にも制限　ほか - ダイジェストニュース - 窓の杜&lt;/a>&lt;br>
+&lt;a class="link" href="https://ifttt.com/explore/updates-to-free-tier-2023" target="_blank" rel="noopener"
+>Updates to IFTTT free tier - IFTTT&lt;/a>&lt;/p>
+&lt;p>これにより影響を受けた方々はかなりいらっしゃるかと思いますが、僕の場合は「普段聴いているPodcast番組 &lt;a class="link" href="https://omny.fm/shows/kuchiwohiraku" target="_blank" rel="noopener"
+>中村繪里子・吉田尚記の本格雑談くちをひらくのエピソード - Omny.fm&lt;/a> の公式アカウントで行われている更新告知ツイートが止まる」という影響がありました。&lt;/p>
+&lt;p>上記IFTTTの告知を見ると5/23以降無料プランでは終了、となっていますが、&lt;a class="link" href="https://twitter.com/kuchiwohiraku" target="_blank" rel="noopener"
+>@kuchiwohiraku&lt;/a> で最後に投稿された更新通知ツイートが、&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[ May 23, 2023 at 05:00PMup!] 『アナウンス技術論と人間の強み。[中村繪里子・吉田尚記の本格雑談くちをひらく] 』 podcast→&lt;a href="https://t.co/SwAoG0LX9p">https://t.co/SwAoG0LX9p&lt;/a> Web→&lt;a href="https://t.co/Gke1033vNc">https://t.co/Gke1033vNc&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/fvjFwVVD9y">https://t.co/fvjFwVVD9y&lt;/a> &lt;a href="https://twitter.com/yoshidahisanori?ref_src=twsrc%5Etfw">@yoshidahisanori&lt;/a> &lt;a href="https://twitter.com/eriko_co_log?ref_src=twsrc%5Etfw">@eriko_co_log&lt;/a>&lt;/p>&amp;mdash; 本格雑談くちをひらく (@kuchiwohiraku) &lt;a href="https://twitter.com/kuchiwohiraku/status/1660924535846076416?ref_src=twsrc%5Etfw">May 23, 2023&lt;/a>&lt;/blockquote>
+&lt;p>これです。見事に5/23の分を最後に止まっています。&lt;/p>
+&lt;h2 id="無いなら作ればいいじゃない">無いなら作ればいいじゃない
+&lt;/h2>&lt;p>僕は普段、このアカウントからのツイートも見つつ、Spotifyアプリの新着通知を見ていたので、ツイートが止まっていることに気がついていなかったのですが、出演者の一人である中村繪里子さんが&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">本格雑談〜くちをひらく〜&lt;a href="https://twitter.com/kuchiwohiraku?ref_src=twsrc%5Etfw">@kuchiwohiraku&lt;/a> の更新したよツイートが公式からできなくなってるうううう！！
+&lt;p>月〜金 毎日配信してるのよー！ &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a>&lt;/p>— 中村繪里子@中☆吉の中のほう＆#ぶればんのパン担当 (@eriko_co_log) &lt;a href="https://twitter.com/eriko_co_log/status/1663520183254933505?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>&lt;/p>
+&lt;p>とツイートされており、「そう言えばツイートが無いぞ」と気づくことになります。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">アプリの通知があったから気づいてなかったけど本当にTwitterとまってる・・・
+&lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a>
+&lt;p>5/23が最後ってのは、見事にIFTTTの無料プランでのTwitter連携が終わったやつだなぁ・・・&lt;a href="https://t.co/evTkU7R0mS">&lt;a class="link" href="https://t.co/evTkU7R0mS" target="_blank" rel="noopener"
+>https://t.co/evTkU7R0mS&lt;/a>&lt;/a>&lt;/p>— たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663570182458191878?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>&lt;/p>
+&lt;p>気づいたのは0時を過ぎた頃。まだ眠くなってなかったので、盆栽プログラミング魂が騒ぎ出します。深夜テンションかもしれません。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">くちをひらくのアカウントの投稿は1日1回=最大でも31回/月なので、Twitter APIのFreeでも余裕で賄える
+・・・とすると、何らかの手段でBot作ってしまうのが手っ取り早いのかもしれない。&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663570721258479616?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">IFTTTはあれかな、omny. fmのRSSフィードを使って更新されたらっていうアプレットだったのかな&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663571851451449345?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;p>普段聴いてるPodcastの告知が無い、というのは、いろんな意味で危機です。リスナーとしては不安です。&lt;br>
+ならば、「&lt;strong>無いなら作ればいいじゃない&lt;/strong>」の精神ということで、勝手に作ってみることにしました。&lt;/p>
+&lt;p>(本当はここで、アカウントを生やしてやっていこうとしたのですが、アカウント作成がどうやってもエラーで進めない、という現象に陥ったので、最初の1ヶ月(公黙認されるまで)は一旦自分のアカウントでBotを追加する方針にしました)&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">突破できたと思ったらこれだよ &lt;a href="https://t.co/CmZcUmpmQa">pic.twitter.com/CmZcUmpmQa&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663583576523444224?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;h2 id="突貫プログラミングの開始">突貫プログラミングの開始
+&lt;/h2>&lt;p>普段、僕は盆栽プログラミングをするときはPHPをシェルスクリプトのwrapper的な使い方をしながら使っています。ありがとうshell_exec。あんまりよくない。&lt;br>
+それ以外の言語だとGoは扱えますが、omny.fmから提供されるRSSなので、突貫でXMLを扱おうとすると、PHPが手持ちの武器では最適です。&lt;/p>
+&lt;p>どうにかPHPでTwitterのBotが出来ないか、とググったところ、&lt;br>
+&lt;a class="link" href="https://github.com/abraham/twitteroauth" target="_blank" rel="noopener"
+>abraham/twitteroauth: The most popular PHP library for use with the Twitter OAuth REST API.&lt;/a>&lt;br>
+という、v2のAPIに対応した素晴らしいライブラリがありました。&lt;/p>
+&lt;p>慣れない、というか良くわからないTwitterのdeveloperポータルと戦いながら、(時間の無駄になったアカウント作成を含め、)1時間後にはツイートできました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">API v2のテスト&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663590945433227266?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;p>ここまでくれば後はXMLのパースと、本文の組み立てで済みます。
+どんな挙動で動いてるのかは後述しますが、とりあえずRSSのXMLから最新投稿を取得し本文の組み立てをしてツイートするところまで難なくたどり着けました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[2023/05/30 17:00 up!] 『月末ですが、徳島の思い出を語り始めます。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→&lt;a href="https://t.co/eqgXh7WKLF">https://t.co/eqgXh7WKLF&lt;/a> Web→&lt;a href="https://t.co/i3pNDEpcDp">https://t.co/i3pNDEpcDp&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/sAF622ibtO">https://t.co/sAF622ibtO&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663593795802497024?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">おーーー (ざっくりBotができたかもしれない)
+&lt;p>まぁとりあえず寝る&lt;/p>— たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663593975155134465?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>&lt;/p>
+&lt;p>この後、cronで回して、「新規投稿があればツイートする」ところまで出来たので寝ました。&lt;/p>
+&lt;p>翌日、ドキドキしながら17:00を待ちます。スクリプトからは標準出力に状況を出すようにしたので、ターミナルを眺めながらドキドキ待っていると・・・&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[2023/05/31 17:00 up!] 『邪神ちゃんなイベント裏話。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→&lt;a href="https://t.co/eqgXh7WKLF">https://t.co/eqgXh7WKLF&lt;/a> Web→&lt;a href="https://t.co/i3pNDEpcDp">https://t.co/i3pNDEpcDp&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/ykPxrZb1Wf">https://t.co/ykPxrZb1Wf&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663818324575412225?ref_src=twsrc%5Etfw">May 31, 2023&lt;/a>&lt;/blockquote>
+&lt;p>無事に更新に追従してツイートされました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">うおおお更新追従に成功した・・・&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663818448110260224?ref_src=twsrc%5Etfw">May 31, 2023&lt;/a>&lt;/blockquote>
+&lt;h2 id="約1ヶ月個人アカウントでツイートし続ける">約1ヶ月、個人アカウントでツイートし続ける
+&lt;/h2>&lt;p>とりあえず番組のメール宛に「こんなBot作って動かしてみています。もし良かったらそちらのアカウント等で動作できますが、どうでしょうか(でもトークン問題とか難しいですよね。こっちはただのいちリスナーですし。)」といった内容を送りつつ、毎日17:02にBotがツイートする日々を過ごしていました。&lt;/p>
+&lt;h2 id="公式黙認される">公式黙認される
+&lt;/h2>&lt;p>公式アカウントでのツイートが止まってから初めての収録があり、その新録分での配信が始まったな、と思っていたところ、
+こんな更新がありました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[2023/06/26 17:00 up!] 『公式黙認宣言。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→&lt;a href="https://t.co/eqgXh7WKLF">https://t.co/eqgXh7WKLF&lt;/a> Web→&lt;a href="https://t.co/i3pNDEpcDp">https://t.co/i3pNDEpcDp&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/2lJQKLVhfG">https://t.co/2lJQKLVhfG&lt;/a> (このツイートは勝手にやってるBotです)&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1673244004685873152?ref_src=twsrc%5Etfw">June 26, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>内容としては、「僕がやってるこのツイートBotが&lt;strong>非公式だけど黙認&lt;/strong>される」という驚きの内容でした。そんなことあるんだ。……確かに阿部寛のホームページはそういう由来か……&lt;/p>
+&lt;p>ただ、公式黙認された=公式アカウントではツイートされないということでもあります。&lt;/p>
+&lt;p>僕の個人アカウントでのツイートでは、全く界隈の異なる方はRT/いいねし辛いでしょうし、そもそも声優さんの公式アカウント等が、いくら番組で公式黙認とはいえ個人のアカウントのツイートを毎日RTするのも相当難しいかと思い、流石にやるならちゃんとアカウントを別で用意しよう、と考えます。&lt;/p>
+&lt;p>だた、先述の通り何故か新規アカウント作成に失敗し続ける状況なので、新規アカウント作成は諦め、過去に作っていてほとんど使っていなかったアカウントを、「くちをひらくの更新通知Bot」として流用することにしました。これが、公式アカウントが2017年8月スタートに対してBotが2014年1月スタートになっている理由です。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">ここ1ヶ月、&lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> の更新通知をするBotを動かしていましたが、本日の回で公式黙認をいただきました。&lt;br>・・・が、僕の個人アカウントをフォローするのも、という方も絶対にいらっしゃると思うので、昔眠らせてたアカウントを掘り起こし、くちをひらくの専用Botとして動かすことにしました &lt;a href="https://t.co/wwVmo6Abjx">https://t.co/wwVmo6Abjx&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1673255345408606209?ref_src=twsrc%5Etfw">June 26, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>最初はいくら公式から黙認されたとはいえ、非公式アカウントではやはり拡散力は大幅に落ちるのではないか、と危惧していましたが、今では公式アカウント時代と同じようなRT/いいね数なので安心しています。石川さん(番組ディレクター)、吉田さん、中村さん、フォローしていただいてるみなさん、ありがとうございます。&lt;/p>
+&lt;h2 id="どうやって動作させているのか">どうやって動作させているのか
+&lt;/h2>&lt;p>ここからは、Botについて、技術的な面を書いておこうと思います。 隠すものはトークンくらいしか無いですし。&lt;/p>
+&lt;p>Bot自体はOracle Cloud InfrastructureのA1インスタンスで動かしています。4vCPU/24GB RAM/200GB SSDが無料です。なんででしょうね。こわいですね。 このインスタンスではMisskey鯖が2本動いてたりするレベルなので、この程度スクリプトの負荷はほぼ無視できます。いい時代だ。(Raspberry Piでやるにしても軽い処理ですけど)&lt;/p>
+&lt;p>ソースコード自体は &lt;a class="link" href="https://gist.github.com/mikuta0407/955808cff9eb725a313a17286c43b558" target="_blank" rel="noopener"
+>くちをひらくの更新通知ツイートBot(@kuchihira_bot)のソースコード&lt;/a> に置いてあります。 (Gitで管理するほどでもないのでGistです。)&lt;/p>
+&lt;p>どういう動作かはコメントに書いてあるので読んでください……と言ってしまったらこのブログが終わってしまうので、もうちょっと自然言語で解説しようかと思います。&lt;/p>
+&lt;ul>
+&lt;li>16:50になったら、以下の処理をスタート&lt;/li>
+&lt;li>&amp;ldquo;今日&amp;quot;の日時を取得&lt;/li>
+&lt;li>OmnyfmからRSSのXMLを取得し、最新投稿分を読み込む&lt;/li>
+&lt;li>最新投稿の投稿日時を確認&lt;/li>
+&lt;li>もし一致しない=前日分なら20秒待機し、2番に戻る(360回試してもだめなら諦める)&lt;/li>
+&lt;li>一致=更新があったら、文面を作成し、ツイートする&lt;/li>
+&lt;/ul>
+&lt;p>0番はcronでタイマー実行させています。PHPとは無関係ですね。&lt;/p>
+&lt;p>2番に関しては、&lt;a class="link" href="https://omny.fm/shows/kuchiwohiraku?cloudflare-language=ja" target="_blank" rel="noopener"
+>中村繪里子・吉田尚記の本格雑談くちをひらく clips - Omny.fm&lt;/a>「&lt;a class="link" href="https://omny.fm/shows/kuchiwohiraku/playlists/podcast.rss" target="_blank" rel="noopener"
+>RSSフィード&lt;/a>」というリンクがあるので、ありがたく使わせてもらっています。(多分元々のIFTTTもこれを使ってたのかなと)&lt;br>
+Botを作ってから知ったのですが、表示上の投稿日時は17:00になっているものの、実際にRSSに反映されるのは17:02のようです。(Botの投稿時間が17:02なのはこれが理由です)&lt;/p>
+&lt;p>4番のif分岐については、何らかの不具合によってRSSの更新に遅延が発生した場合を考慮して約2時間の幅を持たせています。&lt;br>
+2時間という幅自体が有効なわけではありませんが、このif処理は土日にも有効です。番組は基本的に月〜金に投稿されるので、cronでは&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">50 16 * * 1-6 php ...&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>といったように月〜金を指定すれば土日に無駄な処理をする必要は無いのですが、この番組は「プレミアムリスナー」という(ここで説明すると長くなるので詳細は省きますが)特別回があります。&lt;br>
+この特別回は基本的に数ヶ月に1度くらいのペースで、&lt;strong>土曜日に&lt;/strong>投稿されます。&lt;br>
+これを逃さないようにするためには、とりあえず毎日処理させて、更新がなかったら諦めさせれば特にツイートもせず影響もありません。(強いて言えばRSSを2時間もの間20秒間隔で取得しにいくのがどうなのか、という程度ですが、omny.fmさん許してね。)&lt;/p>
+&lt;p>また、Twitter API v2のFreeでは、月1500件までしか投稿できないそうですが、先述(埋め込んだツイート)の通り、土日関係なく毎日投稿したとしても31回が最大値なので、何も問題ないようです。&lt;/p>
+&lt;p>以上、こんな感じで動いてるよ、のコーナーでした。&lt;/p>
+&lt;h2 id="余談1">余談1
+&lt;/h2>&lt;p>個人アカウントの頃、頻繁にBotが「Standalone App」に降格されてしまい、API v2が通らなくなってしまう、という問題がありました。&lt;br>
+どうやらProjectに最初からあるBotを使わず、別で作ってProjectに追加させたのがなにか悪かったようです。よくわかりません。新アカウントではデフォルトのBotをリネームして使っているので、今のところこういった問題は起きていません。&lt;/p>
+&lt;h2 id="余談2">余談2
+&lt;/h2>&lt;p>@kuchihira_botはBotの運営者として@mikuta0407を登録しています。&lt;br>
+……@mikuta0407が凍結された場合って、どうなるんでしょうね……。&lt;br>
+凍結されたくはないですが、凍結されないよう気をつけようと思います。&lt;br>
+(一度年齢ロックやらかしたときに免許証を開示してるので許してほしい)&lt;/p>
+&lt;h2 id="〆">〆
+&lt;/h2>&lt;p>突貫で作ったBotがなんだかんだ安定運用していて、嬉しく思っています。&lt;br>
+非公式黙認という立場ですが、今後も安定運用目指していきますので、よろしくお願いします。&lt;/p></description></item></channel></rss>

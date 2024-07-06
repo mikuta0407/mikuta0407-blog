@@ -1,0 +1,1725 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PHP on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/php/</link><description>Recent content in PHP on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Mon, 07 Aug 2023 18:58:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/php/index.xml" rel="self" type="application/rss+xml"/><item><title>リスナーが勝手にPodcast番組の更新通知Botを作って遊んだ話</title><link>https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/</link><pubDate>Mon, 07 Aug 2023 18:58:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/img/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2023-08-07-18.58.06.png" alt="Featured image of post リスナーが勝手にPodcast番組の更新通知Botを作って遊んだ話" />&lt;div class="alert warning">
+&lt;div>&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle">&lt;path stroke="none" d="M0 0h24v24H0z" fill="none"/>&lt;path d="M12 9v4" />&lt;path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />&lt;path d="M12 16h.01" />&lt;/svg>
+&lt;div>本記事の内容は2023年8月当時の実装です。現在はGoを使って完全にリファクタリングされ、更新検知の仕組みも変更されています。いつか記事を書きます。&lt;/div>&lt;/div>
+&lt;/div>
+&lt;div class="alert info">
+&lt;div>&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle">&lt;path stroke="none" d="M0 0h24v24H0z" fill="none"/>&lt;path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />&lt;path d="M12 9h.01" />&lt;path d="M11 12h1v4h1" />&lt;/svg>
+&lt;div>&lt;p>現在のBotのソースコードは &lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
+>mikuta0407/kuchihira-bot&lt;/a>で公開しています。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
+>&lt;img src="https://gh-card.dev/repos/mikuta0407/kuchihira-bot.svg"
+loading="lazy"
+alt="mikuta0407/kuchihira-bot"
+>&lt;/a>&lt;/p>
+&lt;/div>&lt;/div>
+&lt;/div>
+&lt;p>2023/05/31から、「本格雑談くちをひらく」というPodcast番組の更新通知Botを自アカウントで、2025/06/26からは &lt;a class="link" href="https://x.com/kuchihira_bot" target="_blank" rel="noopener"
+>（@kuchihira_bot）さん / X&lt;/a>で、公黙認(公式的に黙認)という立場で運営させていただいています。その開発経緯等について、なんとなくまとめておこうかと。&lt;/p>
+&lt;h2 id="twitterのapi周りの改悪と個人的な影響">TwitterのAPI周りの改悪と個人的な影響
+&lt;/h2>&lt;p>ツイッt……XがAPI周りを大幅に変更し、v1.1系を潰すことで便利な連携ツールを一層したり、極端に有料化して各所が悲鳴を上げてるのは記憶に新しいかと思います。&lt;br>
+Togetter等の広告収入がある媒体ではAPIの有料化に対応出来ましたが(Togetterは元々エンタープライズ契約だったそうですが)、サブスクリプション形式でユーザーからの直接的な収益によって運営していたIFTTTは、無料プランでのツイッt……X連携を辞めてしまいました。&lt;/p>
+&lt;p>&lt;a class="link" href="https://forest.watch.impress.co.jp/docs/digest/1501656.html" target="_blank" rel="noopener"
+>「IFTTT」無料プランのTwitter連携が終了へ、アプレット数にも制限　ほか - ダイジェストニュース - 窓の杜&lt;/a>&lt;br>
+&lt;a class="link" href="https://ifttt.com/explore/updates-to-free-tier-2023" target="_blank" rel="noopener"
+>Updates to IFTTT free tier - IFTTT&lt;/a>&lt;/p>
+&lt;p>これにより影響を受けた方々はかなりいらっしゃるかと思いますが、僕の場合は「普段聴いているPodcast番組 &lt;a class="link" href="https://omny.fm/shows/kuchiwohiraku" target="_blank" rel="noopener"
+>中村繪里子・吉田尚記の本格雑談くちをひらくのエピソード - Omny.fm&lt;/a> の公式アカウントで行われている更新告知ツイートが止まる」という影響がありました。&lt;/p>
+&lt;p>上記IFTTTの告知を見ると5/23以降無料プランでは終了、となっていますが、&lt;a class="link" href="https://twitter.com/kuchiwohiraku" target="_blank" rel="noopener"
+>@kuchiwohiraku&lt;/a> で最後に投稿された更新通知ツイートが、&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[ May 23, 2023 at 05:00PMup!] 『アナウンス技術論と人間の強み。[中村繪里子・吉田尚記の本格雑談くちをひらく] 』 podcast→&lt;a href="https://t.co/SwAoG0LX9p">https://t.co/SwAoG0LX9p&lt;/a> Web→&lt;a href="https://t.co/Gke1033vNc">https://t.co/Gke1033vNc&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/fvjFwVVD9y">https://t.co/fvjFwVVD9y&lt;/a> &lt;a href="https://twitter.com/yoshidahisanori?ref_src=twsrc%5Etfw">@yoshidahisanori&lt;/a> &lt;a href="https://twitter.com/eriko_co_log?ref_src=twsrc%5Etfw">@eriko_co_log&lt;/a>&lt;/p>&amp;mdash; 本格雑談くちをひらく (@kuchiwohiraku) &lt;a href="https://twitter.com/kuchiwohiraku/status/1660924535846076416?ref_src=twsrc%5Etfw">May 23, 2023&lt;/a>&lt;/blockquote>
+&lt;p>これです。見事に5/23の分を最後に止まっています。&lt;/p>
+&lt;h2 id="無いなら作ればいいじゃない">無いなら作ればいいじゃない
+&lt;/h2>&lt;p>僕は普段、このアカウントからのツイートも見つつ、Spotifyアプリの新着通知を見ていたので、ツイートが止まっていることに気がついていなかったのですが、出演者の一人である中村繪里子さんが&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">本格雑談〜くちをひらく〜&lt;a href="https://twitter.com/kuchiwohiraku?ref_src=twsrc%5Etfw">@kuchiwohiraku&lt;/a> の更新したよツイートが公式からできなくなってるうううう！！
+&lt;p>月〜金 毎日配信してるのよー！ &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a>&lt;/p>— 中村繪里子@中☆吉の中のほう＆#ぶればんのパン担当 (@eriko_co_log) &lt;a href="https://twitter.com/eriko_co_log/status/1663520183254933505?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>&lt;/p>
+&lt;p>とツイートされており、「そう言えばツイートが無いぞ」と気づくことになります。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">アプリの通知があったから気づいてなかったけど本当にTwitterとまってる・・・
+&lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a>
+&lt;p>5/23が最後ってのは、見事にIFTTTの無料プランでのTwitter連携が終わったやつだなぁ・・・&lt;a href="https://t.co/evTkU7R0mS">&lt;a class="link" href="https://t.co/evTkU7R0mS" target="_blank" rel="noopener"
+>https://t.co/evTkU7R0mS&lt;/a>&lt;/a>&lt;/p>— たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663570182458191878?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>&lt;/p>
+&lt;p>気づいたのは0時を過ぎた頃。まだ眠くなってなかったので、盆栽プログラミング魂が騒ぎ出します。深夜テンションかもしれません。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">くちをひらくのアカウントの投稿は1日1回=最大でも31回/月なので、Twitter APIのFreeでも余裕で賄える
+・・・とすると、何らかの手段でBot作ってしまうのが手っ取り早いのかもしれない。&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663570721258479616?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">IFTTTはあれかな、omny. fmのRSSフィードを使って更新されたらっていうアプレットだったのかな&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663571851451449345?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;p>普段聴いてるPodcastの告知が無い、というのは、いろんな意味で危機です。リスナーとしては不安です。&lt;br>
+ならば、「&lt;strong>無いなら作ればいいじゃない&lt;/strong>」の精神ということで、勝手に作ってみることにしました。&lt;/p>
+&lt;p>(本当はここで、アカウントを生やしてやっていこうとしたのですが、アカウント作成がどうやってもエラーで進めない、という現象に陥ったので、最初の1ヶ月(公黙認されるまで)は一旦自分のアカウントでBotを追加する方針にしました)&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">突破できたと思ったらこれだよ &lt;a href="https://t.co/CmZcUmpmQa">pic.twitter.com/CmZcUmpmQa&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663583576523444224?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;h2 id="突貫プログラミングの開始">突貫プログラミングの開始
+&lt;/h2>&lt;p>普段、僕は盆栽プログラミングをするときはPHPをシェルスクリプトのwrapper的な使い方をしながら使っています。ありがとうshell_exec。あんまりよくない。&lt;br>
+それ以外の言語だとGoは扱えますが、omny.fmから提供されるRSSなので、突貫でXMLを扱おうとすると、PHPが手持ちの武器では最適です。&lt;/p>
+&lt;p>どうにかPHPでTwitterのBotが出来ないか、とググったところ、&lt;br>
+&lt;a class="link" href="https://github.com/abraham/twitteroauth" target="_blank" rel="noopener"
+>abraham/twitteroauth: The most popular PHP library for use with the Twitter OAuth REST API.&lt;/a>&lt;br>
+という、v2のAPIに対応した素晴らしいライブラリがありました。&lt;/p>
+&lt;p>慣れない、というか良くわからないTwitterのdeveloperポータルと戦いながら、(時間の無駄になったアカウント作成を含め、)1時間後にはツイートできました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">API v2のテスト&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663590945433227266?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;p>ここまでくれば後はXMLのパースと、本文の組み立てで済みます。
+どんな挙動で動いてるのかは後述しますが、とりあえずRSSのXMLから最新投稿を取得し本文の組み立てをしてツイートするところまで難なくたどり着けました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[2023/05/30 17:00 up!] 『月末ですが、徳島の思い出を語り始めます。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→&lt;a href="https://t.co/eqgXh7WKLF">https://t.co/eqgXh7WKLF&lt;/a> Web→&lt;a href="https://t.co/i3pNDEpcDp">https://t.co/i3pNDEpcDp&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/sAF622ibtO">https://t.co/sAF622ibtO&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663593795802497024?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">おーーー (ざっくりBotができたかもしれない)
+&lt;p>まぁとりあえず寝る&lt;/p>— たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663593975155134465?ref_src=twsrc%5Etfw">May 30, 2023&lt;/a>&lt;/blockquote>&lt;/p>
+&lt;p>この後、cronで回して、「新規投稿があればツイートする」ところまで出来たので寝ました。&lt;/p>
+&lt;p>翌日、ドキドキしながら17:00を待ちます。スクリプトからは標準出力に状況を出すようにしたので、ターミナルを眺めながらドキドキ待っていると・・・&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[2023/05/31 17:00 up!] 『邪神ちゃんなイベント裏話。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→&lt;a href="https://t.co/eqgXh7WKLF">https://t.co/eqgXh7WKLF&lt;/a> Web→&lt;a href="https://t.co/i3pNDEpcDp">https://t.co/i3pNDEpcDp&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/ykPxrZb1Wf">https://t.co/ykPxrZb1Wf&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663818324575412225?ref_src=twsrc%5Etfw">May 31, 2023&lt;/a>&lt;/blockquote>
+&lt;p>無事に更新に追従してツイートされました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">うおおお更新追従に成功した・・・&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1663818448110260224?ref_src=twsrc%5Etfw">May 31, 2023&lt;/a>&lt;/blockquote>
+&lt;h2 id="約1ヶ月個人アカウントでツイートし続ける">約1ヶ月、個人アカウントでツイートし続ける
+&lt;/h2>&lt;p>とりあえず番組のメール宛に「こんなBot作って動かしてみています。もし良かったらそちらのアカウント等で動作できますが、どうでしょうか(でもトークン問題とか難しいですよね。こっちはただのいちリスナーですし。)」といった内容を送りつつ、毎日17:02にBotがツイートする日々を過ごしていました。&lt;/p>
+&lt;h2 id="公式黙認される">公式黙認される
+&lt;/h2>&lt;p>公式アカウントでのツイートが止まってから初めての収録があり、その新録分での配信が始まったな、と思っていたところ、
+こんな更新がありました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">[2023/06/26 17:00 up!] 『公式黙認宣言。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→&lt;a href="https://t.co/eqgXh7WKLF">https://t.co/eqgXh7WKLF&lt;/a> Web→&lt;a href="https://t.co/i3pNDEpcDp">https://t.co/i3pNDEpcDp&lt;/a> &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> &lt;a href="https://t.co/2lJQKLVhfG">https://t.co/2lJQKLVhfG&lt;/a> (このツイートは勝手にやってるBotです)&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1673244004685873152?ref_src=twsrc%5Etfw">June 26, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>内容としては、「僕がやってるこのツイートBotが&lt;strong>非公式だけど黙認&lt;/strong>される」という驚きの内容でした。そんなことあるんだ。……確かに阿部寛のホームページはそういう由来か……&lt;/p>
+&lt;p>ただ、公式黙認された=公式アカウントではツイートされないということでもあります。&lt;/p>
+&lt;p>僕の個人アカウントでのツイートでは、全く界隈の異なる方はRT/いいねし辛いでしょうし、そもそも声優さんの公式アカウント等が、いくら番組で公式黙認とはいえ個人のアカウントのツイートを毎日RTするのも相当難しいかと思い、流石にやるならちゃんとアカウントを別で用意しよう、と考えます。&lt;/p>
+&lt;p>だた、先述の通り何故か新規アカウント作成に失敗し続ける状況なので、新規アカウント作成は諦め、過去に作っていてほとんど使っていなかったアカウントを、「くちをひらくの更新通知Bot」として流用することにしました。これが、公式アカウントが2017年8月スタートに対してBotが2014年1月スタートになっている理由です。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">ここ1ヶ月、&lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> の更新通知をするBotを動かしていましたが、本日の回で公式黙認をいただきました。&lt;br>・・・が、僕の個人アカウントをフォローするのも、という方も絶対にいらっしゃると思うので、昔眠らせてたアカウントを掘り起こし、くちをひらくの専用Botとして動かすことにしました &lt;a href="https://t.co/wwVmo6Abjx">https://t.co/wwVmo6Abjx&lt;/a>&lt;/p>&amp;mdash; たっくん (@mikuta0407) &lt;a href="https://twitter.com/mikuta0407/status/1673255345408606209?ref_src=twsrc%5Etfw">June 26, 2023&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>最初はいくら公式から黙認されたとはいえ、非公式アカウントではやはり拡散力は大幅に落ちるのではないか、と危惧していましたが、今では公式アカウント時代と同じようなRT/いいね数なので安心しています。石川さん(番組ディレクター)、吉田さん、中村さん、フォローしていただいてるみなさん、ありがとうございます。&lt;/p>
+&lt;h2 id="どうやって動作させているのか">どうやって動作させているのか
+&lt;/h2>&lt;p>ここからは、Botについて、技術的な面を書いておこうと思います。 隠すものはトークンくらいしか無いですし。&lt;/p>
+&lt;p>Bot自体はOracle Cloud InfrastructureのA1インスタンスで動かしています。4vCPU/24GB RAM/200GB SSDが無料です。なんででしょうね。こわいですね。 このインスタンスではMisskey鯖が2本動いてたりするレベルなので、この程度スクリプトの負荷はほぼ無視できます。いい時代だ。(Raspberry Piでやるにしても軽い処理ですけど)&lt;/p>
+&lt;p>ソースコード自体は &lt;a class="link" href="https://gist.github.com/mikuta0407/955808cff9eb725a313a17286c43b558" target="_blank" rel="noopener"
+>くちをひらくの更新通知ツイートBot(@kuchihira_bot)のソースコード&lt;/a> に置いてあります。 (Gitで管理するほどでもないのでGistです。)&lt;/p>
+&lt;p>どういう動作かはコメントに書いてあるので読んでください……と言ってしまったらこのブログが終わってしまうので、もうちょっと自然言語で解説しようかと思います。&lt;/p>
+&lt;ul>
+&lt;li>16:50になったら、以下の処理をスタート&lt;/li>
+&lt;li>&amp;ldquo;今日&amp;quot;の日時を取得&lt;/li>
+&lt;li>OmnyfmからRSSのXMLを取得し、最新投稿分を読み込む&lt;/li>
+&lt;li>最新投稿の投稿日時を確認&lt;/li>
+&lt;li>もし一致しない=前日分なら20秒待機し、2番に戻る(360回試してもだめなら諦める)&lt;/li>
+&lt;li>一致=更新があったら、文面を作成し、ツイートする&lt;/li>
+&lt;/ul>
+&lt;p>0番はcronでタイマー実行させています。PHPとは無関係ですね。&lt;/p>
+&lt;p>2番に関しては、&lt;a class="link" href="https://omny.fm/shows/kuchiwohiraku?cloudflare-language=ja" target="_blank" rel="noopener"
+>中村繪里子・吉田尚記の本格雑談くちをひらく clips - Omny.fm&lt;/a>「&lt;a class="link" href="https://omny.fm/shows/kuchiwohiraku/playlists/podcast.rss" target="_blank" rel="noopener"
+>RSSフィード&lt;/a>」というリンクがあるので、ありがたく使わせてもらっています。(多分元々のIFTTTもこれを使ってたのかなと)&lt;br>
+Botを作ってから知ったのですが、表示上の投稿日時は17:00になっているものの、実際にRSSに反映されるのは17:02のようです。(Botの投稿時間が17:02なのはこれが理由です)&lt;/p>
+&lt;p>4番のif分岐については、何らかの不具合によってRSSの更新に遅延が発生した場合を考慮して約2時間の幅を持たせています。&lt;br>
+2時間という幅自体が有効なわけではありませんが、このif処理は土日にも有効です。番組は基本的に月〜金に投稿されるので、cronでは&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">50 16 * * 1-6 php ...&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>といったように月〜金を指定すれば土日に無駄な処理をする必要は無いのですが、この番組は「プレミアムリスナー」という(ここで説明すると長くなるので詳細は省きますが)特別回があります。&lt;br>
+この特別回は基本的に数ヶ月に1度くらいのペースで、&lt;strong>土曜日に&lt;/strong>投稿されます。&lt;br>
+これを逃さないようにするためには、とりあえず毎日処理させて、更新がなかったら諦めさせれば特にツイートもせず影響もありません。(強いて言えばRSSを2時間もの間20秒間隔で取得しにいくのがどうなのか、という程度ですが、omny.fmさん許してね。)&lt;/p>
+&lt;p>また、Twitter API v2のFreeでは、月1500件までしか投稿できないそうですが、先述(埋め込んだツイート)の通り、土日関係なく毎日投稿したとしても31回が最大値なので、何も問題ないようです。&lt;/p>
+&lt;p>以上、こんな感じで動いてるよ、のコーナーでした。&lt;/p>
+&lt;h2 id="余談1">余談1
+&lt;/h2>&lt;p>個人アカウントの頃、頻繁にBotが「Standalone App」に降格されてしまい、API v2が通らなくなってしまう、という問題がありました。&lt;br>
+どうやらProjectに最初からあるBotを使わず、別で作ってProjectに追加させたのがなにか悪かったようです。よくわかりません。新アカウントではデフォルトのBotをリネームして使っているので、今のところこういった問題は起きていません。&lt;/p>
+&lt;h2 id="余談2">余談2
+&lt;/h2>&lt;p>@kuchihira_botはBotの運営者として@mikuta0407を登録しています。&lt;br>
+……@mikuta0407が凍結された場合って、どうなるんでしょうね……。&lt;br>
+凍結されたくはないですが、凍結されないよう気をつけようと思います。&lt;br>
+(一度年齢ロックやらかしたときに免許証を開示してるので許してほしい)&lt;/p>
+&lt;h2 id="〆">〆
+&lt;/h2>&lt;p>突貫で作ったBotがなんだかんだ安定運用していて、嬉しく思っています。&lt;br>
+非公式黙認という立場ですが、今後も安定運用目指していきますので、よろしくお願いします。&lt;/p></description></item><item><title>大学の出席確認システムへ2クリックで登録できるシステムの構築</title><link>https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/</link><pubDate>Wed, 09 Dec 2020 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/</guid><description>&lt;p>この記事は&lt;a class="link" href="https://adventar.org/calendars/5110" target="_blank" rel="noopener"
+>Tokyo City University Advent Calendar 2020&lt;/a>の9日目の記事です。&lt;/p>
+&lt;p>昨日の記事は &lt;a class="link" href="https://twitter.com/aqp_nmu" target="_blank" rel="noopener"
+>@aqp_nmu&lt;/a> さんによる &lt;a class="link" href="https://yurufuwa-atelier.hatenablog.jp/entry/2020/12/08/000000" target="_blank" rel="noopener"
+>&amp;ldquo;それっぽい&amp;quot;配信環境を整えてきもちよくなろう - ふとんのなか&lt;/a> でした!&lt;/p>
+&lt;p>よく見かけるあの配信画面はこんな感じで作るのか・・・と勉強になりました。&lt;br>
+特に2560x1440にしておけばFHDがそのまま置けるしサイズ感もいい感じ、というのが驚きで・・・。確かにそうなんですが、すごい発想ですよね。&lt;/p>
+&lt;p>さて、今日の記事はフロッピーでもMS-DOSでもWindows95でもなく、シェルスクリプトを使ったお話です。 &lt;a class="link" href="https://ke9000.hatenablog.com/entry/nativeJS_01" target="_blank" rel="noopener"
+>ケーさんの好きなJSじゃないよ!&lt;/a> Shell Scriptだよ!&lt;/p>
+&lt;p>構成としては説明→配布→内容解説なので、是非内容解説まで読んでいただけると幸いです(長いですけど)&lt;/p>
+&lt;h2 id="はじめに">はじめに
+&lt;/h2>&lt;p>都市大生のみなさんはいつも&lt;del>使わされてる&lt;/del>お世話になっている都市大の出席確認システムですが、毎回&lt;/p>
+&lt;ol>
+&lt;li>アクセスしてログイン&lt;/li>
+&lt;li>番号を選ぶ&lt;/li>
+&lt;li>教科を選ぶ&lt;/li>
+&lt;li>登録&lt;/li>
+&lt;li>登録完了!&lt;/li>
+&lt;/ol>
+&lt;p>という、地味に手数の多い作業を行います。別に構わないといえば構わないのですが、少ない手数で出席確認の登録ができれば、非常に楽になります。&lt;/p>
+&lt;p>そこで、今回は出席確認を&lt;/p>
+&lt;ul>
+&lt;li>ページにアクセス&lt;/li>
+&lt;li>数字をクリック&lt;/li>
+&lt;li>登録完了!&lt;/li>
+&lt;/ul>
+&lt;p>のように非常にかんたんな手順で済むようなシステムの構築をしてみました。&lt;/p>
+&lt;p>タイトルに2クリックとありますが、これはChrome拡張化することで、拡張のボタンクリック→数字クリックの2回にできるものとなっています。もちろんChrome拡張にしなくてもブックマークでも同じですので、ぜひ試してみてください。(&lt;strong>Chrome拡張配布もあるよ!&lt;/strong>)&lt;/p>
+&lt;h2 id="まずは動作サンプル">まずは動作サンプル
+&lt;/h2>&lt;p>サイトにアクセスするとこうなります&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf.png"
+width="422"
+height="372"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf_huafbeeb1ad3a85968cf4c54d6655abdbd_20684_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf_huafbeeb1ad3a85968cf4c54d6655abdbd_20684_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="113"
+data-flex-basis="272px"
+>&lt;/p>
+&lt;p>数字ボタンを押すだけで出席登録できますので、このページをブックマークに登録しておけば、「ブックマーククリック→番号ボタンクリック」の2クリックになりますね。(ブラウザが変わった? 気にしないでください・・。)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy.png"
+width="426"
+height="291"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy_hudb6719319fbfaaaae07ccf74c54fc113_16634_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy_hudb6719319fbfaaaae07ccf74c54fc113_16634_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="146"
+data-flex-basis="351px"
+>&lt;/p>
+&lt;p>時間外にアクセスすると、ちゃんとエラーが出ます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f.png"
+width="661"
+height="183"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f_hua5144dc31af306a866133128039bc064_14884_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f_hua5144dc31af306a866133128039bc064_14884_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="361"
+data-flex-basis="866px"
+>&lt;/p>
+&lt;h2 id="特徴">特徴
+&lt;/h2>&lt;ul>
+&lt;li>puppeteerなどの重いソフトを使用していないので、サーバリソースが小規模で済む&lt;/li>
+&lt;li>シェルスクリプトかつ使用コマンドは基本ツールだらけなので、アーキテクチャ依存は一切ない(ただしshじゃなくbash依存です。zshはわかりません)&lt;/li>
+&lt;/ul>
+&lt;h2 id="ブラウザとかを使うマシン以外に必要なもの">ブラウザとかを使うマシン以外に必要なもの
+&lt;/h2>&lt;ul>
+&lt;li>Bashが使えてインターネットに出れるLinux機
+&lt;ul>
+&lt;li>VPSのように、どこからでもアクセスできるほうが便利ですが、URLが漏れると誰でも出席確認登録が行えてしまうので、そこは注意してください。(とはいえ誰がやろうが設置した人の出席確認になってしまうだけなのでリスクは微妙)
+&lt;ul>
+&lt;li>適切に設置すればパスワードが漏れることはほぼ無いです&lt;/li>
+&lt;li>WindowsならWSLでやるというスタンドアロンな手段もあります。&lt;/li>
+&lt;li>もちろんLinuxをメイン機として使ってる人はその中でもどうぞ&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="webサーバーの準備">Webサーバーの準備
+&lt;/h2>&lt;p>今回は説明用環境にRaspberry Pi Zero+Raspbianを利用していますので、もろもろのパスとかコマンドはDebian系になっています。&lt;br>
+違うディストリを使う場合は適宜変更してください。&lt;br>
+また、説明に使用しているアドレスは&lt;code>http://example.com/&lt;/code>です。ここも適宜読み替えてください。&lt;/p>
+&lt;h3 id="apache2とnkfのインストール">Apache2とnkfのインストール
+&lt;/h3>&lt;p>WebサーバーとなるApacheと、SJISで送られてくるサイトをUTF-8で処理するための文字コード変換のためのnkfを入れます。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt upgrade
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install apache2 nkf&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="疎通確認">疎通確認
+&lt;/h3>&lt;p>アクセスしてみて、デフォルトページが表示されていればOKです。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f.png"
+width="840"
+height="351"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f_hu2208816c8f8a0bfb9256848aa429d86b_47638_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f_hu2208816c8f8a0bfb9256848aa429d86b_47638_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="239"
+data-flex-basis="574px"
+>&lt;/p>
+&lt;h3 id="cgidの有効化">cgidの有効化
+&lt;/h3>&lt;p>CGIを使えるように、モジュールの有効化をします&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo a2enmod cgid&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>Apache2を再起動します&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl restart apache2&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="cgi-binのディレクトリの変更シェルスクリプトをcgiとして動かせるようにする">cgi-binのディレクトリの変更+シェルスクリプトをCGIとして動かせるようにする
+&lt;/h3>&lt;p>デフォルトだと、CGIのディレクトリが&lt;code>/usr/lib/cgi-bin&lt;/code>のため、コンソールからのアクセス性が悪くなっています(HTMLファイルは&lt;code>/var/www/html&lt;/code>なので)。&lt;br>
+そこで、ディレクトリを&lt;code>/var/www/cgi-bin&lt;/code>に変更した上で、ついでにシェルスクリプト(&lt;code>.sh&lt;/code>)もCGIだよって教えてあげます。そうしないとCGIとしてシェルスクリプトが動かないので・・・。&lt;/p>
+&lt;p>まず、以下がデフォルトの設定(抜粋)です。Directoryが&lt;code>/usr/lib/cgi-bin&lt;/code>になっていますね。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/etc/apache2/conf-available/serve-cgi-bin.conf&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="line">&lt;span class="cl">ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;Directory&lt;/span> &lt;span class="err">&amp;#34;/usr/lib/cgi-bin&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> AllowOverride None
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Require all granted
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;/Directory&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これを、以下のように変更します&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/etc/apache2/conf-available/serve-cgi-bin.conf&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="line">&lt;span class="cl">ScriptAlias /cgi-bin/ /var/www/cgi-bin/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;Directory&lt;/span> &lt;span class="err">&amp;#34;/var/www/cgi-bin&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> AllowOverride None
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Require all granted
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;/Directory&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># .shもCGI
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">AddHandler cgi-script .sh&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>変更を適用するために、Apache2を再起動します。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl restart apache2&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="動作確認">動作確認
+&lt;/h3>&lt;p>本当にCGIとしてシェルスクリプトが動くのか実験します。&lt;/p>
+&lt;p>以下のシェルスクリプトを&lt;code>/var/www/cgi-bin/test.sh&lt;/code>として保存します。(cgi-binフォルダは多分無いので作ってください)&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/test.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="c1">#↑ bashで動いてもらいます。bash依存してなければ#!/bin/shでもOK&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># レスポンスヘッダ(なにかサイトで文字を返す前にはこれが必要です)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 以下自由&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Hello World!&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>実行権限を付与します。個人サーバーでユーザーは一人しかいないので、めんどくさいので777にします。(複数人で使用してたりする場合は適宜適切に設定してください。)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo chmod &lt;span class="m">777&lt;/span> test.sh&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これでアクセスすると、Hello Worldが表示されるはずです。(アドレスは&lt;code>http://サーバーアドレス/cgi-bin/test.sh&lt;/code>)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766.png"
+width="458"
+height="99"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766_huee1d609d5cd81003e92307cb9cb1ff64_6707_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766_huee1d609d5cd81003e92307cb9cb1ff64_6707_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="462"
+data-flex-basis="1110px"
+>&lt;/p>
+&lt;h2 id="実プログラムの配置">実プログラムの配置
+&lt;/h2>&lt;p>どうやって作ったかはいらん! 早く中身をよこせ!っていう人もいる(かもしれない)ので、まずは設置と使い方を書きます。&lt;/p>
+&lt;h3 id="ディレクトリ作成">ディレクトリ作成
+&lt;/h3>&lt;p>HTMLを取得して保存して作業をするので、その作業ディレクトリの作成と、www-dataがそのフォルダを読み書きできるようにchownで所有者を変更します。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo mkdir /var/www/cgi-bin/htmlcache
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo chown www-data:www-data /var/www/cgi-bin/htmlcache&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="シェルスクリプト">シェルスクリプト
+&lt;/h3>&lt;p>このシェルスクリプトが処理の全てです。内容は後で説明します。&lt;/p>
+&lt;p>以下を&lt;strong>uidとpassを自分のものに置き換えてから&lt;/strong>保存したあと、ちゃんと実行権限の付与をしてあげてください。&lt;br>
+(この平文保存部分に関して、文句言いたい人がいるかも知れませんが、まぁCGIなのでそう簡単に漏れないのと、後述する方法でギリギリ対策(?)ができますので許してください。)&lt;/p>
+&lt;p>Gist: &lt;a class="link" href="https://gist.github.com/mikuta0407/9464d86a597b9a08660387e3a9dcdff1" target="_blank" rel="noopener"
+>https://gist.github.com/mikuta0407/9464d86a597b9a08660387e3a9dcdff1&lt;/a>&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ログイン処理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php -d &lt;span class="s2">&amp;#34;uid=ログインID&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;pass=パスワード&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;menuname=%8Fo%90%C8&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;module=Default&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;action=Login&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> nkf &amp;gt; /var/www/cgi-bin/htmlcache/selectkamoku.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># selectkamoku.htmlがログイン後のページ全てなので、以下はすべてこれを利用して処理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ログイン可否判定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="p">|&lt;/span> grep パスワード &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ログイン失敗&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /var/www/cgi-bin/htmlcache/selectkamoku.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ログイン成功のとき&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 時間外かどうかを判定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="p">|&lt;/span> grep 現在時間に &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 時間外のとき&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;b&amp;gt;時間外&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /var/www/cgi-bin/htmlcache/selectkamoku.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 時間内で登録ができるとき&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># セッションID持ってくる&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">sessid&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;PHPSESSID&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;lt;form action=&amp;#34;index.php&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt;&amp;lt;input type=&amp;#34;hidden&amp;#34; name=&amp;#34;PHPSESSID&amp;#34; value=&amp;#34;//g&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;#34; \/&amp;gt;//g&amp;#39;&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 科目の番号&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">selkamoku&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="p">|&lt;/span> grep &lt;span class="s1">&amp;#39;[0-9]\{4\},[0-9]\{8\}&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;lt;option value=&amp;#34;//g&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;#34;&amp;gt;.*//g&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sed -n 1p&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 出席登録&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> curl -X POST https://call.off.tcu.ac.jp/index.php --cookie &lt;span class="s2">&amp;#34;PHPSESSID=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">sessid&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;module=Sk&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;action=ProcedureAcc&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;SelKamoku=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">selkamoku&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;InpNo=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;submitButtonName=%8Fo%90%C8%93o%98%5E&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> nkf &amp;gt; /var/www/cgi-bin/htmlcache/success.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 最終結果表示&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;b&amp;gt;登録処理&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /var/www/cgi-bin/htmlcache/success.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="html">HTML
+&lt;/h3>&lt;p>CGIへのリンクボタンを表示してあげるHTMLです。
+例によってリンクは適宜置き換えてください。&lt;/p>
+&lt;p>Gist: &lt;a class="link" href="https://gist.github.com/mikuta0407/5cda31aaf49789deaf3dcb1c95363921" target="_blank" rel="noopener"
+>https://gist.github.com/mikuta0407/5cda31aaf49789deaf3dcb1c95363921&lt;/a>&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/html/tcu_attend.html&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>都市大出席&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;1&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px; margin-bottom:4px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?1&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;2&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px; margin-bottom:4px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?2&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;3&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px; margin-bottom:4px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?3&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;4&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px; margin-bottom:4px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?4&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;5&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px; margin-bottom:4px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?5&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;6&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px; margin-bottom:4px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?6&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;7&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?7&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;8&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?8&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;9&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?9&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="chrome拡張化する">Chrome拡張化する
+&lt;/h2>&lt;p>拡張化といっても、単純に拡張機能で小さいウィンドウ内でページを表示するようにするだけです。iframeで実装しています。&lt;/p>
+&lt;p>実際に使用すると、こんな感じになります。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f.png"
+width="269"
+height="321"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f_hua371c3b110b609be5bee98d554e06292_15957_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f_hua371c3b110b609be5bee98d554e06292_15957_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="83"
+data-flex-basis="201px"
+>&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV.png"
+width="326"
+height="349"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV_hu90274ca378ffd9ebafb5ea428021915a_15476_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV_hu90274ca378ffd9ebafb5ea428021915a_15476_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="93"
+data-flex-basis="224px"
+>&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a.png"
+width="266"
+height="319"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a_hudc4d3e1a41410a123392e7c54666fcf1_14470_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a_hudc4d3e1a41410a123392e7c54666fcf1_14470_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="83"
+data-flex-basis="200px"
+>&lt;/p>
+&lt;p>どのページにいても一瞬で「右上のボタンクリック→番号ボタンクリック」の2クリックで登録できるようになるので便利です。&lt;/p>
+&lt;p>一旦完成版としてChrome拡張のファイルを置いておきます。 &lt;a class="link" href="https://mikuta0407.net/files/tcuattend_chex.zip" target="_blank" rel="noopener"
+>tcuattend_chex.zip&lt;/a>&lt;/p>
+&lt;p>使い方:&lt;/p>
+&lt;ol>
+&lt;li>Zip内を展開(フォルダ付きで)&lt;/li>
+&lt;li>index.htmlにあるiframeで表示するリンクを書き換える&lt;/li>
+&lt;li>manifest.jsonのpermissionsを表示するリンクのトップページのようなリンクに&lt;strong>書き換える&lt;/strong>(&lt;a class="link" href="http://hoge.com/attend/index.html" target="_blank" rel="noopener"
+>http://hoge.com/attend/index.html&lt;/a> だったら、http://hoge.com/ にしておけばOK(本当のところこれでいいのかはわからない))&lt;/li>
+&lt;li>同梱のアイコンが著作権を回避?したやつなので、お好きに変える&lt;/li>
+&lt;li>Chromeの拡張でデベロッパーモードをオンにして、「パッケージ化されていない拡張機能を読み込む」から拡張機能を読ませる&lt;/li>
+&lt;/ol>
+&lt;p>(こんな感じで崩れる場合は、iframeとbody自体のwidthをいじってあげてください。)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a.png"
+width="278"
+height="306"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a_hu79c38a9b3fea699adf03b63a7478493d_9843_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a_hu79c38a9b3fea699adf03b63a7478493d_9843_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="90"
+data-flex-basis="218px"
+>&lt;/p>
+&lt;p>一応Chrome拡張内のコードを載せておきます。(アイコンは自由ですよ)&lt;br>
+hoge.hogeとかは適宜置き換えてください。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">manifest.json&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;manifest_version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;TCU_Attend_ChromeExtension&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;1.0.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Chrome拡張でTCU出席管理システムを2クリックでやるやつ&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;icons&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;16&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;icon_16x16.ico&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;browser_action&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;default_icon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;icon_400x400.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;default_title&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;default_popup&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;index.html&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;permissions&amp;#34;&lt;/span>&lt;span class="p">:[&lt;/span>&lt;span class="s2">&amp;#34;tabs&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;https://example.com/*&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div>&lt;div class="codeblock--name">index.html&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>TCU_Attend_ChromeExtention&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">body&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">270&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">290&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">iframe&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">iframe&lt;/span> &lt;span class="na">width&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;270px&amp;#34;&lt;/span> &lt;span class="na">height&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;290px&amp;#34;&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://example.com/tcu_attend.html&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">iframe&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="プログラム構築までの道のり">プログラム構築までの道のり
+&lt;/h2>&lt;p>さて、アドカレなのでただ単純にプログラムを配布するだけではなく、どうやって作ったかを紹介します。&lt;/p>
+&lt;p>注: シェルコマンドは改行をしたものを記載していますが、見やすくするためだけなので、実際の処理は改行無しで問題ありません。&lt;/p>
+&lt;h3 id="めんどくさかったところ">めんどくさかったところ
+&lt;/h3>&lt;p>&lt;strong>授業時間じゃないと、実際の登録処理の仕様が調べられないしデバッグもできない&lt;/strong>&lt;/p>
+&lt;p>これが最大の難所でした。&lt;/p>
+&lt;p>幸いログインそのものとログイン失敗は時間外でも行えるので、それは授業時間外でゆっくり行えましたが、本番処理に関してはそれができないので、演習授業系で自分の作業が終了し、少し時間が空いたときにPOSTログを収集する、といった作業をしていました。&lt;/p>
+&lt;h3 id="ログイン処理">ログイン処理
+&lt;/h3>&lt;p>Puppeteerなどであれば、実際に要素で叩けばいいのですが、今回はシェルスクリプトでやっているので、POSTを行うためにcurlを使用するようにします。&lt;/p>
+&lt;h4 id="動作を調べる">動作を調べる
+&lt;/h4>&lt;p>まずはChromeの検証画面を開きながら、ログインをしてみます。ログインをすると、Networkタブの&lt;code>index.php&lt;/code>に、何をForm Dataとして送ったのかが記載されているので確認をします。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41.png"
+width="1276"
+height="609"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41_hub7f370a69945c81008117e2f801ac3e3_71335_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41_hub7f370a69945c81008117e2f801ac3e3_71335_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="502px"
+>&lt;/p>
+&lt;p>Form Dataの欄に、いろいろと記載されています。どうやら、uid, pass, menuname, module, actionの5つを送信しているようです。&lt;/p>
+&lt;p>そして、menunameはデコードできないと言っていますが、**実は「出席」のSJISコードをURLエンコードされたものです。**あまりにもひどい。&lt;del>SJISをやめろ&lt;/del>&lt;br>
+Form Data欄の上部にある&lt;code>view URL encoded&lt;/code>をクリックすると、生の値が見れます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9.png"
+width="358"
+height="198"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9_hu457214c3684292e0578817659855bd5d_8513_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9_hu457214c3684292e0578817659855bd5d_8513_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="180"
+data-flex-basis="433px"
+>&lt;/p>
+&lt;h4 id="curlでやってみる">curlでやってみる
+&lt;/h4>&lt;p>ここまでで「https://call.off.tcu.ac.jp/index.php に対して、POSTでForm Dataとして5つのデータを投げればログインができる」ことがわかりました。&lt;br>
+ではこれを実際にcurlでやってみます。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;uid=ログインID&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;pass=パスワード&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;menuname=%8Fo%90%8&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;module=Default&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;action=Login&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;code>-d&lt;/code>をつけるとFormDataとして付属させることができます。&lt;/p>
+&lt;p>実際に実行すると、このようになります。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d.png"
+width="1675"
+height="262"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d_hu0ae87e30fc5ca005c715e4f30a55d3b0_33841_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d_hu0ae87e30fc5ca005c715e4f30a55d3b0_33841_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="639"
+data-flex-basis="1534px"
+>&lt;/p>
+&lt;p>HTMLがShift-JISで書かれているので、UTF-8で表示しているコンソールでは化けてしまっています。シェルスクリプトでも文字列を扱っているので、UTF-8で扱えるよう、nkfを通してあげます。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;uid=ログインID&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;pass=パスワード&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;menuname=%8Fo%90%C8&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;module=Default&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;action=Login&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="p">|&lt;/span> nkf&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3.png"
+width="1710"
+height="360"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3_hue6a21c688073b85ae455f0e556e86270_52813_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3_hue6a21c688073b85ae455f0e556e86270_52813_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="475"
+data-flex-basis="1140px"
+>&lt;/p>
+&lt;p>無事にきれいに表示できるようになりました。&lt;br>
+時間外のエラーが出ていますが、これが出ているということはログインに成功しているということです。
+本番処理ではこのページに数字を選んだりする要素があるので、このHTMLデータを保存できるようにします。&lt;/p>
+&lt;p>注: シェルスクリプト作成段階ではsudoなしでシェルスクリプトを叩きたいので、ディレクトリをホームディレクトリ内で行っています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;uid=ログインID&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;pass=パスワード&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;menuname=%8Fo%90%8&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;module=Default&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;action=Login&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="p">|&lt;/span> nkf &amp;gt; selectkamoku.html&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="ログイン失敗処理">ログイン失敗処理
+&lt;/h3>&lt;h4 id="動作を調べる-1">動作を調べる
+&lt;/h4>&lt;p>とりあえず適当に間違っているユーザー名とパスワードでログインしてみます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f.png"
+width="1133"
+height="475"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f_hu477699167286c4fde60f4f420d45ae78_55644_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f_hu477699167286c4fde60f4f420d45ae78_55644_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="238"
+data-flex-basis="572px"
+>&lt;/p>
+&lt;p>「IDまたはパスワードに誤りがあります」という表記がありますね。&lt;br>
+そして、「パスワード」という単語は、ログイン画面以外ではログイン失敗のときにしか表示されません。&lt;br>
+つまり、htmlに「パスワード」という文字が含まれていれば、ログイン失敗という判定ができるわけです。&lt;/p>
+&lt;h4 id="curlとgrepでやってみる">curlとgrepでやってみる
+&lt;/h4>&lt;p>まず、上記のcurlコマンドを使用して、誤ったログインID/パスワードを入力した時の返答を保存します。&lt;br>
+catするとこうなります。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305.png"
+width="1126"
+height="479"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305_hu4f6388524472045a97f75f10cc34f7c5_72566_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305_hu4f6388524472045a97f75f10cc34f7c5_72566_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="235"
+data-flex-basis="564px"
+>&lt;br>
+(ちなみにこの段階で、「セッション管理はPHPSESSIDを使えばいいんだな」という事もわかってしまいますね。(どうして時間外にはPHPSESSIDがなくて、失敗ではSESSIDが出てくるんでしょうね)&lt;/p>
+&lt;p>このselectkamoku.htmlをgrepして、「パスワード」という文字があった場合には・・・という処理をできるようにします。&lt;/p>
+&lt;p>まずは単純にgrepしてみます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410.png"
+width="804"
+height="74"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410_hu77c1dfd1f3af2b19cd2ad1900f82ce89_15404_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410_hu77c1dfd1f3af2b19cd2ad1900f82ce89_15404_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1086"
+data-flex-basis="2607px"
+>&lt;br>
+出てきますね。&lt;/p>
+&lt;p>grepは、検索結果の有無で、ちゃんと戻り値があります。&lt;br>
+戻り値は&lt;code>$?&lt;/code>にありますので、確認をしてみます。&lt;br>
+($?は、&lt;code>?&lt;/code>という変数に戻り値が入っている・・・とでも思ってください。変数名の頭に$を付けてあげると変数として呼び出せます。)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa.png"
+width="329"
+height="119"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa_hu2601c25633559f10dbe27f4bb122b734_11249_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa_hu2601c25633559f10dbe27f4bb122b734_11249_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="276"
+data-flex-basis="663px"
+>&lt;br>
+grepは、「検索結果があれば&lt;strong>0&lt;/strong>」「検索結果がなければ&lt;strong>1&lt;/strong>」というように&lt;strong>結果があることが前提の戻り値&lt;/strong>を返してきます。&lt;/p>
+&lt;p>なので、以下のようなスクリプトを利用すれば、「あった場合はある、ない場合はないと表示する」などができます。(grepが吐き出す標準出力は/dev/nullに投げて闇に葬っています)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat selectkamoku.html &lt;span class="p">|&lt;/span> grep パスワード &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;あった&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;なかった&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a.png"
+width="713"
+height="169"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a_hu4c3564eb96731a6894ba32d08effa090_15492_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a_hu4c3564eb96731a6894ba32d08effa090_15492_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="421"
+data-flex-basis="1012px"
+>&lt;br>
+これを実際にログインに成功した状態のHTMLでやると、&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9.png"
+width="718"
+height="190"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9_hu6bc67510d77d3de3335a89bc40b38fd1_17000_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9_hu6bc67510d77d3de3335a89bc40b38fd1_17000_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="377"
+data-flex-basis="906px"
+>&lt;/p>
+&lt;p>無い方の処理が走ります。&lt;/p>
+&lt;h3 id="時間外処理">時間外処理
+&lt;/h3>&lt;h4 id="動作を調べる-2">動作を調べる
+&lt;/h4>&lt;p>これはログイン失敗の処理とほぼ似たようなことをやります。今回はログインできるIDとパスワードでログインします。&lt;br>
+ログイン失敗のときしか現れない単語として「パスワード」がありましたが、時間外のときには&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849.png"
+width="1140"
+height="292"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849_hu535b96704f79271ecd1cc360a1b94cd5_29102_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849_hu535b96704f79271ecd1cc360a1b94cd5_29102_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="390"
+data-flex-basis="936px"
+>&lt;br>
+「現在時間」がキーワードになります。(なんとなく確実性を求めるために「現在時間に」まで使ってみています)&lt;/p>
+&lt;p>ちなみに時間外のページにたどり着ければ、ログインは成功していますので、本番処理でも同様に行ってください。&lt;/p>
+&lt;h4 id="ifで判定してみる">ifで判定してみる
+&lt;/h4>&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat selectkamoku.html &lt;span class="p">|&lt;/span> grep 現在時間に &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;あった&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;なかった&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830.png"
+width="715"
+height="169"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830_hubae3a3a0d366681919d5913f54820b39_16047_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830_hubae3a3a0d366681919d5913f54820b39_16047_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="423"
+data-flex-basis="1015px"
+>&lt;br>
+ちゃんと処理ができていますね。&lt;/p>
+&lt;h3 id="本番処理">本番処理
+&lt;/h3>&lt;h4 id="動作を調べる-3">動作を調べる
+&lt;/h4>&lt;p>先程と同様、調べていきます。まずHTMLを眺めてみます。&lt;br>
+これはChromeの開発者ツールでは欲しい情報がすべては表示されないため、curlで落としてきます。&lt;/p>
+&lt;p>コマンドを再掲します。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;uid=ログインID&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;pass=パスワード&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;menuname=%8Fo%90%C8&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;module=Default&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;action=Login&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="p">|&lt;/span> nkf &amp;gt; selectkamoku.html&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>実行すると、selectkamoku.htmlに登録時の番号選択の画面のHTMLが入っているはずです。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23.png"
+width="1044"
+height="618"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23_hu4b87741d73fe14f4c60d7e5742a35741_65161_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23_hu4b87741d73fe14f4c60d7e5742a35741_65161_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="168"
+data-flex-basis="405px"
+>&lt;/p>
+&lt;p>HTMLが取得できたところで、次に出席登録時にはどんなデータが送られているかを見てみます。&lt;br>
+先程までと同様、Chromeの開発者ツールを出して、出席登録を実際に行ったときにどんなForm dataが送られているかを見てみます。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645.png"
+width="576"
+height="150"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645_hue7fcab47cd37ba6f0d8097dca8ce2bfc_8840_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645_hue7fcab47cd37ba6f0d8097dca8ce2bfc_8840_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="384"
+data-flex-basis="921px"
+>&lt;/p>
+&lt;p>このForm dataと、先程落としてきた番号選択の画面のHTMLを見比べてわかることとして、まずform内のhiddenとしての項目がいくつかあります。&lt;br>
+まずは&lt;code>PHPSESSID&lt;/code>ですが、これはセッションIDですね。これはcookie扱いなので、Form dataにはありませんでした。&lt;/p>
+&lt;p>他の項目はすべてForm dataとして送られるデータです。&lt;br>
+まず&lt;code>module&lt;/code>が&lt;code>Sk&lt;/code>となっています。これはおそらく&lt;strong>S&lt;/strong>elect &lt;strong>k&lt;/strong>amokuの意味でしょう。&lt;/p>
+&lt;p>&lt;code>action&lt;/code>は&lt;code>ProcedureAcc&lt;/code>となっています。手順アクセサリでしょうか。&lt;/p>
+&lt;p>プルダウンメニューの&lt;code>SelKamoku&lt;/code>には、option内に講義選択内容があります。これは普通に履修登録をしていれば一つしか表示されないはずです。このvalue値で授業名を判定しているのでしょう。&lt;br>
+普段授業名を選んでいるここの中身ですね。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55.png"
+width="268"
+height="130"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55_hu674b2f74373e4173937cd9fbccfbaea4_5847_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55_hu674b2f74373e4173937cd9fbccfbaea4_5847_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="206"
+data-flex-basis="494px"
+>&lt;/p>
+&lt;p>次に&lt;code>InpNo&lt;/code>です。これはInputNumberでしょう。出席番号ですね。単純に1~9です。&lt;/p>
+&lt;p>最後に&lt;code>submitButtonName&lt;/code>ですが、さっきログインのときもやったように、SJISエンコードされた文字を送ります。&lt;code>出席登録&lt;/code>のSJISコードがURLエンコードされて&lt;code>%8Fo%90%C8%93o%98%5E&lt;/code>となります。どうしてボタンのvalueで日本語を送信するんですか?&lt;/p>
+&lt;h4 id="curlでやってみる-1">curlでやってみる
+&lt;/h4>&lt;p>ではこれまで同様、curlでやってみましょう。やってることは簡単です。-dで投げるデータを変えるだけです。&lt;/p>
+&lt;p>なお、PHPSESSIDはForm dataではなくCookieとなるので、-dではなく&amp;ndash;cookieを利用します。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">curl -X POST &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>https://call.off.tcu.ac.jp/index.php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--cookie &lt;span class="s2">&amp;#34;PHPSESSID=8012d■■■■■■■■■■■■■■■■■■■■f154ee1&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;module=Sk&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;action=ProcedureAcc&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;SelKamoku=2020,20■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■3041■■■■■■■■■■■■■■■■■■■■0,0&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;InpNo=1&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;submitButtonName=%8Fo%90%C8%93o%98%5E&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> nkf&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>うまくいくと、コンソールに出席確認ができたことがわかるHTMLが流れてきます。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258.png"
+width="1366"
+height="554"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258_hu19e0d4ac9165f52f5a3cf2c56d157041_77575_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258_hu19e0d4ac9165f52f5a3cf2c56d157041_77575_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="246"
+data-flex-basis="591px"
+>&lt;/p>
+&lt;p>以上がCLIでやってみる出席登録です。&lt;br>
+では、実際にこれを使って、2クリックシステムを作っていきましょう。&lt;/p>
+&lt;h3 id="実環境用ファイル作成">実環境用ファイル作成
+&lt;/h3>&lt;h4 id="シェルスクリプト-1">シェルスクリプト
+&lt;/h4>&lt;p>さて、ここまでの作業を組み合わせると、以下のようなシェルスクリプトを書けばいいことになります。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ログイン処理
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ログイン判定
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ログイン失敗処理
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ログイン成功処理
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 時間外処理
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 本番処理
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> セッションIDの取得
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 科目番号取得
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> セッションIDと科目番号と、指示番号で登録
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 結果表示&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>(「2. 実プログラムの配置」に貼ったソースを小分けにして解説していきます。各処理部分の調査部分の再掲みたいになってしまっていますが・・・)&lt;/p>
+&lt;h4 id="ログイン処理-1">ログイン処理
+&lt;/h4>&lt;p>まず、ログイン処理は以下のようになりますね。(最後のファイル保存場所が絶対パスで&lt;code>/var/www/cgi-bin/htmlcache/&lt;/code>になっています)&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;uid=ログインID&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;pass=パスワード&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;menuname=%8Fo%90%C8&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;module=Default&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -d &lt;span class="s2">&amp;#34;action=Login&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="p">|&lt;/span> nkf &amp;gt; /var/www/cgi-bin/htmlcache/selectkamoku.html&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h4 id="ログイン失敗処理-1">ログイン失敗処理
+&lt;/h4>&lt;p>次にログイン判定はgrepで「パスワード」を検索した結果を利用します。&lt;br>
+失敗だったらレスポンスヘッダを吐いたあとに、selectkamoku.htmlの中身(エラー内容もある)をそのまんま吐くようにしています。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="p">|&lt;/span> grep パスワード &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ログイン失敗&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /var/www/cgi-bin/htmlcache/selectkamoku.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> exit&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h4 id="ログイン成功時間外処理">ログイン成功→時間外処理
+&lt;/h4>&lt;p>ログインに成功している場合は、時間外かどうかを見に行きます。&lt;/p>
+&lt;p>「現在時間に」という文字があったら、レスポンスヘッダと「時間外」という文字とともに、元のHTMLを吐いています。(この動作が、上記「3. 動作確認」のスクショ3枚目の時間外のときのものになります)&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ログイン成功のとき&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 時間外かどうかを判定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="p">|&lt;/span> grep 現在時間に &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 時間外のとき&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;b&amp;gt;時間外&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /var/www/cgi-bin/htmlcache/selectkamoku.html&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h4 id="本番処理-1">本番処理
+&lt;/h4>&lt;p>ログイン成功かつ時間外でもない場合は、いよいよ本番処理です。&lt;/p>
+&lt;h5 id="セッションid取得">セッションID取得
+&lt;/h5>&lt;p>まずはセッションIDを取得・変数代入します。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># セッションID&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">sessid&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;PHPSESSID&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;lt;form action=&amp;#34;index.php&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt;&amp;lt;input type=&amp;#34;hidden&amp;#34; name=&amp;#34;PHPSESSID&amp;#34; value=&amp;#34;//g&amp;#39;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;#34; \/&amp;gt;//g&amp;#39;&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">##### 科目番号取得&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">次に科目の情報です
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 科目の番号&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">selkamoku&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>cat /var/www/cgi-bin/htmlcache/selectkamoku.html &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> grep &lt;span class="s1">&amp;#39;[0-9]\{4\},[0-9]\{8\}&amp;#39;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;lt;option value=&amp;#34;//g&amp;#39;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;#34;&amp;gt;.*//g&amp;#39;&lt;/span>&lt;span class="sb">`&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h5 id="出席登録結果表示">出席登録+結果表示
+&lt;/h5>&lt;p>最後に、出席登録を行います。出席登録では毎回番号が変わります。そのたびにシェルスクリプトを書き換えるわけにも行かないため、シェルスクリプト自体の引数で番号を受け取れるようにし、その番号を利用します。&lt;/p>
+&lt;p>すこし脱線しますが、シェルスクリプトでの引数は、第1引数から順番に&lt;code>${1} ${2} ...&lt;/code>といったように呼び出せます。&lt;br>
+シンプルな例だと、こんな感じになります。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">test.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第1引数: &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第2引数: &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0.png"
+width="579"
+height="74"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0_hu55de992ca294427f5760998fea5be325_10324_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0_hu55de992ca294427f5760998fea5be325_10324_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="782"
+data-flex-basis="1877px"
+>&lt;/p>
+&lt;p>今回のツールでは、出席番号以外はすべて自動で取得します。つまり、今回の場合はシェルスクリプトの第1引数に指示番号が与えられれば、それを元に全てを実行できることになります。&lt;br>
+なので、スクリプト内ではInpNoの指定部分を&lt;code>InpNo=${1}&lt;/code>とするだけで、引数を指示番号として利用できます。&lt;/p>
+&lt;p>(最後に結果を返せるように、登録結果をsuccess.htmlとして保存し、吐き出しています。)&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 出席登録&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--cookie &lt;span class="s2">&amp;#34;PHPSESSID=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">sessid&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;module=Sk&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;action=ProcedureAcc&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;SelKamoku=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">selkamoku&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;InpNo=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>-d &lt;span class="s2">&amp;#34;submitButtonName=%8Fo%90%C8%93o%98%5E&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="p">|&lt;/span> nkf &amp;gt; /var/www/cgi-bin/htmlcache/success.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 最終結果表示&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;b&amp;gt;登録処理&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /var/www/cgi-bin/htmlcache/success.html&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>最後に、if文を閉じれば、&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> &lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>シェルスクリプトは完成となります。&lt;/p>
+&lt;p>この段階でコンソールから直接引数ありで叩くと、実際に挙動を確かめることができます。(shコマンド無しでいきなり叩けてるのは権限が777のため)&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf.png"
+width="965"
+height="671"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf_hu8359ffaa98ffc9e8b9f748db8651703e_73429_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf_hu8359ffaa98ffc9e8b9f748db8651703e_73429_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="143"
+data-flex-basis="345px"
+>&lt;/p>
+&lt;h4 id="htmlファイル">HTMLファイル
+&lt;/h4>&lt;p>上記のシェルスクリプトにより、&lt;code>http://サーバーアドレス/cgi-bin/tcu_attend.sh&lt;/code>を呼び出せば出席登録ができるわけですが、このままでは引数が与えられず、意味がありません。&lt;br>
+CGIでは、コマンドライン引数を与える方法として、URLの最後に&lt;code>?&lt;/code>を付けると、その後がコマンドライン引数として使えるようになります。&lt;br>
+今回の場合は引数が1つで、かつ単純に番号だけなので、以下のようなリンクにすれば、「1番で登録」用のリンクになります。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">http://サーバーアドレス/cgi-bin/tcu_attend.sh?1&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>つまり、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>都市大出席&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?1&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?2&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>2&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?3&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>3&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?4&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>4&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?5&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>5&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?6&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>6&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?7&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>7&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>8&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">a&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;http://example.com/cgi-bin/tcu_attend.sh?9&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>9&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>のようなシンプルなHTMLで、&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24.png"
+width="513"
+height="307"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24_hucdaff8fea7bfc4813e607b15ac943131_10554_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24_hucdaff8fea7bfc4813e607b15ac943131_10554_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="167"
+data-flex-basis="401px"
+>&lt;/p>
+&lt;p>最低限の実装ができます。&lt;/p>
+&lt;p>ただ、これだとあまりにも見た目が貧相なのと、スマホフレンドリーでもなく、使い勝手も地獄なので、ボタン化して使いやすくします。&lt;/p>
+&lt;p>実HTMLはすでに貼ってあるので、抜粋すると、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">value&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;1&amp;#34;&lt;/span> &lt;span class="na">style&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;width:80px; font-size:70px; margin-bottom:4px;&amp;#34;&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://example.com/cgi-bin/tcu_attend.sh?1&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>のようにinputでボタンを書けば、&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0.png"
+width="447"
+height="161"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0_hu83c921140e53af84e98c1129cc6bef2f_7274_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0_hu83c921140e53af84e98c1129cc6bef2f_7274_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="277"
+data-flex-basis="666px"
+>&lt;/p>
+&lt;p>こんな感じでボタン化することができます。&lt;br>
+これを9個にして、間隔とかを整えたものが「3. 動作確認」に貼ったような画面になります。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109.png"
+width="422"
+height="336"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109_hu8c0f56eb75ed151276c7c3074d8bb3d6_18733_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109_hu8c0f56eb75ed151276c7c3074d8bb3d6_18733_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="125"
+data-flex-basis="301px"
+>&lt;/p>
+&lt;p>以上でシェルスクリプトとHTMLの完成です!&lt;/p>
+&lt;h2 id="おまけ1-idとパスワードをシェルスクリプトから分離して保存する">おまけ1: IDとパスワードをシェルスクリプトから分離して保存する
+&lt;/h2>&lt;p>一応、CGIとして動作しているので、shファイルを直接読まれることは無く、パスワード漏洩もしにくいとは思いますが、それでも/var/www/cgi-binというApache2管理下の内にあるファイルなので、万が一のことがあるかもしれません。&lt;/p>
+&lt;p>そこで、IDとパスワードは別ファイルに保管し、実行されるたびにそこから情報を拾ってきて使うようにしてみます。&lt;/p>
+&lt;p>(「2. 実プログラムの配置」で記載したソースにはこれは書いていません。それも含めて書くのは面倒だったので&amp;hellip;。 ただやるとしても簡単に改変できるので、もし心配だったらやってみてください。)&lt;/p>
+&lt;p>まずは、ファイルを置くための場所を作ります。とりあえず&lt;code>/var/www/cgi-bin&lt;/code>じゃなければいいので、適当に&lt;code>/var/www/tcuattenddata/&lt;/code>とかを作ります。(いろいろとアレですが、ここらへんはお好きなように・・・)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo mkdir /var/www/tcuattenddata/&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>そしてここに&lt;code>id_pass.txt&lt;/code>を作り、&lt;strong>1行目にID&lt;/strong>、&lt;strong>2行目にパスワード&lt;/strong>を記述した本当に単純なファイルを作成します。(複数ユーザーがいないからできるような運用方法ですねホントに)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666.png"
+width="612"
+height="70"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666_hu58b912ad51cfde208ab785cb1ec7b87f_6961_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666_hu58b912ad51cfde208ab785cb1ec7b87f_6961_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="874"
+data-flex-basis="2098px"
+>&lt;/p>
+&lt;p>次に、これらをシェルスクリプトで変数に代入するようにします。&lt;/p>
+&lt;p>引っ張り出し方は、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ID&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -n 1p /var/www/tcuattenddata/id_pass.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># パスワード&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -n 2p /var/www/tcuattenddata/id_pass.txt&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>のように、sedで行数指定で取り出して行います。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435.png"
+width="649"
+height="93"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435_hu4204087823366f079b6d39efcad4f250_12248_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435_hu4204087823366f079b6d39efcad4f250_12248_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="697"
+data-flex-basis="1674px"
+>&lt;/p>
+&lt;p>これを変数に入れられればいいので、シェルスクリプトの最上位(#!/bin/bashの次)に以下のような行を追記します&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ID&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">USERID&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>sed -n 1p /var/www/tcuattenddata/id_pass.txt&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># パスワード&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>sed -n 2p /var/www/tcuattenddata/id_pass.txt&lt;span class="sb">`&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これで&lt;code>USERID&lt;/code>にIDが、&lt;code>PASSWORD&lt;/code>にパスワードが入ります。&lt;/p>
+&lt;p>次に、これをcurlの引数内で呼べるようにします。&lt;br>
+本番処理のところでも書きましたが、Form Dataに与える部分はダブルクオーテーションで囲まれているので、単純に&lt;code>${USERID}&lt;/code>や&lt;code>${PASSWORD}&lt;/code>とするだけで呼び出せます。(シングルクオートだとエスケープが必要になる) (一応&lt;code>{ }&lt;/code>がなくても良い)&lt;/p>
+&lt;p>(ダブルクオーテーションがあるので実験も含めてダブルクオーテーション込みで出しています)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e.png"
+width="418"
+height="99"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e_hu3e525e6c305d987efc5d4a4f83e64575_9560_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e_hu3e525e6c305d987efc5d4a4f83e64575_9560_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="422"
+data-flex-basis="1013px"
+>&lt;/p>
+&lt;p>幸いにも、都市大のパスワードレギュレーションはダブルクオートとシングルクオートを弾いているので、このあたりのエスケープは無視することができます。&lt;/p>
+&lt;p>最後に、シェルスクリプトのユーザー名とパスワードの部分を&lt;code>${USERID}&lt;/code>と&lt;code>${PASSWORD}&lt;/code>に変更してあげれば、完成となります。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -X POST https://call.off.tcu.ac.jp/index.php -d &lt;span class="s2">&amp;#34;uid=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">USERID&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;pass=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">PASSWORD&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;menuname=%8Fo%90%C8&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;module=Default&amp;#34;&lt;/span> -d &lt;span class="s2">&amp;#34;action=Login&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> nkf &amp;gt; /var/www/cgi-bin/htmlcache/selectkamoku.html&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>(もちろん動作確認はしてあげてくださいね!)&lt;/p>
+&lt;h2 id="おまけ2公開鯖向け-一応robotstxtを書く">おまけ2(公開鯖向け): 一応robots.txtを書く
+&lt;/h2>&lt;p>なんかの拍子にクローラに見つかっても困るので、robots.txtを書いておきます。(この手の対策ってお行儀の良いクローラにしか意味ないですけどね)&lt;/p>
+&lt;div>&lt;div class="codeblock--name">robots.txt&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl">User-Agent: *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disallow: /tcu_attend.html&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="おまけ3-discordのbotにしてみる">おまけ3: DiscordのBotにしてみる
+&lt;/h2>&lt;p>DiscordのBotにして、Discordのチャットから出席登録できたら便利かもしれません。&lt;br>
+こんな感じに。(brとか残ってるのは許してくださいガバガバ処理なだけです)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258.png"
+width="583"
+height="216"
+srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258_hu9564e3601be98a727da355f60f1d7794_22030_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258_hu9564e3601be98a727da355f60f1d7794_22030_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="269"
+data-flex-basis="647px"
+>&lt;/p>
+&lt;p>Discordは、シェルスクリプトだけでは(おそらく)文字を受け取るBotは流石に無理があります。Webhookで一方通行ならできますが。&lt;/p>
+&lt;p>ということで、文字を受け取るBotはNodejsを使うことになります。でも、ここまで作ってきたものはシェルスクリプトです。JavaScriptじゃありません。&lt;strong>じゃあシェルスクリプトをNodejsから叩いてしまいましょう!&lt;/strong> (アドカレ主催に怒られそう)&lt;/p>
+&lt;p>ということでソースです。と言いたいこところですが、その前に説明です。&lt;/p>
+&lt;p>せっかくここまでWebからできる出席登録を作ったので、Botで呼ばれたらそこにアクセスすればいいわけです。それこそJSで出来ます。&lt;/p>
+&lt;p>できるんですが・・・ここまでシェルスクリプトでやってきてるので、ここもやっぱりシェルスクリプトとcurlでがんばります。&lt;/p>
+&lt;p>つまり、動作概要としては、&lt;br>
+Discord →(文字列)→ Nodejs(文字列処理) → bash(ここまで作ったやつをcurlで叩くシェルスクリプト実行) → Web鯖(出席登録のシェルスクリプト) → bash(帰ってきた結果を若干加工してstdout) → Nodejs(Discordにsend) → Discord&lt;/p>
+&lt;p>というすごい遠回りをします。完全にNodejsはDiscordとbashを繋ぐためのやつになります。&lt;/p>
+&lt;p>まずは、ここまで作った「CGIとしてのシェルスクリプト」を叩くシェルスクリプトです。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">attendbot.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">curl -sS https://hoge.hoge/cgi-bin/attend.sh?&lt;span class="nv">$1&lt;/span> &lt;span class="p">|&lt;/span> nkf &amp;gt; /tmp/attendtmp.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /tmp/attendtmp.html &lt;span class="p">|&lt;/span> grep 現在時間に &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;時間外です&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /tmp/attendtmp.html &lt;span class="p">|&lt;/span> grep 受け付けました &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$?&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /tmp/attendtmp.html &lt;span class="p">|&lt;/span> grep 授業科目
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat /tmp/attendtmp.html &lt;span class="p">|&lt;/span> grep 指示番号
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;成功しました&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;error!&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>HTML側でボタンクリックしたときのリンクを直接叩いています。シェルスクリプト実行時の引数に番号だけ入れればいいので、あとでJS側から引数ありで叩いてあげればいいわけですね。&lt;/p>
+&lt;p>&lt;del>なんかJSって言ってるとケーを思い出しますね&lt;/del>&lt;/p>
+&lt;p>このシェルスクリプトが呼ばれると、さっきつくったCGIをcurlで叩いて、落ちてきたやつをgrepなりで処理してechoします。ここは別になにかForm dataとかを送るわけでもないので、-sSでログを出さないようにするだけで、後はただ叩くだけです。後一応nkfを通しています。&lt;/p>
+&lt;p>落ちてきたHTMLの中の授業科目/指示番号が書いてある行だけgrepで取り出しています。そのあとにsedでタグを取り除いてあげれば、先程の画像のようなことは起きませんね。&lt;/p>
+&lt;p>次にNodejsで動かすJavaScriptのソースです。discord.jsはインストールしてくださいね。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">app.js&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//ログイン処理
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">Discord&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;discord.js&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">client&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Discord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Client&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">token&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;BotToken&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ready&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ready...&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;message&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">message&lt;/span> &lt;span class="p">=&amp;gt;{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">author&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">bot&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//出席登録
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">content&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/!attend/&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">content&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">str&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nx">str&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">substr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">execstr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;bash /path/to/attendbot.sh &amp;#39;&lt;/span>&lt;span class="o">+&lt;/span> &lt;span class="nx">str&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">execSync&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;child_process&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">execSync&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">execSync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">execstr&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">channel&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">send&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;エラーが発生しました&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">channel&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">send&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">login&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">token&lt;/span>&lt;span class="p">);&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>受け取って、!attendから始まる場合だけ処理して、数字を取り出してシェルスクリプトにぶん投げる感じです。&lt;/p>
+&lt;p>参考:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://qiita.com/cryptocoin_harumaki/items/5d8c503e02093eca1f9b" target="_blank" rel="noopener"
+>Discord.jsで簡単にbotを作成する【基礎編】&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.wakuwakubank.com/posts/728-nodejs-child-process/" target="_blank" rel="noopener"
+>シェルコマンドを実行する方法(child_process)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>あとはNodejsで回してあげれば、Discordから出席登録ができるようになります。&lt;/p>
+&lt;h2 id="〆">〆
+&lt;/h2>&lt;p>いかがだったでしょうか。&lt;br>
+こんな感じで、シェルスクリプトだけでもいろいろとWebツールは作れます。そしてそれをNodejsから叩く方法を確立させれば、シェルスクリプトだけで何でもできます(?)&lt;/p>
+&lt;p>JavaScriptもいいですけど、ShellScriptもいいんですからね・・・?&lt;/p>
+&lt;p>これを読んだ都市大生の皆様は、1から作らなくてもいいので、今回のプログラムをぜひ使ってみて下さい!! WSLでもいいですしmなんなら家に一個くらいラズパイ転がってますよね!(???)&lt;/p>
+&lt;p>ということで、明日は&lt;a class="link" href="https://twitter.com/vividrabbit_net" target="_blank" rel="noopener"
+>うめ&lt;/a>さんの「どうすりゃいいの～♪」です。どうなるんですかね? (あと&lt;a class="link" href="https://adventar.org/calendars/5925" target="_blank" rel="noopener"
+>このアドカレはなんですか?&lt;/a>)&lt;/p>
+&lt;h2 id="宣伝">宣伝
+&lt;/h2>&lt;p>&lt;a class="link" href="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/" target="_blank" rel="noopener"
+>フロピネタもよろしく!&lt;/a>&lt;/p></description></item></channel></rss>

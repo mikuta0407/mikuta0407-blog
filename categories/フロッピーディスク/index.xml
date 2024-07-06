@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>フロッピーディスク on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/%E3%83%95%E3%83%AD%E3%83%83%E3%83%94%E3%83%BC%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF/</link><description>Recent content in フロッピーディスク on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Wed, 02 Dec 2020 00:00:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/%E3%83%95%E3%83%AD%E3%83%83%E3%83%94%E3%83%BC%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>2DDのフロッピーディスクに"聴ける"音楽を入れる</title><link>https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/</link><pubDate>Wed, 02 Dec 2020 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/</guid><description>&lt;p>この記事は&lt;a class="link" href="https://adventar.org/calendars/5110" target="_blank" rel="noopener"
+>Tokyo City University Advent Calendar 2020&lt;/a>の2日目の記事です。&lt;/p>
+&lt;p>昨日の記事は &lt;a class="link" href="https://twitter.com/920OJ" target="_blank" rel="noopener"
+>@920OJ&lt;/a> さんによる &lt;a class="link" href="https://b.920oj.net/what-is-vrsa/" target="_blank" rel="noopener"
+>TCU-vRSAとは何だったのか&lt;/a> でした!&lt;/p>
+&lt;p>1日目との落差が激しいですがよろしくお願いします。&lt;/p>
+&lt;p>&lt;strong>突然ですが、フロッピーディスクの容量、ご存知ですか?&lt;/strong>&lt;/p>
+&lt;p>かなりの人はこの質問に対して「1.44MB」と答えるかと思います。1.44MBも正しい解答です。ですが、実はフロッピーディスク(一般的な3.5インチのもの)は、2つの種類があります。&lt;/p>
+&lt;p>1.44MBと言われるものは、1985年に開発された、「2HD」という種類のものです。実は、それよりも前、1980年に初めて開発された3.5インチのフロッピーディスクは、2DDと呼ばれるもので、なんと容量が半分の720KBです。(2DDの倍の容量ということで2HDが1.44MB)&lt;br>
+720KBは、もう一般的な写真一枚ですら入りません。技術の進歩ってすごいですね。(ストレージの進化の意味で)&lt;/p>
+&lt;p>今回の記事の題名は「2DDのフロッピーディスクに&amp;quot;聴ける&amp;quot;音楽を入れる」です。ということは、720KBの容量に音楽ファイルを入れるということになります。一般的に320kbpsの音楽が10MB前後ですので、720KBそれの1/10以下のファイルサイズです。&lt;br>
+そして720KBのファイルサイズで、とりあえずそれなりにちゃんと音楽として認識できるほどの音質を実現します。&lt;/p>
+&lt;p>・・・と壮大なことを言っていますが、やることは以下です。&lt;/p>
+&lt;ul>
+&lt;li>音楽ファイルをffmpegでビットレートを指定して圧縮する&lt;/li>
+&lt;li>容量限界のサイズまで調整をがんばる&lt;/li>
+&lt;/ul>
+&lt;p>それではやっていきましょう。&lt;/p>
+&lt;h2 id="2ddのフロッピーディスクの容量">2DDのフロッピーディスクの容量
+&lt;/h2>&lt;p>730,112byte先程から720KBと言っていますが、この規模だともはやバイト単位で調整が始まります。2DDのフロッピーディスクは、未フォーマット状態で730,112B入ります。これをFATでフォーマットするので、2048Bを管理領域に食われます。なので、実際は728,064Bが最大容量です。&lt;/p>
+&lt;p>ということで、ファイルのサイズ&amp;lt;=728,064Bになるように調整をしていきます。&lt;/p>
+&lt;h2 id="音源の準備をする">音源の準備をする
+&lt;/h2>&lt;p>本当は素材として東京都市大学の学園歌である「夢に翼を」を使おうと思ったのですが、完成したデータをこのサイトで公開できないという問題が発生するため、別のフリー音源を使います。&lt;/p>
+&lt;p>と、丁度いいフリー音源を探す旅に出てみたのですが、時間が膨大にかかってしまうということもあり、「それなりにいろんな楽器が鳴っている」「ボーカルがある」「(&amp;ldquo;インターネット&amp;quot;上で)ある程度知名度がある」「勝手にアップロードしても(たぶん)怒られない」という3つの特徴を兼ね揃えているということで、コンギョでやってみることにしました。&lt;br>
+なんかもうちょっといい音源があるはずなんですが、時間の都合もあるため、ごめんなさい。&lt;/p>
+&lt;p>事前準備として、エンコの時間を短縮(と言ってもそんなじゃないですが)するため、公式サイトから落としてきた&lt;code>music.mp3&lt;/code>をwavにします。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ffmpeg -i music.mp3 orig.wav&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>このあと、Mp3TagでWAVにひっついてるタグを消し去りました。1Bでも音源の方に容量を振りたい。&lt;/p>
+&lt;p>ちなみに、元の&lt;code>music.mp3&lt;/code>は、128kbpsのMP3で、2,626,564Bです。&lt;br>
+そして変換後のWAVは28,947,792Bです。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ du -b orig.wav
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">28947792&lt;/span> orig.wav&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="おことわり">おことわり
+&lt;/h2>&lt;p>実は試している最中に、WSL1でのffmpegを使ったエンコードと、VPSのUbuntuでのffmpegを使ったエンコードで、容量や音質に若干の違いがありました。おそらくffmpegのバージョンの問題かと思われます。&lt;br>
+どちらを使ったかに関しては、記事内に記載してあるので許してください。&lt;br>
+正直このレベルでのエンコーダのことは考えたくないのでこれ以上追求しません。&lt;/p>
+&lt;p>使用バージョン:&lt;/p>
+&lt;ul>
+&lt;li>WSL1: ffmpeg version 4.2.4-1ubuntu0.1&lt;/li>
+&lt;li>VPS: ffmpeg version 3.4.8-0ubuntu0.2&lt;/li>
+&lt;/ul>
+&lt;h2 id="まずはaacでやってみる">まずはAACでやってみる
+&lt;/h2>&lt;p>最初はMP3でやってみようとしたのですが、ffmpegのオプション的にどうやら720KB以下に収めるのがかなり難しそうなので、AACでやってみます。&lt;br>
+HE-AACのほうが本当は低ビットレートに対応しやすく、今回の目的に適しているのですが、ffmpegを自分でコンパイルする必要があり、こんな目的のためにやるには、非常にめんどくさいので普通のAACでやります。&lt;/p>
+&lt;p>先程&amp;quot;おことわり&amp;quot;に書いたのですが、AACでのエンコードをWSL1のUbuntu20.04とVPSのUbuntu18.04でやってみたところ、VPSのほうでやったほうが小容量で音質が良かったため、このAACの部分では&lt;strong>VPSの方&lt;/strong>を使っています。&lt;/p>
+&lt;p>とやる前に、毎回ffmpeg叩いてからduでバイト数を出すのも面倒なので、簡単なシェルスクリプトを書きます。引数にビットレートを渡せばそのビットレートでエンコードし、duまで出してくれるやつです。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">aac.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>ffmpeg -loglevel quiet -i orig.wav -ab &lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>k -ac &lt;span class="m">2&lt;/span> -f mp4 aac&lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>.m4a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">du -b aac&lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>.m4a&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>まずは32kbps。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./aac.sh &lt;span class="m">32&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">688985&lt;/span> aac32.m4a&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>一気に小さくなり、688,985Bになりました。とりあえず聴く前に、可能な限り容量を上げていこうと思います。&lt;/p>
+&lt;p>では一旦大きく上げて40kbps&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./aac.sh &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">854093&lt;/span> aac40.m4a&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>飛び越えてしまいました。では35kbps。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./aac.sh &lt;span class="m">35&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">751057&lt;/span> aac35.m4a&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>まだ大きいです。次に34kbps&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./aac.sh &lt;span class="m">34&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#729530 aac34.m4a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">729802&lt;/span> aac34.m4a&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>惜しい! では小数の領域に入りまして、33.5kbps。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./aac.sh 33.5
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">718983&lt;/span> aac33.5.m4a&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>もうちょっと上げられそうです。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./aac.sh 33.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">721600&lt;/span> aac33.6.m4a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./aac.sh 33.7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">723394&lt;/span> aac33.7.m4a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./aac.sh 33.8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">725143&lt;/span> aac33.8.m4a
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./aac.sh 33.9
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">728005&lt;/span> aac33.9.m4a&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>728,005Bとなり、残りあと59Bのようです。これが限界です。&lt;/p>
+&lt;p>それでは完成を聴いてみましょう&lt;/p>
+&lt;figure>
+&lt;figcaption>AAC 33.9kbps&lt;/figcaption>
+&lt;audio
+controls
+src="https://mikuta0407.net/files/tcuac2020/aac33.9.m4a">
+Your browser does not support the
+&lt;code>audio&lt;/code> element.
+&lt;/audio>
+&lt;/figure>
+聴けない場合: [AAC 33.9kbps](https://mikuta0407.net/files/tcuac2020/aac33.9.m4a)
+&lt;p>・・・なんでしょう、すごい質の悪いラジオみたいな感じですね・・・。&lt;br>
+これでは&amp;quot;聴ける&amp;quot;とは言えません。ではAACは諦めて、次に行ってみましょう。&lt;/p>
+&lt;h2 id="opusでやってみる">Opusでやってみる
+&lt;/h2>&lt;p>なんかAACのほうでグダグダになってしまいましたが、本命Opusをやります。&lt;br>
+Opusは、DiscordのVCでも使われていますが、遅延の少ないオーディオコーデックです。(詳細は&lt;a class="link" href="https://ja.wikipedia.org/wiki/Opus_%28%E9%9F%B3%E5%A3%B0%E5%9C%A7%E7%B8%AE%29" target="_blank" rel="noopener"
+>Wikipedia&lt;/a>で)&lt;br>
+本来はリアルタイム伝送等のためのフォーマットですが、普通に音声ファイルとして扱うこともできます。後発ということもあって、ビットレートあたりの音質がかなり良くなっています。&lt;br>
+また、OpusファイルはWindows10のGrooveミュージックやiOSでも簡単に再生できるので、音楽ファイルとしての扱いも簡単です。(ただしフロッピーディスク時代のパソコンでは対応ソフトが無くてほぼ再生できない)&lt;br>
+opusも、AAC同様ffmpegで簡単に変換できます。&lt;/p>
+&lt;p>シェルスクリプトはこんな感じです。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>ffmpeg -loglevel quiet -i orig.wav -acodec libopus -b:a &lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>k opus&lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">du -b opus&lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span>.opus&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>今回はVBR有効で行います。&lt;/p>
+&lt;p>ちなみに、こちらは&lt;strong>WSL1&lt;/strong>でやっています。ちょっとだけ理由を。&lt;br>
+先程AACでやったときに34kbpsがちょっとオーバーするくらいだったので、34kbpsでエンコードをしてみました。すると・・・&lt;/p>
+&lt;p>まずはWSL(Ubuntu20.04)。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil.png"
+width="560"
+height="41"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil_hu4fc752639e6a114adeb2798e0a13bbb3_5962_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil_hu4fc752639e6a114adeb2798e0a13bbb3_5962_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1365"
+data-flex-basis="3278px"
+>&lt;/p>
+&lt;p>次にVPS(Ubuntu18.04)。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B.png"
+width="560"
+height="43"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B_huaf95963927213bd123bf94d309ee494e_5775_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B_huaf95963927213bd123bf94d309ee494e_5775_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1302"
+data-flex-basis="3125px"
+>&lt;/p>
+&lt;p>結構違うんですよね・・・。Opusの場合はWSL1(Ubuntu20.04)のほうが圧縮が良さそうなのと、聴き比べたときに元音源の雰囲気率が高かったのがこちらなので、WSL1の方でやってみます。&lt;/p>
+&lt;p>本題に戻りますが、↑の比較画像を見てわかるかと思いますが、同じ34kbpsでもAACとOPUSで全然容量が違うことがわかります。この段階で一度再生してみると、全然雰囲気が違うので驚くのですが、とりあえず先に進みます。&lt;/p>
+&lt;p>先ほどと同じ用に試していきます。34kbpsでは入ることがわかったので、一旦40kbpsにしてみます。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./opus.sh &lt;span class="m">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">799542&lt;/span> opus40.opus&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>さすがに飛び越えました。このあと、35kbps, 36kbps, 37kbpsを試していたところ、36kbps~37kbpsの間に壁がある事がわかりました。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./opus.sh &lt;span class="m">35&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">699827&lt;/span> opus35.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh &lt;span class="m">36&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">720576&lt;/span> opus36.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh &lt;span class="m">37&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">740493&lt;/span> opus37.opus&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>頑張って下げていきましょう。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./opus.sh 36.5
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">730518&lt;/span> opus36.5.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh 36.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">728548&lt;/span> opus36.4.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh 36.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">726547&lt;/span> opus36.3.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh 36.39
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">728274&lt;/span> opus36.39.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh 36.38
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">728165&lt;/span> opus36.38.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh 36.37
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">727926&lt;/span> opus36.37.opus
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ ./opus.sh 36.375
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">728051&lt;/span> opus36.375.opus&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>・・・! 残り13B・・・! もうこれ以上上げることは出来ないでしょう・・・&lt;br>
+(ちなみにタグを消してみたりしましたが、36.375kbpsが限界でした)&lt;/p>
+&lt;p>それでは聴いていただきましょう。&lt;/p>
+&lt;figure>
+&lt;figcaption>OPUS 36.375kbps&lt;/figcaption>
+&lt;audio
+controls
+src="https://mikuta0407.net/files/tcuac2020/opus36.375.opus">
+Your browser does not support the
+&lt;code>audio&lt;/code> element.
+&lt;/audio>
+&lt;/figure>
+聴けない場合: [OPUS 36.375kbps](https://mikuta0407.net/files/tcuac2020/opus36.375.opus)
+&lt;p>どうですか? AACと全然違い、「多少圧縮は感じるけど710KBにしては良く聴ける音」じゃないですか・・・?&lt;/p>
+&lt;p>ということで、いろいろと脱線したりしましたが、無事2DDのフロッピーに入る、かつそれなりに良い音質の音源の作成に成功しました!
+　
+&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4.jpg"
+width="1263"
+height="947"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4_hueee198281abc5bf27bd0b3267f422c87_261608_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4_hueee198281abc5bf27bd0b3267f422c87_261608_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA.jpg"
+width="1263"
+height="947"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA_hu361401bd2db6211ba5699421afb8805d_214675_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA_hu361401bd2db6211ba5699421afb8805d_214675_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s.jpg"
+width="1263"
+height="947"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s_hub4a28ca685846b1d2e9b6e945c306fcd_192198_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s_hub4a28ca685846b1d2e9b6e945c306fcd_192198_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd.png"
+width="741"
+height="159"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd_hu8988078ada5929a26ead889d4e5450d8_21866_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd_hu8988078ada5929a26ead889d4e5450d8_21866_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="466"
+data-flex-basis="1118px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24.png"
+width="421"
+height="548"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24_hue86a2b2cafc2b094eeb0c2d2bf580286_21653_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24_hue86a2b2cafc2b094eeb0c2d2bf580286_21653_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="76"
+data-flex-basis="184px"
+>&lt;/p>
+&lt;p>ここまでやったら実際に2DDのフロッピーディスクに入れて再生しなきゃ意味がないですよね。というわけで実際に入れていきます。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH.png"
+width="495"
+height="77"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH_hue60a35ddb92c96d44081766b5ad33d5e_6811_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH_hue60a35ddb92c96d44081766b5ad33d5e_6811_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="642"
+data-flex-basis="1542px"
+>&lt;/p>
+&lt;p>コピーが終わると、残り0クラスタとなり、空き容量が0Bになりました。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8.png"
+width="421"
+height="548"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8_hu4a9b3e2039349e73d160913eaed1260e_21854_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8_hu4a9b3e2039349e73d160913eaed1260e_21854_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="76"
+data-flex-basis="184px"
+>&lt;/p>
+&lt;p>2DDのフロッピーディスク、容量いっぱいいっぱいまで使っています。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K.png"
+width="980"
+height="261"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K_huc2a6a596a8219d9f63bd9b6abd885e95_29490_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K_huc2a6a596a8219d9f63bd9b6abd885e95_29490_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="375"
+data-flex-basis="901px"
+>&lt;/p>
+&lt;p>ではVLCで再生してみましょう・・・&lt;br>
+転送レートが微妙に足りない・・・!!!!!!!!!!!!!!!&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX.png"
+width="567"
+height="512"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX_hu2b5f4eb207586c2424cd5d4c5f3a05ec_24621_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX_hu2b5f4eb207586c2424cd5d4c5f3a05ec_24621_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="110"
+data-flex-basis="265px"
+>&lt;/p>
+&lt;p>ある程度止まらず流れるのですが、たまにバッファが足りず止まります・・・。&lt;br>
+リアルタイム再生は流石にギリギリ無理ですね・・・。
+　
+&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV.png"
+width="640"
+height="400"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV_hue59b93daf2376a03c76b0bafe71707b6_86058_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV_hue59b93daf2376a03c76b0bafe71707b6_86058_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="160"
+data-flex-basis="384px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ.png"
+width="541"
+height="239"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ_hu3ebe534b8ee562bc4234ebd12fdac6da_21476_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ_hu3ebe534b8ee562bc4234ebd12fdac6da_21476_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="226"
+data-flex-basis="543px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu.png"
+width="958"
+height="674"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu_hu30754034534116e811755e9b3c1bcadf_43861_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu_hu30754034534116e811755e9b3c1bcadf_43861_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="142"
+data-flex-basis="341px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq.png"
+width="512"
+height="435"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq_hu745fcc334a155c4477763bc6cf590563_27746_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq_hu745fcc334a155c4477763bc6cf590563_27746_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="117"
+data-flex-basis="282px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J.png"
+width="686"
+height="535"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J_hu82428699cad1bb6b0bb097e4767b5b9e_43591_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J_hu82428699cad1bb6b0bb097e4767b5b9e_43591_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="128"
+data-flex-basis="307px"
+>
+(&lt;a class="link" href="http://forums.winamp.com/showthread.php?t=452974" target="_blank" rel="noopener"
+>http://forums.winamp.com/showthread.php?t=452974&lt;/a>)&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO.png"
+width="811"
+height="490"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO_hue2632a191b76e6badc8e2bf54b0ada74_89953_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO_hue2632a191b76e6badc8e2bf54b0ada74_89953_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="165"
+data-flex-basis="397px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo.png"
+width="1280"
+height="1024"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo_hu2055178ebce6c536238f035eb2fd0bab_431737_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo_hu2055178ebce6c536238f035eb2fd0bab_431737_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="125"
+data-flex-basis="300px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx.png"
+width="490"
+height="411"
+srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx_hud17ba6c53b28f53023bcfce7c6c489b8_213567_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx_hud17ba6c53b28f53023bcfce7c6c489b8_213567_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="119"
+data-flex-basis="286px"
+>&lt;/p>
+&lt;p>以上! #tcuac2020 二日目の記事でした!&lt;/p>
+&lt;p>明日はらぴーとさんの「2HDのフロッピーに動画を入れないか？」です。連続のフロピネタ、お楽しみください。&lt;/p></description></item></channel></rss>

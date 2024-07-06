@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ubuntu on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/ubuntu/</link><description>Recent content in Ubuntu on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Tue, 09 Apr 2019 16:54:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>ブートローダはNTLDR/WindowsBootManagerのままLinuxをインストールする</title><link>https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/</link><pubDate>Tue, 09 Apr 2019 16:54:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>Atom N450のWindowsXPの入っているネットブックに、最近流行りのSereneLinuxをインストールしようと思ったのですが、SereneLinuxに限らず、Linux全般においてブートローダをNTLDR/WindowsBootManagerからGrubに変えてしまうと、機種によってはWindowsで休止状態ができなくなってしまうことがあるので、それを防いだり、簡単にLinux側を吹き飛ばせるように、NTLDR/WindowsBootManager経由で起動できるようにします。&lt;/p>
+&lt;p>これを簡単にやるにはWubiが便利なのですが、SereneLinuxなどといったWubiが扱えないディストリを入れる際にはGrub4DOSを使えば解決できるので、今回はそれをやってみます。&lt;/p>
+&lt;p>試した環境&lt;/p>
+&lt;ul>
+&lt;li>機種 : MSI U130
+&lt;ul>
+&lt;li>今入っているOS : WindowsXP&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>機種 : デスクトップ機(Sandy世代)
+&lt;ul>
+&lt;li>今入っているOS : Windows7(LegacyBoot)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="osのインストーラを作る">OSのインストーラを作る
+&lt;/h2>&lt;p>CDやDVDに焼いたり、LiveUSBを作ったりで、各自お好きな方法で作ってください。私はUnetbootinでつくりました。&lt;/p>
+&lt;h2 id="liveディスクで起動する">Liveディスクで起動する
+&lt;/h2>&lt;p>今回はUnetbootinで試したので、起動時に「Default」を選んで通常のLiveモードで起動させました。&lt;/p>
+&lt;h2 id="インストーラを起動する">インストーラを起動する
+&lt;/h2>&lt;p>SereneLinuxの場合はデスクトップにある「Install SereneLinux_ほげほげ」を起動です。&lt;br>
+ちなみにこの段階でWiFiなどでネットワークにつないでおくと、インストール時にアップデートやその他ドライバとかが自動でインストールされて便利ですね。&lt;/p>
+&lt;p>その後、言語やキーボード、アップデート周りの項目を進めていきます&lt;/p>
+&lt;h2 id="パーティションを構成する">パーティションを構成する
+&lt;/h2>&lt;p>どのようにインストールするかを聞かれた際、一番下の「&lt;strong>それ以外&lt;/strong>」を選択します。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;p>パーティションの分割については人それぞれあると思うので、ここで詳しくは触れませんが、今回はこのようにしました。&lt;br>
+先頭のWindowsXPのパーティションは基本パーティション、後ろは全て一つの論理(拡張)パーティションです。&lt;br>
+メモリが2GBあるので、Swapに4GBとりました。「/」には52GBもあれば大丈夫でしょう。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;p>そして大事なのが一番下の項目の「ブートローダをインストールするデバイス」です。&lt;br>
+これを/dev/sdaにしてしまうと、ブートローダがNTLDRやWindowsBootManagerからGrubに書き変わってしまいます。&lt;br>
+今回の場合はLinuxをインストールする領域が/dev/sda5なので、プルダウンメニューから「/dev/sda5」に切り替えます。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;p>その後は画面に従ってタイムゾーンやユーザー名を設定し、ファイルコピーを開始させます。&lt;/p>
+&lt;h2 id="windowsvista以降の場合">WindowsVista以降の場合
+&lt;/h2>&lt;p>~&lt;del>WindowsVista以降(NT6.x以降)の場合は、EasyBCDが利用できるので、この先の作業は適用できません。&lt;br>
+再起動後、WindowsにEasyBCDをインストールし、ブートメニューに/dev/sda5(今回の場合)にインストールしたGrub2を追加してください。&lt;br>
+参考URL→http://www7b.biglobe.ne.jp/&lt;del>shinou/ubuntu/ubuntu001.html&lt;/del>&lt;/del>&lt;/p>
+&lt;p>2019/04/16追記&lt;br>
+Windows7でやってみましたが､EasyBCD付属のGrub4DOSの使い勝手がよくわからず､起動できなかったので､下にWindowsBootManagerでの手順も追加しました。&lt;/p>
+&lt;h2 id="grub4dosを導入する">Grub4DOSを導入する
+&lt;/h2>&lt;p>画面の指示に従って再起動します。&lt;br>
+おそらく今インストールしたLinuxではなく、Windowsが立ち上がってくるはずです。&lt;br>
+(場合によってはチェックディスクが走ることがあります。時間はかかりますが、走らせておくとよいでしょう。EaseUS Partition Masterとかで事前にWindows側でパーティションを切っておけばチェックディスクは走らないかもしれません。)&lt;/p>
+&lt;h3 id="grub4dosのダウンロードと配置">Grub4DOSのダウンロードと配置
+&lt;/h3>&lt;p>&lt;a class="link" href="https://sourceforge.net/projects/grub4dos/files/GRUB4DOS/" target="_blank" rel="noopener"
+>https://sourceforge.net/projects/grub4dos/files/GRUB4DOS/&lt;/a>&lt;/p>
+&lt;p>ここからGrub4DOSをダウンロードしてきます(20190409現在のファイル: grub4dos-0.4.4.zip)&lt;/p>
+&lt;p>展開したあと､&lt;br>
+WindowsXP以前の場合は「grldr」(拡張子なし)をCドライブ直下にコピーします。&lt;br>
+WindowsVista以降の場合は｢grldr.mbr｣をコピーします。&lt;/p>
+&lt;h3 id="ブートエントリの追加">ブートエントリの追加
+&lt;/h3>&lt;h4 id="ntldrの場合-bootiniの編集">NTLDRの場合: boot.iniの編集
+&lt;/h4>&lt;p>C:\boot.iniを編集します。&lt;br>
+この後の作業で改行がLFだけのファイル作成が必要になるので、この段階からnotepad++やgPad、TeraPadといったLF改行コード対応のエディタを使いましょう。&lt;br>
+隠しファイルが表示される設定になっていない場合は、設定変更で見れるようにしておいてください。&lt;/p>
+&lt;p>boot.iniの最終行に、&lt;/p>
+&lt;div>&lt;div class="codeblock--name">boot.ini&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="line">&lt;span class="cl">&lt;span class="na">C:\grldr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;SereneLinux&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>と追記します。(念のためですが、boot.iniはCRLFです）&lt;br>
+「SereneLinux」の部分は、NTLDRに表示される名前ですので、好きにどうぞ。&lt;/p>
+&lt;h3 id="windowsbootmanagerの場合-bcdエントリの追加">WindowsBootManagerの場合: BCDエントリの追加
+&lt;/h3>&lt;p>(下記の参考リンクのUbuntu Wiki見たほうがわかりやすいかも)&lt;br>
+コマンドプロンプトにて､&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">bcdedit /create /d &lt;span class="s2">&amp;#34;SereneLinux&amp;#34;&lt;/span> /application BOOTSECTOR&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>「SereneLinux」の部分は、WBMに表示される名前ですので、好きにどうぞ。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">エントリ {~~~~~} は正常に作成されました。&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>とでるので､{~~~~~}をコピーします。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">bcdedit /set {~~~~~} device partition=C:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bcdedit /set {~~~~~} path \grldr.mbr
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bcdedit /displayorder {~~~~~} /addlast&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>でGrub4DOSをWindowsBootManagerに追加できます。&lt;/p>
+&lt;h3 id="menulstの作成">menu.lstの作成
+&lt;/h3>&lt;p>C:\に、Grubに「ここにLinuxがありますよー」と教えてあげるための”menu.lst”を作成します。&lt;br>
+このファイルは改行コードがLFである必要があります。&lt;br>
+ファイルの新規作成で行ってください。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">menu.lst&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">title&lt;/span> &lt;span class="n">SereneLinux&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">root&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">hd0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chainloader&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>例によってtitleのあとの文字列は名前なので自由です。&lt;/p>
+&lt;p>ここで注意してほしいのが、「(hd0,4)」です。&lt;br>
+この0と4はそれぞれドライブの番号とパーティションの番号を示しています。&lt;br>
+で、この番号に関してはいろいろ規則などがあるのですが、調べてもそれがうまく動かなかったので、次の章で説明します。&lt;br>
+とりあえずmenu.lstを作った状態で、再起動してみましょう。&lt;/p>
+&lt;h3 id="grub4dosを起動する">Grub4DOSを起動する
+&lt;/h3>&lt;p>再起動すると、ブートメニューに「SereneLinux(さっきboot.ini/cmdで打った名前）」が出てくるはずです。&lt;br>
+それを選択し、Enterで起動させると、Grubが表示されます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;br>
+ここでEnterで起動させたとき、うまくいけば起動するのですが、おそらく起動しない場合がほとんどのはず？です。&lt;br>
+本来は5-3の段階で正しく記載していればいいのですが、私の場合ダメでした(以下の方法で調べた結果がhd0,4です)&lt;/p>
+&lt;ol>
+&lt;li>grubメニューが出ている段階で「c」を押す(コマンドラインの起動)&lt;/li>
+&lt;li>「root (」まで打ってTabキー&lt;br>
+&lt;strong>注意&lt;/strong> JISキーボードの場合&amp;quot;(&amp;ldquo;はShift+8ですが、GrubではUSキーボード判定なので、Shift+&lt;strong>9&lt;/strong>です。&lt;br>
+これで候補におそらく「hd0 rd」といった表示が出てくるはずです。(読み込んでいるドライブの番号を確認。ドライブが一個しかなければ0のはず)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/li>
+&lt;li>「root (hd0,」まで打ってTabキー&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/li>
+&lt;li>ext2fsと表示されている番号を確認
+↑この写真の場合はFilesystem type is ext2fsと表示されているのが”Partition num: 4”なので、4番ということになります。
+もし4であれば、変更の必要はないのでEscを押し、9.に飛んでください。&lt;/li>
+&lt;li>Escでメニューに戻る&lt;/li>
+&lt;li>root (hd0,4)にカーソルを合わせ、「e」を押す&lt;/li>
+&lt;li>hd0,4の4を消し、4.で調べた番号にする&lt;/li>
+&lt;li>Enterでメニューに戻る&lt;/li>
+&lt;li>「b」を押す&lt;/li>
+&lt;/ol>
+&lt;p>これで/dev/sda5に入ったGrubが起動するはずです。(ちょっとややこしいですね)&lt;br>
+その後、一番上の項目をEnterで起動すれば、無事にインストールしたLinuxが起動します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;h3 id="menulstを編集する">menu.lstを編集する
+&lt;/h3>&lt;p>前項で番号を編集した場合、その編集はmenu.lstに書き込まれてはいないので、menu.lstを編集する必要があります。&lt;br>
+これはLinuxやWindowsどちらからでもできますので、変えておきましょう。&lt;br>
+( &lt;code>root (hd0,4)&lt;/code>の&lt;strong>4&lt;/strong>のところ )&lt;/p>
+&lt;p>&lt;strong>2019/12/25追記&lt;/strong>
+ちなみに無理やり強引でな方法ではありますが､Grub4DosとGrub2のタイムアウト時間を無くすことで､一発でLinuxをNTLDR/WindowsBootManagerから起動させることができます。&lt;br>
+もし環境構築が終わって問題なさそうならやってみてもいいかもしれません。&lt;br>
+ですが､Grub4Dosはいいとして､Grub2になんらかの変更が必要になった場合は､一度ライブ起動でLinuxを立ち上げ､Grub2の設定ファイルを書き換えるなど､若干面倒な作業が必要になることも頭に入れておいてください。&lt;/p>
+&lt;h2 id="インストールしたlinuxで遊ぶ">インストールしたLinuxで遊ぶ
+&lt;/h2>&lt;p>お疲れ様でした。&lt;br>
+これでWubiを使わないでも、Windowsのブート周りに大きな改変を加えないでLinuxを起動させることができます。&lt;br>
+今回はUbuntu系ディストリ(SereneLinux)でしたが、Grub2を使うLinuxディストリであればほとんど使うことができるはずです。&lt;br>
+良いLinuxライフをお過ごしください。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46.png"
+width="912"
+height="684"
+srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;h2 id="参考にしたurl">参考にしたURL
+&lt;/h2>&lt;ul>
+&lt;li>大まかな流れ(Windows10のWBMを使ってUbuntu16.10?をインストールしている。今回の場合のWBM版)
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://ameblo.jp/yoshihirow/entry-12211040971.html" target="_blank" rel="noopener"
+>Windows10 に Ubuntu16を足す | ろっひー&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Ubuntu Japanese Team WikiのGrub4DOSに関するページ
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://wiki.ubuntulinux.jp/UbuntuTips/UsbInstall/BootUbuntuInUsbWithBiosWithoutSupportForUsb/Grub4dos" target="_blank" rel="noopener"
+>grub4dos を利用するための準備&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Grub4DOSの使い方
+&lt;ul>
+&lt;li>&lt;a class="link" href="http://www10.plala.or.jp/palm84/grub4dos.html" target="_blank" rel="noopener"
+>GRUB for DOS めも&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>Ubuntu 18.04.2でxrdp(のXorgモード)が使えないので一時的に凌ぐ</title><link>https://blog.mikuta0407.net/posts/2019/20190318-xrdp-with-ubuntu1804-workaround/</link><pubDate>Mon, 18 Mar 2019 16:56:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2019/20190318-xrdp-with-ubuntu1804-workaround/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>おそらくすでにたくさんある情報のn番煎じなんですが､Ubuntu18.04.2に関する情報がかなり少なかったので､同じような人がいたとき用に書いておきます。&lt;br>
+(ちなみに試した環境はXubuntuですが､コマンド的にどのフレーバーでも動きそうな気がします)&lt;/p>
+&lt;h2 id="xrdpがubuntu18042で使えないらしい">xrdpがUbuntu18.04.2で使えないらしい
+&lt;/h2>&lt;p>&lt;a class="link" href="https://note.spage.jp/archives/576" target="_blank" rel="noopener"
+>https://note.spage.jp/archives/576&lt;/a>&lt;br>
+&lt;a class="link" href="https://ubuntuforums.org/showthread.php?t=2413157" target="_blank" rel="noopener"
+>https://ubuntuforums.org/showthread.php?t=2413157&lt;/a>&lt;br>
+ここの情報のおかげでわかったのですが､どうも18.04.2ではxrdpのXorgモードを使う際に必要なxorgxrdpが対応していない?らしく､(少なくとも簡単には)動かないようです。&lt;/p>
+&lt;p>無理に弄って壊しても嫌ですし､いつか対応することを前提に､xorg経由ではなく、X11VNC経由でXRDPを使うことで凌ぎます。&lt;/p>
+&lt;h2 id="1-x11vncをインストールする">1. x11vncをインストールする
+&lt;/h2>&lt;p>本来であればsudo apt install xrdpと少しの操作で使えるようになるはずのxrdpがXorgモードで使えないということなので､できるだけ手間を省いていきます。
+(xrdpは入ってる前提)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install x11vnc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">x11vnc -storepasswd &lt;span class="c1">#パスワードを設定します&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo nano /etc/xrdp/xrdp.ini&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="2-xrdpの設定を変える">2. xrdpの設定を変える
+&lt;/h2>&lt;p>xrdpの設定ファイルで､Xvncに関する設定を少し変更します&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/etc/xrdp/xrdp.ini&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Xvnc]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Xvnc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">lib&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">libvnc.so&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">username&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">ask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">password&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">ask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ip&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">localhost &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ↑ここを一応127.0.0.1からlocalhostに変えておく&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">5900 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ↑-1を5900に&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これで設定は終わりです。&lt;/p>
+&lt;h2 id="3-x11vncを起動してrdpクライアント経由でつなぐ">3. X11VNCを起動して、RDPクライアント経由でつなぐ
+&lt;/h2>&lt;p>あとは&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">x11vnc -localhost -forever -bg -display :0&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>を叩いておけば､&lt;/p>
+&lt;ul>
+&lt;li>localhostのみに(-localhost)､&lt;/li>
+&lt;li>ずっと(-forever)､&lt;/li>
+&lt;li>バックグラウンドで(-bg)&lt;/li>
+&lt;/ul>
+&lt;p>開くVNCサーバーが立ち上がります。&lt;/p>
+&lt;p>あとは、先程の設定のおかげでXRDPがVNC経由でつないでくれますので、お好きなRDPクライアントで接続しましょう。&lt;/p>
+&lt;p>VPSみたいに生VNCが危なくて使えないときには､xrdpを経由することでちょっと安全な認証が使えますので､そういうときにいいですね。&lt;br>
+xorgxrdpがちゃんと対応しない間はこれで凌ごうと思います。&lt;/p>
+&lt;p>(2020/02/03編集: XRDPの代わりにVNCで繋げばいいじゃんみたいな表現に見えた気がするのですこし修正しました)&lt;/p></description></item></channel></rss>

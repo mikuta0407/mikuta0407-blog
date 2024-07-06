@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Misskey on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/misskey/</link><description>Recent content in Misskey on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Fri, 16 Dec 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/misskey/index.xml" rel="self" type="application/rss+xml"/><item><title>GoでMisskeyのCLIクライアントを作った話 (Misskey Advent Calender 2022)</title><link>https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/</link><pubDate>Fri, 16 Dec 2022 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/misskey-cli-scr.png" alt="Featured image of post GoでMisskeyのCLIクライアントを作った話 (Misskey Advent Calender 2022)" />&lt;p>この記事は&lt;a class="link" href="https://adventar.org/calendars/7354" target="_blank" rel="noopener"
+>Misskey Advent Calendar 2022&lt;/a> 16日目の記事です。&lt;/p>
+&lt;p>こんにちは。たっくん(@mikuta0407)です。&lt;/p>
+&lt;p>GoでMisskeyのCLIクライアントを作ったので、宣伝も兼ねてアドカレに参加してみようと思います。よろしくお願いします。&lt;/p>
+&lt;hr>
+&lt;p>早速ですが、こんな感じのCLIなMisskeyクライアントを作りました。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4.png"
+width="3886"
+height="2475"
+srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="157"
+data-flex-basis="376px"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
+>&lt;img src="https://gh-card.dev/repos/mikuta0407/misskey-cli.svg"
+loading="lazy"
+alt="mikuta0407/misskey-cli"
+>&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli&lt;/a>&lt;/p>
+&lt;p>ここで配布してます。&lt;/p>
+&lt;p>もし良ければ是非。Linux(amd64/aarch32/aarch64)/macOS(M1)で動作を確認しています。&lt;/p>
+&lt;p>MITライセンスではありますが、割と適当にお使いください。(使用ライブラリ的にMITライセンスが楽だなとなった感じです)&lt;/p>
+&lt;p>使い方はGitHubのREADMEにあるのである程度割愛するとして、この記事では実装方法について振り返りも兼ねて紹介しようと思います。&lt;/p>
+&lt;p>ちなみに、書いている最中に引用リノートの投稿/表示に対応していないことに気づきましたが、修正する時間がなかったので今後追加予定の機能ということにして……そのまま行きます。&lt;/p>
+&lt;h2 id="動機">動機
+&lt;/h2>&lt;p>mattnさんの&lt;code>twty&lt;/code> (&lt;a class="link" href="https://github.com/mattn/twty" target="_blank" rel="noopener"
+>https://github.com/mattn/twty&lt;/a>) が作業中TwitterのカモフラージュにCLIでTwitterするのに便利だったので、Misskey版っぽいのも作りたいなぁと思い、やってみました。&lt;/p>
+&lt;p>あと、ついでにGoを大真面目に学んでいるところでもあったので、アウトプットという意味でも何か形にしたかったので、「せっかくtwtyがGoなら、Goで作ってシングルバイナリかつマルチプラットフォームやるぞ」という気持ちもありました。&lt;/p>
+&lt;h2 id="使ったもの">使ったもの
+&lt;/h2>&lt;ul>
+&lt;li>Go言語 (1.19)
+&lt;ul>
+&lt;li>標準以外のパッケージ
+&lt;ul>
+&lt;li>github.com/BurntSushi/toml&lt;/li>
+&lt;li>github.com/buger/jsonparser&lt;/li>
+&lt;li>github.com/spf13/cobra&lt;/li>
+&lt;li>golang.org/x/crypto&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Misskey API
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://misskey-hub.net/docs/api/" target="_blank" rel="noopener"
+>https://misskey-hub.net/docs/api/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="各実装部分">各実装部分
+&lt;/h2>&lt;p>ここからは、どんな感じで実装していったのかについて、振り返っていきます。&lt;/p>
+&lt;h3 id="cobra">cobra
+&lt;/h3>&lt;p>サブコマンドを実装するため、cobraを採用し、&lt;code>tl``note``renote&lt;/code> の3つのサブコマンドを実装しました。&lt;/p>
+&lt;p>このサブコマンドの中で更にフラグを使ってモードを分けています。実際に階層を表すと(ただのヘルプの日本語訳になりそうですが)、&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>tl&lt;/code>: TL表示
+&lt;ul>
+&lt;li>&lt;code>-l&lt;/code>: 一度に表示する件数&lt;/li>
+&lt;li>&lt;code>-m&lt;/code>: TLのモード(ホーム/ローカル/グローバル)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>note&lt;/code>: 投稿系
+&lt;ul>
+&lt;li>&lt;code>-d&lt;/code>: 投稿削除&lt;/li>
+&lt;li>&lt;code>-r&lt;/code>: リプライ&lt;/li>
+&lt;li>なし: 通常投稿&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>renote&lt;/code>: リノート
+&lt;ul>
+&lt;li>引用RTには現状対応していません。(簡単にできるんだけどコマンド体系で悩み中)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>共通フラグ
+&lt;ul>
+&lt;li>&lt;code>-c&lt;/code>: コンフィグファイルのパス指定(オプション)&lt;/li>
+&lt;li>&lt;code>-t&lt;/code>: インスタンス切り替え指定 こんな感じになります。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>また、表示件数とTLのモードとコンフィグファイルのパスは指定されなかった場合のデフォルト値を指定している他、インスタンス切り替えに関しては(後述しますが)指定されなかった場合はコンフィグファイルの一番上のインスタンスを使うようにしています。&lt;/p>
+&lt;p>cobra自体の説明はここでしてもあまり意味がないため、これくらいにさせてください。&lt;/p>
+&lt;h3 id="コンフィグ周り">コンフィグ周り
+&lt;/h3>&lt;p>インスタンスの接続情報を持つコンフィグファイルはtoml形式で記述します。&lt;/p>
+&lt;p>(この記事を執筆している段階では、プログラム側からコンフィグファイルを生成する機能は無いので、手動で記述する必要があります。)&lt;/p>
+&lt;p>例:&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="p">[[&lt;/span>&lt;span class="nx">Instance&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">host&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">https&lt;/span>&lt;span class="err">://&lt;/span>&lt;span class="nx">misskey&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">io&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">misskey&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">io&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">token&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">hOgEFuGA&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">username&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">mikuta0407&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>tomlのパースは&lt;code>github.com/BurntSushi/toml&lt;/code>で行っています。&lt;/p>
+&lt;p>インスタンスの接続情報はtoml内に複数記述できるようにしているので、構造体の宣言はインスタンス情報が入った構造体(&lt;code>InstanceInfo&lt;/code>)の配列(&lt;code>Instance&lt;/code>)、というようにしています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">Config&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Instance&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">InstanceInfo&lt;/span> &lt;span class="s">`toml:Instance`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">InstanceInfo&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Host&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`toml:host validate:required`&lt;/span> &lt;span class="c1">// 接続先ホスト
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Name&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`toml:name validate:required`&lt;/span> &lt;span class="c1">// フレンドリ名(-iオプションで指定する文字列)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Token&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`toml:token validate:required`&lt;/span> &lt;span class="c1">// Misskeyのアクセストークン
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">UserName&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`toml:username validate:required`&lt;/span> &lt;span class="c1">// コンソールに表示するユーザー名(本来はなくてもいいがtoml内の識別用に一応
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>そして、&lt;code>toml.DecodeFile&lt;/code>でtomlファイルの内容を構造体配列に入れています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">ParseToml&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fileName&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Config&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">configs&lt;/span> &lt;span class="nx">Config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">toml&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">DecodeFile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fileName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">configs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">configs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>この後は、例えば2つめのインスタンス情報のトークンが欲しければ、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">config.Instance[1].Token&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>のように書くことで取得できるようになります。&lt;/p>
+&lt;p>ちなみに、&lt;code>-i&lt;/code>オプションでインスタンスを指定しなかった場合の挙動ですが、自動で&lt;code>[0]&lt;/code>の内容を使うようにしています。&lt;/p>
+&lt;p>また、インスタンス指定があった場合は&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">isExist&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">include&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">configs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Instance&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">instanceName&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 第1引数で渡したInstanceInfo配列から第2引数のインスタンス名が含まれている添え字を返す
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">instanceInfo&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">configs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Instance&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">]&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>といったコードで、「指定されたインスタンスのフレンドリ名が含まれている添字を取得し、そこの内容を見に行く」という処理をしています。(実際は指定されたものが無かったときのエラーハンドリングもしています)&lt;/p>
+&lt;p>このコンフィグファイル周りの処理は、&lt;code>misskey&lt;/code>パッケージのNewClientでクライアントインスタンス(言葉が厄介になってきた)を作成するときにtomlのパースを呼び出しつつ、インスタンス情報を確定した単一の&lt;code>InstanceInfo&lt;/code>構造体を含むCleiint構造体を返すことで行っています。&lt;/p>
+&lt;p>…日本語で書くとむしろわかりにくいですね。&lt;/p>
+&lt;p>興味がある方は &lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/misskey.go#L18-L48" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/misskey.go#L18-L48&lt;/a> を見ていただけるとわかるかと思います。&lt;/p>
+&lt;h3 id="apiのpost">APIのPOST
+&lt;/h3>&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/apipost.go#L11-L36" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/apipost.go#L11-L36&lt;/a>&lt;/p>
+&lt;p>このコードの話です。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">c&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Client&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">apiPost&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">jsonByte&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">byte&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">endpoint&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewRequest&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">POST&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">InstanceInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Host&lt;/span>&lt;span class="o">+/&lt;/span>&lt;span class="nx">api&lt;/span>&lt;span class="o">/+&lt;/span>&lt;span class="nx">endpoint&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">bytes&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewBuffer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">jsonByte&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">client&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Client&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Do&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resBuf&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">bytes&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Buffer&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">io&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Copy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resBuf&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusCode&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">200&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusCode&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">300&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusCode&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resBuf&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">defer&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>MisskeyのAPIはPOSTにJSONのリクエストボディをくっつけてHTTPのリクエストを送ることでレスポンスをもらえます。&lt;/p>
+&lt;blockquote>
+&lt;p>HTTP APIはすべてPOSTで、リクエスト/レスポンスともにJSON形式です。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;a class="link" href="https://misskey-hub.net/docs/api/" target="_blank" rel="noopener"
+>https://misskey-hub.net/docs/api/&lt;/a>&lt;/p>
+&lt;p>misskeyパッケージの&lt;code>Client&lt;/code>の&lt;code>apiPost&lt;/code>というメソッドで、引数に渡されたJSON文字列とエンドポイント先(API名?)を使ってPOSTしています。&lt;/p>
+&lt;p>この&lt;code>apiPost&lt;/code>というメソッドは、&lt;code>net/http&lt;/code>パッケージの&lt;code>http.NewRequest&lt;/code>を使ってPOSTし、ステータスコードが200であれば返却されたレスポンスボディを&lt;code>Client&lt;/code>構造体内の&lt;code>resBuf&lt;/code>(&lt;code>*bytes.Buffer&lt;/code>)に入れています。(200以外はerrorを返すので受けた側でエラーハンドリング)&lt;/p>
+&lt;p>例えば新規投稿では、&lt;code>apiPost&lt;/code>メソッドにアクセストークンと投稿文字をJSONに流し込んだ&lt;code>jsonByte&lt;/code>(json文字バイト列)と、&lt;code>notes/create&lt;/code>という投稿用エンドポイントを&lt;code>c.apiPost(jsonByte, notes/create)&lt;/code>として渡すことで投稿が出来ます。渡されたエンドポイントの文字列は、最初のコンフィグファイルパースのときに&lt;code>Client&lt;/code>内&lt;code>InstanceInfo.Host&lt;/code>に入っているMisskeyのホスト先に「&lt;code>/api/&lt;/code>」と渡されたエンドポイント名を結合することでリクエスト先を生成しています。&lt;/p>
+&lt;p>アクセストークンについては、リクエストボディのJSON内では&lt;code>i&lt;/code>というパラメータに渡すことで利用ができます。&lt;/p>
+&lt;p>(ちなみに、現状misskey-cliはアクセストークンの取得手段を実装していないため、tomlに記載するアクセストークンはブラウザ版から手動で取得する必要があります)&lt;/p>
+&lt;p>APIのドキュメントを見ると本当に色々と機能があり、眺めてみると面白いのでオススメです。&lt;/p>
+&lt;h3 id="投稿リプライリノート削除">投稿・リプライ・リノート・削除
+&lt;/h3>&lt;h4 id="投稿">投稿
+&lt;/h4>&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L10-L40" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L10-L40&lt;/a>この関数の話です。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">c&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Client&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">CreateNote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">text&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">body&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">I&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:i`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Text&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:text`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">I&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">InstanceInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Token&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Text&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">jsonByte&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Marshal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">body&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">apiPost&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">jsonByte&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">notes&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">create&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resBuf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Bytes&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">createdNote&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">text&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resBuf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Bytes&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">createdNote&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Create&lt;/span> &lt;span class="nx">Note&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">@&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">InstanceInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UserName&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="p">(&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">InstanceInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Host&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printLine&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">str&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Sprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Note&lt;/span> &lt;span class="nx">Success&lt;/span>&lt;span class="p">!&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="nb">string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">str&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>Misskeyのノート投稿のAPI仕様は、&lt;/p>
+&lt;p>&lt;a class="link" href="https://misskey-hub.net/docs/api/endpoints/notes/create.html" target="_blank" rel="noopener"
+>https://misskey-hub.net/docs/api/endpoints/notes/create.html&lt;/a>にありますが、&lt;/p>
+&lt;p>&lt;code>&amp;lt;host&amp;gt;/api/notes/create&lt;/code>宛に、トークンと投稿内容をリクエストボディに入れてPOSTすることで投稿ができます。&lt;/p>
+&lt;p>curlで投稿をしてみると、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">curl -X POST -d &amp;#39;{i:hogehugaToken, text:ねこはいます ねこでした。}&amp;#39; https://misskey.io/api/notes/create&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>を実行すれば、&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG.png"
+width="870"
+height="858"
+srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="101"
+data-flex-basis="243px"
+>&lt;/p>
+&lt;p>このように投稿ができます。(投稿したらすぐにスタンプが付いた。これぞMisskey)&lt;/p>
+&lt;p>この新規投稿に関しては、Client構造体のメソッド&lt;code>CreateNote&lt;/code>として実装しました。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L10-L40" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L10-L40&lt;/a>&lt;/p>
+&lt;p>引数に渡されたテキストをbody用構造体にトークンとともに入れてjson.Marshalで文字バイト列&lt;code>jsonByte&lt;/code>を作成し、先述のapiPostに&lt;code>jsonByte&lt;/code>とエンドポイント先を渡すことで、投稿をしています。&lt;/p>
+&lt;p>misskey-cliで投稿をすると、以下のように投稿IDと投稿内容が表示されるようになっています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ ./misskey-cli note -i io 眠すぎる
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">misskey-cli Create Note: @mikuta0407 &lt;span class="o">(&lt;/span>https://misskey.io&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">=====================================&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Note Success! id : 98jwnbd39s
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">眠すぎる&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>この部分は、POSTしたときに戻ってきたJSONから値を取り出しています。&lt;/p>
+&lt;p>戻ってくるJSONは以下のようになっています。(実装上はClient構造体内&lt;code>resBuf&lt;/code>に入っています)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">createdNote:&lt;/span> &lt;span class="err">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">id:&lt;/span> &lt;span class="err">98jwi9p10i,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">createdAt:&lt;/span> &lt;span class="err">2022-12-09T09:59:52.981Z,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">userId:&lt;/span> &lt;span class="err">8rhxi7gw77,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">user:&lt;/span> &lt;span class="err">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">id:&lt;/span> &lt;span class="err">8rhxi7gw77,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">name:&lt;/span> &lt;span class="err">null,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">username:&lt;/span> &lt;span class="err">mikuta0407,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">host:&lt;/span> &lt;span class="err">null,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">avatarUrl:&lt;/span> &lt;span class="err">https:&lt;/span>&lt;span class="c1">//s3.arkjp.net/misskey/thumbnail-b13bb7e7-c86b-47f4-bed7-aee75c5febf6.webp,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="err">avatarBlurhash:&lt;/span> &lt;span class="err">yILWR+-U7fS$xGX9s900WB9cR-xskCWBAwR*&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="err">TsmWBnPOE~CRk-pxaIVaes.Ads:xZjbNaS#r@%gkCNFWBWXi&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="err">tQ=yjZI;R*xGt6WC,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">avatarColor:&lt;/span> &lt;span class="err">null,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">emojis:&lt;/span> &lt;span class="err">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">onlineStatus:&lt;/span> &lt;span class="err">active,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">driveCapacityOverrideMb:&lt;/span> &lt;span class="err">null&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">text:&lt;/span> &lt;span class="err">ねこはいます&lt;/span> &lt;span class="err">ねこでした,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">cw:&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">visibility:&lt;/span> &lt;span class="err">public,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">renoteCount:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">repliesCount:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">reactions:&lt;/span> &lt;span class="p">{}&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">emojis:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">fileIds:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">files:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">replyId:&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">renoteId:&lt;/span> &lt;span class="kc">null&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>この中で表示したい部分は&lt;code>createNote&lt;/code>の中の&lt;code>id&lt;/code>と、&lt;code>createNote&lt;/code>の中の&lt;code>text&lt;/code>の2つです。&lt;/p>
+&lt;p>Go言語で普通JSONのパースを行うときは、JSONの中身に対応した構造体を宣言してそこにパースしていきますが、Misskeyの返却APIはパラメータが多く、かつ場合によっては中身の構造が増える(特に投稿ではなくRenote/Replyで発生する)ため、PHPの&lt;code>json.decode&lt;/code>のように動的にパースできないGo言語では実装が大変です。&lt;/p>
+&lt;p>そこで、JSONのバイト列からその場で欲しい値をキー名ベースで持ってきてくれる&lt;code>github.com/buger/jsonparser&lt;/code>を使って値を取得することにしました。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resBuf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Bytes&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">createdNote&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">text&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resBuf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Bytes&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">createdNote&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">)&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これであれば構造体をわざわざ宣言する必要がないので、JSONの構造が変わったとしても対応が可能となります。&lt;/p>
+&lt;p>あとは&lt;code>id&lt;/code>と&lt;code>text&lt;/code>を&lt;code>fmt.Sprintf&lt;/code>等で表示すればよいので、このライブラリには大変助けれられました。&lt;/p>
+&lt;h4 id="リプライ">リプライ
+&lt;/h4>&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L42-L71" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L42-L71&lt;/a>&lt;/p>
+&lt;p>ここの&lt;code>ReplyNote&lt;/code>関数の話です(CreateNoteと重複する部分が多いためコード貼るのは省略)&lt;/p>
+&lt;p>リプライは投稿と同様に&lt;code>notes/create&lt;/code>のAPIを使用します。&lt;/p>
+&lt;p>先程はリクエストボディ内はトークンと内容だけでしたが、リプライするには&lt;code>replyId&lt;/code>を追加することでリプライが出来ます。&lt;/p>
+&lt;p>replyIdを追加することで、指定したノートのID(ノートのURL等で最後についている文字列。↑の投稿例だと&lt;code>98jwnbd39s&lt;/code>がノートID)にリプライをする、指示しています。&lt;/p>
+&lt;p>&lt;code>-r&lt;/code>オプションでもらったreplyIdを追加して新規投稿と同様にPOSTしているだけなので、後の解説は割愛します。&lt;/p>
+&lt;h4 id="リノート">リノート
+&lt;/h4>&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L73-L100" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L73-L100&lt;/a>&lt;/p>
+&lt;p>ここの&lt;code>RenoteNote&lt;/code>関数の話です。コード貼るのは省略。&lt;/p>
+&lt;p>リノートも投稿・リプライと同様に&lt;code>notes/create&lt;/code>のAPIを使用します。&lt;/p>
+&lt;p>リプライの時の&lt;code>replyId&lt;/code>の代わりに&lt;code>renoteId&lt;/code>を付与してPOSTするだけでリノートが出来ます。&lt;/p>
+&lt;p>現状misskey-cliでは実装できていませんが、引用リノートがMisskeyには存在します。&lt;/p>
+&lt;p>引用リノートをする場合は、リプライとほぼ同じようにトークン・renoteId・テキストの3つをPOSTすることで引用リノートができます。&lt;/p>
+&lt;p>(余談) クライアントである以上はmisskey-cliでもちゃんと追加はしたいのですが、 &lt;code>misskey-cli renote 98jwnbd39s&lt;/code>といったようにすることでリノートをするよう実装してしまったため、引用リノートをするときはどういうコマンド/オプション体系にすればいいかを悩んでしまっています。&lt;/p>
+&lt;h4 id="削除">削除
+&lt;/h4>&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L102-L127" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L102-L127&lt;/a>&lt;/p>
+&lt;p>ここの&lt;code>DeleteNote&lt;/code>関数の話です。&lt;/p>
+&lt;p>削除はエンドポイントこそ&lt;code>api/notes/delete&lt;/code>と投稿系と異なりますが、リクエストボディ自体はほぼリノートと同様で、トークンと削除したい&lt;code>noteId&lt;/code>を指定してPOSTすることで削除が行なえます。&lt;/p>
+&lt;p>(これ以上書くことがない)&lt;/p>
+&lt;h3 id="tl取得">TL取得
+&lt;/h3>&lt;p>TL取得が一番時間がかかった部分です。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/main/misskey/gettimeline.go" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/main/misskey/gettimeline.go&lt;/a>&lt;/p>
+&lt;p>このコードの話です。&lt;/p>
+&lt;p>タイムライン取得は、トークンと表示数をリクエストボディに入れ、エンドポイント先を指定することでローカル/グローバル/ホームのTLを指定表示件数分取得することが出来ます。&lt;/p>
+&lt;p>ドキュメント:&lt;/p>
+&lt;ul>
+&lt;li>ローカルTL: &lt;a class="link" href="https://misskey-hub.net/docs/api/endpoints/notes/local-timeline.html" target="_blank" rel="noopener"
+>https://misskey-hub.net/docs/api/endpoints/notes/local-timeline.html&lt;/a>&lt;/li>
+&lt;li>グローバルTL: &lt;a class="link" href="https://misskey-hub.net/docs/api/endpoints/notes/global-timeline.html" target="_blank" rel="noopener"
+>https://misskey-hub.net/docs/api/endpoints/notes/global-timeline.html&lt;/a>&lt;/li>
+&lt;li>ホームTL: &lt;a class="link" href="https://misskey-hub.net/docs/api/endpoints/notes/timeline.html" target="_blank" rel="noopener"
+>https://misskey-hub.net/docs/api/endpoints/notes/timeline.html&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>例えば、ローカルTLの取得(最新2件)をcurlでやるとすると、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">curl -X POST -d &amp;#39;{i:hogehugaToken, limit:2}&amp;#39; https://misskey.io/api/notes/local-timeline&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>となります。&lt;/p>
+&lt;p>実際にcurlで最新1件のノートを取得してみると、こんなJSONが降ってきます。(とりあえず1件)、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">id:&lt;/span> &lt;span class="err">98iwcr1ime,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">createdAt:&lt;/span> &lt;span class="err">2022-12-08T17:07:49.350Z,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">userId:&lt;/span> &lt;span class="err">8rhxi7gw77,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">user:&lt;/span> &lt;span class="err">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">id:&lt;/span> &lt;span class="err">8rhxi7gw77,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">name:&lt;/span> &lt;span class="err">null,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">username:&lt;/span> &lt;span class="err">mikuta0407,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">host:&lt;/span> &lt;span class="err">null,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">avatarUrl:&lt;/span> &lt;span class="err">https:&lt;/span>&lt;span class="c1">//s3.arkjp.net/misskey/thumbnail-b13bb7e7-c86b-47f4-bed7-aee75c5febf6.webp,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="err">avatarBlurhash:&lt;/span> &lt;span class="err">yILWR+-U7fS$xGX9s900WB9cR-xskCWBAwR*&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="err">TsmWBnPOE~CRk-pxaIVaes.Ads:xZjbNaS#r@%gkCNFWBWXi&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="err">tQ=yjZI;R*xGt6WC,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">avatarColor:&lt;/span> &lt;span class="err">null,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">emojis:&lt;/span> &lt;span class="err">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">onlineStatus:&lt;/span> &lt;span class="err">online,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">driveCapacityOverrideMb:&lt;/span> &lt;span class="err">null&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">text:&lt;/span> &lt;span class="err">お腹空いてきちゃった・・・&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">cw:&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">visibility:&lt;/span> &lt;span class="err">public&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">renoteCount:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">repliesCount:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">reactions:&lt;/span> &lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">emojis:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">fileIds:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">files:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">replyId:&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">renoteId:&lt;/span> &lt;span class="kc">null&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>こんな感じでjson配列がもらえます。この配列を&lt;code>jsonparser.ArrayEach&lt;/code>を使って要素ごとに処理しTL表示をしています。&lt;/p>
+&lt;p>TLを構築する投稿のパターンは通常投稿・リプライ・リノートの3つがあります。執筆時点では引用リノートに非対応ですが(ごめんなさい)、これら3つのパターン分けは、&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>renoteId&lt;/code>があるか→あればリノート&lt;/li>
+&lt;li>&lt;code>replyId&lt;/code>があるか→あればリプライ投稿&lt;/li>
+&lt;li>両方無かったら→通常投稿 という分岐で行うことが出来ます。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/gettimeline.go#L59-L96" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/gettimeline.go#L59-L96&lt;/a>&lt;/p>
+&lt;h3 id="通常投稿">通常投稿
+&lt;/h3>&lt;p>通常投稿の場合は、上記例のパターンのJSONが降ってきます。&lt;/p>
+&lt;p>そして、コンソールへの表示は&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">2022/12/14 23:29:29 名前(@ID) 本文 (添付有り)(98abcdef)&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>といったようにするため、JSONの中で必要なものは - 投稿者名(&lt;code>user.name&lt;/code>)&lt;/p>
+&lt;ul>
+&lt;li>投稿者ID(&lt;code>user.username&lt;/code>)(@hogeで始まるもの)&lt;/li>
+&lt;li>投稿者インスタンスホスト名(&lt;code>user.host&lt;/code>)(@hoge@&lt;strong>misskey.io&lt;/strong>の部分)&lt;/li>
+&lt;li>投稿時間(&lt;code>createdAt&lt;/code>)&lt;/li>
+&lt;li>本文(&lt;code>text&lt;/code>)&lt;/li>
+&lt;li>投稿ID(&lt;code>id&lt;/code>)&lt;/li>
+&lt;li>猫フラグ(&lt;code>user.isCat&lt;/code>)&lt;/li>
+&lt;li>添付ファイル情報(&lt;code>files&lt;/code>) となります。&lt;/li>
+&lt;/ul>
+&lt;p>これらを取り出しているのが、&lt;code>pickNote&lt;/code>関数となります。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/gettimeline.go#L111-L158" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/gettimeline.go#L111-L158&lt;/a>&lt;/p>
+&lt;p>この関数に投稿のjson配列の1要素のバイト列を渡すし、新規投稿のところでも書いた&lt;code>jsonparser&lt;/code>を使って、json用の構造体の宣言なしに値を取り出しをしています。(&lt;code>noteData&lt;/code>という取り出した値を入れる構造体は作っています。)&lt;/p>
+&lt;p>hostに記載があれば他インスタンス投稿なのでそのホスト名を表示したり、isCatのフラグがあれば名前の後に&lt;code>(Cat)&lt;/code>を付加して猫であることをわかるようにしたり、添付ファイルが1つでもあれば&lt;code>(添付あり)&lt;/code>と表示するなどしたりなど、簡易的な閲覧であれば十分と思われる情報量を表示しています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">noteData&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">offset&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">timestamp&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">username&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">host&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">text&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">attach&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">id&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">isCat&lt;/span> &lt;span class="kt">bool&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">pickNote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">byte&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">noteData&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">note&lt;/span> &lt;span class="nx">noteData&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="kt">error&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 投稿者
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//投稿者ID
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">username&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">username&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//ホスト名
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">host&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">host&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">username&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">username&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="err">@&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">host&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 投稿時刻
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timestamp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">createdAt&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">t&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ParseInLocation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2006&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mo">01&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mo">02&lt;/span>&lt;span class="nx">T15&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mo">04&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mo">05&lt;/span>&lt;span class="nx">Z&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timestamp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UTC&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timestamp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">t&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">In&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">time&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Local&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nf">Format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2006&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mo">01&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mo">02&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mo">04&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mo">05&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 本文
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//投稿ID(元投稿)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//ねこかどうか
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">isCat&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetBoolean&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">isCat&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">isCat&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Cat&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ファイルが有れば
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">filesId&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">files&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">filesId&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">note&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">attach&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">添付有り&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">note&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>ちなみに、名前欄を赤色にしたり、添付がある場合に緑、投稿IDを青にしているは、&lt;code>\x1b[35m%s(@%s)\x1b[0m\t&lt;/code>といったようなエスケープシーケンスを使って、標準出力側で装飾を指定することで実装しています。(リプライの場合はピンクに)&lt;/p>
+&lt;h4 id="リプライ-1">リプライ
+&lt;/h4>&lt;p>リプライがある場合は、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">2022/12/14 23:55:06 名前(@ID@host) リプライ元の投稿 (98xxxxxxxx)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2022/12/14 23:56:38 名前(@ID@host) リプライ投稿の本文 (添付有り)(98aaaaaaaa)&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>といったように表示されます。&lt;/p>
+&lt;p>一見リプライ元の投稿の情報を別に取りに行ってるように見えますが、実際はリプライの投稿のJSON内に&lt;code>reply&lt;/code>という要素があり、その中に通常投稿と同じデータ構造で投稿内容が入っています。なので、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">replyParentValue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reply&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">replyParent&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">pickNote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">replyParentValue&lt;/span>&lt;span class="p">)&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>と書くだけで、リプライ元の投稿の情報を&lt;code>pickNote&lt;/code>を使って持ってくることが出来るのです。&lt;/p>
+&lt;p>また、リプライはぶら下がっている印象があるので、&lt;code>noteData&lt;/code>構造体にある&lt;code>offset&lt;/code>にスペース4つをいれ、行頭に挿入することでぶら下がりを表現しています。&lt;/p>
+&lt;h4 id="リノート-1">リノート
+&lt;/h4>&lt;p>リノートの表示方法もリプライのリプライ元表示に似ています。リプライが&lt;code>reply&lt;/code>要素に投稿が入っていたのと同様に、リノートでも&lt;code>renote&lt;/code>要素に投稿が入っているので、&lt;code>renote&lt;/code>要素を取り出したものを&lt;code>pickNote&lt;/code>に渡すことで投稿内容を取得しています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">renoteValue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">jsonparser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">renote&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">note&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">pickNote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">renoteValue&lt;/span>&lt;span class="p">)&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>また、リノートの場合は行頭に&lt;code>[RN]&lt;/code>を付加することでリノートであることを表現しています。&lt;/p>
+&lt;h3 id="その他表示に関わる部分いつかなにか改善したら追記">その他表示に関わる部分(いつかなにか改善したら追記)
+&lt;/h3>&lt;h4 id="1行の文字数">1行の文字数
+&lt;/h4>&lt;p>&lt;img src="https://blog.mikuta0407.net/img/CQPvwPK.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD.jpg"
+width="3100"
+height="1974"
+srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="157"
+data-flex-basis="376px"
+>&lt;/p>
+&lt;p>misskey-cliでコマンドを叩くと、ヘッダ部分の「=======」の長さがコンソールの幅によって変わることがわかります。&lt;/p>
+&lt;p>この「=======」を表示するのは各機能の関数で&lt;code>fmt.Println&lt;/code>内に書かれている&lt;code>printLine()&lt;/code>という関数が表示しています。&lt;/p>
+&lt;p>このprintLine()は&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/misskey.go#L59-L70" target="_blank" rel="noopener"
+>https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/misskey.go#L59-L70&lt;/a>&lt;/p>
+&lt;p>でこのように記述しています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">printLine&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">width&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">terminal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetSize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">syscall&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdin&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Error&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="o">%+&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="nx">width&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(=)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="nx">n&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;code>terminal.GetSize(syscall.Stdin)&lt;/code>はターミナルの横幅を取得する関数です。これで貰えた幅の文字数分、「=」を表示することが出来ます。&lt;/p>
+&lt;p>……実はこれのせいでmisskey-cliはWindows版がありません。WSL1で動くので許して下さい……。&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>やったことをダラダラと書く記事になってしまいましたが、ここまで耐えて読んでくださった方、ありがとうございます。&lt;/p>
+&lt;p>初めて非身内なアドカレに参加し、あまりにも強い方々の投稿を見て焦りのような緊張を感じつつ書いていました。(その割に執筆中に未実装機能に気づくなどしていましたが・・・)&lt;/p>
+&lt;p>今年は色んな意味でFediverseが話題となり、Misskeyにもいろんな投稿が流れてTLが賑わっているのを楽しく見ています。今年はMisskeyでもあけおめ投稿してみようかな・・・&lt;/p>
+&lt;p>そしてTUI版を作ってみようかな・・・(完成するとは言ってない)&lt;/p>
+&lt;p>ありがとうございました!&lt;/p></description></item></channel></rss>

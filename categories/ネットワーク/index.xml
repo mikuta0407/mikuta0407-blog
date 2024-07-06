@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ネットワーク on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/</link><description>Recent content in ネットワーク on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Thu, 13 Feb 2020 16:48:10 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>ブラウザ経由でシェルスクリプト叩いてWake on LANする</title><link>https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/</link><pubDate>Thu, 13 Feb 2020 16:48:10 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>WiFiルーターを買い替えたら、発売日的に6年後のモデルなのに、以前の機種にあった&amp;quot;PCリモート起動&amp;quot;(ルーターのWebツールでWoLのマジックパケットを飛ばせる機能)が消え失せました。(WR8750N→WG1200HS3)&lt;/p>
+&lt;p>ブラウザでWoL飛ばせるのがすごい便利だったのですが、無くなったものは仕方ない。自分でどうにかせねばということで、可能な限り手間を掛けずに今までと同じような機能を作ってみます。&lt;/p>
+&lt;h2 id="必要なもの">必要なもの
+&lt;/h2>&lt;ul>
+&lt;li>家のLANとインターネットに繋がっているRaspberry Pi的なやつ(お好きなものをどうぞ)&lt;/li>
+&lt;/ul>
+&lt;h2 id="どんな感じにするかを考える">どんな感じにするかを考える
+&lt;/h2>&lt;p>&amp;ldquo;PCリモート起動&amp;quot;とはどういう画面だったかを思い出すと……&lt;/p>
+&lt;p>こんな感じでした(実機をしまってしまったので、 &lt;a class="link" href="https://michisugara.jp/archives/2015/home_ip.html" target="_blank" rel="noopener"
+>https://michisugara.jp/archives/2015/home_ip.html&lt;/a> からお借りしました。)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317.png"
+width="198"
+height="150"
+srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="316px"
+>&lt;br>
+題名と端末選択と起動ボタンですね。&lt;br>
+自宅LANで使うだけの無くなった機能を復活させたいだけなので、プルダウンメニューは再現せずに行きます。&lt;/p>
+&lt;h2 id="方針">方針
+&lt;/h2>&lt;ul>
+&lt;li>ラズパイ側はこれだけのためにphpとかPerlとか入れるの面倒なので、シェルスクリプトをCGIとして起動してマジックパケットを飛ばす&lt;/li>
+&lt;li>JavaScriptは使わない&lt;/li>
+&lt;li>HTML5なんて知らん&lt;/li>
+&lt;/ul>
+&lt;h2 id="やることを3行でいうと">やることを3行でいうと・・・
+&lt;/h2>&lt;ul>
+&lt;li>Apache入れてCGIとしてシェルスクリプト実行できるようにする&lt;/li>
+&lt;li>HTML書く&lt;/li>
+&lt;li>シェルスクリプト書く&lt;/li>
+&lt;/ul>
+&lt;h2 id="raspberry-piにapacheとetherwakewol飛ばせるソフトを入れる">Raspberry Piにapacheとetherwake(WoL飛ばせるソフト)を入れる
+&lt;/h2>&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ sudo apt install apache2 etherwake&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="apacheの設定">Apacheの設定
+&lt;/h2>&lt;p>apacheに.shファイルもCGIとして動かしてねってお願いします。&lt;/p>
+&lt;p>/etc/apache2/sites-available/wol.conf というファイルで以下の内容を作成します(ファイル名はわかりやすければ良い)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">ScriptAlias&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">cgi&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">bin&lt;/span>&lt;span class="o">/&lt;/span> &lt;span class="s2">&amp;#34;/var/www/cgi-bin/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="ne">Directory&lt;/span> &lt;span class="s2">&amp;#34;/var/www/cgi-bin&amp;#34;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">AllowOverride&lt;/span> &lt;span class="n">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Require&lt;/span> &lt;span class="n">all&lt;/span> &lt;span class="n">granted&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Options&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="n">ExecCGI&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">MultiViews&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="n">SymLinksIfOwnerMatch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Order&lt;/span> &lt;span class="n">allow&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">deny&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Allow&lt;/span> &lt;span class="n">from&lt;/span> &lt;span class="n">all&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="ne">Directory&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">AddHandler&lt;/span> &lt;span class="n">cgi&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">script&lt;/span> &lt;span class="o">.&lt;/span>&lt;span class="n">sh&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>保存したら今書いた設定を有効化します&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span> &lt;span class="n">sudo&lt;/span> &lt;span class="n">a2ensite&lt;/span> &lt;span class="n">wol&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">conf&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span> &lt;span class="n">sudo&lt;/span> &lt;span class="n">service&lt;/span> &lt;span class="n">apache2&lt;/span> &lt;span class="n">reload&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>apacheがcgiを実行できるようにします&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ sudo a2enmod cgid&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>apacheを再起動します&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ sudo service apache2 restart&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="htmlを書く">HTMLを書く
+&lt;/h2>&lt;p>こんなのを書きました。最低限ですね。&lt;br>
+/var/www/cgi-bin/に、wol.shというファイルを作成する前提です。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/html/index.html&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Wake On Lan&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Wake On Lan&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;location.href=&amp;#39;http://192.168.0.100/cgi-bin/wol.sh&amp;#39;&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>母艦機を起動&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- 二台以上ある場合は、指定するシェルスクリプトの名前を適宜個別に変更して必要数作って羅列しましょう。--&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>こんな感じになります&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709.png"
+width="408"
+height="164"
+srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="248"
+data-flex-basis="597px"
+>&lt;/p>
+&lt;h2 id="シェルスクリプトを書く">シェルスクリプトを書く
+&lt;/h2>&lt;p>/var/www/cgi-binに、wol.shという名前で書きました。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/wol.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/sh -xv
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Content-Type: text/html; charset=UTF-8&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wakeonlan 0a:1b:2c:3d:4e:5f &amp;gt; /dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> マジックパケットを飛ばしました&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>-xvというオプションは、実行した文をそのまま出力するオプションらしいです。書いておいたらapacheのログにコマンド等が残りました。なくてもいいかな?&lt;/p>
+&lt;p>&lt;code>echo &amp;quot;Content-Type: text/html; charset=UTF-8&amp;quot;&lt;/code>はHTMLヘッダです。これがないと結果の画面を表示してくれないので、HTMLヘッダをechoで吐き出してもらいます。&lt;/p>
+&lt;p>&lt;code>wakeonlan 0a:1b:2c:3d:4e:5f &amp;gt; /dev/null&lt;/code>は、WoLのマジックパケットを飛ばしてくれる部分です。MACアドレスは適宜変更してくださいね。 ただ、どうもIPアドレス指定がなかったりすると、CGIとして実行時にエラーを吐き、Internal Server Errorが出ちゃうので、エラーメッセージを/dev/nullに投げてもみ消します。(動けばいいんです。)&lt;/p>
+&lt;p>最後はブラウザに文字を表示するための部分です。表示さえしてもらえればいいので特にタグとかつけませんでした。&lt;/p>
+&lt;p>次にシェルスクリプトを実行できるようにします。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ sudo chmod +x wol.sh&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="試す">試す
+&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a.png"
+width="529"
+height="97"
+srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="545"
+data-flex-basis="1308px"
+>&lt;/p>
+&lt;p>これで対象のマシンが起動してきたら成功です。&lt;/p>
+&lt;h2 id="〆">〆
+&lt;/h2>&lt;p>元の機能よりだいぶ簡略化されましたけど、これで目的が果たされたので満足です。&lt;br>
+ただ元のやつと違って、w3mでボタンが押せなくなったのでHTMLの編集が必要そうです・・・(inputタグでやればいいのか?)&lt;/p>
+&lt;p>Apache経由でシェルスクリプトの実行という部分を応用すれば、色々といろんなことが出来そうな気がします。&lt;/p>
+&lt;h2 id="参考にしたサイト">参考にしたサイト
+&lt;/h2>&lt;ul>
+&lt;li>CGI用のシェルスクリプトの書き方
+&lt;ul>
+&lt;li>「UEC - usp engineers&amp;rsquo; community - UECジャーナル」&lt;/li>
+&lt;li>&lt;a class="link" href="https://uec.usp-lab.com/JOURNAL/CGI/JOURNAL.CGI?POMPA=KAIGAN_journal19" target="_blank" rel="noopener"
+>https://uec.usp-lab.com/JOURNAL/CGI/JOURNAL.CGI?POMPA=KAIGAN_journal19&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>etherwakeについて
+&lt;ul>
+&lt;li>「Raspberry Piで自宅内のWindows機を起動させる (Wake-on-LAN) - たねやつの木」&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.taneyats.com/entry/raspi-wake-on-lan#Raspberry-Pi%E3%81%AE%E8%A8%AD%E5%AE%9A" target="_blank" rel="noopener"
+>https://www.taneyats.com/entry/raspi-wake-on-lan#Raspberry-Pi%E3%81%AE%E8%A8%AD%E5%AE%9A&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>confファイルの書き方
+&lt;ul>
+&lt;li>「ubuntu16.04のApache2設定/cgi設定 - Qiita」&lt;/li>
+&lt;li>&lt;a class="link" href="https://qiita.com/kummn/items/f6bd0f3e643595ed077a" target="_blank" rel="noopener"
+>https://qiita.com/kummn/items/f6bd0f3e643595ed077a&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>個人シンクライアント運用のすゝめ</title><link>https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/</link><pubDate>Tue, 10 Dec 2019 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark.png" alt="Featured image of post 個人シンクライアント運用のすゝめ" />&lt;p>&lt;strong>この記事は&lt;a class="link" href="https://adventar.org/calendars/4282" target="_blank" rel="noopener"
+>Tokyo City University Advent Calendar 2019&lt;/a>の10日目の記事です&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark.png"
+width="1316"
+height="1310"
+srcset="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark_hu5bd1b6055c12d9959a8816cf7fd67d6e_798226_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark_hu5bd1b6055c12d9959a8816cf7fd67d6e_798226_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="シンクライアントを表したかった"
+class="gallery-image"
+data-flex-grow="100"
+data-flex-basis="241px"
+>&lt;/p>
+&lt;p>昨日はらぴーとさんの&lt;a class="link" href="https://rapit.hatenablog.jp/entry/2019/12/09/000000" target="_blank" rel="noopener"
+>SKKを使おう！&lt;/a>でした。GoogleIMEの挙動に指が慣れすぎてるのでなかなかIMEを変えるという発想にはならないのですが、今度仮想のWindows2000かなんかに入れて、ちょっと試してみようかなってなりました。&lt;/p>
+&lt;p>さて、アドベントカレンダー、なんかまだ空きがあるようなのでやってみます。ただそこまで技術系でもないので、放置しまくっていたこのブログに書いてみようと思います。&lt;/p>
+&lt;p>(関係ないですがWordPressにMarkdownでかけるプラグインを入れたところすごい書きやすくなりました。みなさんもぜひ。)&lt;/p>
+&lt;p>さて、今回の記事は、個人シンクライアント運用のすゝめということで、なにかと最近話題になっているシンクライアントをネタにしてみました。&lt;/p>
+&lt;p>みんなもぜひ、やってみてね!&lt;/p>
+&lt;h2 id="シンクライアントって">シンクライアントって?
+&lt;/h2>&lt;p>なんか最近某所で話題になってる&amp;quot;シンクライアント&amp;quot;ですが、じゃあそれは何だというと、「処理はすべてリモート先のコンピュータで行い、手元の端末は表示と入力転送に徹するよ」っていう状態のマシン構成のことです。&lt;/p>
+&lt;p>一般的に、(正しく運用すれば)セキュリティを高められるため、NTTなどの企業でも利用されていることが有名ですね。&lt;/p>
+&lt;p>政府もそうだったそうですが。&lt;/p>
+&lt;h2 id="個人シンクライアント運用って">個人シンクライアント運用って?
+&lt;/h2>&lt;p>今回の記事のために作った言葉ですが、そのまんまです。個人でシンクライアント運用をするんです。&lt;/p>
+&lt;p>もうちょっと詳しく言うと、自宅にそれなりに高性能なマシンを置いておき、普段の作業は持ち運びに全振りしたマシンで行うということです。&lt;/p>
+&lt;p>じゃあそうすることで何が嬉しいのか、ご説明します。&lt;/p>
+&lt;h2 id="メリット">メリット
+&lt;/h2>&lt;h3 id="どの端末からでもいつも同じ環境が使える">どの端末からでもいつも同じ環境が使える
+&lt;/h3>&lt;p>基本的に家にある母艦機を操作するので、母艦機の環境がどこからでも使えることになります。たとえば、大きな画面が使いたいので15インチのラップトップを使ったとしても、あまり大きなマシンが使えないので12インチくらいのモバイルノートを使っても、はたまたGPD PocketのようなUMPCでも、iPadのようなタブレット端末でも、すべてに置いて同じ環境が使えるわけです。「このマシンにはこのデータが入ってないからコピーしないと」とか、「このマシンにはこのソフトが入ってないから家に帰るまで使えない」とか、そういうことがないわけです。&lt;/p>
+&lt;p>キーボードや画面などの理由で実際に母艦機の前に座って作業を行うこともありますが、その途中で外出することになっても、「やってた作業を、電車の中や大学でそのまま引き継いで作業」なんで事もできるわけです。&lt;/p>
+&lt;p>他にも、ベッドでごろ寝しながら作業の続きをしたり、ソファにゆっくり座って、作業の続きをしたりなんてこともできます。&lt;/p>
+&lt;p>これは実際にやってみないとなかなかわからないのですが、一度やると便利さに惚れて手放せなくなります。&lt;/p>
+&lt;h3 id="端末の性能を選ばない">端末の性能を選ばない
+&lt;/h3>&lt;p>先程書いたように、どの端末からでも結果的に母艦機を操作するので、端末側の性能を選びません。最低限の性能(後述)さえあればいいわけです。&lt;/p>
+&lt;p>もちろんMacBook Proや他のゲーミングノートのような高性能なマシンでもいいですが、ラズベリーパイのような弱いマシンでも、2010年くらいのAtom N450くらいのネットブックでもいいのです(バッテリーさえ持てば現役復帰)。Netwalkerだってできます。&lt;/p>
+&lt;p>そんな感じで、全て母艦機で処理をすることで、古い端末や性能的に弱い端末を有効活用する、なんてこともできるわけです。&lt;/p>
+&lt;h3 id="端末の性能を一点集中にできる">端末の性能を一点集中にできる
+&lt;/h3>&lt;p>一つ前の項と似たような感じですが、性能を選ばないということは、端末の性能を、「バッテリーも性能も持ち運びやすさも・・・」と欲張らなくていいのです。&lt;/p>
+&lt;p>外出先で作業をすることを考えたとき、持ち運びやすさやバッテリーの持ちが大切になります。そんなとき、シンクライアント運用をすると、(最初の方にも書きましたが、)性能のために持ち運びやすさを犠牲にすることなく、持ち運びやすさに全振りしたマシンを使うことができます。&lt;/p>
+&lt;p>だから例えば、&amp;ldquo;バッテリーがすごい持つけど性能の低いAtomのマシン&amp;quot;とか、&amp;ldquo;ストレージがすごい少ないけど薄くて軽いChromebook&amp;rdquo;、&amp;ldquo;5VのUSB電源で動くPORTABOOK&amp;quot;といった、ローカルで作業するには力不足を感じるマシンでいいのです。&lt;/p>
+&lt;p>これは毎日の荷物が楽になりますよね。&lt;/p>
+&lt;h2 id="デメリット">デメリット
+&lt;/h2>&lt;p>ここまでメリットを書いてきましたが、じゃあデメリットはあるのかと聞かれると、あります。&lt;/p>
+&lt;p>地味に痛かったりします。&lt;/p>
+&lt;h3 id="回線が命">回線が命
+&lt;/h3>&lt;p>シンクライアントということは、絶対にネットワーク接続が必要です。これがなければどうにもなりません。大学であれば大学のネットワークを利用することができますが、それ以外の場所ではモバイルネットワークに頼ることになります。モバイルネットワークは固定回線に比べると遅延やパケ詰まりもあり、なかなか満足な速度が出ないこともあります。後述しますが、リモートソフトによってはモバイルネットワークでは通信量が気になることになる場合も・・・&lt;/p>
+&lt;h3 id="遅延描画のラグはやっぱり気になる">遅延(描画のラグ)はやっぱり気になる
+&lt;/h3>&lt;p>どうしてもネットワークで画面情報を転送するため、実機よりもスクロールや、動きのあるものに遅延を感じます。&lt;br>
+文字を入力する分には、(回線さえ問題なければ)ほぼ遅延を感じないのですが、ウィンドウの移動やファイルのドラッグアンドドロップ、CSSアニメーション等があると、遅延やｶｸｶｸを感じてしまいます。&lt;br>
+動きのあるゲームなんて以ての外といった感じです(ソリティアとかマインスイーパーは余裕ですけど)&lt;/p>
+&lt;p>回線の問題とラグは、シンクライアントの宿命でもありますので、そこさえ我慢できれば・・・といったところですね。授業のノート取りといったものでは一切回線とラグを気にしなくていいかなと思っています。&lt;/p>
+&lt;h2 id="デメリット2と回線問題の対応策">デメリット2と、回線問題の対応策
+&lt;/h2>&lt;p>ちょっと話が違うので分けました。実はもう一個デメリットがあります。&lt;/p>
+&lt;h3 id="vpnが切れた時ちょっと面倒くさい">VPNが切れた時ちょっと面倒くさい
+&lt;/h3>&lt;p>これは後述するRDPやVNCを使う場合に発生するのですが、VPN接続を使用して接続した場合、回線が安定していないとVPNが切れることがあります。これが地味に面倒で、普通にRDPやVNCが切れただけならすぐに再接続できますが、VPNが切れると、一度VPNを繋ぎ直したり、再接続を待って、それからRDP/VNCを再接続することになります。&lt;/p>
+&lt;p>大学で作業してると、調子がいいときは何も思わないのですが、調子が悪いときはイライラしていまいますね・・・&lt;/p>
+&lt;h3 id="対応策">対応策
+&lt;/h3>&lt;p>VPNとさっきの回線問題は、やはり何かあったときのために対策が必要となります。&lt;/p>
+&lt;p>企業が導入している本当のシンクライアント運用とは違って、普通に汎用OSが走ってるマシンを使うのでできる技でもあります。&lt;/p>
+&lt;h4 id="端末は最低限とはいえブラウザは使えるスペックにしておく">端末は最低限とはいえ、ブラウザは使えるスペックにしておく
+&lt;/h4>&lt;p>ラズパイのように電源が必要なものは自宅運用だと思うのであまり気にしませんが、ノートパソコン系の場合は、最低限ブラウザがそれなりに動くマシンにしておいたほうがいいです。それくらいのスペックなら、本当に緊急時でも単独でそれなりに作業ができますからね。&lt;/p>
+&lt;p>例えば、Atom N450のマシンは化石スペックではあるものの、PaleMoonを使うことでギリギリHackMDのようなノート取るサイトが使えますし、MicrosoftOfficeも2007くらいまでなら動きます。&lt;/p>
+&lt;p>Z3735F搭載のWindowsタブレットやChromebookでも一応はそういうことはできますし、いくら性能を無視できるといっても、非常用にそういうスペックにしておくことは大切です。&lt;/p>
+&lt;h2 id="環境構築">環境構築
+&lt;/h2>&lt;p>さて、ここまで個人シンクライアント運用のメリット・デメリットを書いてきましたが、じゃあどうやるのか、ということになります。&lt;/p>
+&lt;p>リモートソフトにはいくつか種類がありますよね。でもどれを選ぶのがいいのかよくわからないというのをよく聞きます。ではどの環境の時にどのソフトがいいのかを、状態に分けてみましょう&lt;/p>
+&lt;h3 id="候補">候補
+&lt;/h3>&lt;p>(前提:接続先母艦機がWindowsの場合。Linuxの場合は適宜調べてください。でもまぁだいたい一緒です)&lt;/p>
+&lt;h4 id="microsoft-remote-desktop-以下msrdp">Microsoft Remote Desktop (以下MSRDP)
+&lt;/h4>&lt;ul>
+&lt;li>概要
+Windowsに最初から入っているやつです。Windows7だとProfessional以上、Win8以降だとPro以上でないと使えません(&lt;del>パッチを当てて・・・&lt;/del>)&lt;/li>
+&lt;li>メリット
+&lt;ul>
+&lt;li>(すでに使えるエディションの場合、)余計なソフトを&lt;strong>入れずに&lt;/strong>使える&lt;/li>
+&lt;li>Windowsの標準機能なので、&lt;strong>軽い&lt;/strong>&lt;/li>
+&lt;li>他ソフトに比べてかなり&lt;strong>通信量が少ない&lt;/strong>&lt;/li>
+&lt;li>文字入力に関しては&lt;strong>ほぼ遅延を感じない&lt;/strong>&lt;/li>
+&lt;li>他サービスと違って全部自分の環境で組めるので、&lt;strong>安全(企業サービスを通さないという意味で)&lt;/strong>&lt;/li>
+&lt;li>ドライブやプリンタのリダイレクト機能がある&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>デメリット
+&lt;ul>
+&lt;li>外から使う場合には設定が少々複雑。かつ(基本的に)ルーターのFWに穴を開けることになるので、適切に管理をしないと危険(ココに関しては、いくつか他に存在するLAN内用リモートソフトにも共通します)&lt;/li>
+&lt;li>動きのある動作に弱い&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="teamviewer">TeamViewer
+&lt;/h4>&lt;ul>
+&lt;li>概要
+個人は無料で使える、かなり有名なリモートソフト&lt;/li>
+&lt;li>メリット
+&lt;ul>
+&lt;li>Windowsの&lt;strong>エディションを気にしなくていい&lt;/strong>&lt;/li>
+&lt;li>ルータの&lt;strong>FWに穴を開けなくていい&lt;/strong>&lt;/li>
+&lt;li>443番を使うので、串を通してる環境や、ポート&lt;strong>制限をしてる環境でも結構使える&lt;/strong>(企業によってはこれのせいでブロックしてるが)&lt;/li>
+&lt;li>比較的&lt;strong>動きのある画面に強い&lt;/strong>&lt;/li>
+&lt;li>サポート的に人のPCを触ることができる(あくまでもログイン中の画面にアクセスする形。RDPは基本的に接続中は実機側で操作できない)&lt;/li>
+&lt;li>&lt;strong>VPNが要らない&lt;/strong>&lt;/li>
+&lt;li>母艦側がデュアルスクリーンで、クライアントがシングルでも、&lt;strong>両方の画面を切り替えて使う&lt;/strong>ことができる(MSRDPはクライアント側のモニタ数に依存する)&lt;/li>
+&lt;li>&lt;strong>解像度の調節が簡単&lt;/strong>(MSRDPはほぼ自動だが、こちらは手動。その分母艦側に合わせられるし、こちら側にも合わせられるし、その中間も簡単に可能)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>デメリット
+&lt;ul>
+&lt;li>MSRDPと比べるとだいぶ通信量が増える&lt;/li>
+&lt;li>企業サーバー経由なので、安全性は(気にするほどではないとは思うが)気になる人は気になる&lt;/li>
+&lt;li>気にならない気はするが、文字入力でもMSRDP比で遅延を感じることがある&lt;/li>
+&lt;li>アカウントを作成し、母艦機にソフトをインストールする必要がある(基本クライアントにも)&lt;/li>
+&lt;li>&lt;strong>クライアントがLinuxの場合、Windowsキーが使えない。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="chromeリモートデスクトップ">Chromeリモートデスクトップ
+&lt;/h4>&lt;ul>
+&lt;li>メリット
+&lt;ul>
+&lt;li>Google製(だからどうした感はある)&lt;/li>
+&lt;li>Chromeの拡張機能扱いなので、クライアントには&lt;strong>Chromeさえ入ってればいい&lt;/strong>&lt;/li>
+&lt;li>他のメリットはほぼTeamViewerと一緒(なおデメリットとして&lt;strong>相違部があるので注意&lt;/strong>)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>デメリット
+&lt;ul>
+&lt;li>解像度の調節が母艦機のモニタ設定からじゃないとできない(TeamViewerは接続中のみ一時的に切り替えることができる。切断後は自動で戻る)&lt;/li>
+&lt;li>Chromeということは、クライアント側のリソースを食うことになる。バッテリーがちょっと心配。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="vnc">VNC
+&lt;/h4>&lt;p>(RealVNCとかUltraVNCとかです)&lt;/p>
+&lt;ul>
+&lt;li>メリット
+&lt;ul>
+&lt;li>Windowsのエディションを気にしなくていい&lt;/li>
+&lt;li>おそらくTeamViewerやChromeリモートデスクトップよりはホスト/クライアント共に軽い&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>デメリット
+&lt;ul>
+&lt;li>MSRDPとほぼ同様。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="どれを選べばいいんですか">どれを選べばいいんですか!!
+&lt;/h3>&lt;p>ここで大事なのは、まずのネットワーク環境が重要になってきます。&lt;/p>
+&lt;p>まず、MSRDPやVNCは、基本IPアドレス指定で使うもののため、主にLAN内で使うことが前提となって(と思って)います。そのため、外から使う場合には直接自宅ルーターへIPアドレスで指定してアクセスできることが条件となります。もしそれができない環境の場合は、VPS等を借りて、そこにVPNサーバーを建てる必要があります。また、自宅IPにアクセスする場合でも自宅ルーターのFWを突破する必要がありますので、慎重に行う必要があります。&lt;/p>
+&lt;p>そのため、&lt;strong>自宅IPがグローバルIPではない場合&lt;/strong> かつ &lt;strong>VPS等を契約していない&lt;/strong>場合は、無条件でMSRDP/VNCは候補から外れます。&lt;/p>
+&lt;p>MSRDPやVNCはどうすればいいんだと言う話はあとにするとして、じゃあTeamViewerとChromeリモートデスクトップはどっちがいいんだという話ですが、個人的にはTeamViewerかなと思っています。たまに商用の誤判定を食らうことがあって面倒ですが、Chromeリモートデスクトップより便利なので。&lt;/p>
+&lt;p>もしMSRDP等が使えない場合は、ほぼ無条件でTeamViewerでいいと思います。&lt;/p>
+&lt;h3 id="おすすめの運用方法">おすすめの運用方法
+&lt;/h3>&lt;p>まず、私がどういう環境で使っているかをご紹介しましょう(というかこれが一番オススメの運用方法です)&lt;/p>
+&lt;p>私は基本的にはMSRDPをメインに利用しています。VPSはあるのですが、幸い自宅にグローバルIPが降ってきてるおかげで、VPSを通さずに利用できています。&lt;br>
+ですが、いきなりルーターに穴開けるのも怖いですので、ラズベリーパイにSoftetherVPN Serverを立ち上げておいて、そこにVPN接続し、クライアントを自宅LANに入らせたあと、RDPをしています。&lt;br>
+こうすることで、ルーターのFWに穴をあけるものの、Softether VPNによってLAN内が守られているということになるわけです。&lt;br>
+ですが、短時間の利用のためいちいちVPNつなぐのが面倒くさかったり、頻繁に途切れる場合、また(主に自宅作業中ですが)iTunesがUSB-ODDをRDP中に読んでくれないなどありますので、そういうときはTeamViewerを使用しています。RDPもTeamViewerも一長一短ありますからね。&lt;br>
+MSRDPが使用できる方も、TeamViewerと併用することをおすすめしたいです。&lt;br>
+ただ先程も書きましたが、TeamViewerは443番を使用して通信するため、ポート制限による通信制御を突破できてしまうことがあります。それ故禁止している企業もあるレベルですので、くれぐれも自宅マシン等以外のリモートに安易に使うのはご注意ください。&lt;/p>
+&lt;h4 id="クライアントはどういう準備をすればいいんですか">クライアントはどういう準備をすればいいんですか
+&lt;/h4>&lt;p>Windowsタブレット系はそのままWindowsを使うことをおすすめします。もちろんLinuxを使うこともできますが、機種によって不具合もありますしね。&lt;/p>
+&lt;p>では普通のPCの場合ですが、個人的にはLubuntuをインストールすることをおすすめします。なぜかと言えば単純に動作中にWindowsと比べて圧倒的にリソースを食わないということなのですが、リモート中はVPNクライアントやリモートソフト以外を使わないため、Windowsである必要がありません。起動も早いですし、Lubuntuなどの軽量Linuxを使うことをおすすめします。&lt;/p>
+&lt;p>上記に&amp;quot;後述&amp;quot;と丸投げして、その後最低限ブラウザが動けばいいと書いた端末の最低限の性能ですが、&lt;br>
+本当の意味での最低限は「&lt;strong>FreeRDPとSoftether VPN Clientが動く&lt;/strong>」です。&lt;br>
+つまりAtom Z520のようなマシンですね。VAIO TypePとか、LooxUとか、F-07Cとか、WILLCOM D4とかそういうやつです。&lt;del>(そうじゃない)&lt;/del>&lt;/p>
+&lt;p>ではLinuxの場合どうやってMSRDPを使うのかということですが、RDPクライアントとして、&lt;code>FreeRDP&lt;/code>という便利なソフトがあります。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">sudo apt install freerdp2-x11&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>でインストールして使うことができます。&lt;/p>
+&lt;p>コマンドの使い方ですが、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">xfreerdp /w:1366 /h:768 /v:&amp;lt;IPアドレス&amp;gt; /u:ユーザー名 /p:パスワード /rfx /sound:sys:alsa +clipboard&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>と言ったように、解像度指定やIPアドレス、ユーザ名パスワード等をコマンドラインで指定して起動することで、アクセスできます。&lt;/p>
+&lt;p>コマンドラインが面倒だってい人は、&lt;code>Remmina&lt;/code>というGUIフロントエンドがありますので、そちらをお使いください。&lt;/p>
+&lt;p>ちなみにTeamViewerに関しては普通に公式サイトから落とせます。&lt;/p>
+&lt;p>Softether VPN Clientに関しては、Linuxの場合は基本コマンドラインからの設定となります。ただ、Atom N450くらいの性能があればギリギリWineをそこそこに使えますので、GUIのクライアント設定ツールが使えますね。&lt;/p>
+&lt;p>ちなみにAtom N450くらいにもなると(しつこい)、TeamViewerもちゃんと動きます。いいですね。&lt;/p>
+&lt;p>Softether VPN ClientのことやMSRDP/FreeRDP、TeamViewerについては、ここではこれを使えばいいんだよという紹介程度にしておきます。詳しい構築方法はGoogle先生にお聞きください。&lt;/p>
+&lt;h4 id="じゃあホストは">じゃあホストは?
+&lt;/h4>&lt;p>MSRDPの場合は、まずMSRDPサーバーが動くエディションにする必要があります。まぁもちろんHomeでもやり方はありますけど。&lt;/p>
+&lt;p>MSRDPの有効化等は例によってGoogle先生にお聞きください。たくさんあります。 TeamViewerも同様ですが、TeamViewerはインストーラ落としてウィザードに従ってればまぁできます。&lt;/p>
+&lt;h3 id="もう一つ大事なこと">もう一つ大事なこと
+&lt;/h3>&lt;p>ここまでリモート方法をご紹介してきましたが、もう一つ大切なことがあります。&lt;/p>
+&lt;p>&lt;strong>母艦機の起動&lt;/strong>です。&lt;/p>
+&lt;p>母艦機をつけっぱなしにしてる場合は別にいいんですが、そうも行かないこともあります。タイマー起動をしてもいいですが、しばらく使わなくても起動してることになるので、やはり少し無駄に感じる場合もありますね。&lt;/p>
+&lt;p>そういう場合にどうやって遠隔で起動するかという話です。&lt;/p>
+&lt;h4 id="脳筋解決-物理的にボタンを遠隔で押す">脳筋解決: 物理的にボタンを遠隔で押す
+&lt;/h4>&lt;p>SwitchBotとそのHubを使って、スマホから遠隔でボタンを押せば遠隔で起動します。&lt;strong>パワーで解決。&lt;/strong>&lt;/p>
+&lt;p>ところが、実はこれは自宅にグローバルIPが降ってきてないような環境でも使える方法で、結構いいかもしれません。&lt;/p>
+&lt;p>中古で買ったBIOSパスワードかかってて(後述する)Wake on Lanが有効化できないPCでも使える方法だったり。&lt;/p>
+&lt;p>あとHub使うと音声アシスタントと簡単に連携できるため、(持ってないので分かりませんが)「Alexa、パソコンの電源つけて」みたいなこともできますね。&lt;/p>
+&lt;h4 id="wake-on-lanを使う">Wake on Lanを使う
+&lt;/h4>&lt;p>LAN経由で&amp;quot;マジックパケット&amp;quot;と呼ばれるパケットを対象MACアドレスに投げると、対象PCの電源が入るという本当にマジックみたいな機能です。&lt;/p>
+&lt;p>構築方法はいくらでもネットにあるので詳しく書きませんが、いくつか構築するにあたって便利なことを。&lt;/p>
+&lt;ol>
+&lt;li>Atermのルーターならルーター内蔵のWebツールでマジックパケットが飛ばせる(他のメーカーは知らない)&lt;/li>
+&lt;li>母艦機が無線LAN運用だとしても、Aterm WG1200CRのように無線→有線のコンバータを使うことで、Wake on Lanができる(これを今使って運用中) (ちなみにこれするとOS側で無線LANの設定が要らなくなるので結構便利です)&lt;/li>
+&lt;li>ラズベリーパイとか使えばAlexa連携もできそう。&lt;/li>
+&lt;/ol>
+&lt;p>ちなみにこれら２つの方法ですが、注意点として、起動して放置したときに起動するOSが立ち上がります。&lt;/p>
+&lt;p>つまり、LiveUSB/CD等が繋がったままだったり、Windowsで作業したいのにブートの順番的に違うOSが・・・!みたいなことが起きないように気をつけないといけません。&lt;/p>
+&lt;h2 id="〆">〆
+&lt;/h2>&lt;p>さて、ここまで個人でのシンクライアント運用のメリットデメリットの紹介、その方法のご紹介をしてきました。(いろいろと突っ込み所もある人もいるかとも思いますが)&lt;/p>
+&lt;p>シンクライアント運用、かなり便利で楽なので、一応構築しておくと、例え普段シンクライアント運用してなくても、「あっこのファイルクラウドに上げてねぇ!!」っていうときにも自宅PCにアクセスして云々できますので、便利です。&lt;/p>
+&lt;p>アドベントカレンダー、まさかの3記事になりました。14日目にもう一個あります。&lt;/p>
+&lt;p>そして4日目に&lt;a class="link" href="https://qiita.com/mikuta0407/items/e659b0d5101464aba071" target="_blank" rel="noopener"
+>C言語開発環境を構築しよう! ～超遠回り編～&lt;/a>がありますので、そちらもぜひ。&lt;/p>
+&lt;p>明日はSoraY677(Ten)さんの&lt;a class="link" href="" >ゼミ長という立場と変なプライドからどうしても優勝しなければならなかった俺の進化計算コンペ2019夏&lt;/a>です。&lt;/p></description></item><item><title>VPNを使わずに、逆SSHポートフォワードを使って自宅のマシンをRDPで外から操作する</title><link>https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/</link><pubDate>Thu, 08 Nov 2018 16:57:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>いろいろあってVPNクライアントを使えない環境で、インターネット経由で自宅のマシンにRDPで接続したいということになりました。
+TeamViewerとかChromeRDとかもありますけど､RDPです。&lt;/p>
+&lt;p>そこで、VPSとラズベリーパイを使って、VPNを使わずに、自宅のポート解放もせずにある程度セキュアな方法で実現したいと思います。
+(ちなみにラズパイを使わずにやる方法もありますが､自宅機に一切手を加えることなく実現でき､再起動にも容易に対応できるのでラズパイでやります。もちろんラズパイじゃなくてもいいです。)&lt;/p>
+&lt;h2 id="環境やりたいこと">環境(やりたいこと)
+&lt;/h2>&lt;ul>
+&lt;li>VPSが一個ある&lt;/li>
+&lt;li>自宅はポート開放したくない&lt;/li>
+&lt;li>家にラズパイなりなんなりのそういう機器がある&lt;/li>
+&lt;/ul>
+&lt;p>つまりこういうことです。
+&lt;img src="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f.png"
+width="711"
+height="310"
+srcset="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f_hu82472a618d73da31cc86968e996a6347_35058_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f_hu82472a618d73da31cc86968e996a6347_35058_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="構成概要図"
+class="gallery-image"
+data-flex-grow="229"
+data-flex-basis="550px"
+>&lt;/p>
+&lt;h2 id="ラズパイからvpsにssh接続をする">ラズパイからVPSにSSH接続をする
+&lt;/h2>&lt;p>通常のSSHコマンドに､&lt;code>-N -R 任意のポート番号:自宅マシンのIP:3389&lt;/code>を付属させます。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ssh -N -R 13389:&amp;lt;自宅マシンのIPアドレス&amp;gt;:3389 &amp;lt;ユーザー名&amp;gt;@&amp;lt;VPSのアドレス&amp;gt; &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="クライアントからvpsにssh接続する">クライアントからVPSにSSH接続する
+&lt;/h2>&lt;p>普通にポートフォワードです。通常のSSHコマンドに､&lt;code>-L 13389:localhost:13389&lt;/code>を付属させます&lt;/p>
+&lt;p>例:&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ssh &amp;lt;ユーザー名&amp;gt;@&amp;lt;VPSのアドレス&amp;gt; -L 50000:localhost:13389&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>ちなみに両方共13389っていうところも､もちろん空いていればなんでもいいです。&lt;/p>
+&lt;h2 id="rdpでつなぐ">RDPでつなぐ
+&lt;/h2>&lt;p>アドレスは&lt;code>localhost:&amp;lt;1で決めた任意のポート番号(例だと50000)&amp;gt;&lt;/code>です
+これだけで繋がります。&lt;/p>
+&lt;h2 id="まとめ">まとめ
+&lt;/h2>&lt;p>つまりこういうことをしたわけです
+&lt;img src="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026.png"
+width="782"
+height="291"
+srcset="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026_hu533de56782e493fa607373b238ddd2e4_44040_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026_hu533de56782e493fa607373b238ddd2e4_44040_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="接続後の概要図"
+class="gallery-image"
+data-flex-grow="268"
+data-flex-basis="644px"
+>&lt;/p>
+&lt;p>これをすることで､SHARPのNetWalkerみたいにVPNつなぐのにも一苦労みたいな端末でも､簡単にポート開放せずにRDPで自宅マシンを操作することが出来ます。&lt;/p>
+&lt;p>また､管理者権限がなかったりしてVPNを繋げることは出来ないけどSSHはできるという環境でも使えますね。&lt;/p>
+&lt;p>参考URL:
+&lt;a class="link" href="http://toshtone.hatenablog.jp/entry/2018/03/21/232245" target="_blank" rel="noopener"
+>http://toshtone.hatenablog.jp/entry/2018/03/21/232245&lt;/a>&lt;/p></description></item></channel></rss>

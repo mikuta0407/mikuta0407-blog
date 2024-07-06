@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>盆栽サービス開発 on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/%E7%9B%86%E6%A0%BD%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E9%96%8B%E7%99%BA/</link><description>Recent content in 盆栽サービス開発 on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Sat, 06 Mar 2021 16:32:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/%E7%9B%86%E6%A0%BD%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E9%96%8B%E7%99%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>SubsonicのストレージとしてGoogleDriveを使う方法(Linux)</title><link>https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/</link><pubDate>Sat, 06 Mar 2021 16:32:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/</guid><description>&lt;p>(この記事は、諸事情により2つのサイトに掲載しています)&lt;/p>
+&lt;p>個人運用できる音楽ストリーミングサービスソフトであるSubsonic(やそのフォーク)と、GoogleDriveを組み合わせて使うお話です。&lt;/p>
+&lt;p>Subsonic系は、NextCloudのようにGoogleDriveをツール側でマウントすることが出来ません。基本的にサーバー内のディレクトリを指定する必要があります。&lt;br>
+この場合、GoogleDriveを何らかの形で通常のディレクトリと同じように扱えるようにしてあげる必要が出てきます。&lt;/p>
+&lt;p>ということで、今回はSubsonicのストレージとしてgoogle-drive-ocamlfuseでGoogleDriveを使うお話です。&lt;/p>
+&lt;h2 id="構成概要図">構成概要図
+&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz.png"
+width="1925"
+height="1565"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz_hu3a7b7044c3994015a2e7856aeceaa640_273955_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz_hu3a7b7044c3994015a2e7856aeceaa640_273955_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="295px"
+>&lt;/p>
+&lt;p>よくわからない図ですが、まぁネットワークドライブをマウントして、という感じですね。&lt;/p>
+&lt;p>毎回インターネットからデータを引っ張ってくるということはその分曲の再生までに時間がかかることにはなりますが、FLACの曲でも一曲十数MBだったりするので、思ったより再生までには時間かからないです。ここはサーバー側の下り回線速度依存ですね。&lt;/p>
+&lt;p>今回はサーバーとして使うLinux機はUbuntu 18.04を使っています。ソフトウェアのインストール系とかは適宜読み替えてください。&lt;/p>
+&lt;h2 id="subsonicのインストール">Subsonicのインストール
+&lt;/h2>&lt;p>基本的に公式サイト (&lt;a class="link" href="http://www.subsonic.org/pages/installation.jsp#debian" target="_blank" rel="noopener"
+>http://www.subsonic.org/pages/installation.jsp#debian&lt;/a>)の方法で十分ですが、一応触れます&lt;/p>
+&lt;p>まずJavaをインストールします&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install openjdk-8-jre&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>ffmpegを入れていない場合は入れます&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install ffmpeg&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>Subsonicのダウンロードをします。 &lt;a class="link" href="http://www.subsonic.org/pages/download.jsp" target="_blank" rel="noopener"
+>http://www.subsonic.org/pages/download.jsp&lt;/a> からdebを拾ってきます。&lt;/p>
+&lt;p>インストールします&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo dpkg -i subsonic-x.x.deb&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>起動します&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo service subsonic start&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>subsonicをrootで実行するのかどうかという問題はあるのですが、まぁそこは今回はスルーします。&lt;/p>
+&lt;p>ブラウザからアクセスします ( &lt;code>http://サーバアドレス:4040&lt;/code> )&lt;br>
+(Apache2の場合VirtualHostでProxyさせると、443でSSL通信できて便利です。その話はいつか書きます。)&lt;/p>
+&lt;p>Subsonicの設定方法は割愛しますが、設定→音楽フォルダのところを後で触ります。&lt;/p>
+&lt;h2 id="googledriveへの接続google-drive-ocamlfuseの設定">GoogleDriveへの接続(google-drive-ocamlfuseの設定)
+&lt;/h2>&lt;p>&lt;strong>注: 多分なにか方法はある気がするんですが、面倒なのでGUIが使える環境にして行うと良いです。X11の転送でも良いかもしれませんが、こちらでは未検証です。LXDE入れてChromiumがある環境で作業しました。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>注: これから行う作業は、ユーザーが自分ひとりしかいないような環境を想定しています。GoogleDriveマウント時の権限設定さえちゃんとすればもちろん他のユーザーがいても大丈夫にはなりますが、そこは触れません。&lt;/strong>&lt;/p>
+&lt;h3 id="インストール">インストール
+&lt;/h3>&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo add-apt-repository ppa:alessandro-strada/ppa
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install google-drive-ocamlfuse&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="認証">認証
+&lt;/h3>&lt;p>Firefoxでやったらうまく行かなかったのでChromiumのほうが良いです。&lt;br>
+また、なんとなくGoogleDriveへの認証をrootで行いたくはないので、ここは通常ユーザーで行います。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">google-drive-ocamlfuse&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>を単独で叩くと、ブラウザが立ち上がってGoogleアカウントの認証が行われます。指示に従うだけでOKです、これといって特別な操作は必要ありません。&lt;/p>
+&lt;h3 id="etcfuseconfの編集">/etc/fuse.confの編集
+&lt;/h3>&lt;p>google-drive-ocamlfuseでマウントしたディレクトリは、権限がすべて「?」になり、他のユーザーからはアクセスできなくなります。共有するときにオプションを付けると回避できますが、そのために/etc/fuse.confを編集する必要があります。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">/etc/fuse.conf&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># user_allow_other&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>↓(コメントアウト)&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">user_allow_other&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="ディレクトリの作成">ディレクトリの作成
+&lt;/h3>&lt;p>今回は&lt;code>/mnt/gdrive&lt;/code>にマウントしてみます。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ディレクトリの作成&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo mkdir /mnt/gdrive
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># マウントするのはsudoではないので一旦所有者等を渡す&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo chown &lt;span class="nv">$USER&lt;/span>:&lt;span class="nv">$USER&lt;/span> /mnt/gdrive
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># マウント&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">google-drive-ocamlfuse -o allow_other /mnt/gdrive&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これで、&lt;code>/mnt/gdrive&lt;/code>にアクセスすると、レスポンスは少し遅いですがGoogleDriveの中身が見れるようになったはずです。&lt;/p>
+&lt;h3 id="subsonicでディレクトリの指定初回スキャン">Subsonicでディレクトリの指定+初回スキャン
+&lt;/h3>&lt;p>こんな感じでディレクトリの指定をしてあげます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA.png"
+width="549"
+height="27"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA_huaa1a6c62baf8f57e10ca44c275cd2344_2975_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA_huaa1a6c62baf8f57e10ca44c275cd2344_2975_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="2033"
+data-flex-basis="4880px"
+>&lt;/p>
+&lt;p>保存ボタンを押した後勝手にスキャンが始まれば良いのですが、始まらない場合は手動でスキャン開始させてあげます。ネットワークドライブということもあって、初回スキャンはまぁまぁ時間がかかってしまいます。&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6.png"
+width="711"
+height="376"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6_hud81ae6122ec3c0451bc6437312b32954_50324_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6_hud81ae6122ec3c0451bc6437312b32954_50324_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="189"
+data-flex-basis="453px"
+>&lt;/p>
+&lt;p>高速アクセスモードに関しては、設定すればサーバー内にキャッシュをしてくれるようになるのですが、容量を食わせたくない場合やラズパイのように容量が少ない場合はオフにしといても良いです。一度再生された曲を再び再生するときにGoogleDriveから引っ張ってこないだけです。&lt;/p>
+&lt;p>スキャンが終わると、一覧に曲が表示されます。再生するとちょっと待ちはありますが、許容範囲の時間で曲が表示されます。&lt;/p>
+&lt;p>おめでとうございます!環境構築成功です!&lt;br>
+・・・と簡単には終わらないのがGoogleDrive連携です。&lt;/p>
+&lt;h2 id="更新を検知してtouchさせるようにする">更新を検知してtouchさせるようにする
+&lt;/h2>&lt;p>さて、先程までの設定だけだと何が問題か、というと、&lt;/p>
+&lt;p>&lt;strong>GoogleDriveに新しくフォルダや曲を追加してもスキャンで反映されない&lt;/strong>&lt;/p>
+&lt;p>という致命的な問題が発生します。初回スキャンで読み込んだファイル以外の認識を一切しません。&lt;/p>
+&lt;p>これSubsonicだけでなく、フォークであるJpsonicでも同様に発生します。&lt;/p>
+&lt;p>さて、なんでこのようなことが起こるかというと、Subsonicのスキャンシステムの話と、GoogleDriveのタイムスタンプシステムの話が出てきます。&lt;/p>
+&lt;p>どういうことなのか、先にタイムスタンプの話について、画像を交えながらご説明します。&lt;/p>
+&lt;h3 id="通常のlinuxのディレクトリの場合">通常のLinuxのディレクトリの場合
+&lt;/h3>&lt;p>例として、こんなディレクトリ構造があったとします。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV.png"
+width="424"
+height="148"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV_hu59727809d2bf1b5d9ba7a18a34a00d36_6939_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV_hu59727809d2bf1b5d9ba7a18a34a00d36_6939_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="286"
+data-flex-basis="687px"
+>&lt;/p>
+&lt;p>この時、dir1とdir2のタイムスタンプは00:21になっています。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv.png"
+width="535"
+height="48"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv_hu87ad565addf3f2289796f69466948843_6311_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv_hu87ad565addf3f2289796f69466948843_6311_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1114"
+data-flex-basis="2675px"
+>&lt;/p>
+&lt;p>では、この後の00:25に、dir1にaというディレクトリと、dir1/a/test.txtを作成したとします。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv.png"
+width="416"
+height="197"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv_hu82dd600bcfd9b8f73c27b4ad048c8146_8492_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv_hu82dd600bcfd9b8f73c27b4ad048c8146_8492_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="211"
+data-flex-basis="506px"
+>&lt;/p>
+&lt;p>そうすると、dir1のタイムスタンプが00:25に変わります。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ.png"
+width="545"
+height="48"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ_hu723be59a5f488717592169fc57ebebb7_6313_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ_hu723be59a5f488717592169fc57ebebb7_6313_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1135"
+data-flex-basis="2725px"
+>&lt;/p>
+&lt;p>これは純粋に、ディレクトリの中が書き換わったのでタイムスタンプも変わったということになります。&lt;/p>
+&lt;h3 id="googledriveの場合">GoogleDriveの場合
+&lt;/h3>&lt;p>同様の操作を行ってみます。まず、GoogleDrive内にdir1とdir2を作成しました。&lt;br>
+タイムスタンプは00:27になっています。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI.png"
+width="705"
+height="172"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI_hu5cb7316361a8008878b89b44e99bafc3_22643_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI_hu5cb7316361a8008878b89b44e99bafc3_22643_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="409"
+data-flex-basis="983px"
+>&lt;/p>
+&lt;p>そして00:30にdir1/aとdir1/a/test.txtを作成します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D.png"
+width="339"
+height="21"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D_hua62067d284977656fde4eec0bec80a8c_2140_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D_hua62067d284977656fde4eec0bec80a8c_2140_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1614"
+data-flex-basis="3874px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk.png"
+width="544"
+height="192"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk_hu9961e8c6316b0460e8beb4bbdcafa8ff_9998_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk_hu9961e8c6316b0460e8beb4bbdcafa8ff_9998_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="283"
+data-flex-basis="680px"
+>&lt;/p>
+&lt;p>この場合、通常のLinuxのファイルシステムであれば、先程記載したようにdir1のタイムスタンプが00:30になっているはずです。&lt;br>
+ところが、ls -laをしてみると、00:27のままになっています(念の為dir1の中もls -la)&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL.png"
+width="632"
+height="384"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL_hu20002128c584de609e41b3ca02217a2e_46433_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL_hu20002128c584de609e41b3ca02217a2e_46433_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="164"
+data-flex-basis="395px"
+>&lt;/p>
+&lt;p>つまり、GoogleDriveのタイムスタンプのシステムは、「&lt;strong>追加・更新されたものに対してだけタイムスタンプが変更され、そのファイル/ディレクトリがある親ディレクトリのタイムスタンプは更新されない&lt;/strong>」ということになります。&lt;/p>
+&lt;p>これがSubsonicにとっては非常に厄介な問題です。&lt;/p>
+&lt;p>&lt;a class="link" href="https://sourceforge.net/p/subsonic/bugs/222/" target="_blank" rel="noopener"
+>https://sourceforge.net/p/subsonic/bugs/222/&lt;/a> でも指摘されていますが、どうやらSubsonicはタイムスタンプをベースにファイルスキャンを行っているようなのです。&lt;br>
+タイムスタンプベースでのファイルスキャンをしてしまうと、タイムスタンプが変更されてないディレクトリに対しては、「以前と同じ」とみなし、新規ファイルを探しに行かなくなってしまいます。&lt;/p>
+&lt;p>上記の例で言えば、&lt;/p>
+&lt;ol>
+&lt;li>初回スキャンの時にはdir1というディレクトリは存在するものの、中にaというディレクトリはない&lt;/li>
+&lt;li>この状態でaというディレクトリとtest.txtを作成&lt;/li>
+&lt;li>2回目のスキャンを行う&lt;/li>
+&lt;li>dir1はタイムスタンプがかわっていない&lt;/li>
+&lt;li>削除されてないか確認するため、一応各ディレクトリの中に前回スキャンしたときと同じデータがあるかを見に行く(このとき新規ファイルは見てない)&lt;/li>
+&lt;/ol>
+&lt;p>という現象が発生します。(5番の動作に関しては、ソースは読んでないので挙動からの推測です。)&lt;/p>
+&lt;p>このSubsonicのスキャンシステムだと、GoogleDriveに新しくデータを置いたときも一切反映されないため、曲を追加するたびにフォルダ設定をやり直して初回スキャンをかける必要が出てしまいます。&lt;/p>
+&lt;p>さすがにそれは非現実的なので、どうにか回避しなければなりませんが、Subsonic側のソースを触るのはあまりにも面倒です。(本家SubsonicはOSSじゃないですし)&lt;/p>
+&lt;p>そしてGoogleDriveの仕組みはユーザーがどうにかできる問題でもありません。&lt;/p>
+&lt;p>さてどうするか、となると、ユーザーには唯一の手段が残されています。タイムスタンプの更新です。&lt;/p>
+&lt;p>幸い、google-drive-ocamlfuseは、touchコマンドでタイムスタンプだけの更新が行えます。&lt;br>
+上記例の場合、aというディレクトリを追加した親ディレクトリ(本来勝手にタイムスタンプが更新されるディレクトリ)であるdir1のタイムスタンプを、touchで更新してあげれば良くなります。
+&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ.png"
+width="629"
+height="265"
+srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ_huecf0b197fe018ec3b624b2235ab90325_32256_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ_huecf0b197fe018ec3b624b2235ab90325_32256_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="237"
+data-flex-basis="569px"
+>&lt;/p>
+&lt;h3 id="シェルスクリプトを書く">シェルスクリプトを書く
+&lt;/h3>&lt;p>シェルスクリプトといっても大層なものではありませんが、&lt;/p>
+&lt;ul>
+&lt;li>音楽フォルダ内のディレクトリ一覧を書き出し&lt;/li>
+&lt;li>新規追加があった場合はその親ディレクトリのタイムスタンプをtouchで更新する&lt;/li>
+&lt;/ul>
+&lt;p>というシェルスクリプトを書いて、これをcronでSubsonicの自動スキャンの前に叩いてあげるようにすれば改善します。&lt;/p>
+&lt;h4 id="完成形">完成形
+&lt;/h4>&lt;p>とりあえず完成形です。&lt;br>
+(txtを書き出すフォルダは適宜変えてください。)&lt;br>
+(また、findする先のフォルダも適宜読み替えてください)&lt;/p>
+&lt;p>&lt;strong>注意: このシェルスクリプトをcronに登録する前に、findしてる行(リストのtxt書き出し)を一度単独で実行してください。そうしないと後述するdiff処理時にすべて新規追加扱いになり、シェルスクリプト実行時に音楽フォルダ内の別に更新しなくても良いはずの対象ディレクトリがすべてtouchされます。&lt;/strong>&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 前回の更新差分をoldにする&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv /subsonicdir/musicdir_new.txt /subsonicdir/musicdir_old.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># findかける (初回準備として必要&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find /mnt/gsuitedrive/Musics -type d &lt;span class="p">|&lt;/span> sort &amp;gt; /subsonicdir/musicdir_new.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># touchする&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># もし差分がなかったらtouchにオペランドが無いっていうエラーが出るだけなのでヨシッ!&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">diff /subsonicdir/musicdir_old.txt /subsonicdir/musicdir_new.txt &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;&amp;gt;&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/&amp;gt; //g&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/\/[^\/]*$//g&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sort &lt;span class="p">|&lt;/span> uniq &lt;span class="p">|&lt;/span> sed -e &lt;span class="s1">&amp;#39;s/ /\\ /g&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> xargs touch&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h4 id="何をしているのか">何をしているのか
+&lt;/h4>&lt;p>このシェルスクリプトでは、&lt;/p>
+&lt;ol>
+&lt;li>前回のディレクトリ一覧をoldにリネーム&lt;/li>
+&lt;li>新しくリストを作成(new)&lt;/li>
+&lt;li>oldとnewでdiffする&lt;/li>
+&lt;li>diffした結果新規追加されたものを抽出&lt;/li>
+&lt;li>余計な文字を消してパスだけの文字列に&lt;/li>
+&lt;li>新規追加されたディレクトリの親ディレクトリのパスに変更&lt;/li>
+&lt;li>念の為sort&lt;/li>
+&lt;li>重複を削除&lt;/li>
+&lt;li>touchに渡すために半角スペースにエスケープ&lt;/li>
+&lt;/ol>
+&lt;p>という処理をしています。&lt;/p>
+&lt;h5 id="mv今回はリネーム">mv(今回はリネーム)
+&lt;/h5>&lt;p>これは単純にリネームです。古いoldはこれで上書きされます。&lt;/p>
+&lt;h5 id="find音楽フォルダ内のディレクトリ一覧を書き出し">find(音楽フォルダ内のディレクトリ一覧を書き出し)
+&lt;/h5>&lt;p>これは単純にfindでディレクトリ一覧を出しています。&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /mnt/gdrive/Musics -type d &lt;span class="p">|&lt;/span> sort &amp;gt; ~/musicdir_new.txt&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>なぜsortしてるかというと、findはやるたびに順番がぐちゃぐちゃになることがあるからです。統一させないと毎回関係ないフォルダをどこかしら更新することになります。&lt;/p>
+&lt;h5 id="diff--sed--e-s-g">diff ～ sed -e &amp;rsquo;s/&amp;gt; //g'
+&lt;/h5>&lt;p>まずdiffでoldとnewの差分を取ります。&lt;br>
+そして &lt;code>grep &amp;quot;&amp;gt;&amp;quot;&lt;/code> で新規追加行だけを抽出します。&lt;br>
+その結果から &lt;code>&amp;gt; &lt;/code> を取り除いて、パスだけにします(これをしないと &lt;code>&amp;gt; /mnt/gdrive/....&lt;/code> みたいになったままなので)&lt;/p>
+&lt;h5 id="sed--e-sg">sed -e &amp;rsquo;s//[^/]*$//g'
+&lt;/h5>&lt;p>詳細は &lt;a class="link" href="http://erax.blog.fc2.com/blog-entry-69.html" target="_blank" rel="noopener"
+>http://erax.blog.fc2.com/blog-entry-69.html&lt;/a> で。&lt;br>
+追加ディレクトリそのものではなくその上のディレクトリに対してtouchするため、最後の &lt;code>/&lt;/code> 以降を削除します。&lt;/p>
+&lt;p>(例: /hoge/fuga/neko → /hoge/fuga)&lt;/p>
+&lt;h5 id="sort--uniq">sort | uniq
+&lt;/h5>&lt;p>sortは後述のuniqのために改めて念の為のためにやっています。&lt;/p>
+&lt;p>uniqは(オプションを使わない場合)重複行を取り除いて出力してくれるコマンドです。&lt;/p>
+&lt;p>たとえば、ディレクトリ内が&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/hoge/fuga/neko
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/hoge/fuga/inu&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>となっていたとき、これを先程のsedで処理すると&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/hoge/fuga
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/hoge/fuga&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>のように、 &lt;code>/hoge/fuga&lt;/code> が2回出てきてしまいます。これをuniqに通すことで、一回だけに変えられます。&lt;/p>
+&lt;h5 id="sed--e-s--g">sed -e &amp;rsquo;s/ /\ /g'
+&lt;/h5>&lt;p>これは半角スペースをエスケープしています。なぜ必要かというと、&lt;br>
+たとえば &lt;code>/hoge/foo bar/neko&lt;/code> というディレクトリがあったとして、ここまでの処理(uniqまで)を通すと、 &lt;code>/hoge/foo bar&lt;/code> になります。&lt;br>
+これをこの後のtouchに渡すと、コマンドが&lt;code>touch /hoge/foo bar&lt;/code> となってしまい、 &lt;code>/hoge/foo&lt;/code> と &lt;code>bar&lt;/code> がそれぞれtouchされます。これでは &lt;code>foo bar&lt;/code> というディレクトリにはtouchされません。これを対策するために半角スペースにエスケープをさせています。( &lt;code>touch /hoge/foo\ bar&lt;/code> にする)&lt;/p>
+&lt;h5 id="xargs-touch">xargs touch
+&lt;/h5>&lt;p>最後に、diffから色々処理を加えて出来上がった「touchする必要のあるディレクトリ一覧」に対してtouchをしてあげます。xargsを使うことで一括で行なえますね。&lt;/p>
+&lt;p>以上で新規追加されたディレクトリの親ディレクトリのタイムスタンプを更新できます。そしてSubsonicに見つけてもらえるようになります。&lt;/p>
+&lt;h2 id="〆">〆
+&lt;/h2>&lt;p>Subsonicのスキャンシステム、どうにかならないかなぁ・・・。&lt;/p></description></item></channel></rss>

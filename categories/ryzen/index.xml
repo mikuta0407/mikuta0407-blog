@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ryzen on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/ryzen/</link><description>Recent content in Ryzen on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Thu, 05 Sep 2019 16:53:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/ryzen/index.xml" rel="self" type="application/rss+xml"/><item><title>第3世代RyzenシリーズとRTX20系でWindows7を使う方法</title><link>https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/</link><pubDate>Thu, 05 Sep 2019 16:53:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>Sandyおじさんがいきなり第3世代Ryzenお兄さんに圧倒的成長する物語。&lt;/p>
+&lt;p>SandyBridge(Core i5-2400)を使い続けていたのですが､グラフィックボード更新を機に一気にアップグレードしました。
+備忘録というかやり方を書いておきます。&lt;/p>
+&lt;h2 id="環境紹介">環境紹介
+&lt;/h2>&lt;h3 id="元環境">元環境
+&lt;/h3>&lt;ul>
+&lt;li>ベースマシン: Dell Optiplex 990DT&lt;/li>
+&lt;li>CPU: Core i5-2400&lt;/li>
+&lt;li>GPU: GeForce GTX750Ti&lt;/li>
+&lt;li>OS: Windows7 Professional 64bit&lt;/li>
+&lt;/ul>
+&lt;h3 id="新環境">新環境
+&lt;/h3>&lt;ul>
+&lt;li>CPU: Ryzen 5 3600&lt;/li>
+&lt;li>GPU: GPU: GeForce RTX2060&lt;/li>
+&lt;li>OS: Windows7 Professional 64bit&lt;/li>
+&lt;/ul>
+&lt;p>注: OSは再インストールせず､ストレージ差し替えだけで環境移行する&lt;/p>
+&lt;h2 id="手順">手順
+&lt;/h2>&lt;h3 id="windows7でwindowsupdateをとりあえず全部当てる">Windows7でWindowsUpdateをとりあえず全部当てる
+&lt;/h3>&lt;p>一応抜け道はあるのですが､RyzenはWindows7がサポート対象外ということもあり､普通にしてるとWindowsUpdateが拒否られます。念の為に最新にしておきましょう。&lt;/p>
+&lt;h3 id="チップセットドライバを準備">チップセットドライバを準備
+&lt;/h3>&lt;p>amd_chipset_drivers_v1.8.19.0915.zipという名前のものが､2019/9/3の段階では公式にあったのですが､9/5に見たところ消えていました。
+&lt;a class="link" href="https://jp.msi.com/Motherboard/support/B450-GAMING-PLUS#down-driver&amp;amp;Win7%2064" target="_blank" rel="noopener"
+>https://jp.msi.com/Motherboard/support/B450-GAMING-PLUS#down-driver&amp;Win7%2064&lt;/a>
+まだMSIのサイトにあるので欲しい人は今のうちに。&lt;/p>
+&lt;p>これを展開し､実行ファイルをCドライブ直下かなんかに入れておきましょう。&lt;/p>
+&lt;h3 id="レジストリエディタで普段読み込んでないドライバも読ませるようにする">レジストリエディタで普段読み込んでないドライバも読ませるようにする
+&lt;/h3>&lt;p>これはRyzenに限らず､Windows7でマザーボードを変更するときに行う作業です。
+Windows8以上は確か自動で環境変更認識しますが､Win7はしないので普通にBSoD吐く気がします。&lt;/p>
+&lt;p>レジストリエディタ(regedit)で､&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">HKEY_LOCAL_MACHINE\System\ControlSet001\Services\
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">HKEY_LOCAL_MACHINE\System\ControlSet001\Services\&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>の､以下の項目で&lt;strong>start&lt;/strong>の値を&lt;strong>3&lt;/strong>から&lt;strong>0&lt;/strong>に変更します。&lt;/p>
+&lt;ul>
+&lt;li>Aliide.sys&lt;/li>
+&lt;li>Amdide.sys&lt;/li>
+&lt;li>Atapi.sys&lt;/li>
+&lt;li>Ataport.sys&lt;/li>
+&lt;li>Cmdide.sys&lt;/li>
+&lt;li>Intelide.sys&lt;/li>
+&lt;li>Msahci.sys&lt;/li>
+&lt;li>Pciide.sys&lt;/li>
+&lt;li>Pciidex.sys&lt;/li>
+&lt;li>Viaide.sys&lt;/li>
+&lt;/ul>
+&lt;p>存在しない項目があった場合は無視して下さい。
+一応書き換えたあと再起動し､ちゃんと起動することを確認してください。&lt;/p>
+&lt;h3 id="環境を移行する">環境を移行する
+&lt;/h3>&lt;p>ここは割愛します。普通に新マシンを組み上げ､今まで使ってたストレージをつなぎます。&lt;/p>
+&lt;h3 id="起動とチップセットドライバのインストール">起動とチップセットドライバのインストール
+&lt;/h3>&lt;p>注意点として､初回起動の現段階では&lt;strong>PS/2キーボード･マウスしか認識しません。&lt;/strong>
+USBしかもってない人は詰みます。マウスはいらないかもしれませんが､キーボードは必須です。
+おそらく普通に起動します。 グラフィックドライバが当たってなかったりしますが､とりあえずログオンしてデスクトップは出るはずです。
+そうしましたら､Winキー+Rから&amp;quot;ファイル名を指定して実行&amp;quot;を開いてコマンドプロンプトを起動(cmdでEnter)し､先程展開したチップセットドライバのインストーラを起動しましょう。(エクスプローラー開いてTabキーを使って格闘してもいいですけど)&lt;/p>
+&lt;p>指示通り再起動したら､チップセット由来のUSBポートが使えるようになっているはずです。(CPU直結の端子は使えませんが､それでも何個か使えるのでセーフ。)&lt;/p>
+&lt;p>ちなみにNICが認識されていないなどの問題は､各自クリアしてください。特に工夫するところはないです。&lt;/p>
+&lt;h3 id="グラフィックボードドライバのインストール">グラフィックボードドライバのインストール
+&lt;/h3>&lt;p>最近のドライバを入れている人は大丈夫という話もありますが､当環境ではグラフィックボードが認識されなかったので､ドライバのインストールをします。
+&lt;a class="link" href="https://www.nvidia.co.jp/Download/driverResults.aspx/150587/jp" target="_blank" rel="noopener"
+>https://www.nvidia.co.jp/Download/driverResults.aspx/150587/jp&lt;/a>
+ここで落とせる&lt;code>436.15-desktop-win8-win7-64bit-international-whql.exe&lt;/code>を利用しました。
+Windows7/8用のドライバなのに､中のファイル見てみるとRTX系の記載がちゃんとあり､インストーラにも認識されました。
+特段工夫するところもなく､普通にウィザードに従ってインストールを進めていけば､再起動後にちゃんと認識されているはずです。
+注意点として､DX12は使えません。DX11までです。レイトレはもちろん無理です。 ですが､普通にゲームする分には問題ないです。&lt;/p>
+&lt;p>作業は以上です。お疲れさまでした!&lt;/p>
+&lt;h3 id="残りの5ヶ月をエンジョイする">残りの5ヶ月をエンジョイする
+&lt;/h3>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8.png"
+width="720"
+height="464"
+srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="155"
+data-flex-basis="372px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947.png"
+width="720"
+height="464"
+srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="155"
+data-flex-basis="372px"
+>&lt;/p>
+&lt;p>Win7は御存知の通り2020年の1月にサポートが切れます。
+それまでの期間､めいいっぱい第3世代RyzenとRTX20系のグラボで楽しみましょう!&lt;/p>
+&lt;p>※ちなみに環境変更されたこともあり､ライセンス認証しろと言われますが､当環境ではオンライン認証で普通に通りました。&lt;/p>
+&lt;h2 id="あとがき">あとがき
+&lt;/h2>&lt;p>SandyBridgeからマザボ変更の手順だけで普通に動くとは思いませんでした。
+Win7を使いたいけどRyzen使いたい･･･そんな人(いるかな)に役立てば幸いです。&lt;/p>
+&lt;h2 id="参考サイト">参考サイト
+&lt;/h2>&lt;p>&lt;a class="link" href="https://pcrepair.w-pickup.com/post-3295/" target="_blank" rel="noopener"
+>https://pcrepair.w-pickup.com/post-3295/&lt;/a>
+&lt;a class="link" href="https://17inch.blog.so-net.ne.jp/2019-07-23" target="_blank" rel="noopener"
+>https://17inch.blog.so-net.ne.jp/2019-07-23&lt;/a>&lt;/p></description></item></channel></rss>

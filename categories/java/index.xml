@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/java/</link><description>Recent content in Java on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Thu, 18 Oct 2018 16:58:05 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/java/index.xml" rel="self" type="application/rss+xml"/><item><title>MacでNetBeansを使いたい→使えた！</title><link>https://blog.mikuta0407.net/posts/2018/20181018-netbeans-with-macos/</link><pubDate>Thu, 18 Oct 2018 16:58:05 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2018/20181018-netbeans-with-macos/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>某大学のプログラミングの授業ではJavaのプログラミングをNetBeansを使用して行っています。&lt;br>
+自分のマシンにもNetBeansを入れれば､課題の提出ができる(コーディングはVSCodeでやってる)ので､ぜひ入れたいのですが､これまた幾ら頑張ってもMacで使えません。&lt;br>
+とりあえずやるところまでやったので､だれか助けてください。&lt;br>
+&lt;strong>追記: 無事に動きました&lt;/strong>&lt;/p>
+&lt;h2 id="環境">環境
+&lt;/h2>&lt;ul>
+&lt;li>マシン: MacBook 2017&lt;/li>
+&lt;li>OS: macOS Mojave&lt;/li>
+&lt;/ul>
+&lt;h2 id="oracle-jdkを入れてみた">Oracle JDKを入れてみた
+&lt;/h2>&lt;p>とりあえず､最初はOracle JDKをGUIでインストールしました。&lt;/p>
+&lt;p>しかし､NetBeansはメインウィンドウが出てきても､新しいプロジェクトのボタンや､その他ボタンを押してもほとんど反応がありません。&lt;/p>
+&lt;p>以前LinuxでJDKやJREを複数入れたことによって同じ現象が起きたので､そのへんかな､と思い､とりあえずJREとJDKをすべて削除､Mac内からJavaの実行系のものをすべて取っ払いました。&lt;/p>
+&lt;h2 id="openjdkを入れてみた">OpenJDKを入れてみた。
+&lt;/h2>&lt;p>JREは入れずに､OpenJDK11だけを入れてみましたが、症状が改善しないです・・・&lt;br>
+ではnetbeans.confにjdk-homeにopenjdk11の場所を書いてあげます。&lt;/p>
+&lt;p>うーん改善しないぞ&lt;/p>
+&lt;h2 id="openjdkのバージョンを落としてみる">OpenJDKのバージョンを落としてみる
+&lt;/h2>&lt;p>JDK11がNetbeans8.2では動かないという情報を聞いたので、OpenJDK9,10を入れてみました。&lt;br>
+それぞれnetbeans.confに書いてみたりもしました。&lt;/p>
+&lt;p>それでも症状が改善しません。&lt;/p>
+&lt;h2 id="netbeansの開発版を入れてみる">NetBeansの開発版を入れてみる
+&lt;/h2>&lt;p>&lt;a class="link" href="http://bits.netbeans.org/download/trunk/nightly/latest/" target="_blank" rel="noopener"
+>http://bits.netbeans.org/download/trunk/nightly/latest/&lt;/a>&lt;br>
+ここにあるNetBeansの開発版(Build 201804200002)を入れてみました。&lt;/p>
+&lt;p>うーん、LaunchPadに追加はされますが、起動させようとしてもウィンドウが出てきません・・・&lt;/p>
+&lt;h2 id="助けて">助けて
+&lt;/h2>&lt;p>万策尽きました。&lt;/p>
+&lt;p>どなたか対策方法をご存じの方、教えていただけませんか・・・・？&lt;/p>
+&lt;h2 id="追記-動いた">追記 動いた
+&lt;/h2>&lt;p>&lt;a class="link" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener"
+>https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html&lt;/a>&lt;br>
+ここからjdk8をダウンロードしてきます。
+普通にインストールして、&lt;/p>
+&lt;div>&lt;div class="codeblock--name">netbeans.conf&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">netbeans_jdkhome=&amp;#34;/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home&amp;#34;&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>と書いてあげることで動きました。&lt;/p>
+&lt;p>JDK8がMojaveでも動いてよかったです。&lt;/p></description></item><item><title>Java AppletをIDEを使わずにコマンドラインで簡単に使いたい</title><link>https://blog.mikuta0407.net/posts/2018/20181011-javaapplet-with-cli/</link><pubDate>Thu, 11 Oct 2018 16:59:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2018/20181011-javaapplet-with-cli/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>ke9000氏が書いた「 &lt;a class="link" href="https://qiita.com/ke9000/items/3fa9b3645ceeff5ec223" target="_blank" rel="noopener"
+>Java AppletをIDE使わずにビルドしたい&lt;/a> 」を試していたところ、一つのプロジェクトならいいが、学校の授業のように頻繁にソースコードを切り替えるときには、毎回HTMLファイルを書き換え、Classesフォルダを作り・・・っとやるのは大変なことに気づいた。&lt;br>
+そこで、LinuxやMac等のOSに限るが、簡単に操作ができるようにしてみる。&lt;br>
+もちろんやってることは当たり前すぎて、参考になるほどでもないが、備忘録として書いておく。&lt;br>
+基本的に先述の記事を読んだことを前提に進めるが、一応適宜コードは書いていく。&lt;br>
+(&lt;strong>注: Classesフォルダに毎回コピーをしているのは、授業ではNetBeansを使用しているため、srcフォルダから元ソースファイルを動かせないためである&lt;/strong>)&lt;/p>
+&lt;h2 id="フォルダ構成について">フォルダ構成について
+&lt;/h2>&lt;p>今回は、~/Javaというフォルダ内で作業する。
+Java/の中にプロジェクトフォルダがあり、その中にソースコードがあるという前提で話をすすめる。&lt;/p>
+&lt;h2 id="htmlファイルを用意する">HTMLファイルを用意する
+&lt;/h2>&lt;div>&lt;div class="codeblock--name">applet.html&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Applet Test&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">applet&lt;/span> &lt;span class="na">code&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;CLASS_NAME.class&amp;#34;&lt;/span> &lt;span class="na">width&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;150&amp;#34;&lt;/span> &lt;span class="na">height&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;150&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">applet&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>これを**~/Java/applet.html**として保存する&lt;/p>
+&lt;h2 id="シェルスクリプトを書く">シェルスクリプトを書く
+&lt;/h2>&lt;div>&lt;div class="codeblock--name">applet.sh&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/sh
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">javac &lt;span class="nv">$1&lt;/span>.java
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 引数として渡された名前の.javaファイルをコンパイル&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> -e &lt;span class="nv">$1&lt;/span>.html &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> :
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cat &amp;lt;Javaフォルダのパス&amp;gt;/applet.html &lt;span class="p">|&lt;/span> sed &lt;span class="s2">&amp;#34;s/CLASS_NAME/&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">/&amp;#34;&lt;/span> &amp;gt; &lt;span class="nv">$1&lt;/span>.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 先程作ったhtmlファイルをベースに、「CLASS_NAME」をそのときに使うファイルに変更したものを作る。あったら作らない。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir Classes 2&amp;gt;/dev/null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Classesフォルダがなかったら作る&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp *.class Classes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># コンパイルでできた.classファイルをClassesにコピー/上書きコピー&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">appletviewer &lt;span class="nv">$1&lt;/span>.html
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Appletを起動&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>mkdirのところはifで分岐させても良かったが、エラーは単純に「すでにあるから作れないよ！」なので、表示させなければそれでいいということでこうした。&lt;br>
+ちなみにapplet.htmlとapplet.shは同じディレクトリにいることを前提としている&lt;/p>
+&lt;h2 id="エイリアスに登録する">エイリアスに登録する
+&lt;/h2>&lt;p>今作ったシェルスクリプトを、.javaフォルダのあるところで簡単に実行できるようにbashrcに書く&lt;/p>
+&lt;div>&lt;div class="codeblock--name">.bashrc&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">applet&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;applet.shのパス&amp;gt;/applet.sh&amp;#39;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="使ってみる">使ってみる
+&lt;/h2>&lt;p>アプレットを使用したプログラムのソースコード(hoge.java)の位置まで移動して、&lt;br>
+&lt;code>applet hoge&lt;/code>(.javaはいらない)&lt;br>
+で、コンパイルから指定フォルダまでの移動、起動までやってくれる&lt;/p>
+&lt;p>以上。&lt;/p>
+&lt;p>&lt;del>元記事でも言ってるけど、JavaAppletって非推奨なんじゃないの？&lt;/del>&lt;/p></description></item></channel></rss>

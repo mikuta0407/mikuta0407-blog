@@ -1,0 +1,456 @@
+<!doctype html><html lang=ja dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="この記事はTokyo City University Advent Calendar 2021の3日目の記事です。 昨日の記事は @BOB さんによる 辻堂にバーガーキングができたらしい - bob563’s diary でした"><title>都市大YCの卒業研究概要集をMarkdownで快適に書くためのPandoc環境セットアップ備忘録</title>
+<link rel=canonical href=https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/><link rel=stylesheet href=/scss/style.min.01b3ec666d6f6bb6342716ec85d85dcf1a50190d2a63506d495d154e2fd852b8.css><meta property='og:title' content="都市大YCの卒業研究概要集をMarkdownで快適に書くためのPandoc環境セットアップ備忘録"><meta property='og:description' content="この記事はTokyo City University Advent Calendar 2021の3日目の記事です。 昨日の記事は @BOB さんによる 辻堂にバーガーキングができたらしい - bob563’s diary でした"><meta property='og:url' content='https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/'><meta property='og:site_name' content='平和に生きたい'><meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2021-12-03T00:00:00+09:00'><meta property='article:modified_time' content='2021-12-03T00:00:00+09:00'><meta property='og:image' content='https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/test.md-markdown-Visual-Studio-Code-2021_12_03-0_05_15.png'><meta name=twitter:title content="都市大YCの卒業研究概要集をMarkdownで快適に書くためのPandoc環境セットアップ備忘録"><meta name=twitter:description content="この記事はTokyo City University Advent Calendar 2021の3日目の記事です。 昨日の記事は @BOB さんによる 辻堂にバーガーキングができたらしい - bob563’s diary でした"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/test.md-markdown-Visual-Studio-Code-2021_12_03-0_05_15.png'></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"light")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=メニューを開く・閉じる>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/mikuta0407-icon_hua8f22b6667bbcefae8d1b7d0dca296d9_162513_300x0_resize_box_3.png width=300 height=300 class=site-logo loading=lazy alt=Avatar></a></figure><div class=site-meta><h1 class=site-name><a href=/>平和に生きたい</a></h1><h2 class=site-description>mikuta0407の書いた虚無。ﾖﾜﾖﾜ技術系からアイマスとかガジェットとかごった煮。</h2></div></header><ol class=menu-social><li><a href=https://github.com/mikuta0407 target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/mikuta0407 target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>ダークモード</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目次</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#はじめに>はじめに</a></li><li><a href=#環境について>環境について</a></li><li><a href=#環境構築>環境構築</a><ol><li><a href=#linuxwsldebianubuntu>Linux/WSL(Debian/Ubuntu)</a><ol><li><a href=#pandocのインストール>pandocのインストール</a></li><li><a href=#その他必要なパッケージを入れる>その他必要なパッケージを入れる</a></li><li><a href=#もろもろのテンプレデータ的物を入れるディレクトリを作る>もろもろのテンプレデータ的物を入れるディレクトリを作る</a></li><li><a href=#pandoc-crossrefを落とす>pandoc-crossrefを落とす</a></li></ol></li><li><a href=#macosm1--montereyでテスト>macOS(M1 + Montereyでテスト)</a><ol><li><a href=#pandocのインストール-1>pandocのインストール</a></li><li><a href=#その他必要なパッケージを入れる-1>その他必要なパッケージを入れる</a></li><li><a href=#もろもろのテンプレデータ的物を入れるディレクトリを作る-1>もろもろのテンプレデータ的物を入れるディレクトリを作る</a></li><li><a href=#pandoc-crossrefを落とす-1>pandoc-crossrefを落とす</a></li></ol></li><li><a href=#以下linuxmacos共通pandocとpandoc-crossrefのバージョンを確認する>(以下Linux/macOS共通)pandocとpandoc-crossrefのバージョンを確認する</a></li><li><a href=#metadatayamlの用意>metadata.yamlの用意</a></li><li><a href=#makeyamlの用意>make.yamlの用意</a></li><li><a href=#headertexの用意>header.texの用意</a></li><li><a href=#referencesbibの用意>references.bibの用意</a></li><li><a href=#sist02cslの用意>sist02.cslの用意</a></li></ol></li><li><a href=#生成コマンド>生成コマンド</a><ol><li><a href=#bashzsh用function>bash/zsh用function</a></li><li><a href=#使い方>使い方</a></li></ol></li><li><a href=#markdownの書き方>Markdownの書き方</a><ol><li><a href=#冒頭について>冒頭について</a></li><li><a href=#キャプション参照について>キャプション・参照について</a><ol><li><a href=#画像>画像</a></li><li><a href=#参考文献参照>参考文献参照</a></li></ol></li></ol></li><li><a href=#実演>実演</a><ol><li><a href=#markdown>Markdown</a></li><li><a href=#pdf>PDF</a></li></ol></li><li><a href=#〆>〆</a></li><li><a href=#参考文献>参考文献</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/><img src=/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/test.md-markdown-Visual-Studio-Code-2021_12_03-0_05_15_hu73fe6da212d5787cddaafb2e3107eb90_571990_800x0_resize_box_3.png srcset="/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/test.md-markdown-Visual-Studio-Code-2021_12_03-0_05_15_hu73fe6da212d5787cddaafb2e3107eb90_571990_800x0_resize_box_3.png 800w, /posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/test.md-markdown-Visual-Studio-Code-2021_12_03-0_05_15_hu73fe6da212d5787cddaafb2e3107eb90_571990_1600x0_resize_box_3.png 1600w" width=800 height=438 loading=lazy alt="Featured image of post 都市大YCの卒業研究概要集をMarkdownで快適に書くためのPandoc環境セットアップ備忘録"></a></div><div class=article-details><header class=article-category><a href=/categories/pandoc/>Pandoc
+</a><a href=/categories/%E7%B5%84%E7%89%88%E7%A0%94%E7%A9%B6/>組版研究
+</a><a href=/categories/linux/>Linux
+</a><a href=/categories/macos/>MacOS</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/>都市大YCの卒業研究概要集をMarkdownで快適に書くためのPandoc環境セットアップ備忘録</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2021-12-03</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>読了時間: 12分</time></div></footer></div></header><section class=article-content><p>この記事は<a class=link href=https://adventar.org/calendars/6738 target=_blank rel=noopener>Tokyo City University Advent Calendar 2021</a>の3日目の記事です。</p><p>昨日の記事は <a class=link href=https://twitter.com/bob510634 target=_blank rel=noopener>@BOB</a> さんによる <a class=link href=https://bob563.hatenablog.com/entry/2021/12/02/000431 target=_blank rel=noopener>辻堂にバーガーキングができたらしい - bob563’s diary</a> でした!</p><p>弘前の人のテンションと同じ感じで好きです。</p><h2 id=はじめに>はじめに</h2><p>4年生の皆様は絶賛卒業研究中かと思われます。お疲れ様です。</p><p>さて、論文や概要集を書くにあたって、Wordで書いていくのはなんとなく嫌な人、いると思います。
+Markdownで書いて、いい感じにしてくれれば・・・</p><p>そんなときにはPandocを使って変換していくのですが、環境構築がなかなかに面倒です。</p><p>とりあえず1月に提出するYC用フォーマットの卒業研究概要集を出力できるように整ってきたので、備忘録としてセットアップについて記載してきます。</p><p>(いろいろなところからの寄せ集め情報です。)</p><div style="padding:10px;margin-bottom:10px;border:1px solid #faebcc;background-color:#fcf8e3"><b>割と勘の状態でやっており、詳しい人からのツッコミがすごそうな記事なので、むしろそういう方からのツッコミをお待ちしています。よろしくおねがいします。</b><br>設定を複数箇所に渡って指定したりしていますが、何故かそうしないと動かなかったりするんです。助けてください。</div><h2 id=環境について>環境について</h2><p>本記事ではLinux(Debian/Ubuntu)環境を想定しています。(筆者が実際に使っている環境はWSL1のUbuntu 20.04です。)<br>Windowsユーザーの人はこの記事通りに行いたい場合はWSL1で良いのでLinux環境を用意してください。多分Windowsネイティブでも出来るとは思いますが、なんにもわかりません。</p><p>macOS(M1, Monterey)でも試していますが、フォントの問題のみ解決できませんでした。ヒラギノでいいなら行けると思います。</p><h2 id=環境構築>環境構築</h2><h3 id=linuxwsldebianubuntu>Linux/WSL(Debian/Ubuntu)</h3><h4 id=pandocのインストール>pandocのインストール</h4><p>ここから最新版のpandocのdebを落としてきます。<br>執筆時は<code>pandoc-2.16.2-1-amd64.deb</code>です。<br><a class=link href=https://github.com/jgm/pandoc/releases target=_blank rel=noopener>Releases · jgm/pandoc</a></p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>wget https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-1-amd64.deb
+</span></span><span class=line><span class=cl>sudo dpkg -i pandoc-2.16.2-1-amd64.deb</span></span></code></pre></td></tr></table></div></div></div></div><h4 id=その他必要なパッケージを入れる>その他必要なパッケージを入れる</h4><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install texlive texlive-luatex texlive-latex-extra texlive-lang-cjk fonts-ipaexfont  </span></span></code></pre></td></tr></table></div></div></div></div><p>(フォントはとりあえずIPAexにしています。)</p><h4 id=もろもろのテンプレデータ的物を入れるディレクトリを作る>もろもろのテンプレデータ的物を入れるディレクトリを作る</h4><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir ~/markdown</span></span></code></pre></td></tr></table></div></div></div></div><p>このあたりは適宜好きなようにしてください</p><h4 id=pandoc-crossrefを落とす>pandoc-crossrefを落とす</h4><p>ここから<code>pandoc-crossref-Linux.tar.xz</code>を落として展開します。<br><a class=link href=https://github.com/lierdakil/pandoc-crossref/releases target=_blank rel=noopener>Releases · lierdakil/pandoc-crossref</a></p><p>執筆時は0.3.12.1aでした。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> ~/markdown
+</span></span><span class=line><span class=cl>wget https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.12.1a/pandoc-crossref-Linux.tar.xz
+</span></span><span class=line><span class=cl>xz -dc pandoc-crossref-Linux.tar.xz <span class=p>|</span> tar xfv -</span></span></code></pre></td></tr></table></div></div></div></div><p>これで~/markdownに<code>pandoc-crossref</code>という実行ファイルが展開されます。</p><h3 id=macosm1--montereyでテスト>macOS(M1 + Montereyでテスト)</h3><h4 id=pandocのインストール-1>pandocのインストール</h4><p>最新版のpandocのpkgを落としてインストールします(全てのユーザーに対してで良いかと)。<br>執筆時は<code>pandoc-2.16.2-macOS.pkg</code>です。<br><a class=link href=https://github.com/jgm/pandoc/releases target=_blank rel=noopener>Releases · jgm/pandoc</a></p><h4 id=その他必要なパッケージを入れる-1>その他必要なパッケージを入れる</h4><p>texlive系のインストールはbrewだと思ったよりめんどくさそうなので、MacPortsを使います。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo port install texlive-lang-japanese texlive-luatex texlive texlive-latex-extra</span></span></code></pre></td></tr></table></div></div></div></div><p>フォントを入れていきますが、macOSだとIPAex明朝ではレンダリングがコケる気がします。まぁインストールすると普通にIPAexフォントがインストールされるだけなのでとりあえず。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew install homebrew/cask-fonts/font-ipaexfont</span></span></code></pre></td></tr></table></div></div></div></div><h4 id=もろもろのテンプレデータ的物を入れるディレクトリを作る-1>もろもろのテンプレデータ的物を入れるディレクトリを作る</h4><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir ~/markdown</span></span></code></pre></td></tr></table></div></div></div></div><p>このあたりは適宜好きなようにしてください</p><h4 id=pandoc-crossrefを落とす-1>pandoc-crossrefを落とす</h4><p>ここから<code>pandoc-crossref-Linux.tar.xz</code>を落として展開します。<br><a class=link href=https://github.com/lierdakil/pandoc-crossref/releases target=_blank rel=noopener>Releases · lierdakil/pandoc-crossref</a></p><p>執筆時は0.3.12.1aでした。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> ~/markdown
+</span></span><span class=line><span class=cl>curl -LO https://github.com/lierdakil/pandoc-crossref/releases/download/v0.3.12.1a/pandoc-crossref-macOS.tar.xz
+</span></span><span class=line><span class=cl>xz -dc pandoc-crossref-macOS.tar.xz <span class=p>|</span> tar xfv -</span></span></code></pre></td></tr></table></div></div></div></div><p>これで~/markdownに<code>pandoc-crossref</code>という実行ファイルが展開されます。</p><h3 id=以下linuxmacos共通pandocとpandoc-crossrefのバージョンを確認する>(以下Linux/macOS共通)pandocとpandoc-crossrefのバージョンを確認する</h3><p>pandocとpandoc-crossrefのビルド元pandocバージョンは一致していないと動作しません。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ pandoc -v
+</span></span><span class=line><span class=cl>pandoc 2.16.2
+</span></span><span class=line><span class=cl>Compiled with pandoc-types 1.22.1, texmath 0.12.3.2, skylighting 0.12.1,
+</span></span><span class=line><span class=cl>...</span></span></code></pre></td></tr></table></div></div></div></div><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ./pandoc-crossref -v
+</span></span><span class=line><span class=cl>pandoc-crossref v0.3.12.1 git commit 0a47293d7d47aa763e82204e13deabc8f1a041c4 <span class=o>(</span>HEAD<span class=o>)</span> built with Pandoc v2.16.2, pandoc-types v1.22.1 and GHC 8.10.7</span></span></code></pre></td></tr></table></div></div></div></div><p>上記の場合、pandocが2.16.2、pandoc-crossrefが「built with Pandoc v2.16.2」となっており、一致しています。</p><h3 id=metadatayamlの用意>metadata.yamlの用意</h3><p>図や表、コードなどのPrefixを設定したり、二段組を使う場合に設定したりします。<br><code>~/markdown/metadata.yaml</code>として保存します。</p><p>なぜここにTitleやAuthorが入っていないのか、という点については、冒頭部分のレイアウトを自分で制御したいからというのがあります(テンプレートを弄る気力がないので)。後述します。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>figureTitle</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;図 &#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>tableTitle</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;表 &#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>listingTitle</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;コード &#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>figPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;図&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>eqnPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;式&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>tblPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;表&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>lstPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;コード&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>codeBlockCaptions</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>listings</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c># 見出し番号自動で付ける</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>numbersections</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c># 左右に段組みにする場合</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>header-includes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>\documentclass[twocolumn, a4j]{jarticle}</span></span></span></code></pre></td></tr></table></div></div></div></div><h3 id=makeyamlの用意>make.yamlの用意</h3><p>生成するときのオプションをまとめて書いておいたyamlファイルを用意して、生成コマンドが長くならないようにします。</p><p><strong>macOSの場合、CJKmainfontをIPAexMinchoにしても読み込まれないことがあるので、<code>luatexjapresetoptions</code>と<code>CJKmainfont</code>をコメントアウトしてデフォルトのヒラギノ明朝にしたほうが良いかも知れません</strong></p><p>フォントサイズが11ptになっていますが、だいたいこれで10.5ptと同じくらいです。<br><a class=link href="http://denki.nara-edu.ac.jp/~yabu/soft/tex/tex.html#:~:text=%E4%BE%8B%E3%81%88%E3%81%B0%E3%80%81MS%2DWord%20%E3%81%A7%E3%81%AF%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%AE%E5%92%8C%E6%96%87%E6%96%87%E5%AD%97%E3%82%B5%E3%82%A4%E3%82%BA%E3%81%AF%2010.5%20pt%20%E3%81%A7%E3%81%99%E3%80%82%20%E3%81%93%E3%82%8C%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%20TeX%20%E3%81%A7%E3%81%AF%20%5Cdocumentstyle%5B11pt%5D%7Bjarticle%7D%20%E3%81%A7%E3%81%99%E3%80%82%2011%20pt%20%E3%81%AE%E3%81%A8%E3%81%8D%E3%81%A0%E3%81%91%E3%80%81%20%E5%92%8C%E6%96%87%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%81%A8%E8%8B%B1%E6%96%87%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%81%AE%E5%A4%A7%E3%81%8D%E3%81%95%E3%81%AE%E6%AF%94%E7%8E%87%E3%81%8C%20%E7%95%B0%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AB%E6%B3%A8%E6%84%8F%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82" target=_blank rel=noopener>TeX を使った論文作成のノウハウ</a></p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>filters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>pandoc-crossref</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>pdf-engine</span><span class=p>:</span><span class=w> </span><span class=l>lualatex</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>standalone</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata-files</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>metadata.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>variables</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>documentclass</span><span class=p>:</span><span class=w> </span><span class=l>ltjarticle</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>classoption</span><span class=p>:</span><span class=w> </span><span class=l>pandoc</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 上下左右余白</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>geometry</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>top=2cm</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>bottom=2cm</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>left=2cm</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>right=2cm</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 11pt≒10.5pt</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>fontsize</span><span class=p>:</span><span class=w> </span><span class=l>11pt</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># フォント設定</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>luatexjapresetoptions</span><span class=p>:</span><span class=w> </span><span class=l>IPAexMincho</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>CJKmainfont</span><span class=p>:</span><span class=w> </span><span class=l>IPAexMincho</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 行間設定 これで縦を37行に</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>linestretch</span><span class=p>:</span><span class=w> </span><span class=m>1.28</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 字下げ設定</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>indent</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>include-in-header</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>header.tex</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>listings</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>csl</span><span class=p>:</span><span class=w> </span><span class=l>sist02</span></span></span></code></pre></td></tr></table></div></div></div></div><h3 id=headertexの用意>header.texの用意</h3><p>以下の内容を記載した<code>~/markdown/header.tex</code>を用意します</p><p>コードブロックがない場合はコードブロックの色設定は必要ないですが、最後のrenewcommandの行が無いと、図などのキャプションが英語のままになります。(さっきyamlで設定したのになんで?)</p><p>色設定等は<a class=link href=https://yurkth.hateblo.jp/entry/pandoc-markdown target=_blank rel=noopener>Pandocを使ってMarkdownでレポートを書いてみる - 屋根裏</a> より拝借しました。</p><p>図の位置については <a class=link href=https://nyarrix.com/blog/2019/09/09/rmarkdown-to-pdf/ target=_blank rel=noopener>R Markdownでpdf出力する時の図の位置設定 | Nylog</a> より拝借しました。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl><span class=k>\usepackage</span><span class=nb>{</span>listings<span class=nb>}</span>
+</span></span><span class=line><span class=cl><span class=k>\usepackage</span><span class=nb>{</span>xcolor<span class=nb>}</span>
+</span></span><span class=line><span class=cl><span class=k>\usepackage</span><span class=nb>{</span>url<span class=nb>}</span> <span class=c>% 参考文献用
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=k>\usepackage</span><span class=nb>{</span>titlesec<span class=nb>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>% 見出しのフォント設定を特に大きくせず他と同じにする
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=k>\titleformat*</span><span class=nb>{</span><span class=k>\section</span><span class=nb>}{</span><span class=k>\selectfont\rmfamily</span><span class=nb>}</span>
+</span></span><span class=line><span class=cl><span class=k>\titleformat*</span><span class=nb>{</span><span class=k>\subsection</span><span class=nb>}{</span><span class=k>\selectfont\rmfamily</span><span class=nb>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>% 二段組の間の間隔 これで横を22文字に
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=k>\setlength</span><span class=nb>{</span><span class=k>\columnsep</span><span class=nb>}{</span>1cm<span class=nb>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>% コードブロックの色設定
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=k>\lstset</span><span class=nb>{</span>
+</span></span><span class=line><span class=cl>    basicstyle=<span class=k>\ttfamily</span>,
+</span></span><span class=line><span class=cl>    keywordstyle=<span class=k>\color</span><span class=na>[rgb]</span><span class=nb>{</span>0,0,0.6<span class=nb>}</span><span class=k>\bfseries</span>,
+</span></span><span class=line><span class=cl>    stringstyle=<span class=k>\color</span><span class=na>[rgb]</span><span class=nb>{</span>0,0.6,0<span class=nb>}</span>,
+</span></span><span class=line><span class=cl>    commentstyle=<span class=k>\color</span><span class=na>[rgb]</span><span class=nb>{</span>0.4,0.4,0.4<span class=nb>}</span><span class=k>\itshape</span>,
+</span></span><span class=line><span class=cl>    numberstyle=<span class=k>\ttfamily</span>,
+</span></span><span class=line><span class=cl>    numbers=none,
+</span></span><span class=line><span class=cl>    stepnumber=1,
+</span></span><span class=line><span class=cl>    numbersep=15pt,
+</span></span><span class=line><span class=cl>    numberstyle=<span class=k>\color</span><span class=na>[rgb]</span><span class=nb>{</span>0.6,0.6,0.6<span class=nb>}</span>,
+</span></span><span class=line><span class=cl>    tabsize=4,
+</span></span><span class=line><span class=cl>    breaklines=true,
+</span></span><span class=line><span class=cl>    captionpos=t,
+</span></span><span class=line><span class=cl>    frame=single,
+</span></span><span class=line><span class=cl>    rulecolor=<span class=k>\color</span><span class=na>[rgb]</span><span class=nb>{</span>0.8,0.8,0.8<span class=nb>}</span>, 
+</span></span><span class=line><span class=cl>    backgroundcolor=<span class=k>\color</span><span class=na>[rgb]</span><span class=nb>{</span>0.95,0.95,0.95<span class=nb>}</span>,
+</span></span><span class=line><span class=cl>    showspaces=false,
+</span></span><span class=line><span class=cl>    showtabs=false,
+</span></span><span class=line><span class=cl>    showstringspaces=false
+</span></span><span class=line><span class=cl><span class=nb>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>\renewcommand</span><span class=nb>{</span><span class=k>\lstlistingname</span><span class=nb>}{</span>コード<span class=nb>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>% 図の位置を書いた位置にする
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=k>\usepackage</span><span class=nb>{</span>float<span class=nb>}</span>
+</span></span><span class=line><span class=cl><span class=k>\let\origfigure\figure</span>
+</span></span><span class=line><span class=cl><span class=k>\let\endorigfigure\endfigure</span>
+</span></span><span class=line><span class=cl><span class=k>\renewenvironment</span><span class=nb>{</span>figure<span class=nb>}</span>[1][2] <span class=nb>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>\expandafter\origfigure\expandafter</span><span class=na>[H]</span>
+</span></span><span class=line><span class=cl><span class=nb>}</span> <span class=nb>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>\endorigfigure</span>
+</span></span><span class=line><span class=cl><span class=nb>}</span></span></span></code></pre></td></tr></table></div></div></div></div><h3 id=referencesbibの用意>references.bibの用意</h3><p>これは実際のMarkdownファイルがある場所に作ります。</p><p>参考文献を突っ込んでいくファイルです。</p><p>BiBTeX形式で記載します。<br>どんなものか、については <a class=link href=https://qiita.com/SUZUKI_Masaya/items/14f9727845e020f8e7e9#web%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E3%81%A8%E3%81%97%E3%81%A6%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88 target=_blank rel=noopener>BiBTeXとは - Qiita</a> を参考にして下さい。</p><h3 id=sist02cslの用意>sist02.cslの用意</h3><p><a class=link href="https://www.zotero.org/styles?q=id%3Asist02" target=_blank rel=noopener>Zotero Style Repository</a> から<code>sist02.csl</code>をダウンロードします(「SIST02 (日本語)」</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>wget https://www.zotero.org/styles/sist02 -O sist02.csl</span></span></code></pre></td></tr></table></div></div></div></div><p>これは参考文献のスタイルをいい感じにしてくれるものなのですが、リスト表記時や文章内の参照番号が「(1)」のように普通のカッコになってしまうので、これを<code>[1]</code>のようになるよう、書き換えます。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sed -i -e <span class=s1>&#39;s/prefix=&#34;(&#34;/prefix=&#34;[&#34;/g&#39;</span> sist02.csl
+</span></span><span class=line><span class=cl>sed -i -e <span class=s1>&#39;s/suffix=&#34;)&#34;/suffix=&#34;]&#34;/g&#39;</span> sist02.csl</span></span></code></pre></td></tr></table></div></div></div></div><h2 id=生成コマンド>生成コマンド</h2><p>hoge.mdをhoge.pdfにする、というものなのですが、実はPandocのバージョンの諸々で、参考文献が入っていると<br><code>\vadjust pre</code>というコマンドが挿入され、lualatexがエラーを吐きます。<br>( <a class=link href=https://issueexplorer.com/issue/jgm/pandoc/7534 target=_blank rel=noopener>Error with \vadjust when loading luatexja package - Jgm/Pandoc</a> )</p><p>色々検証してみたところ、一度pandocでPDFではなくtexファイルを出力し、当該部分を削除してlualatexでコンパイルするのが良さそうです。</p><p>ということで、いきなりですが生成関数を.bashrcや.zshrcに記載します。</p><p>(なんでtex出力なのにmake.yamlでpdf-engineを書いたんだ、という話になりそうですが、別に存在してても構わなそうなので許してください)</p><h3 id=bashzsh用function>bash/zsh用function</h3><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=k>function</span> mdtopdf <span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 終了後にもとのディレクトリに戻れるように現在のディレクトリを取得</span>
+</span></span><span class=line><span class=cl>	<span class=nv>origdir</span><span class=o>=</span><span class=sb>`</span><span class=nb>pwd</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># ファイル名から拡張子を取り除いたものを取得</span>
+</span></span><span class=line><span class=cl>	<span class=nv>file</span><span class=o>=</span><span class=sb>`</span><span class=nb>echo</span> <span class=nv>$1</span> <span class=p>|</span> sed -e <span class=s1>&#39;s/\.md//&#39;</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 指定されたmarkdownがあるディレクトリの絶対パスを取得</span>
+</span></span><span class=line><span class=cl>	<span class=nv>dirpath</span><span class=o>=</span><span class=k>$(</span><span class=nb>cd</span> <span class=k>$(</span>dirname <span class=nv>$1</span><span class=k>)</span><span class=p>;</span> <span class=nb>pwd</span><span class=k>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># いろいろな設定ファイルがある~/markdownに移動</span>
+</span></span><span class=line><span class=cl>	<span class=nb>cd</span> ~/markdown
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># pandocでtexファイルを生成</span>
+</span></span><span class=line><span class=cl>	pandoc -d make.yaml <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>	--bibliography<span class=o>=</span><span class=si>${</span><span class=nv>dirpath</span><span class=si>}</span>/references.bib <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>	--resource-path<span class=o>=</span><span class=si>${</span><span class=nv>dirpath</span><span class=si>}</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>	--cite <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>	--csl<span class=o>=</span>sist02 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>	-f markdown+hard_line_breaks <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>	<span class=si>${</span><span class=nv>dirpath</span><span class=si>}</span>/<span class=si>${</span><span class=nv>file</span><span class=si>}</span>.md <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>	-o <span class=si>${</span><span class=nv>dirpath</span><span class=si>}</span>/<span class=si>${</span><span class=nv>file</span><span class=si>}</span>.tex
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># もとのディレクトリに戻る</span>
+</span></span><span class=line><span class=cl>	<span class=nb>cd</span> <span class=nv>$origdir</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># texファイルからいらない部分を消す</span>
+</span></span><span class=line><span class=cl>	sed -i -e <span class=s1>&#39;s/\\vadjust pre{\(.*\)}%/\1/&#39;</span> <span class=si>${</span><span class=nv>file</span><span class=si>}</span>.tex
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># コンパイルする</span>
+</span></span><span class=line><span class=cl>	lualatex <span class=si>${</span><span class=nv>file</span><span class=si>}</span>.tex
+</span></span><span class=line><span class=cl><span class=o>}</span></span></span></code></pre></td></tr></table></div></div></div></div><h3 id=使い方>使い方</h3><ul><li>準備:
+上記コマンドを.bashrcや、.bashrcでsourceを使って読み込ませる別ファイル等に記載し、読み込ませます。</li><li>mdファイル、references.bib、画像等のディレクトリについて:
+どこでも構いませんが、<ul><li>hoge.md</li><li>references.bib</li><li>画像または画像が入ったディレクトリ
+は同じ位置に置いてください(画像に関してはresource-pathでmdファイルと同じ階層以下を指定しているので)</li></ul></li><li>実行方法<ol><li><code>mdtopdf hoge.md</code>と実行します</li><li>hoge.mdと同じ場所にhoge.pdfが生成されます。</li></ol></li></ul><h2 id=markdownの書き方>Markdownの書き方</h2><p>基本はMarkdownなのですが、一部専用の書き方を行います。</p><h3 id=冒頭について>冒頭について</h3><p>PandocでTitleやAuthorをつけると自動でいい感じにタイトルや著者名をやってくれるのですが、</p><p><img src=/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE.png width=717 height=188 srcset="/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_480x0_resize_box_3.png 480w, /posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=381 data-flex-basis=915px><br>(これはWord)</p><p>こういうことをしたいので、自作します。</p><p>yamlで二段組を指定していますが、ここは一段組になるため、<code>\twocolumn[]</code>で囲って一段組にします。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl><span class=k>\twocolumn</span>[
+</span></span><span class=line><span class=cl><span class=k>\begin</span><span class=nb>{</span>flushleft<span class=nb>}</span>
+</span></span><span class=line><span class=cl>2021年度卒業研究概要<span class=k>\\</span>
+</span></span><span class=line><span class=cl><span class=k>\vskip\baselineskip</span>
+</span></span><span class=line><span class=cl><span class=k>\end</span><span class=nb>{</span>flushleft<span class=nb>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>\begin</span><span class=nb>{</span>center<span class=nb>}</span>
+</span></span><span class=line><span class=cl><span class=k>\fontsize</span><span class=nb>{</span>14pt<span class=nb>}{</span>11pt<span class=nb>}</span><span class=k>\selectfont</span>
+</span></span><span class=line><span class=cl>ここにタイトル
+</span></span><span class=line><span class=cl><span class=k>\vskip\baselineskip</span>
+</span></span><span class=line><span class=cl><span class=k>\end</span><span class=nb>{</span>center<span class=nb>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>\begin</span><span class=nb>{</span>flushright<span class=nb>}</span>
+</span></span><span class=line><span class=cl>美しい時代へ 研究室<span class=k>\\</span>
+</span></span><span class=line><span class=cl>0000000 五島 慶太<span class=k>\\</span>
+</span></span><span class=line><span class=cl><span class=k>\end</span><span class=nb>{</span>flushright<span class=nb>}</span>
+</span></span><span class=line><span class=cl><span class=k>\vskip\baselineskip</span>
+</span></span><span class=line><span class=cl>]</span></span></code></pre></td></tr></table></div></div></div></div><p><img src=/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung.png width=1024 height=298 srcset="/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_480x0_resize_box_3.png 480w, /posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=343 data-flex-basis=824px></p><p>(出力したPDF)</p><p>こんな感じです。</p><h3 id=キャプション参照について>キャプション・参照について</h3><h4 id=画像>画像</h4><p>画像に関しては、</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>![<span class=nt>画像の説明</span>](<span class=na>img/hoge.jpg</span>){#fig:識別名}</span></span></code></pre></td></tr></table></div></div></div></div><p>と挿入し、参照するときは</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>〇〇を[@fig:識別名]に示す。</span></span></code></pre></td></tr></table></div></div></div></div><p>と記述することで行なえます。</p><h4 id=参考文献参照>参考文献参照</h4><p>references.bibには以下のように記入します。(これはURLの例です。BibTex形式なので調べるとたくさん出てきます。)</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bib data-lang=bib><span class=line><span class=cl><span class=nc>@misc</span><span class=p>{</span><span class=nl>tcu-namechange:online</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=na>author</span> <span class=p>=</span> <span class=s>{学校法人 五島育英会}</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=na>title</span> <span class=p>=</span> <span class=s>{武蔵工業大学の名称変更並びにこれに伴う設置学校の名称変更について}</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=na>url</span> <span class=p>=</span> <span class=s>{http://goto-ikuei.ac.jp/01topics/2007/files/080314-TCU-release1.pdf}</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=na>year</span> <span class=p>=</span> <span class=s>{2008}</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=na>month</span> <span class=p>=</span> <span class=s>{3}</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=na>language</span> <span class=p>=</span> <span class=s>{ja}</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=na>urldate</span> <span class=p>=</span> <span class=s>{2021-12-01}</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div></div><p>Markdownにはこのように参照させます。</p><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>武蔵工業大学は平成21年4月より武蔵工業大学へと名称変更を行った[@tcu-namechange:online].</span></span></code></pre></td></tr></table></div></div></div></div><h2 id=実演>実演</h2><h3 id=markdown>Markdown</h3><div><div class=codeblock--content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>\twocolumn[
+</span></span><span class=line><span class=cl>\begin{flushleft}
+</span></span><span class=line><span class=cl>2021年度卒業研究概要\\
+</span></span><span class=line><span class=cl>\vskip\baselineskip
+</span></span><span class=line><span class=cl>\end{flushleft}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>\begin{center}
+</span></span><span class=line><span class=cl>\fontsize{14pt}{10.5pt}\selectfont
+</span></span><span class=line><span class=cl>ここにはタイトル
+</span></span><span class=line><span class=cl>\vskip\baselineskip
+</span></span><span class=line><span class=cl>\end{center}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>\begin{flushright}
+</span></span><span class=line><span class=cl>東急グループ\\
+</span></span><span class=line><span class=cl>五島慶太\\
+</span></span><span class=line><span class=cl>\end{flushright}
+</span></span><span class=line><span class=cl>\vskip\baselineskip
+</span></span><span class=line><span class=cl>]
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=gh># はじめに
+</span></span></span><span class=line><span class=cl><span class=gh></span>
+</span></span><span class=line><span class=cl>こんにちは．にゃーん
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>![<span class=nt>楽しいインターネットのイラスト</span>](<span class=na>img/internet_heiwa.png</span>){#fig:インターネット平和}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>インターネットのあるべき姿を[@fig:インターネット平和]に示す．
+</span></span><span class=line><span class=cl>これはとても平和である．
+</span></span><span class=line><span class=cl>武蔵工業大学は平成21年4月より武蔵工業大学へと名称変更を行った[@tcu-namechange:online]．
+</span></span><span class=line><span class=cl>他にはこんな感じ[@kizi-rei]．
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=gh># 吾輩は猫である
+</span></span></span><span class=line><span class=cl><span class=gh></span>
+</span></span><span class=line><span class=cl><span class=gu>## 最初のところ
+</span></span></span><span class=line><span class=cl><span class=gu></span>
+</span></span><span class=line><span class=cl>吾輩わがはいは猫である。名前はまだ無い。
+</span></span><span class=line><span class=cl>(略)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=gu>## 続き
+</span></span></span><span class=line><span class=cl><span class=gu></span>
+</span></span><span class=line><span class=cl>ようやくの思いで笹原を這い出すと向うに大きな池がある。
+</span></span><span class=line><span class=cl>(略)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 参考文献</span></span></code></pre></td></tr></table></div></div></div></div><h3 id=pdf>PDF</h3><p><img src=/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr.png width=1241 height=1754 srcset="/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_480x0_resize_box_3.png 480w, /posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=70 data-flex-basis=169px></p><p><img src=/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K.png width=1241 height=1754 srcset="/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_480x0_resize_box_3.png 480w, /posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=70 data-flex-basis=169px></p><h2 id=〆>〆</h2><p>YCの卒業研究概要集をMarkdown+Pandocで書くセットアップについて書きましたが、セットアップに割いた時間をおとなしくWordで書くことに費やしていれば今頃7割位完成していたような気がします。</p><p>慣れない作業でめちゃくちゃ疲れましたが、いつか誰かの役に立てば・・・。</p><p>明日は<a class=link href=https://twitter.com/gitercccahuud target=_blank rel=noopener>@gitercccahuud</a>さんによる「老害大学院生ツイッタラーが教える情報システム学科完全攻略法」です!</p><h2 id=参考文献>参考文献</h2><p><a class=link href=https://laclefyoshi.hatenablog.com/entry/20150616/crossref target=_blank rel=noopener>Markdownで相互参照を使うならpandoc-crossref - DiaryException</a></p><p><a class=link href=https://yurkth.hateblo.jp/entry/pandoc-markdown target=_blank rel=noopener>Pandocを使ってMarkdownでレポートを書いてみる - 屋根裏</a></p><p><a class=link href=https://qiita.com/sky_y/items/3c5c46ebd319490907e8#linux--win2-wslubuntu%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AA%E3%81%A9 target=_blank rel=noopener>Pandocの比較的簡単なインストール方法 - Qiita</a></p><p><a class=link href=https://blog.8tak4.com/post/168232661994/know-how-writing-thesis-markdown target=_blank rel=noopener>学位論文を書く準備 - プらチナの日記</a></p><p><a class=link href=https://qiita.com/nmxi/items/2179a3da442bdf8f74a6 target=_blank rel=noopener>TeX書式ノート - Qiita</a></p><p><a class=link href=https://gg-hogehoge.hatenablog.com/entry/2013/08/13/145138 target=_blank rel=noopener>TeX文書で, 本文は2段, 概要は1段で表示させたい - 300億円欲しい</a></p><p><a class=link href=https://pandoc-doc-ja.readthedocs.io/ja/latest/users-guide.html target=_blank rel=noopener>Pandoc User’s Guide 日本語版 — 日本Pandocユーザ会</a></p><p><a class=link href=https://qiita.com/sky_y/items/b243c2618706605e5fdd target=_blank rel=noopener>[Pandoc 2.8 新機能] 長いオプションをファイルにまとめるDefault file - Qiita</a></p><p><a class=link href=https://qiita.com/Kumassy/items/5b6ae6b99df08fb434d9 target=_blank rel=noopener>まだ Word で消耗してるの？ 大学のレポートを Markdown で書こう - Qiita</a></p><p><a class=link href=https://zenn.dev/sky_y/articles/pandoc-advent-2020-bib2 target=_blank rel=noopener>Pandocで参考文献リストを処理する扱う方法 (PandocとZoteroで参考文献：後編)</a></p><p><a class=link href=https://qiita.com/SUZUKI_Masaya/items/14f9727845e020f8e7e9#web%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E3%81%A8%E3%81%97%E3%81%A6%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88 target=_blank rel=noopener>BiBTeXとは - Qiita</a></p><p><a class=link href=https://stakizawa.hatenablog.com/entry/20070608/t1 target=_blank rel=noopener>BibtexでURLを参考文献にする方法 - 日々の報告書</a></p><p><a class=link href=https://gedevan-aleksizde.github.io/rmarkdown-cookbook/latex-variables.html target=_blank rel=noopener>6.2 LaTeX 出力の Pandoc オプション | R Markdown クックブック</a></p><p><a class=link href=https://qiita.com/sky_y/items/15bf7737f4b37da50372 target=_blank rel=noopener>メモ: Pandoc+LaTeXで気軽に日本語PDFを出力する - Qiita</a></p><p><a class=link href=https://qiita.com/roaming_south/items/ea39b9554167fcaba882 target=_blank rel=noopener>TeXのセクションの大きさを変更する - Qiita</a></p><p><a class=link href="http://denki.nara-edu.ac.jp/~yabu/soft/tex/tex.html#:~:text=%E4%BE%8B%E3%81%88%E3%81%B0%E3%80%81MS%2DWord%20%E3%81%A7%E3%81%AF%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%AE%E5%92%8C%E6%96%87%E6%96%87%E5%AD%97%E3%82%B5%E3%82%A4%E3%82%BA%E3%81%AF%2010.5%20pt%20%E3%81%A7%E3%81%99%E3%80%82%20%E3%81%93%E3%82%8C%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%99%E3%82%8B%E3%81%AE%E3%81%AF%20TeX%20%E3%81%A7%E3%81%AF%20%5Cdocumentstyle%5B11pt%5D%7Bjarticle%7D%20%E3%81%A7%E3%81%99%E3%80%82%2011%20pt%20%E3%81%AE%E3%81%A8%E3%81%8D%E3%81%A0%E3%81%91%E3%80%81%20%E5%92%8C%E6%96%87%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%81%A8%E8%8B%B1%E6%96%87%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%81%AE%E5%A4%A7%E3%81%8D%E3%81%95%E3%81%AE%E6%AF%94%E7%8E%87%E3%81%8C%20%E7%95%B0%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8%E3%81%AB%E6%B3%A8%E6%84%8F%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82" target=_blank rel=noopener>TeX を使った論文作成のノウハウ</a></p><p><a class=link href=https://twitter.com/kdmsnr/status/1395652667444133892 target=_blank rel=noopener>(1) 角 征典／Masanori KadoさんはTwitterを使っています 「この変更でコンパイルが通らなくなったんだけど、何をしてるのかわからん。。。 https://t.co/8BUh8s84xm」 / Twitter</a></p><p><a class=link href=https://issueexplorer.com/issue/jgm/pandoc/7534 target=_blank rel=noopener>Error with \vadjust when loading luatexja package - Jgm/Pandoc</a></p><p><a class=link href=https://nyarrix.com/blog/2019/09/09/rmarkdown-to-pdf/ target=_blank rel=noopener>R Markdownでpdf出力する時の図の位置設定 | Nylog</a></p></section><footer class=article-footer><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>関連するコンテンツ</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/posts/2018/20181011-javaapplet-with-cli/><div class=article-details><h2 class=article-title>Java AppletをIDEを使わずにコマンドラインで簡単に使いたい</h2></div></a></article><article class=has-image><a href=/posts/2022/20221216-misskey-cli/><div class=article-image><img src=/posts/2022/20221216-misskey-cli/img/misskey-cli-scr.7dad8a8f888e419ba97a42744e3827f0_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post GoでMisskeyのCLIクライアントを作った話 (Misskey Advent Calender 2022)" data-hash="md5-fa2Kj4iOQZupekJ0Tjgn8A=="></div><div class=article-details><h2 class=article-title>GoでMisskeyのCLIクライアントを作った話 (Misskey Advent Calender 2022)</h2></div></a></article><article><a href=/posts/2021/20210306-subsonic-with-googledrive/><div class=article-details><h2 class=article-title>SubsonicのストレージとしてGoogleDriveを使う方法(Linux)</h2></div></a></article><article><a href=/posts/2020/20200326-x230-back-to-windows-from-linux/><div class=article-details><h2 class=article-title>X230のOSをLinuxからWindowsに戻した。</h2></div></a></article><article><a href=/posts/2020/20200213-wakeonlan-from-browser/><div class=article-details><h2 class=article-title>ブラウザ経由でシェルスクリプト叩いてWake on LANする</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2018 -
+2024 mikuta0407</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> で構築されています。<br>テーマ <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.26.0>Stack</a></b> は <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> によって設計されています。</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

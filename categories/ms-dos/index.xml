@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MS-DOS on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/ms-dos/</link><description>Recent content in MS-DOS on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Wed, 04 Dec 2019 00:00:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/ms-dos/index.xml" rel="self" type="application/rss+xml"/><item><title>C言語開発環境を構築しよう! ～超遠回り編～</title><link>https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/</link><pubDate>Wed, 04 Dec 2019 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+&lt;p>&lt;strong>この記事は&lt;a class="link" href="https://adventar.org/calendars/4282" target="_blank" rel="noopener"
+>Tokyo City University Advent Calendar 2019&lt;/a>の4日目の記事です&lt;/strong>&lt;/p>
+&lt;p>C言語の開発環境、たくさんありますよね。一番手軽なところだと、Windows用のgccとメモ帳があればとりあえずできます。また、VisualStudioやCLionなどのIDEを使う方法もあります。
+それらのやり方はいちいち今からQiitaに書かなくてもいくらでも情報が転がっています。ところが、なかなかポータブルな環境構築というのは見かけません。大学の備え付けPCやネカフェのPCなど手持ち以外のPCで使おうとしても、パスを通したりエディタの設定を云々したりが必要で、なかなかポータブルな環境構築というのも難しいものです。
+そこで、今回は&lt;strong>ポータブルなC言語開発環境を&lt;/strong>(ものすごい遠回りして(結局実用性があまりない状態で))作っていきましょう! &lt;del>100%ネタです&lt;/del>&lt;/p>
+&lt;h2 id="必要なもの">必要なもの
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>MS-DOS 6.2&lt;/strong>のインストールイメージ(今回はPC-9801用を使用しました)&lt;/li>
+&lt;li>NP21/W (普通のNekoProject2でもいいですけどね)
+&lt;ul>
+&lt;li>PC9821エミュレータ(LinuxのWineだと動いた。macだとキーボードが動かない場合がある)&lt;/li>
+&lt;li>リンク:https://sites.google.com/site/np21win/download&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>LSI C-86 Ver.3.30 試食版
+&lt;ul>
+&lt;li>Cコンパイラ&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.vector.co.jp/soft/maker/lsi/se001169.html" target="_blank" rel="noopener"
+>https://www.vector.co.jp/soft/maker/lsi/se001169.html&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>DiskExplorer
+&lt;ul>
+&lt;li>仮想HDDイメージやFDイメージを開くためのソフト&lt;/li>
+&lt;li>&lt;a class="link" href="https://hp.vector.co.jp/authors/VA013937/editdisk/index.html" target="_blank" rel="noopener"
+>https://hp.vector.co.jp/authors/VA013937/editdisk/index.html&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>(DOS用テキストエディタは載せてません。各自お好きなものを探してみてください。)&lt;/li>
+&lt;/ul>
+&lt;h2 id="pc-98np21wを起動する">PC-98(NP21/W)を起動する
+&lt;/h2>&lt;p>環境にMS-DOSを使うため、PC-98シリーズの仮想マシンを使います。
+先述のサイトからNP21/WのZIPファイルをダウンロードし、展開しましょう。
+「9801」「language」「np2.chm」「np21w.exe」「np21x64w.exe」の5つが展開されたはずです。
+まずは、「np21x64w.exe」を起動します(x86なOSならnp21w.exe)&lt;/p>
+&lt;p>Windows10だとSmartScreenに引っかかりますが、「詳細情報」→「実行する」で起動ます。&lt;/p>
+&lt;p>起動すると、「ﾋﾟﾎﾟｯ!」と起動音が流れながら、メモリチェックが行われます&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041_hu01e97c6a8f2c07c2043faf02f42e4302_13154_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041_hu01e97c6a8f2c07c2043faf02f42e4302_13154_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>なにもイメージを割り当ててないので、「システムディスクをセットしてください」となります。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af_hu4c6ffeb60c4242034a17a56e75d8d1c3_13229_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af_hu4c6ffeb60c4242034a17a56e75d8d1c3_13229_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;h3 id="cpuの速度を変える">CPUの速度を変える
+&lt;/h3>&lt;p>せっかく実機PC-9801/21よりはるかに早いコンピュータを使っていますので、夢の爆速マシンにしましょう。
+「Emulate」メニュー→「Configure&amp;hellip;」より、CPUの欄のプルダウンメニューで、20→42にしましょう。
+次起動するときは「ﾋﾟﾎﾟｯ」が一瞬しか聞こえません。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee.png"
+width="208"
+height="107"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee_hu685374996af40331199bb639c873361d_2389_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee_hu685374996af40331199bb639c873361d_2389_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="194"
+data-flex-basis="466px"
+>&lt;/p>
+&lt;h2 id="2-hddイメージを作成する">2. HDDイメージを作成する
+&lt;/h2>&lt;p>左上の「Emulate」メニュー→「New disk」→「Hard disk image&amp;hellip;」&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b_huf93f122fa62f41f7ad35ed19a6877566_20233_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b_huf93f122fa62f41f7ad35ed19a6877566_20233_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>ファイル保存ダイアログが出るので、好きな名前を付けて保存しましょう。
+この時、ファイルの種類が決められますが、「.nhd」で良いと思います。&lt;/p>
+&lt;p>次にファイルサイズを決めます。MS-DOS 6.2がとりあえず読める最大サイズが2047MBバイトなので、精神衛生的に2048MBにしました。(容量固定式なので、指定したサイズのファイルがいきなり生成されます。ご注意ください)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886.png"
+width="282"
+height="94"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886_hud31aa88f9dc91028ed8f6e3da5e48f91_4464_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886_hud31aa88f9dc91028ed8f6e3da5e48f91_4464_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="300"
+data-flex-basis="720px"
+>&lt;/p>
+&lt;p>「OK」を押すと、HDイメージが作成されます。&lt;/p>
+&lt;p>次に、作成したイメージを割り当てます。
+「Harddisk」メニュー→「IDE #0」→「Open」より、先ほど作成したファイルを選択します。&lt;/p>
+&lt;p>これで最初の作業は終了です。&lt;/p>
+&lt;h2 id="3-ms-dosをインストールする">3. MS-DOSをインストールする
+&lt;/h2>&lt;p>一番めんどくさい作業です。
+「FDD1」メニュー→「Open」より、インストールフロッピィイメージの1枚目を開きます。
+(以下、MS-DOS側に合わせ、フロッピーではなくフロッピィ表記を使用します)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b.png"
+width="166"
+height="196"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b_hu7507376c4e46170732f3165aafe4a8a8_6279_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b_hu7507376c4e46170732f3165aafe4a8a8_6279_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="84"
+data-flex-basis="203px"
+>&lt;/p>
+&lt;p>「Emulate」メニュー→「Reset」で再起動します。&lt;/p>
+&lt;p>再起動すると、インストール先を聞かれます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b_hu036f53aea7744156f3c92a9fe02f76fd_21426_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b_hu036f53aea7744156f3c92a9fe02f76fd_21426_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>
+固定ディスクを選択します&lt;/p>
+&lt;p>ディスクの初期化をします。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e_huae9479eca15766f220599a46e84b2fcb_21888_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e_huae9479eca15766f220599a46e84b2fcb_21888_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>勝手に初期化してくれます。便利ですね。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1_huec776e5cf120c6fc2c1fec51d35dd5f5_17681_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1_huec776e5cf120c6fc2c1fec51d35dd5f5_17681_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>完了すると、MS-DOS領域の作成です。何も考えずEnter押して大丈夫です。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281_huf443899fe66cb569f24f20245aaa2361_22848_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281_huf443899fe66cb569f24f20245aaa2361_22848_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>確認されるので、「はい」で続行します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5_hu07c2140ae9ba64c637e0c27f2d1b2a43_21228_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5_hu07c2140ae9ba64c637e0c27f2d1b2a43_21228_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>何やらすごいプログレスバーが出てきます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08_hu9f421ecba378f753b27e88ec7cfdea8a_18636_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08_hu9f421ecba378f753b27e88ec7cfdea8a_18636_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>勝手に再起動して、インストールが続行されます。まず、インストール先のディレクトリの指定です。このままEnterを押します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba_hue5a7346c2007adc410cd5f69e96c4b7e_18311_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba_hue5a7346c2007adc410cd5f69e96c4b7e_18311_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;br>
+先程のように確認されるので、「はい」で続行します&lt;/p>
+&lt;p>二枚目のフロッピィディスクを入れろと言われるので、先程と同じ様に「FDD1」メニューより、2枚目のフロッピィディスクを入れます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa_hud2d008450ef836040cdccbfcc5364a0a_22825_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa_hud2d008450ef836040cdccbfcc5364a0a_22825_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>入れたらEnterキーを押します。自動でファイルコピーが行われます。これを8枚目まで行います。(仮想だから転送早いですけど、実機だとものすごい時間かかるんだろうなと)&lt;/p>
+&lt;p>8枚目まで終わると、環境設定が出てきます。特に変更は必要ないので、このままEnterキーを押します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a_hu5c649804f91d65955ef7d55cb61cb6cc_29191_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a_hu5c649804f91d65955ef7d55cb61cb6cc_29191_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>インストールが終わりました。速いのか面倒なのかわかりません。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458_hu3ab17c6813b7d85868b7bbf411ae8485_18942_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458_hu3ab17c6813b7d85868b7bbf411ae8485_18942_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;br>
+「FDD1」メニューより、「Eject」でフロッピィディスクを抜き、Enterキーを押しましょう。&lt;/p>
+&lt;p>再起動すると、MS-DOS Shellが起動してきます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26_hu20ce2bdeb333bdf4eba1e86c4164f209_26558_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26_hu20ce2bdeb333bdf4eba1e86c4164f209_26558_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;br>
+F12キーを押せば、マウスも使えます(ホスト/仮想のマウス切り替えがF12)&lt;/p>
+&lt;h2 id="4-lsi-c-86-ver330-試食版を展開する">4. LSI C-86 Ver.3.30 試食版を展開する
+&lt;/h2>&lt;p>lsic330c.lzhを普通に展開します。&amp;ldquo;lsic86&amp;quot;というフォルダにBINフォルダ等が入ってる感じで展開してください。&lt;/p>
+&lt;h2 id="5-diskexplorerを使ってフロッピィイメージにファイルを転送する">5. DiskExplorerを使ってフロッピィイメージにファイルを転送する
+&lt;/h2>&lt;h3 id="1-空フロッピィイメージの用意">1. 空フロッピィイメージの用意
+&lt;/h3>&lt;p>本当は&amp;quot;超遠回り&amp;quot;なので、本来はここでDiskExplorerを使ってHDDイメージ内にファイル転送すれば良いものを、わざわざフロッピィディスクイメージを作って転送してみます。&lt;br>
+と言いたいところなのですが、NP21/Wで作ったものがなぜかDOSでフォーマット出来ず、VirtualBoxで作ったimgなフロッピィイメージもそのままでは読めないので、空のイメージを置いておきます。&lt;br>
+&lt;a class="link" href="https://mikuta0407.net/files/Floppy.fdi" target="_blank" rel="noopener"
+>Floppy.fdi&lt;/a>&lt;br>
+(確実に自作するには&lt;strong>VirtualBoxの標準機能で作ったフォーマット済みなimg形式のイメージを&lt;a class="link" href="https://www.vector.co.jp/soft/win95/util/se151106.html" target="_blank" rel="noopener"
+>Virtual Floppy Image Converter&lt;/a>でFDIに変換すればいい&lt;/strong>のですが、さすがに記事が長くなるのと、説明が面倒くさいので書きません。)&lt;/p>
+&lt;h3 id="2-フォーマットする">2. フォーマットする
+&lt;/h3>&lt;p>「FDD1」より、↑のFloppy.fdiを開きます。今までの手順で行っていた場合、Cドライブにフロッピィディスクが入ります。&lt;/p>
+&lt;p>Shift+F9でDOSのｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄを起動します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462_hu831259151b76d4891587234887e47f1f_13877_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462_hu831259151b76d4891587234887e47f1f_13877_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>&lt;code>format b: &lt;/code>と入力し、実行します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32_hu34600e9ea78dc7e3332f4fa7a08d1bc5_15675_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32_hu34600e9ea78dc7e3332f4fa7a08d1bc5_15675_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;br>
+挿入してあるのでこのままEnterキーを押します。&lt;/p>
+&lt;p>フォーマットされました。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0_hu70ec9e6810432275b387355a5cc14678_22960_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0_hu70ec9e6810432275b387355a5cc14678_22960_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>別に他のイメージはフォーマットしないので、Nで抜けます。抜けたら、「FDD1」メニューからEjectします。&lt;/p>
+&lt;p>exitでｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄからMS-DOS Shellに戻れます。&lt;/p>
+&lt;h3 id="3-フロッピィイメージ内に書き込む">3. フロッピィイメージ内に書き込む
+&lt;/h3>&lt;p>DiskExplorer(先程ダウンロードしたもの。editdisk.exe)を起動し、今フォーマットしたフロッピィイメージを開きます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a.png"
+width="347"
+height="132"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a_hub5a6dd7d5beb73ec0c126508eb9980cd_5031_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a_hub5a6dd7d5beb73ec0c126508eb9980cd_5031_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="262"
+data-flex-basis="630px"
+>&lt;br>
+このままOKで開きます。&lt;/p>
+&lt;p>フロッピィイメージの中を読み書きできるようになりました。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88.png"
+width="634"
+height="435"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88_hu31481f560e6cff65c1ba07efc354ddc3_14269_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88_hu31481f560e6cff65c1ba07efc354ddc3_14269_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+>&lt;br>
+ここに、先程展開されたlsic86のフォルダをドラッグアンドドロップで入れます。(フォルダごと入れてください)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb.png"
+width="634"
+height="435"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb_hu1c5ad9b9c3d4b957cb6fb3b58918855f_24130_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb_hu1c5ad9b9c3d4b957cb6fb3b58918855f_24130_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+>&lt;/p>
+&lt;p>書き込んだら、DiskExplorerは閉じ、再びNP21/Wを起動し、FDD1に今のフロッピィイメージを挿入します。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b.png"
+width="270"
+height="75"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b_hu001c5dae669c8b98c4012ff869109f6b_1636_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b_hu001c5dae669c8b98c4012ff869109f6b_1636_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="360"
+data-flex-basis="864px"
+>&lt;br>
+ちゃんと認識されていますね&lt;/p>
+&lt;h2 id="6-コンパイラのデータをaドライブ内にコピーする">6. コンパイラのデータをAドライブ内にコピーする
+&lt;/h2>&lt;p>Shift+F9でｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄに入ったら、&lt;/p>
+&lt;div>&lt;div class="codeblock--name">ｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄ&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl">&lt;span class="k">mkdir&lt;/span> a:\lsic86
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xcopy b:\lsic86 a:\lsic86 /e&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>でコピーが出来ます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb_hu6b3571619193cc34de305583f60a8752_15166_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb_hu6b3571619193cc34de305583f60a8752_15166_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>コピーが終わったら、メニューよりEjectしてください。これをしないと再起動時フロッピィディスクから起動しようとして、MS-DOSが起動しません。&lt;/p>
+&lt;h2 id="7-コンパイラのパスを通すためにautoexecbatを編集する">7. コンパイラのパスを通すためにAUTOEXEC.BATを編集する
+&lt;/h2>&lt;p>画面下部「ﾒｲﾝ」より、「ﾌｧｲﾙ操作」を開きます。(マウスまたはTabキー+矢印キー+Enterキーで選択)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5.png"
+width="381"
+height="143"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5_hu96dc18ead75dbdddc5a0b934216add58_5076_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5_hu96dc18ead75dbdddc5a0b934216add58_5076_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="266"
+data-flex-basis="639px"
+>&lt;/p>
+&lt;p>スクロールし、「ﾃｷｽﾄﾌｧｲﾙの内容変更」を起動します&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949.png"
+width="370"
+height="147"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949_hu635ade175283450952cd88a816c4a229_7040_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949_hu635ade175283450952cd88a816c4a229_7040_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="251"
+data-flex-basis="604px"
+>&lt;/p>
+&lt;p>どのドライブにあるファイルか聞かれるので、&lt;code>a:&lt;/code>と入力しEnter/OKします&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99.png"
+width="492"
+height="160"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99_hu0f264fe43e9ecf4baee05290db24ecc0_5739_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99_hu0f264fe43e9ecf4baee05290db24ecc0_5739_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="307"
+data-flex-basis="738px"
+>&lt;br>
+どのファイルを編集するか聞かれるので、&lt;code>autoexec.bat&lt;/code>と入力し、Enter/OKで開きます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6_hu1578e40e622836c6a8f79fe43098c4a3_27521_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6_hu1578e40e622836c6a8f79fe43098c4a3_27521_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>テキストエディタが開き、autoexec.batの編集ができるようになったので、追記をしていきます。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e_hu91026bfcc30bf1a288e0bcc554b5b39d_20259_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e_hu91026bfcc30bf1a288e0bcc554b5b39d_20259_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>&lt;code>SET DOSDIR=A:\DOS&lt;/code>と&lt;code>A:\DOS\SMARTDRV.EXE /X&lt;/code>の間に、以下を追記します。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">AUTOEXEC.BAT&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl">&lt;span class="k">SET&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="p">=&lt;/span>A:\LSIC86\BIN;&lt;span class="nv">%PATH%&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493_huae043fc2cba27e1e679fdd991342ee52_20501_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493_huae043fc2cba27e1e679fdd991342ee52_20501_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;br>
+追記したら、F1→&amp;ldquo;E&amp;quot;で保存、終了します&lt;/p>
+&lt;p>MS-DOS Shellに戻ってきたら、EmulateメニューよりResetで再起動します。&lt;/p>
+&lt;p>ｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄを起動して、&lt;code>lcc&lt;/code>と入力後、以下の表示になれば、コンパイラのインストール成功です。&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13_hu512519b80a10e9169c40792f306bdd8c_21591_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13_hu512519b80a10e9169c40792f306bdd8c_21591_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;h2 id="8-hello-worldしてみる">8. Hello Worldしてみる
+&lt;/h2>&lt;p>さきほどautoexec.batを編集したときと同じ方法で、テキストエディタを起動させ、ファイル名を入力するところで&lt;code>test.c&lt;/code>と入力してみます。(存在しないファイル名を入力することで新規作成)&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816_hud9c719805f4680a8b44296bd5f8f7f34_27647_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816_hud9c719805f4680a8b44296bd5f8f7f34_27647_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>これで先程のようにテキストエディタが起動しますので、以下のHello World + αなテストコードを書いてみます。&lt;/p>
+&lt;div>&lt;div class="codeblock--name">test.c&lt;/div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span> &lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Hello World&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">&amp;lt;=&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%d&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span> &lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4_hu312dd17776bdece983c20afb35f61330_19181_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4_hu312dd17776bdece983c20afb35f61330_19181_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;br>
+(デフォルトだとTabがスペース8文字分になりました)&lt;/p>
+&lt;p>書き終わったら先程のようにF1→Eで保存します。&lt;/p>
+&lt;p>Shift+F9でｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄに入ったら、&lt;/p>
+&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">lcc test.c -o test.exe&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>でコンパイルしてみましょう&lt;/p>
+&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5_hub7147fd3b4bc807d863e2d4bee4089c2_13958_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5_hub7147fd3b4bc807d863e2d4bee4089c2_13958_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;br>
+コンパイルされました。&lt;/p>
+&lt;p>&lt;code>test.exe&lt;/code>と実行し、きちんと動作してることを確認します&lt;br>
+&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8.png"
+width="644"
+height="454"
+srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8_hu0044e6c3f581bcb5d6922c19e1da0dcf_14888_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8_hu0044e6c3f581bcb5d6922c19e1da0dcf_14888_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="141"
+data-flex-basis="340px"
+>&lt;/p>
+&lt;p>お疲れさまでした&amp;hellip;! ポータブルなC言語開発環境の構築の完成です&amp;hellip;!!!&lt;br>
+別PCで起動するときは、NP21/WでHDDを再指定するだけで大丈夫です。&lt;br>
+動作が動作なのでUSBメモリなどに入れて気軽に持ち歩きましょう!&lt;/p>
+&lt;h2 id="あとがき">あとがき
+&lt;/h2>&lt;p>疲れます。&lt;br>
+sudo apt install build-essentialで実質環境構築が済む時代にはあまりに遠回りすぎるので&amp;hellip;&lt;br>
+でも、こういうの、楽しいよね!&lt;br>
+え? 作ったプログラムが64bitなWindowsで動かない? こういう神ソフトを作ってくれてる人がいますよ?&lt;br>
+&lt;a class="link" href="http://takeda-toshiya.my.coocan.jp/msdos/" target="_blank" rel="noopener"
+>MS-DOS Player for Win32-x64&lt;/a>&lt;/p>
+&lt;h2 id="あとがき2">あとがき2
+&lt;/h2>&lt;p>アドベントカレンダーというものに今回初参加させていただきました。&lt;br>
+よくTwitterに流れてくるアドベントカレンダーはっょぃ人がたくさんいてビビるのですが、今回は身内の多いアドベントカレンダーなので、気軽に参加できました。と思ったら初日から強すぎてハゲそうです。&lt;br>
+何を書いてもいいAdvent Calendarなので全力でネタに走ってみました。&lt;br>
+今年も残り少なくなってきましたが、皆様体調にはお気をつけください&amp;hellip;&lt;br>
+14日目にまたお会いしましょう。&lt;/p>
+&lt;p>次の記事: mak1aさん&lt;/p></description></item></channel></rss>
