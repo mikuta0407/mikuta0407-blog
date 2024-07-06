@@ -8,6 +8,7 @@ title: 平和に生きたい
 copyright: mikuta0407
 DefaultContentLanguage: ja
 hasCJKLanguage: true
+timeout: "600s"
 
 languages:
     ja:
