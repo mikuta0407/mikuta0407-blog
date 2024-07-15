@@ -350,7 +350,7 @@ if is酔い && is眠い {
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">おーQUIC <a href="https://t.co/gHeym2aak8">pic.twitter.com/gHeym2aak8</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812431571858952362?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-2日を振り返りながら話を思い出したり。
+2日間を振り返りながら話を思い出したり。
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">昨日AURORAの話をして、上野公演でのrinascita1話だけで使われて、朗読2話に合わない理由についてものすごい納得のいく解釈を得たの良かったな<br><br>あの物語においてあの歌詞はアリストフェアリーとして地球への扉に向かうアネシスの決意の歌という解釈、腑に落ちすぎている。</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812435553985642760?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
