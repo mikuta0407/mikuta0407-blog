@@ -28,13 +28,13 @@ image: "img/eyecatch.png"
 
 ぼんやり待っていると、のぞみ303号が無事入線してきました。ポッピングシャワーを買って乗車です。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">旅のスタートです <a href="https://t.co/MXvPQaoewH">pic.twitter.com/MXvPQaoewH</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811901880362209665?ref_src=twsrc%5Etfw">July 12, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">旅のスタートです <a href="https://t.co/MXvPQaoewH">pic.twitter.com/MXvPQaoewH</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811901880362209665?ref_src=twsrc%5Etfw">July 12, 2024</a></blockquote> 
 
 美味しく頂いたあと、買ったお菓子でも食べながら、ダウンロードしておいた動画でも見ようかと思っていましたが、あまりにも眠くなってきたので爆睡しました。一応名古屋で一瞬起きたのは覚えています。
 
 京都で目が覚めましたが、本当に特にツイートすることもなく、上のアイスのツイートの次がこれでした。
 
-<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/VXWstsmLb5">pic.twitter.com/VXWstsmLb5</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811934773100838945?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/VXWstsmLb5">pic.twitter.com/VXWstsmLb5</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811934773100838945?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 ### なんばの地へ
 
@@ -44,7 +44,7 @@ image: "img/eyecatch.png"
 
 連休初日ということもあってか、かなり混んでいました。潰されない程度の混雑。
 
-<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/rq1QnScour">pic.twitter.com/rq1QnScour</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811944184124961026?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/rq1QnScour">pic.twitter.com/rq1QnScour</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811944184124961026?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 無事に着きました。
 
@@ -58,7 +58,7 @@ image: "img/eyecatch.png"
 
 ちょうど11日から15日がnamco大阪日本橋店での開催でした。10時より前に整理券の配布があるので参加はできませんが、筐体はひと目見てみようということで、道中にあるnamco大阪日本橋店に寄ってみました。無事に筐体に出会う事ができてよかったです。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">うおぉーツアマスだ(整理券はないので見に来ただけ) <a href="https://t.co/kDitPjg5h8">pic.twitter.com/kDitPjg5h8</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811947230708007034?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">うおぉーツアマスだ(整理券はないので見に来ただけ) <a href="https://t.co/kDitPjg5h8">pic.twitter.com/kDitPjg5h8</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1811947230708007034?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 namco大阪日本橋といえば、アケマスが設置されている場所でもあります。僕自身、中野のnamcoにはいったことがなく、アケマスは未体験でした。せっかく時間もありましたし、遊んでいる人もいなかったので、ここで初のアケマスプレイをしてみることに。
 
@@ -142,7 +142,7 @@ MacBook ProではLogic Proが立ち上がっていたような覚えがありま
 本当は終演後隣にいらっしゃった濱田さんに聞いてみたいところではありましたが、流石に聞きにくかったのでそのまま退場しました。  
 (ちなみに濱田さんが座っていた椅子の足元には、会場備え付けのNTTのONUとBuffaloの家庭用Wi-Fiルータが置いてありました。椅子の足と光ファイバーが近い位置にあり、ちょっとヒヤヒヤするなど。)
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">楽しいリリイベでした<a href="https://twitter.com/hashtag/Uneriba?src=hash&amp;ref_src=twsrc%5Etfw">#Uneriba</a> <a href="https://t.co/yzYPSU7sSP">pic.twitter.com/yzYPSU7sSP</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812026402130264289?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">楽しいリリイベでした<a href="https://twitter.com/hashtag/Uneriba?src=hash&amp;ref_src=twsrc%5Etfw">#Uneriba</a> <a href="https://t.co/yzYPSU7sSP">pic.twitter.com/yzYPSU7sSP</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812026402130264289?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote>   
 (このサイン付きCDは持参してきたやつです。)
 
 ゲーマーズ店舗内の新譜コーナーにちゃんとしっかりコーナーがあって嬉しかったですね。
@@ -205,7 +205,7 @@ MacBook ProではLogic Proが立ち上がっていたような覚えがありま
 ![](img/20240713_222915.JPG)
 
 ちなみに、新幹線の途中から、麻美さんが出演されるなりカルというラジオを聞きながら移動していました。  
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日は夜10時から <a href="https://twitter.com/hashtag/%E3%81%AA%E3%82%8A%E3%82%AB%E3%83%AB?src=hash&amp;ref_src=twsrc%5Etfw">#なりカル</a> 放送です！<a href="https://twitter.com/hashtag/%E4%BB%8A%E4%BA%95%E9%BA%BB%E7%BE%8E?src=hash&amp;ref_src=twsrc%5Etfw">#今井麻美</a> さんのスペシャルインタビューありますよー！今夜もよろしくお願いします！（顧問） <a href="https://twitter.com/hashtag/%E3%83%9F%E3%83%B3%E3%82%B4%E3%82%B9?src=hash&amp;ref_src=twsrc%5Etfw">#ミンゴス</a></p>&mdash; なりカル！ (@naricul) <a href="https://twitter.com/naricul/status/1812066262912307449?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日は夜10時から <a href="https://twitter.com/hashtag/%E3%81%AA%E3%82%8A%E3%82%AB%E3%83%AB?src=hash&amp;ref_src=twsrc%5Etfw">#なりカル</a> 放送です！<a href="https://twitter.com/hashtag/%E4%BB%8A%E4%BA%95%E9%BA%BB%E7%BE%8E?src=hash&amp;ref_src=twsrc%5Etfw">#今井麻美</a> さんのスペシャルインタビューありますよー！今夜もよろしくお願いします！（顧問） <a href="https://twitter.com/hashtag/%E3%83%9F%E3%83%B3%E3%82%B4%E3%82%B9?src=hash&amp;ref_src=twsrc%5Etfw">#ミンゴス</a></p>&mdash; なりカル！ (@naricul) <a href="https://twitter.com/naricul/status/1812066262912307449?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 リリイベ中に出た話も出てきて、後夜祭みたいな雰囲気でTLを眺められました。
 
@@ -216,7 +216,7 @@ MacBook ProではLogic Proが立ち上がっていたような覚えがありま
 
 22時を超えているのですが、チェックインの列がめちゃくちゃに混んでいてびっくりしました。夕方のチェックインラッシュか?と勘違いするくらい人が多かったです。なんかイベントあったんですかね(調べてない)。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日のお宿 <a href="https://t.co/sVppg5hK8B">pic.twitter.com/sVppg5hK8B</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812120803103912355?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日のお宿 <a href="https://t.co/sVppg5hK8B">pic.twitter.com/sVppg5hK8B</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812120803103912355?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 東横INN、実は初めて泊まったんですが、Wi-Fiってどこもこうなんですかね? 部屋ごとにAPが建立されてて驚きました。povo2.0の無制限課金してたので5GHz帯テザリングして足回り確保しましたが……。  
 ![](img/IMG_4254.PNG)
@@ -231,23 +231,23 @@ MacBook ProではLogic Proが立ち上がっていたような覚えがありま
 
 ![](img/20240714_080850869.JPG)
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">朝飯食いすぎ</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812271964008174007?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">朝飯食いすぎ</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812271964008174007?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 金山駅への移動中、思ったより雨に降られてしまいましたが、鳥取のときに比べればなんともありません。  
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">移動開始 <a href="https://t.co/HB8p3EKuZb">pic.twitter.com/HB8p3EKuZb</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812284137421910123?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">移動開始 <a href="https://t.co/HB8p3EKuZb">pic.twitter.com/HB8p3EKuZb</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812284137421910123?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 manacaも買いました。奈良のときにはICOCAを買ったのでその流れです。地域ごとの交通系ICカードを集めていきたいですね。
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">manaca買った <a href="https://t.co/4KZOYGSWcZ">pic.twitter.com/4KZOYGSWcZ</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812288634164510986?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">manaca買った <a href="https://t.co/4KZOYGSWcZ">pic.twitter.com/4KZOYGSWcZ</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812288634164510986?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 ![](img/20240714_095553.JPG)
 
 無事にパルコに着きました
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">湿度がやばすぎるのでパルコの中でもう待機してよう…<br>適当に店を回る… <a href="https://t.co/WrMr3o5YSt">pic.twitter.com/WrMr3o5YSt</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812290993519198689?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">湿度がやばすぎるのでパルコの中でもう待機してよう…<br>適当に店を回る… <a href="https://t.co/WrMr3o5YSt">pic.twitter.com/WrMr3o5YSt</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812290993519198689?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 ……が、ここで失敗をします。すぐに会場であるタワーレコードに行けば良いものを、「あまり会場で待つのも良くないのかもしれない」と思ってアニメイトで過ごします。その結果としてリハーサルを見逃しました。悔しい。せっかく開店と同時にパルコに入ったのに。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">リハ見れるタイミングで建物いたのに変な待機しないほうがいいかとアニメイトいたの失策</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812295577088221475?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">リハ見れるタイミングで建物いたのに変な待機しないほうがいいかとアニメイトいたの失策</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812295577088221475?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 ### イベント
 
@@ -287,7 +287,7 @@ manacaも買いました。奈良のときにはICOCAを買ったのでその流
 
 ![](img/20240714_145434.JPG)
 
-<blockquote class="twitter-tweet"><p lang="und" dir="ltr">C#++ <a href="https://t.co/0yQ3PBMVLA">pic.twitter.com/0yQ3PBMVLA</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812370084486385918?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="und" dir="ltr">C#++ <a href="https://t.co/0yQ3PBMVLA">pic.twitter.com/0yQ3PBMVLA</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812370084486385918?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 途中グループ間ではぐれたりしましたが、無事に店に着きました。
 
@@ -305,36 +305,36 @@ manacaも買いました。奈良のときにはICOCAを買ったのでその流
 
 そしてでてきたものがこちら。もう良くわかんない。すごいの一言です。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ﾜｧ…ﾜｧ…ﾜｧ…!! <a href="https://t.co/6yxsVpwOJP">pic.twitter.com/6yxsVpwOJP</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812390286053769503?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ﾜｧ…ﾜｧ…ﾜｧ…!! <a href="https://t.co/6yxsVpwOJP">pic.twitter.com/6yxsVpwOJP</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812390286053769503?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
-<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/Ej6DKNCVca">pic.twitter.com/Ej6DKNCVca</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812390348699939139?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/Ej6DKNCVca">pic.twitter.com/Ej6DKNCVca</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812390348699939139?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">美味いです <a href="https://t.co/vDEZYWVAlf">pic.twitter.com/vDEZYWVAlf</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812390647741174142?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">美味いです <a href="https://t.co/vDEZYWVAlf">pic.twitter.com/vDEZYWVAlf</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812390647741174142?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ミンゴス…なんかとんでもないモンブランだよ… <a href="https://t.co/bSDenhgX7P">pic.twitter.com/bSDenhgX7P</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812393390576992304?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ミンゴス…なんかとんでもないモンブランだよ… <a href="https://t.co/bSDenhgX7P">pic.twitter.com/bSDenhgX7P</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812393390576992304?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">一人で行ってたらこんな店来ないって</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812391149866483945?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">一人で行ってたらこんな店来ないって</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812391149866483945?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 もう一度行きたい。ちなみにどうやら東京にもあるらしいです。
 
 ### 帰路
 
 大須の「金の玉」を見たりしながら、
-<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/Vmjbajuq2l">pic.twitter.com/Vmjbajuq2l</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812405403398918382?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/Vmjbajuq2l">pic.twitter.com/Vmjbajuq2l</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812405403398918382?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 ふっちーさんの運転で名古屋駅まで送っていただきました。アルトワークス、いい車。
 
 帰りは奈良の旅のときもやりましたが、勢いでグリーン車課金です。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">楽しかったリリイベの2日間でした<br>最後はグリーン車突っ込んでみましたが、こういうことをするから金が貯まらない。 <a href="https://t.co/PTaJhCOtjV">pic.twitter.com/PTaJhCOtjV</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812418879454650513?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">楽しかったリリイベの2日間でした<br>最後はグリーン車突っ込んでみましたが、こういうことをするから金が貯まらない。 <a href="https://t.co/PTaJhCOtjV">pic.twitter.com/PTaJhCOtjV</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812418879454650513?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 まぁ、呑みますよね。
 
-<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/FjUrZlmI8U">pic.twitter.com/FjUrZlmI8U</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812419713806598267?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/FjUrZlmI8U">pic.twitter.com/FjUrZlmI8U</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812419713806598267?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 このあと車内で22ツイートしてます。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">if is酔い &amp;&amp; !眠い {<br> 饒舌 = true<br>}<br>の実感</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812427370575573155?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">if is酔い &amp;&amp; !眠い {<br> 饒舌 = true<br>}<br>の実感</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812427370575573155?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 ↑これ、今考えると変数宣言がクソですね。
 
@@ -348,11 +348,11 @@ if is酔い && is眠い {
 
 あとは、新幹線内のモバイルネットワークの辛さによって、QUICの使用を体感できて面白かったです。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">おーQUIC <a href="https://t.co/gHeym2aak8">pic.twitter.com/gHeym2aak8</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812431571858952362?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">おーQUIC <a href="https://t.co/gHeym2aak8">pic.twitter.com/gHeym2aak8</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812431571858952362?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 2日間を振り返りながら話を思い出したり。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">昨日AURORAの話をして、上野公演でのrinascita1話だけで使われて、朗読2話に合わない理由についてものすごい納得のいく解釈を得たの良かったな<br><br>あの物語においてあの歌詞はアリストフェアリーとして地球への扉に向かうアネシスの決意の歌という解釈、腑に落ちすぎている。</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812435553985642760?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">昨日AURORAの話をして、上野公演でのrinascita1話だけで使われて、朗読2話に合わない理由についてものすごい納得のいく解釈を得たの良かったな<br><br>あの物語においてあの歌詞はアリストフェアリーとして地球への扉に向かうアネシスの決意の歌という解釈、腑に落ちすぎている。</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812435553985642760?ref_src=twsrc%5Etfw">July 14, 2024</a></blockquote> 
 
 ### 帰宅
 
@@ -364,7 +364,7 @@ if is酔い && is眠い {
 
 こんなに色んなところ行ったり食べたり話したりする人生になるとは思ってなかったですが、また次の機会も楽しみです。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">正直なところ職場や中高大の人たち以外でこんなにたくさん話す人ができるなんて思わんかったのよな去年まで</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812098920950145422?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">正直なところ職場や中高大の人たち以外でこんなにたくさん話す人ができるなんて思わんかったのよな去年まで</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812098920950145422?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 次に遠征があるとすれば、8/24の[961 PRODUCTION presents 『Re:FLAME』](https://idolmaster-official.jp/live_event/re/) のDay1公演ですね。当たってくれ。25日に東京のイベントもあるので日帰り京都ですが。
 
@@ -376,8 +376,10 @@ if is酔い && is眠い {
 
 単純に10系のほうがバッテリーが持つのでそうしていたのですが、バッテリーの持ち方がかなり化け物でした。1日目、朝7時くらいから使い始め、日中もまぁまぁそれなりに使い、夜22時になってまだ36%も残っています。すごい。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Xperia10Ⅵ、バッテリーの持ち方がバケモン<br><br>1日割りとかなりガッツリ使ってモバブいらん <a href="https://t.co/sakRna0K4a">pic.twitter.com/sakRna0K4a</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812111049480651017?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Xperia10Ⅵ、バッテリーの持ち方がバケモン<br><br>1日割りとかなりガッツリ使ってモバブいらん <a href="https://t.co/sakRna0K4a">pic.twitter.com/sakRna0K4a</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1812111049480651017?ref_src=twsrc%5Etfw">July 13, 2024</a></blockquote> 
 
 また、Snapdragon 695(Xperia 10 Ⅳ)は「普通に使えるけど"ミドルだなぁ"という感触が残る速度」でしたが、Snapdragon 6 Gen 1は「ゲームしないなら十分でしょこれ」となる速度です。もともとAQUOS sense 8の評判でSD6Gen1がかなり良さそうなことは知っていましたが、実際使うとこんな良いもんなんですね。
 
 軽さや端末の値段もあって5Ⅴより気軽に使えるので、今はPASMOを移管しようか悩んでいます。
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
