@@ -570,7 +570,8 @@ Windowsユーザーの人はこの記事通りに行いたい場合はWSL1で良
 &lt;/h2>&lt;p>基本はMarkdownなのですが、一部専用の書き方を行います。&lt;/p>
 &lt;h3 id="冒頭について">冒頭について
 &lt;/h3>&lt;p>PandocでTitleやAuthorをつけると自動でいい感じにタイトルや著者名をやってくれるのですが、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_717x188_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE.png"
 width="717"
 height="188"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_1024x0_resize_box_3.png 1024w"
@@ -578,7 +579,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="381"
 data-flex-basis="915px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 (これはWord)&lt;/p>
 &lt;p>こういうことをしたいので、自作します。&lt;/p>
 &lt;p>yamlで二段組を指定していますが、ここは一段組になるため、&lt;code>\twocolumn[]&lt;/code>で囲って一段組にします。&lt;/p>
@@ -627,7 +630,8 @@ data-flex-basis="915px"
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_1024x298_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung.png"
 width="1024"
 height="298"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_1024x0_resize_box_3.png 1024w"
@@ -635,7 +639,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="343"
 data-flex-basis="824px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>(出力したPDF)&lt;/p>
 &lt;p>こんな感じです。&lt;/p>
 &lt;h3 id="キャプション参照について">キャプション・参照について
@@ -804,7 +810,8 @@ data-flex-basis="824px"
 &lt;/div>
 &lt;/div>
 &lt;h3 id="pdf">PDF
-&lt;/h3>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr.png"
+&lt;/h3>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_1241x1754_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr.png"
 width="1241"
 height="1754"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_1024x0_resize_box_3.png 1024w"
@@ -812,8 +819,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="70"
 data-flex-basis="169px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_1241x1754_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K.png"
 width="1241"
 height="1754"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_1024x0_resize_box_3.png 1024w"
@@ -821,7 +831,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="70"
 data-flex-basis="169px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="〆">〆
 &lt;/h2>&lt;p>YCの卒業研究概要集をMarkdown+Pandocで書くセットアップについて書きましたが、セットアップに割いた時間をおとなしくWordで書くことに費やしていれば今頃7割位完成していたような気がします。&lt;/p>
 &lt;p>慣れない作業でめちゃくちゃ疲れましたが、いつか誰かの役に立てば・・・。&lt;/p>

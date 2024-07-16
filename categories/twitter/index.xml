@@ -7,10 +7,12 @@
 &lt;div>&lt;p>現在のBotのソースコードは &lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
 >mikuta0407/kuchihira-bot&lt;/a>で公開しています。&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
->&lt;img src="https://gh-card.dev/repos/mikuta0407/kuchihira-bot.svg"
+>&lt;picture>&lt;img src="https://gh-card.dev/repos/mikuta0407/kuchihira-bot.svg"
 loading="lazy"
 alt="mikuta0407/kuchihira-bot"
->&lt;/a>&lt;/p>
+>
+&lt;/picture>
+&lt;/a>&lt;/p>
 &lt;/div>&lt;/div>
 &lt;/div>
 &lt;p>2023/05/31から、「本格雑談くちをひらく」というPodcast番組の更新通知Botを自アカウントで、2025/06/26からは &lt;a class="link" href="https://x.com/kuchihira_bot" target="_blank" rel="noopener"

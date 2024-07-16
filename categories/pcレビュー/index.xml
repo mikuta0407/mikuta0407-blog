@@ -228,9 +228,11 @@ ThinkPad X13 Gen2が16:10なので、ｸﾞｷﾞｷﾞ&amp;hellip;となって�
 軽くタイピングするようにすれば、ThinkPadよりも速く打てるストロークかもしれません。&lt;br>
 (普段ストロークが深いPCを使ってきた人はストロークの浅さで底打ち感が出てしまうため、慣れが必要です。)&lt;/p>
 &lt;p>キーボードの配列に関しては、他のIdeaPad系のキーボードと似ています。&lt;br>
-&lt;img src="https://i.imgur.com/NIXuhzN.jpg"
+&lt;picture>&lt;img src="https://i.imgur.com/NIXuhzN.jpg"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>BackSpaceが小さい他、「￥」キーとの間に隙間がないのがやはり気になってしまいます。レポート等で文字の訂正を行うときに感覚で押したいキーなので、BackSpaceキーの押し間違いが発生しやすいかもしれません。(この記事を書いているときにも数回「￥」との同時押しが発生しました)&lt;br>
 また、&lt;code>@&lt;/code> &lt;code>;&lt;/code> &lt;code>「&lt;/code> &lt;code>:&lt;/code>キーのサイズがアルファベットキーと同様のサイズとなっているため、&lt;code>」&lt;/code>キーと&lt;code>Enter&lt;/code>キーのサイズがかなり犠牲になってしまっています。特にEnterキーがかなり細くなっているため、&lt;code>」&lt;/code>を押してしまったり、外側のベゼルを叩いてしまうといったことがありました。(確定を行うEnterキーと&lt;code>」&lt;/code>キーの間に隙間がないのも誤変換の発生源になりがちでした。)&lt;/p>
 &lt;p>ESCキーは小さめです。押し間違いは特にありませんでしたが、半角/全角キーやF1キーとの押し間違いに注意です。&lt;/p>
@@ -246,9 +248,11 @@ loading="lazy"
 &lt;/h2>&lt;p>初めてWindows Helloの顔認証を体験できました。&lt;/p>
 &lt;p>顔認証の精度はかなり良いです。モニタを開いて正面を見ているだけですぐにロックが解除されます。&lt;/p>
 &lt;p>顔認証のための機構が付いているため、画面上部のカメラがある部分が横長の光沢エリアになっています。この部分(大学のように部屋内に多数ある)照明が写り込んでしまい、すこし光が気になるときがありました。それでも精度の高い顔認証がかなり便利なのでトレードオフだと考えています。&lt;br>
-&lt;img src="https://i.imgur.com/kRV9pqG.png"
+&lt;picture>&lt;img src="https://i.imgur.com/kRV9pqG.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="スピーカー">スピーカー
 &lt;/h2>&lt;p>一般的にモバイルノートPCのスピーカーの音質はあまり期待されていませんが、本機の内蔵スピーカーの音質は、低音域も聴き取ることが出来、ステレオ感もしっかり感じました。チープ感は一切ありません。家の部屋でBGM目的に利用するにはかなり良いです。&lt;/p>
 &lt;h2 id="拡張端子に関して">拡張端子に関して
@@ -259,13 +263,17 @@ Thunderbolt4があるおかげで、USBだけでなくかなり高機能な機�
 &lt;/h2>&lt;p>正直なところX13を手に入れるまで、2時間持つか持たないかみたいなPCをずっと使ってきたので、一般的な使い方であれば数時間は難なく動く時点で嬉しいです。&lt;/p>
 &lt;h2 id="ストレージ">ストレージ
 &lt;/h2>&lt;p>CrystalDiskInfoでの表示はこのような感じでした。&lt;br>
-&lt;img src="https://i.imgur.com/zvrtuaD.png"
+&lt;picture>&lt;img src="https://i.imgur.com/zvrtuaD.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>CrystalDiskMarkはChromeを落としてWiFiも切った状態で測定で行いました。さすがNVMeです。速いですね。&lt;br>
-&lt;img src="https://i.imgur.com/3OSC6lu.png"
+&lt;picture>&lt;img src="https://i.imgur.com/3OSC6lu.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="cpu">CPU
 &lt;/h2>&lt;p>RyzenではなくCore iシリーズではありますが、Core iシリーズはシングルスレッド性能が強い(Ryzen 7 PRO 4750Uに対して僅差で勝利)ため、コア数が多ければ多いほど勝利!のような処理は苦手かもしれませんが、Core i7-1165G7は日常的な利用やもう少しクリエイティブな目的でも十分パワーがあるCPUです。&lt;br>
 GoogleChromeとDiscordとVSCodeを開き、裏でWSL1のapt upgradeを回しながら数時間作業をしていましたが、性能不足感は特にありませんでした。&lt;/p>
@@ -278,13 +286,17 @@ GoogleChromeとDiscordとVSCodeを開き、裏でWSL1のapt upgradeを回しな�
 &lt;h3 id="minecraft">Minecraft
 &lt;/h3>&lt;p>グラフィック性能を求められるソフトとして、とりあえずMinecraft(JavaEdition)を動かしてみました。&lt;br>
 2560x1508というFHD以上のかなり厳しい環境ではありながらも、一切設定を弄っていない状態で60FPSを維持していました。&lt;br>
-&lt;img src="https://i.imgur.com/P7RgSbs.jpg"
+&lt;picture>&lt;img src="https://i.imgur.com/P7RgSbs.jpg"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>また、垂直同期を無効化したところ、最大で129FPSを確認しました。(移動をすると70~90FPSを推移)&lt;br>
-&lt;img src="https://i.imgur.com/Z7oqepy.jpg"
+&lt;picture>&lt;img src="https://i.imgur.com/Z7oqepy.jpg"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このサイズでこの軽さのなか、これほどの性能が出せるということで、Intel Iris Xeの強さが分かりますね。&lt;/p>
 &lt;h2 id="総合的に見て">総合的に見て
 &lt;/h2>&lt;p>これまで頑なに(タッチキーボードのYOGABOOK以外)YOGAブランドに行かずにThinkPadで過ごしてきた人なのですが、Yoga Slim 750i Carbonはファーストインプレッションの段階で「総合的に見ると普通に人に勧められる」モバイルノートという印象を受けました。&lt;/p>
@@ -352,7 +364,8 @@ loading="lazy"
 &lt;p>これ以外にもモデルはあるかもしれません。&lt;/p>
 &lt;h2 id="箱を開ける">箱を開ける
 &lt;/h2>&lt;p>届いたダンボールを開けると、大きく「YOGA」と書かれたきれいな化粧箱が現れます。昨年ThinkPad X13を開封したときは無骨なダンボール箱だったので、久しぶりのきれいな箱で驚きました。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/j7pDgdZ.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/j7pDgdZ_hu1e5f62b9df09da81b5cf148ee2df4526_272483_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/j7pDgdZ.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/j7pDgdZ_hu1e5f62b9df09da81b5cf148ee2df4526_272483_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/j7pDgdZ_hu1e5f62b9df09da81b5cf148ee2df4526_272483_1024x0_resize_q75_box.jpg 1024w"
@@ -360,9 +373,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>蓋を開けると、黒い不織布に包まれたYoga Slim 750i Carbonが現れます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/So0HWGc.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/So0HWGc_hue327763da5a29dc86a3ccc3fa1d8b3a3_468964_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/So0HWGc.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/So0HWGc_hue327763da5a29dc86a3ccc3fa1d8b3a3_468964_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/So0HWGc_hue327763da5a29dc86a3ccc3fa1d8b3a3_468964_1024x0_resize_q75_box.jpg 1024w"
@@ -370,9 +386,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>下には小さい書類系がありました。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/8Z0dwXs.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/8Z0dwXs_hu4589add2f0b7110e9f3a3f4659760e58_326327_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/8Z0dwXs.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/8Z0dwXs_hu4589add2f0b7110e9f3a3f4659760e58_326327_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/8Z0dwXs_hu4589add2f0b7110e9f3a3f4659760e58_326327_1024x0_resize_q75_box.jpg 1024w"
@@ -380,9 +399,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ACアダプタは化粧箱にはなく、送られてきた箱の中にある細長いダンボールの中に入っています。初見だとちょっと気づきにくいかもしれません。(そのおかげで化粧箱がスタイリッシュになっているという感じですね)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/SufuNpP.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/SufuNpP_hueea861a8c104b1503168a4f5e0bd21e4_271086_1002x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/SufuNpP.jpg"
 width="1002"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/SufuNpP_hueea861a8c104b1503168a4f5e0bd21e4_271086_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/SufuNpP_hueea861a8c104b1503168a4f5e0bd21e4_271086_1024x0_resize_q75_box.jpg 1024w"
@@ -390,8 +412,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="75"
 data-flex-basis="180px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/aSXluz1.jpg"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/aSXluz1_huff5d43afdb8ef053141eea9ca14d8ff1_197196_1002x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/aSXluz1.jpg"
 width="1002"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/aSXluz1_huff5d43afdb8ef053141eea9ca14d8ff1_197196_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/aSXluz1_huff5d43afdb8ef053141eea9ca14d8ff1_197196_1024x0_resize_q75_box.jpg 1024w"
@@ -399,11 +424,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="75"
 data-flex-basis="180px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="本体を見ていく">本体を見ていく
 &lt;/h2>&lt;p>さて、黒い不織布を取ると、カーボンとは思えない真っ白な筐体が出てきます。真っ白ながら派手さは感じないので、すぐに馴染むような雰囲気です。ロゴが端にあるのが主張しすぎずいいですね。&lt;br>
 ThinkPad含め黒いパソコンばっかり使って来たので、だいぶ新鮮です。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/hrGdnZD.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/hrGdnZD_hu8e4eea0a2fff3e1ef81826c8cf7b73c1_179541_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/hrGdnZD.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/hrGdnZD_hu8e4eea0a2fff3e1ef81826c8cf7b73c1_179541_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/hrGdnZD_hu8e4eea0a2fff3e1ef81826c8cf7b73c1_179541_1024x0_resize_q75_box.jpg 1024w"
@@ -411,9 +439,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>開くとこんな感じです。装飾等も少なくシンプルです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/bHkmjgU.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/bHkmjgU_hud413d067f64b48e0a11f733cdff49e26_128221_1002x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/bHkmjgU.jpg"
 width="1002"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/bHkmjgU_hud413d067f64b48e0a11f733cdff49e26_128221_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/bHkmjgU_hud413d067f64b48e0a11f733cdff49e26_128221_1024x0_resize_q75_box.jpg 1024w"
@@ -421,9 +452,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="75"
 data-flex-basis="180px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>左側面はThunderbolt4端子が2つあります。奥側が電源端子にもなります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/p1ztEKL.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/p1ztEKL_hu9bcabd11f95b92dc671f75aecd011ec5_160248_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/p1ztEKL.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/p1ztEKL_hu9bcabd11f95b92dc671f75aecd011ec5_160248_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/p1ztEKL_hu9bcabd11f95b92dc671f75aecd011ec5_160248_1024x0_resize_q75_box.jpg 1024w"
@@ -431,9 +465,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>右側面はTypeC(USB3.1)端子と3.5mmヘッドホンジャック、電源ボタンがあります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/RePwkJq.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/RePwkJq_hu8bc16fb351bc19e3bddd494a275a72a4_150976_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/RePwkJq.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/RePwkJq_hu8bc16fb351bc19e3bddd494a275a72a4_150976_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/RePwkJq_hu8bc16fb351bc19e3bddd494a275a72a4_150976_1024x0_resize_q75_box.jpg 1024w"
@@ -441,10 +478,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 この右側のType-C端子でも映像出力はできました。(TypeCケーブル一本で給電と映像出力が行えるモバイルモニタで動作確認)&lt;/p>
 &lt;p>ちなみにThinkPad同様、180°に近いところまで開きます。PCを開くときに開度を気にせず開けられるので、この構造は好きです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/BoxLvRu.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/BoxLvRu_hu8ce85a7f2b19e3665d9fb64f5b48987b_205460_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/BoxLvRu.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/BoxLvRu_hu8ce85a7f2b19e3665d9fb64f5b48987b_205460_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/BoxLvRu_hu8ce85a7f2b19e3665d9fb64f5b48987b_205460_1024x0_resize_q75_box.jpg 1024w"
@@ -452,12 +492,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="電源アダプタに関して">電源アダプタに関して
 &lt;/h3>&lt;p>付属のACアダプタは、TypeC端子に接続するタイプです。(USB PD)&lt;br>
 専用端子ではなくUSB PDで充電/給電できるのは楽ですね。&lt;br>
 65W出力が付属していました。5V3A, 9V3A, 15V3A, 20V3.25Aで出せるようです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/PHC29G1.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/PHC29G1_hu70d69674fe16f13e30ddb8f199e43646_117952_1002x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/PHC29G1.jpg"
 width="1002"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/PHC29G1_hu70d69674fe16f13e30ddb8f199e43646_117952_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/PHC29G1_hu70d69674fe16f13e30ddb8f199e43646_117952_1024x0_resize_q75_box.jpg 1024w"
@@ -465,11 +508,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="75"
 data-flex-basis="180px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="thinkpad-x13との比較">ThinkPad X13との比較
 &lt;/h3>&lt;p>手元にThinkPad X13 Gen1があるので、サイズ比較をしてみました。&lt;/p>
 &lt;p>同じ13インチ台のマシンですが、Yoga Slim 750i Carbonのほうが一回り小さいです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/LccFNXN.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/LccFNXN_hu77ff131358f6760bc290fa7707fda863_970717_1024x767_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/LccFNXN.png"
 width="1024"
 height="767"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/LccFNXN_hu77ff131358f6760bc290fa7707fda863_970717_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/LccFNXN_hu77ff131358f6760bc290fa7707fda863_970717_1024x0_resize_box_3.png 1024w"
@@ -477,8 +523,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/KpK7D4d.png"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/KpK7D4d_hu3edad0d2e7b416e7ae7ae73b6cf4810b_910444_1024x767_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/KpK7D4d.png"
 width="1024"
 height="767"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/KpK7D4d_hu3edad0d2e7b416e7ae7ae73b6cf4810b_910444_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/KpK7D4d_hu3edad0d2e7b416e7ae7ae73b6cf4810b_910444_1024x0_resize_box_3.png 1024w"
@@ -486,9 +535,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>また、Slimという名の通り、しっかりと薄くなっています&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/exi0n0R.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/exi0n0R_hu145900cadc6a207404cb8265d3ffde5f_113117_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/exi0n0R.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/exi0n0R_hu145900cadc6a207404cb8265d3ffde5f_113117_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/exi0n0R_hu145900cadc6a207404cb8265d3ffde5f_113117_1024x0_resize_q75_box.jpg 1024w"
@@ -496,8 +548,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VZxL1rA.jpg"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VZxL1rA_huafa5c981d9e58f1f5037e3433929762b_102662_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VZxL1rA.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VZxL1rA_huafa5c981d9e58f1f5037e3433929762b_102662_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VZxL1rA_huafa5c981d9e58f1f5037e3433929762b_102662_1024x0_resize_q75_box.jpg 1024w"
@@ -505,9 +560,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>重さも比較してみます。Yoga Slim 750i Carbonの公称値は約966gと表記がありますが、実測値は973gでした。ほぼ公称値と一致しています。X13の1.27kgと比べるとかなり軽いですね。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/s1jtv6k.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/s1jtv6k_huc2774c0ab0b7670cb5dd6da0b133ec5c_238462_1336x1782_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/s1jtv6k.jpg"
 width="1336"
 height="1782"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/s1jtv6k_huc2774c0ab0b7670cb5dd6da0b133ec5c_238462_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/s1jtv6k_huc2774c0ab0b7670cb5dd6da0b133ec5c_238462_1024x0_resize_q75_box.jpg 1024w"
@@ -515,8 +573,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="74"
 data-flex-basis="179px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HfWKHai.jpg"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HfWKHai_hu62b5e7c24588ac2ae6b4ba5254cc624b_265934_1336x1782_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HfWKHai.jpg"
 width="1336"
 height="1782"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HfWKHai_hu62b5e7c24588ac2ae6b4ba5254cc624b_265934_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HfWKHai_hu62b5e7c24588ac2ae6b4ba5254cc624b_265934_1024x0_resize_q75_box.jpg 1024w"
@@ -524,9 +585,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="74"
 data-flex-basis="179px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>開いたところの比較です。Yoga Slim 750i Carbonは16:10のモニタということもあり、X13よりもベゼル付近まで液晶があります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HBU8tGs.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HBU8tGs_hu14f75cb3e0ab6c6dab65eb3fdb5ac397_277656_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HBU8tGs.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HBU8tGs_hu14f75cb3e0ab6c6dab65eb3fdb5ac397_277656_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/HBU8tGs_hu14f75cb3e0ab6c6dab65eb3fdb5ac397_277656_1024x0_resize_q75_box.jpg 1024w"
@@ -534,12 +598,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>キーボード面の比較です。この部分についてはファーストインプレッションの記事で改めて比較し詳述します。&lt;br>
 ここではサイズ感の比較のみ行います。&lt;br>
 キーボードの全体としてのサイズはほぼ同じに見えます。X13よりもYoga Slim 750i Carbonのほうがキーボードベゼルが細いので、見た目のサイズ感はYoga Slim 750i Carbonのほうがコンパクトで良いですね。&lt;br>
 X13はキーボード側に電源ボタンがありますが、Yoga Slim 750i Carbonは右側面にあります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/4P6ij5z.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/4P6ij5z_hud8d2e148ac9b00ffd2705f346ce16f7e_278398_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/4P6ij5z.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/4P6ij5z_hud8d2e148ac9b00ffd2705f346ce16f7e_278398_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/4P6ij5z_hud8d2e148ac9b00ffd2705f346ce16f7e_278398_1024x0_resize_q75_box.jpg 1024w"
@@ -547,8 +614,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/w2AcKvh.jpg"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/w2AcKvh_hu0320f6c5953c9405f322011e303ee275_168101_1336x1002_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/w2AcKvh.jpg"
 width="1336"
 height="1002"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/w2AcKvh_hu0320f6c5953c9405f322011e303ee275_168101_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/w2AcKvh_hu0320f6c5953c9405f322011e303ee275_168101_1024x0_resize_q75_box.jpg 1024w"
@@ -556,9 +626,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>開いた状態での比較ですが、液晶がヒンジ近くまで来てるとはいえ、アイポイントが下のほうに寄るような印象はありません。X13と比較すると上下方向にそれぞれ伸びている、という感じですね。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/EkpXQKn.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/EkpXQKn_hu650c20771600f37dd9d791e87f90099e_146821_1002x1308_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/EkpXQKn.jpg"
 width="1002"
 height="1308"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/EkpXQKn_hu650c20771600f37dd9d791e87f90099e_146821_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/EkpXQKn_hu650c20771600f37dd9d791e87f90099e_146821_1024x0_resize_q75_box.jpg 1024w"
@@ -566,11 +639,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="76"
 data-flex-basis="183px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="116型のpcx121eとの比較">11.6型のPC(X121e)との比較
 &lt;/h2>&lt;p>せっかくなので筆者が初めて手に入れたノートパソコンであるX121eともサイズ比較をしてみました。X121eは10年前の2011年に出た機種です。&lt;/p>
 &lt;p>Yoga Slim 750i Carbonは液晶ベゼルが細いため、13.3インチの液晶を搭載していながらも&lt;strong>なんと11.6インチのノートPCとほぼ同等かそれ以下のサイズ&lt;/strong>です。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/TuGrrcW.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/TuGrrcW_hud36ee766c5aa89d48d5396a7ef6a780d_274509_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/TuGrrcW.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/TuGrrcW_hud36ee766c5aa89d48d5396a7ef6a780d_274509_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/TuGrrcW_hud36ee766c5aa89d48d5396a7ef6a780d_274509_1024x0_resize_q75_box.jpg 1024w"
@@ -578,8 +654,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/V6Nkblm.jpg"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/V6Nkblm_hu09d6ea63549c51f6763fc18bf0e87c67_241249_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/V6Nkblm.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/V6Nkblm_hu09d6ea63549c51f6763fc18bf0e87c67_241249_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/V6Nkblm_hu09d6ea63549c51f6763fc18bf0e87c67_241249_1024x0_resize_q75_box.jpg 1024w"
@@ -587,8 +666,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VYvxM92.jpg"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VYvxM92_hudde7cb3141bccad27676f1dbac204893_317857_1821x1366_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VYvxM92.jpg"
 width="1821"
 height="1366"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VYvxM92_hudde7cb3141bccad27676f1dbac204893_317857_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/VYvxM92_hudde7cb3141bccad27676f1dbac204893_317857_1024x0_resize_q75_box.jpg 1024w"
@@ -596,9 +678,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="319px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>キーボードに関しては、こちらもほぼ同じサイズでした。一昔前の11.6型の筐体サイズに13.3型の16:10の液晶が積まれていると考えると良いかもしれません。かなりコンパクトです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/gLldNnq.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/gLldNnq_hu784ca6d121d7fde10df1a7e254a6b789_309599_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/gLldNnq.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/gLldNnq_hu784ca6d121d7fde10df1a7e254a6b789_309599_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/gLldNnq_hu784ca6d121d7fde10df1a7e254a6b789_309599_1024x0_resize_q75_box.jpg 1024w"
@@ -606,10 +691,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="osバージョンについて">OSバージョンについて
 &lt;/h2>&lt;p>セットアップに関することは割愛しますが、レビュー当時の初期搭載バージョンはWindows10 2004でした。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/oFUZ93Q.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/oFUZ93Q_hu23da0dcde2a7cba62eabb5f1cffb0c20_179681_1002x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/oFUZ93Q.jpg"
 width="1002"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/oFUZ93Q_hu23da0dcde2a7cba62eabb5f1cffb0c20_179681_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/oFUZ93Q_hu23da0dcde2a7cba62eabb5f1cffb0c20_179681_1024x0_resize_q75_box.jpg 1024w"
@@ -617,11 +705,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="75"
 data-flex-basis="180px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="セットアップ後の注意点">セットアップ後の注意点
 &lt;/h2>&lt;p>WindowsUpdateをとりあえずかけるか、と更新ボタンを押し、再起動を要求されたので再起動をしたところ、BIOSのアップデートが唐突に始まりました。&lt;br>
 WindowsUpdate経由?でBIOSアップデートがかかるのは始まるのは初めての経験だったので驚きました。失敗することは殆どないと思いますが、ある程度環境構築した状態で失敗してしまったときは悲しくなってしまいますので、購入後は環境構築を行う前に一通りWindowsUpdateを終わらすことをおすすめします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/Vw0qb8T.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/Vw0qb8T_hu7ab0ab13be08e3b58f949bdc50590e06_221488_1782x1336_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/Vw0qb8T.jpg"
 width="1782"
 height="1336"
 srcset="https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/Vw0qb8T_hu7ab0ab13be08e3b58f949bdc50590e06_221488_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20210312-yoga-slim-750i-carbon-1/img/Vw0qb8T_hu7ab0ab13be08e3b58f949bdc50590e06_221488_1024x0_resize_q75_box.jpg 1024w"
@@ -629,7 +720,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="〆">〆
 &lt;/h2>&lt;p>さて、今回は開封と筐体のレビューを行いました。&lt;br>
 真っ白いパソコンが本当に新鮮です。見た目だけでもすでに満足していますが、次回はこのあと数日間使って感じたことをまとめたファーストインプレッションです。&lt;/p></description></item></channel></rss>

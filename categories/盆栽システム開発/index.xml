@@ -7,10 +7,12 @@
 &lt;div>&lt;p>現在のBotのソースコードは &lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
 >mikuta0407/kuchihira-bot&lt;/a>で公開しています。&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/kuchihira-bot" target="_blank" rel="noopener"
->&lt;img src="https://gh-card.dev/repos/mikuta0407/kuchihira-bot.svg"
+>&lt;picture>&lt;img src="https://gh-card.dev/repos/mikuta0407/kuchihira-bot.svg"
 loading="lazy"
 alt="mikuta0407/kuchihira-bot"
->&lt;/a>&lt;/p>
+>
+&lt;/picture>
+&lt;/a>&lt;/p>
 &lt;/div>&lt;/div>
 &lt;/div>
 &lt;p>2023/05/31から、「本格雑談くちをひらく」というPodcast番組の更新通知Botを自アカウントで、2025/06/26からは &lt;a class="link" href="https://x.com/kuchihira_bot" target="_blank" rel="noopener"
@@ -129,7 +131,8 @@ Botを作ってから知ったのですが、表示上の投稿日時は17:00に
 &lt;p>GoでMisskeyのCLIクライアントを作ったので、宣伝も兼ねてアドカレに参加してみようと思います。よろしくお願いします。&lt;/p>
 &lt;hr>
 &lt;p>早速ですが、こんな感じのCLIなMisskeyクライアントを作りました。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_3886x2475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4.png"
 width="3886"
 height="2475"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_1024x0_resize_box_3.png 1024w"
@@ -137,12 +140,16 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="157"
 data-flex-basis="376px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
->&lt;img src="https://gh-card.dev/repos/mikuta0407/misskey-cli.svg"
+>&lt;picture>&lt;img src="https://gh-card.dev/repos/mikuta0407/misskey-cli.svg"
 loading="lazy"
 alt="mikuta0407/misskey-cli"
->&lt;/a>&lt;/p>
+>
+&lt;/picture>
+&lt;/a>&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
 >https://github.com/mikuta0407/misskey-cli&lt;/a>&lt;/p>
 &lt;p>ここで配布してます。&lt;/p>
@@ -484,7 +491,8 @@ alt="mikuta0407/misskey-cli"
 &lt;/div>
 &lt;/div>
 &lt;p>を実行すれば、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_870x858_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG.png"
 width="870"
 height="858"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_1024x0_resize_box_3.png 1024w"
@@ -492,7 +500,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="101"
 data-flex-basis="243px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このように投稿ができます。(投稿したらすぐにスタンプが付いた。これぞMisskey)&lt;/p>
 &lt;p>この新規投稿に関しては、Client構造体のメソッド&lt;code>CreateNote&lt;/code>として実装しました。&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L10-L40" target="_blank" rel="noopener"
@@ -946,10 +956,13 @@ data-flex-basis="243px"
 &lt;p>また、リノートの場合は行頭に&lt;code>[RN]&lt;/code>を付加することでリノートであることを表現しています。&lt;/p>
 &lt;h3 id="その他表示に関わる部分いつかなにか改善したら追記">その他表示に関わる部分(いつかなにか改善したら追記)
 &lt;/h3>&lt;h4 id="1行の文字数">1行の文字数
-&lt;/h4>&lt;p>&lt;img src="https://blog.mikuta0407.net/img/CQPvwPK.png"
+&lt;/h4>&lt;p>&lt;picture>&lt;img src="https://blog.mikuta0407.net/img/CQPvwPK.png"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD.jpg"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_3100x1974_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD.jpg"
 width="3100"
 height="1974"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_1024x0_resize_q75_box.jpg 1024w"
@@ -957,7 +970,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="157"
 data-flex-basis="376px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>misskey-cliでコマンドを叩くと、ヘッダ部分の「=======」の長さがコンソールの幅によって変わることがわかります。&lt;/p>
 &lt;p>この「=======」を表示するのは各機能の関数で&lt;code>fmt.Println&lt;/code>内に書かれている&lt;code>printLine()&lt;/code>という関数が表示しています。&lt;/p>
 &lt;p>このprintLine()は&lt;/p>
@@ -1034,7 +1049,8 @@ data-flex-basis="376px"
 &lt;p>タイトルに2クリックとありますが、これはChrome拡張化することで、拡張のボタンクリック→数字クリックの2回にできるものとなっています。もちろんChrome拡張にしなくてもブックマークでも同じですので、ぜひ試してみてください。(&lt;strong>Chrome拡張配布もあるよ!&lt;/strong>)&lt;/p>
 &lt;h2 id="まずは動作サンプル">まずは動作サンプル
 &lt;/h2>&lt;p>サイトにアクセスするとこうなります&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf_huafbeeb1ad3a85968cf4c54d6655abdbd_20684_422x372_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf.png"
 width="422"
 height="372"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf_huafbeeb1ad3a85968cf4c54d6655abdbd_20684_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4004b6a1-8eb5-f7e0-dbbf-86f4dae400cf_huafbeeb1ad3a85968cf4c54d6655abdbd_20684_1024x0_resize_box_3.png 1024w"
@@ -1042,9 +1058,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="113"
 data-flex-basis="272px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>数字ボタンを押すだけで出席登録できますので、このページをブックマークに登録しておけば、「ブックマーククリック→番号ボタンクリック」の2クリックになりますね。(ブラウザが変わった? 気にしないでください・・。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy_hudb6719319fbfaaaae07ccf74c54fc113_16634_426x291_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy.png"
 width="426"
 height="291"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy_hudb6719319fbfaaaae07ccf74c54fc113_16634_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/g2Dzkyy_hudb6719319fbfaaaae07ccf74c54fc113_16634_1024x0_resize_box_3.png 1024w"
@@ -1052,9 +1071,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="146"
 data-flex-basis="351px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>時間外にアクセスすると、ちゃんとエラーが出ます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f_hua5144dc31af306a866133128039bc064_14884_661x183_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f.png"
 width="661"
 height="183"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f_hua5144dc31af306a866133128039bc064_14884_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1fd6417d-94ca-9b16-f49c-7df2343f451f_hua5144dc31af306a866133128039bc064_14884_1024x0_resize_box_3.png 1024w"
@@ -1062,7 +1084,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="361"
 data-flex-basis="866px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="特徴">特徴
 &lt;/h2>&lt;ul>
 &lt;li>puppeteerなどの重いソフトを使用していないので、サーバリソースが小規模で済む&lt;/li>
@@ -1105,7 +1129,8 @@ data-flex-basis="866px"
 &lt;/div>
 &lt;h3 id="疎通確認">疎通確認
 &lt;/h3>&lt;p>アクセスしてみて、デフォルトページが表示されていればOKです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f_hu2208816c8f8a0bfb9256848aa429d86b_47638_840x351_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f.png"
 width="840"
 height="351"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f_hu2208816c8f8a0bfb9256848aa429d86b_47638_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ecadd7e8-bad5-3601-ec56-164ea9eba42f_hu2208816c8f8a0bfb9256848aa429d86b_47638_1024x0_resize_box_3.png 1024w"
@@ -1113,7 +1138,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="239"
 data-flex-basis="574px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="cgidの有効化">cgidの有効化
 &lt;/h3>&lt;p>CGIを使えるように、モジュールの有効化をします&lt;/p>
 &lt;div>
@@ -1247,7 +1274,8 @@ data-flex-basis="574px"
 &lt;/div>
 &lt;/div>
 &lt;p>これでアクセスすると、Hello Worldが表示されるはずです。(アドレスは&lt;code>http://サーバーアドレス/cgi-bin/test.sh&lt;/code>)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766_huee1d609d5cd81003e92307cb9cb1ff64_6707_458x99_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766.png"
 width="458"
 height="99"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766_huee1d609d5cd81003e92307cb9cb1ff64_6707_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d83afb1a-c06a-7e5c-e514-18875cda8766_huee1d609d5cd81003e92307cb9cb1ff64_6707_1024x0_resize_box_3.png 1024w"
@@ -1255,7 +1283,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="462"
 data-flex-basis="1110px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="実プログラムの配置">実プログラムの配置
 &lt;/h2>&lt;p>どうやって作ったかはいらん! 早く中身をよこせ!っていう人もいる(かもしれない)ので、まずは設置と使い方を書きます。&lt;/p>
 &lt;h3 id="ディレクトリ作成">ディレクトリ作成
@@ -1435,7 +1465,8 @@ data-flex-basis="1110px"
 &lt;h2 id="chrome拡張化する">Chrome拡張化する
 &lt;/h2>&lt;p>拡張化といっても、単純に拡張機能で小さいウィンドウ内でページを表示するようにするだけです。iframeで実装しています。&lt;/p>
 &lt;p>実際に使用すると、こんな感じになります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f_hua371c3b110b609be5bee98d554e06292_15957_269x321_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f.png"
 width="269"
 height="321"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f_hua371c3b110b609be5bee98d554e06292_15957_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/6fe3e581-23e0-f0ca-319f-f2e6cdad262f_hua371c3b110b609be5bee98d554e06292_15957_1024x0_resize_box_3.png 1024w"
@@ -1443,8 +1474,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="83"
 data-flex-basis="201px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV.png"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV_hu90274ca378ffd9ebafb5ea428021915a_15476_326x349_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV.png"
 width="326"
 height="349"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV_hu90274ca378ffd9ebafb5ea428021915a_15476_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/KFgNOzV_hu90274ca378ffd9ebafb5ea428021915a_15476_1024x0_resize_box_3.png 1024w"
@@ -1452,8 +1486,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="93"
 data-flex-basis="224px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a.png"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a_hudc4d3e1a41410a123392e7c54666fcf1_14470_266x319_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a.png"
 width="266"
 height="319"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a_hudc4d3e1a41410a123392e7c54666fcf1_14470_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/049b7bd0-ca18-fe23-aa16-26bd6753ca6a_hudc4d3e1a41410a123392e7c54666fcf1_14470_1024x0_resize_box_3.png 1024w"
@@ -1461,7 +1498,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="83"
 data-flex-basis="200px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>どのページにいても一瞬で「右上のボタンクリック→番号ボタンクリック」の2クリックで登録できるようになるので便利です。&lt;/p>
 &lt;p>一旦完成版としてChrome拡張のファイルを置いておきます。 &lt;a class="link" href="https://mikuta0407.net/files/tcuattend_chex.zip" target="_blank" rel="noopener"
 >tcuattend_chex.zip&lt;/a>&lt;/p>
@@ -1475,7 +1514,8 @@ data-flex-basis="200px"
 &lt;li>Chromeの拡張でデベロッパーモードをオンにして、「パッケージ化されていない拡張機能を読み込む」から拡張機能を読ませる&lt;/li>
 &lt;/ol>
 &lt;p>(こんな感じで崩れる場合は、iframeとbody自体のwidthをいじってあげてください。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a_hu79c38a9b3fea699adf03b63a7478493d_9843_278x306_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a.png"
 width="278"
 height="306"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a_hu79c38a9b3fea699adf03b63a7478493d_9843_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/31dc4023-6ded-9d93-ec79-a99f7444204a_hu79c38a9b3fea699adf03b63a7478493d_9843_1024x0_resize_box_3.png 1024w"
@@ -1483,7 +1523,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="90"
 data-flex-basis="218px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>一応Chrome拡張内のコードを載せておきます。(アイコンは自由ですよ)&lt;br>
 hoge.hogeとかは適宜置き換えてください。&lt;/p>
 &lt;div>&lt;div class="codeblock--name">manifest.json&lt;/div>
@@ -1595,7 +1637,8 @@ hoge.hogeとかは適宜置き換えてください。&lt;/p>
 &lt;/h3>&lt;p>Puppeteerなどであれば、実際に要素で叩けばいいのですが、今回はシェルスクリプトでやっているので、POSTを行うためにcurlを使用するようにします。&lt;/p>
 &lt;h4 id="動作を調べる">動作を調べる
 &lt;/h4>&lt;p>まずはChromeの検証画面を開きながら、ログインをしてみます。ログインをすると、Networkタブの&lt;code>index.php&lt;/code>に、何をForm Dataとして送ったのかが記載されているので確認をします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41_hub7f370a69945c81008117e2f801ac3e3_71335_1276x609_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41.png"
 width="1276"
 height="609"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41_hub7f370a69945c81008117e2f801ac3e3_71335_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/d1a15cfb-8c22-ede1-f2f7-cdf78f221d41_hub7f370a69945c81008117e2f801ac3e3_71335_1024x0_resize_box_3.png 1024w"
@@ -1603,11 +1646,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="209"
 data-flex-basis="502px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>Form Dataの欄に、いろいろと記載されています。どうやら、uid, pass, menuname, module, actionの5つを送信しているようです。&lt;/p>
 &lt;p>そして、menunameはデコードできないと言っていますが、**実は「出席」のSJISコードをURLエンコードされたものです。**あまりにもひどい。&lt;del>SJISをやめろ&lt;/del>&lt;br>
 Form Data欄の上部にある&lt;code>view URL encoded&lt;/code>をクリックすると、生の値が見れます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9_hu457214c3684292e0578817659855bd5d_8513_358x198_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9.png"
 width="358"
 height="198"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9_hu457214c3684292e0578817659855bd5d_8513_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c838ea34-0bf8-2a5a-8537-cd2004e9e5f9_hu457214c3684292e0578817659855bd5d_8513_1024x0_resize_box_3.png 1024w"
@@ -1615,7 +1661,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="180"
 data-flex-basis="433px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h4 id="curlでやってみる">curlでやってみる
 &lt;/h4>&lt;p>ここまでで「https://call.off.tcu.ac.jp/index.php に対して、POSTでForm Dataとして5つのデータを投げればログインができる」ことがわかりました。&lt;br>
 ではこれを実際にcurlでやってみます。&lt;/p>
@@ -1642,7 +1690,8 @@ data-flex-basis="433px"
 &lt;/div>
 &lt;p>&lt;code>-d&lt;/code>をつけるとFormDataとして付属させることができます。&lt;/p>
 &lt;p>実際に実行すると、このようになります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d_hu0ae87e30fc5ca005c715e4f30a55d3b0_33841_1675x262_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d.png"
 width="1675"
 height="262"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d_hu0ae87e30fc5ca005c715e4f30a55d3b0_33841_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25e0c2db-b684-cb35-39c2-d0beb55ddb3d_hu0ae87e30fc5ca005c715e4f30a55d3b0_33841_1024x0_resize_box_3.png 1024w"
@@ -1650,7 +1699,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="639"
 data-flex-basis="1534px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>HTMLがShift-JISで書かれているので、UTF-8で表示しているコンソールでは化けてしまっています。シェルスクリプトでも文字列を扱っているので、UTF-8で扱えるよう、nkfを通してあげます。&lt;/p>
 &lt;div>
 &lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
@@ -1675,7 +1726,8 @@ data-flex-basis="1534px"
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3_hue6a21c688073b85ae455f0e556e86270_52813_1710x360_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3.png"
 width="1710"
 height="360"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3_hue6a21c688073b85ae455f0e556e86270_52813_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/25ea8a9a-782d-7883-7b4d-5d22e4daa3b3_hue6a21c688073b85ae455f0e556e86270_52813_1024x0_resize_box_3.png 1024w"
@@ -1683,7 +1735,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="475"
 data-flex-basis="1140px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>無事にきれいに表示できるようになりました。&lt;br>
 時間外のエラーが出ていますが、これが出ているということはログインに成功しているということです。
 本番処理ではこのページに数字を選んだりする要素があるので、このHTMLデータを保存できるようにします。&lt;/p>
@@ -1714,7 +1768,8 @@ data-flex-basis="1140px"
 &lt;h3 id="ログイン失敗処理">ログイン失敗処理
 &lt;/h3>&lt;h4 id="動作を調べる-1">動作を調べる
 &lt;/h4>&lt;p>とりあえず適当に間違っているユーザー名とパスワードでログインしてみます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f_hu477699167286c4fde60f4f420d45ae78_55644_1133x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f.png"
 width="1133"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f_hu477699167286c4fde60f4f420d45ae78_55644_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cfea9456-2e85-05c2-f0c9-cef3b156d68f_hu477699167286c4fde60f4f420d45ae78_55644_1024x0_resize_box_3.png 1024w"
@@ -1722,14 +1777,17 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="238"
 data-flex-basis="572px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>「IDまたはパスワードに誤りがあります」という表記がありますね。&lt;br>
 そして、「パスワード」という単語は、ログイン画面以外ではログイン失敗のときにしか表示されません。&lt;br>
 つまり、htmlに「パスワード」という文字が含まれていれば、ログイン失敗という判定ができるわけです。&lt;/p>
 &lt;h4 id="curlとgrepでやってみる">curlとgrepでやってみる
 &lt;/h4>&lt;p>まず、上記のcurlコマンドを使用して、誤ったログインID/パスワードを入力した時の返答を保存します。&lt;br>
 catするとこうなります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305_hu4f6388524472045a97f75f10cc34f7c5_72566_1126x479_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305.png"
 width="1126"
 height="479"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305_hu4f6388524472045a97f75f10cc34f7c5_72566_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/1a066c7c-e5e8-a368-de8d-091ac9c6b305_hu4f6388524472045a97f75f10cc34f7c5_72566_1024x0_resize_box_3.png 1024w"
@@ -1737,11 +1795,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="235"
 data-flex-basis="564px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 (ちなみにこの段階で、「セッション管理はPHPSESSIDを使えばいいんだな」という事もわかってしまいますね。(どうして時間外にはPHPSESSIDがなくて、失敗ではSESSIDが出てくるんでしょうね)&lt;/p>
 &lt;p>このselectkamoku.htmlをgrepして、「パスワード」という文字があった場合には・・・という処理をできるようにします。&lt;/p>
 &lt;p>まずは単純にgrepしてみます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410_hu77c1dfd1f3af2b19cd2ad1900f82ce89_15404_804x74_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410.png"
 width="804"
 height="74"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410_hu77c1dfd1f3af2b19cd2ad1900f82ce89_15404_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/3249fdae-7e3c-19d3-722b-0bb651653410_hu77c1dfd1f3af2b19cd2ad1900f82ce89_15404_1024x0_resize_box_3.png 1024w"
@@ -1749,12 +1810,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="1086"
 data-flex-basis="2607px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 出てきますね。&lt;/p>
 &lt;p>grepは、検索結果の有無で、ちゃんと戻り値があります。&lt;br>
 戻り値は&lt;code>$?&lt;/code>にありますので、確認をしてみます。&lt;br>
 ($?は、&lt;code>?&lt;/code>という変数に戻り値が入っている・・・とでも思ってください。変数名の頭に$を付けてあげると変数として呼び出せます。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa_hu2601c25633559f10dbe27f4bb122b734_11249_329x119_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa.png"
 width="329"
 height="119"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa_hu2601c25633559f10dbe27f4bb122b734_11249_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/02ae5b42-6947-a1ca-a342-09e7555f20fa_hu2601c25633559f10dbe27f4bb122b734_11249_1024x0_resize_box_3.png 1024w"
@@ -1762,7 +1826,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="276"
 data-flex-basis="663px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 grepは、「検索結果があれば&lt;strong>0&lt;/strong>」「検索結果がなければ&lt;strong>1&lt;/strong>」というように&lt;strong>結果があることが前提の戻り値&lt;/strong>を返してきます。&lt;/p>
 &lt;p>なので、以下のようなスクリプトを利用すれば、「あった場合はある、ない場合はないと表示する」などができます。(grepが吐き出す標準出力は/dev/nullに投げて闇に葬っています)&lt;/p>
 &lt;div>
@@ -1786,7 +1852,8 @@ grepは、「検索結果があれば&lt;strong>0&lt;/strong>」「検索結果�
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a_hu4c3564eb96731a6894ba32d08effa090_15492_713x169_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a.png"
 width="713"
 height="169"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a_hu4c3564eb96731a6894ba32d08effa090_15492_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/93a76cb8-4647-22e2-4c89-24e10df08e6a_hu4c3564eb96731a6894ba32d08effa090_15492_1024x0_resize_box_3.png 1024w"
@@ -1794,9 +1861,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="421"
 data-flex-basis="1012px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 これを実際にログインに成功した状態のHTMLでやると、&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9_hu6bc67510d77d3de3335a89bc40b38fd1_17000_718x190_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9.png"
 width="718"
 height="190"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9_hu6bc67510d77d3de3335a89bc40b38fd1_17000_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/603bf390-6d23-1923-f74f-61e47fd36fe9_hu6bc67510d77d3de3335a89bc40b38fd1_17000_1024x0_resize_box_3.png 1024w"
@@ -1804,13 +1874,16 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="377"
 data-flex-basis="906px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>無い方の処理が走ります。&lt;/p>
 &lt;h3 id="時間外処理">時間外処理
 &lt;/h3>&lt;h4 id="動作を調べる-2">動作を調べる
 &lt;/h4>&lt;p>これはログイン失敗の処理とほぼ似たようなことをやります。今回はログインできるIDとパスワードでログインします。&lt;br>
 ログイン失敗のときしか現れない単語として「パスワード」がありましたが、時間外のときには&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849_hu535b96704f79271ecd1cc360a1b94cd5_29102_1140x292_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849.png"
 width="1140"
 height="292"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849_hu535b96704f79271ecd1cc360a1b94cd5_29102_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/dd2af94e-e53a-9c27-e2f6-b7fa2124f849_hu535b96704f79271ecd1cc360a1b94cd5_29102_1024x0_resize_box_3.png 1024w"
@@ -1818,7 +1891,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="390"
 data-flex-basis="936px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 「現在時間」がキーワードになります。(なんとなく確実性を求めるために「現在時間に」まで使ってみています)&lt;/p>
 &lt;p>ちなみに時間外のページにたどり着ければ、ログインは成功していますので、本番処理でも同様に行ってください。&lt;/p>
 &lt;h4 id="ifで判定してみる">ifで判定してみる
@@ -1843,7 +1918,8 @@ data-flex-basis="936px"
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830_hubae3a3a0d366681919d5913f54820b39_16047_715x169_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830.png"
 width="715"
 height="169"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830_hubae3a3a0d366681919d5913f54820b39_16047_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ef9a28f3-8919-33d5-dd07-5502add27830_hubae3a3a0d366681919d5913f54820b39_16047_1024x0_resize_box_3.png 1024w"
@@ -1851,7 +1927,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="423"
 data-flex-basis="1015px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ちゃんと処理ができていますね。&lt;/p>
 &lt;h3 id="本番処理">本番処理
 &lt;/h3>&lt;h4 id="動作を調べる-3">動作を調べる
@@ -1882,7 +1960,8 @@ data-flex-basis="1015px"
 &lt;/div>
 &lt;/div>
 &lt;p>実行すると、selectkamoku.htmlに登録時の番号選択の画面のHTMLが入っているはずです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23_hu4b87741d73fe14f4c60d7e5742a35741_65161_1044x618_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23.png"
 width="1044"
 height="618"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23_hu4b87741d73fe14f4c60d7e5742a35741_65161_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/799e1f06-4795-6883-9716-5478e932cc23_hu4b87741d73fe14f4c60d7e5742a35741_65161_1024x0_resize_box_3.png 1024w"
@@ -1890,10 +1969,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="168"
 data-flex-basis="405px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>HTMLが取得できたところで、次に出席登録時にはどんなデータが送られているかを見てみます。&lt;br>
 先程までと同様、Chromeの開発者ツールを出して、出席登録を実際に行ったときにどんなForm dataが送られているかを見てみます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645_hue7fcab47cd37ba6f0d8097dca8ce2bfc_8840_576x150_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645.png"
 width="576"
 height="150"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645_hue7fcab47cd37ba6f0d8097dca8ce2bfc_8840_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/cbfd4e7a-13a4-b824-5fbd-bfdfc5d99645_hue7fcab47cd37ba6f0d8097dca8ce2bfc_8840_1024x0_resize_box_3.png 1024w"
@@ -1901,7 +1983,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="384"
 data-flex-basis="921px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このForm dataと、先程落としてきた番号選択の画面のHTMLを見比べてわかることとして、まずform内のhiddenとしての項目がいくつかあります。&lt;br>
 まずは&lt;code>PHPSESSID&lt;/code>ですが、これはセッションIDですね。これはcookie扱いなので、Form dataにはありませんでした。&lt;/p>
 &lt;p>他の項目はすべてForm dataとして送られるデータです。&lt;br>
@@ -1909,7 +1993,8 @@ data-flex-basis="921px"
 &lt;p>&lt;code>action&lt;/code>は&lt;code>ProcedureAcc&lt;/code>となっています。手順アクセサリでしょうか。&lt;/p>
 &lt;p>プルダウンメニューの&lt;code>SelKamoku&lt;/code>には、option内に講義選択内容があります。これは普通に履修登録をしていれば一つしか表示されないはずです。このvalue値で授業名を判定しているのでしょう。&lt;br>
 普段授業名を選んでいるここの中身ですね。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55_hu674b2f74373e4173937cd9fbccfbaea4_5847_268x130_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55.png"
 width="268"
 height="130"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55_hu674b2f74373e4173937cd9fbccfbaea4_5847_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4ec44980-fdd5-b30e-40b8-1e1d3f46ea55_hu674b2f74373e4173937cd9fbccfbaea4_5847_1024x0_resize_box_3.png 1024w"
@@ -1917,7 +2002,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="206"
 data-flex-basis="494px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>次に&lt;code>InpNo&lt;/code>です。これはInputNumberでしょう。出席番号ですね。単純に1~9です。&lt;/p>
 &lt;p>最後に&lt;code>submitButtonName&lt;/code>ですが、さっきログインのときもやったように、SJISエンコードされた文字を送ります。&lt;code>出席登録&lt;/code>のSJISコードがURLエンコードされて&lt;code>%8Fo%90%C8%93o%98%5E&lt;/code>となります。どうしてボタンのvalueで日本語を送信するんですか?&lt;/p>
 &lt;h4 id="curlでやってみる-1">curlでやってみる
@@ -1951,7 +2038,8 @@ data-flex-basis="494px"
 &lt;/div>
 &lt;/div>
 &lt;p>うまくいくと、コンソールに出席確認ができたことがわかるHTMLが流れてきます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258_hu19e0d4ac9165f52f5a3cf2c56d157041_77575_1366x554_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258.png"
 width="1366"
 height="554"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258_hu19e0d4ac9165f52f5a3cf2c56d157041_77575_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ff00ba2c-9919-407d-a496-b5dde546a258_hu19e0d4ac9165f52f5a3cf2c56d157041_77575_1024x0_resize_box_3.png 1024w"
@@ -1959,7 +2047,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="246"
 data-flex-basis="591px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>以上がCLIでやってみる出席登録です。&lt;br>
 では、実際にこれを使って、2クリックシステムを作っていきましょう。&lt;/p>
 &lt;h3 id="実環境用ファイル作成">実環境用ファイル作成
@@ -2144,7 +2234,8 @@ data-flex-basis="591px"
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0_hu55de992ca294427f5760998fea5be325_10324_579x74_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0.png"
 width="579"
 height="74"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0_hu55de992ca294427f5760998fea5be325_10324_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/eeeac154-e6ca-b8cd-3a3d-695584c9edb0_hu55de992ca294427f5760998fea5be325_10324_1024x0_resize_box_3.png 1024w"
@@ -2152,7 +2243,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="782"
 data-flex-basis="1877px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>今回のツールでは、出席番号以外はすべて自動で取得します。つまり、今回の場合はシェルスクリプトの第1引数に指示番号が与えられれば、それを元に全てを実行できることになります。&lt;br>
 なので、スクリプト内ではInpNoの指定部分を&lt;code>InpNo=${1}&lt;/code>とするだけで、引数を指示番号として利用できます。&lt;/p>
 &lt;p>(最後に結果を返せるように、登録結果をsuccess.htmlとして保存し、吐き出しています。)&lt;/p>
@@ -2211,7 +2304,8 @@ data-flex-basis="1877px"
 &lt;/div>
 &lt;p>シェルスクリプトは完成となります。&lt;/p>
 &lt;p>この段階でコンソールから直接引数ありで叩くと、実際に挙動を確かめることができます。(shコマンド無しでいきなり叩けてるのは権限が777のため)&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf_hu8359ffaa98ffc9e8b9f748db8651703e_73429_965x671_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf.png"
 width="965"
 height="671"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf_hu8359ffaa98ffc9e8b9f748db8651703e_73429_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/a6a55983-dc5a-0b19-d5f0-eb10cfdb4daf_hu8359ffaa98ffc9e8b9f748db8651703e_73429_1024x0_resize_box_3.png 1024w"
@@ -2219,7 +2313,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="143"
 data-flex-basis="345px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h4 id="htmlファイル">HTMLファイル
 &lt;/h4>&lt;p>上記のシェルスクリプトにより、&lt;code>http://サーバーアドレス/cgi-bin/tcu_attend.sh&lt;/code>を呼び出せば出席登録ができるわけですが、このままでは引数が与えられず、意味がありません。&lt;br>
 CGIでは、コマンドライン引数を与える方法として、URLの最後に&lt;code>?&lt;/code>を付けると、その後がコマンドライン引数として使えるようになります。&lt;br>
@@ -2278,7 +2374,8 @@ CGIでは、コマンドライン引数を与える方法として、URLの最�
 &lt;/div>
 &lt;/div>
 &lt;p>のようなシンプルなHTMLで、&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24_hucdaff8fea7bfc4813e607b15ac943131_10554_513x307_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24.png"
 width="513"
 height="307"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24_hucdaff8fea7bfc4813e607b15ac943131_10554_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/ae50ec99-05bc-1681-dba6-65fab7c20a24_hucdaff8fea7bfc4813e607b15ac943131_10554_1024x0_resize_box_3.png 1024w"
@@ -2286,7 +2383,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="167"
 data-flex-basis="401px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>最低限の実装ができます。&lt;/p>
 &lt;p>ただ、これだとあまりにも見た目が貧相なのと、スマホフレンドリーでもなく、使い勝手も地獄なので、ボタン化して使いやすくします。&lt;/p>
 &lt;p>実HTMLはすでに貼ってあるので、抜粋すると、&lt;/p>
@@ -2302,7 +2401,8 @@ data-flex-basis="401px"
 &lt;/div>
 &lt;/div>
 &lt;p>のようにinputでボタンを書けば、&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0_hu83c921140e53af84e98c1129cc6bef2f_7274_447x161_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0.png"
 width="447"
 height="161"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0_hu83c921140e53af84e98c1129cc6bef2f_7274_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/e945690a-30c8-af93-4a5f-b42b6dd864d0_hu83c921140e53af84e98c1129cc6bef2f_7274_1024x0_resize_box_3.png 1024w"
@@ -2310,10 +2410,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="277"
 data-flex-basis="666px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>こんな感じでボタン化することができます。&lt;br>
 これを9個にして、間隔とかを整えたものが「3. 動作確認」に貼ったような画面になります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109_hu8c0f56eb75ed151276c7c3074d8bb3d6_18733_422x336_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109.png"
 width="422"
 height="336"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109_hu8c0f56eb75ed151276c7c3074d8bb3d6_18733_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/4cda660c-d606-25d7-0d53-d30081796109_hu8c0f56eb75ed151276c7c3074d8bb3d6_18733_1024x0_resize_box_3.png 1024w"
@@ -2321,7 +2424,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="125"
 data-flex-basis="301px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>以上でシェルスクリプトとHTMLの完成です!&lt;/p>
 &lt;h2 id="おまけ1-idとパスワードをシェルスクリプトから分離して保存する">おまけ1: IDとパスワードをシェルスクリプトから分離して保存する
 &lt;/h2>&lt;p>一応、CGIとして動作しているので、shファイルを直接読まれることは無く、パスワード漏洩もしにくいとは思いますが、それでも/var/www/cgi-binというApache2管理下の内にあるファイルなので、万が一のことがあるかもしれません。&lt;/p>
@@ -2340,7 +2445,8 @@ data-flex-basis="301px"
 &lt;/div>
 &lt;/div>
 &lt;p>そしてここに&lt;code>id_pass.txt&lt;/code>を作り、&lt;strong>1行目にID&lt;/strong>、&lt;strong>2行目にパスワード&lt;/strong>を記述した本当に単純なファイルを作成します。(複数ユーザーがいないからできるような運用方法ですねホントに)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666_hu58b912ad51cfde208ab785cb1ec7b87f_6961_612x70_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666.png"
 width="612"
 height="70"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666_hu58b912ad51cfde208ab785cb1ec7b87f_6961_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/885e53f7-368b-9d2b-2fc5-22942c0c7666_hu58b912ad51cfde208ab785cb1ec7b87f_6961_1024x0_resize_box_3.png 1024w"
@@ -2348,7 +2454,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="874"
 data-flex-basis="2098px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>次に、これらをシェルスクリプトで変数に代入するようにします。&lt;/p>
 &lt;p>引っ張り出し方は、&lt;/p>
 &lt;div>
@@ -2369,7 +2477,8 @@ data-flex-basis="2098px"
 &lt;/div>
 &lt;/div>
 &lt;p>のように、sedで行数指定で取り出して行います。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435_hu4204087823366f079b6d39efcad4f250_12248_649x93_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435.png"
 width="649"
 height="93"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435_hu4204087823366f079b6d39efcad4f250_12248_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7c40b42b-c4fc-52e7-0153-2ac587cfe435_hu4204087823366f079b6d39efcad4f250_12248_1024x0_resize_box_3.png 1024w"
@@ -2377,7 +2486,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="697"
 data-flex-basis="1674px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これを変数に入れられればいいので、シェルスクリプトの最上位(#!/bin/bashの次)に以下のような行を追記します&lt;/p>
 &lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
 &lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
@@ -2400,7 +2511,8 @@ data-flex-basis="1674px"
 &lt;p>次に、これをcurlの引数内で呼べるようにします。&lt;br>
 本番処理のところでも書きましたが、Form Dataに与える部分はダブルクオーテーションで囲まれているので、単純に&lt;code>${USERID}&lt;/code>や&lt;code>${PASSWORD}&lt;/code>とするだけで呼び出せます。(シングルクオートだとエスケープが必要になる) (一応&lt;code>{ }&lt;/code>がなくても良い)&lt;/p>
 &lt;p>(ダブルクオーテーションがあるので実験も含めてダブルクオーテーション込みで出しています)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e_hu3e525e6c305d987efc5d4a4f83e64575_9560_418x99_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e.png"
 width="418"
 height="99"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e_hu3e525e6c305d987efc5d4a4f83e64575_9560_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/7721bb56-c955-3082-6853-7555dcaafb0e_hu3e525e6c305d987efc5d4a4f83e64575_9560_1024x0_resize_box_3.png 1024w"
@@ -2408,7 +2520,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="422"
 data-flex-basis="1013px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>幸いにも、都市大のパスワードレギュレーションはダブルクオートとシングルクオートを弾いているので、このあたりのエスケープは無視することができます。&lt;/p>
 &lt;p>最後に、シェルスクリプトのユーザー名とパスワードの部分を&lt;code>${USERID}&lt;/code>と&lt;code>${PASSWORD}&lt;/code>に変更してあげれば、完成となります。&lt;/p>
 &lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/tcu_attend.sh&lt;/div>
@@ -2441,7 +2555,8 @@ data-flex-basis="1013px"
 &lt;h2 id="おまけ3-discordのbotにしてみる">おまけ3: DiscordのBotにしてみる
 &lt;/h2>&lt;p>DiscordのBotにして、Discordのチャットから出席登録できたら便利かもしれません。&lt;br>
 こんな感じに。(brとか残ってるのは許してくださいガバガバ処理なだけです)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258_hu9564e3601be98a727da355f60f1d7794_22030_583x216_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258.png"
 width="583"
 height="216"
 srcset="https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258_hu9564e3601be98a727da355f60f1d7794_22030_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201209-2-click-tcu-attend-system/img/c4cd04ef-b84a-9c18-9af9-ede423da5258_hu9564e3601be98a727da355f60f1d7794_22030_1024x0_resize_box_3.png 1024w"
@@ -2449,7 +2564,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="269"
 data-flex-basis="647px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>Discordは、シェルスクリプトだけでは(おそらく)文字を受け取るBotは流石に無理があります。Webhookで一方通行ならできますが。&lt;/p>
 &lt;p>ということで、文字を受け取るBotはNodejsを使うことになります。でも、ここまで作ってきたものはシェルスクリプトです。JavaScriptじゃありません。&lt;strong>じゃあシェルスクリプトをNodejsから叩いてしまいましょう!&lt;/strong> (アドカレ主催に怒られそう)&lt;/p>
 &lt;p>ということでソースです。と言いたいこところですが、その前に説明です。&lt;/p>
@@ -2614,7 +2731,8 @@ Discord →(文字列)→ Nodejs(文字列処理) → bash(ここまで作った
 &lt;/h2>&lt;p>&amp;ldquo;PCリモート起動&amp;quot;とはどういう画面だったかを思い出すと……&lt;/p>
 &lt;p>こんな感じでした(実機をしまってしまったので、 &lt;a class="link" href="https://michisugara.jp/archives/2015/home_ip.html" target="_blank" rel="noopener"
 >https://michisugara.jp/archives/2015/home_ip.html&lt;/a> からお借りしました。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_198x150_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317.png"
 width="198"
 height="150"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_1024x0_resize_box_3.png 1024w"
@@ -2622,7 +2740,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="132"
 data-flex-basis="316px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 題名と端末選択と起動ボタンですね。&lt;br>
 自宅LANで使うだけの無くなった機能を復活させたいだけなので、プルダウンメニューは再現せずに行きます。&lt;/p>
 &lt;h2 id="方針">方針
@@ -2754,7 +2874,8 @@ data-flex-basis="316px"
 &lt;/div>
 &lt;/div>
 &lt;p>こんな感じになります&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_408x164_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709.png"
 width="408"
 height="164"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_1024x0_resize_box_3.png 1024w"
@@ -2762,7 +2883,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="248"
 data-flex-basis="597px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="シェルスクリプトを書く">シェルスクリプトを書く
 &lt;/h2>&lt;p>/var/www/cgi-binに、wol.shという名前で書きました。&lt;/p>
 &lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/wol.sh&lt;/div>
@@ -2807,7 +2930,8 @@ data-flex-basis="597px"
 &lt;/div>
 &lt;/div>
 &lt;h2 id="試す">試す
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_529x97_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a.png"
 width="529"
 height="97"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_1024x0_resize_box_3.png 1024w"
@@ -2815,7 +2939,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="545"
 data-flex-basis="1308px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これで対象のマシンが起動してきたら成功です。&lt;/p>
 &lt;h2 id="〆">〆
 &lt;/h2>&lt;p>元の機能よりだいぶ簡略化されましたけど、これで目的が果たされたので満足です。&lt;br>
@@ -2882,7 +3008,8 @@ data-flex-basis="1308px"
 まずは、「np21x64w.exe」を起動します(x86なOSならnp21w.exe)&lt;/p>
 &lt;p>Windows10だとSmartScreenに引っかかりますが、「詳細情報」→「実行する」で起動ます。&lt;/p>
 &lt;p>起動すると、「ﾋﾟﾎﾟｯ!」と起動音が流れながら、メモリチェックが行われます&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041_hu01e97c6a8f2c07c2043faf02f42e4302_13154_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041_hu01e97c6a8f2c07c2043faf02f42e4302_13154_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/6831ade4-f728-423a-a755-f89b1ab15041_hu01e97c6a8f2c07c2043faf02f42e4302_13154_1024x0_resize_box_3.png 1024w"
@@ -2890,9 +3017,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>なにもイメージを割り当ててないので、「システムディスクをセットしてください」となります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af_hu4c6ffeb60c4242034a17a56e75d8d1c3_13229_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af_hu4c6ffeb60c4242034a17a56e75d8d1c3_13229_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/41853b64-50ad-3a6c-89dd-48b0ef55c3af_hu4c6ffeb60c4242034a17a56e75d8d1c3_13229_1024x0_resize_box_3.png 1024w"
@@ -2900,12 +3030,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="cpuの速度を変える">CPUの速度を変える
 &lt;/h3>&lt;p>せっかく実機PC-9801/21よりはるかに早いコンピュータを使っていますので、夢の爆速マシンにしましょう。
 「Emulate」メニュー→「Configure&amp;hellip;」より、CPUの欄のプルダウンメニューで、20→42にしましょう。
 次起動するときは「ﾋﾟﾎﾟｯ」が一瞬しか聞こえません。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee_hu685374996af40331199bb639c873361d_2389_208x107_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee.png"
 width="208"
 height="107"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee_hu685374996af40331199bb639c873361d_2389_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/7e8fae7c-8129-53cf-7ef1-0d143d8a5aee_hu685374996af40331199bb639c873361d_2389_1024x0_resize_box_3.png 1024w"
@@ -2913,10 +3046,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="194"
 data-flex-basis="466px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="2-hddイメージを作成する">2. HDDイメージを作成する
 &lt;/h2>&lt;p>左上の「Emulate」メニュー→「New disk」→「Hard disk image&amp;hellip;」&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b_huf93f122fa62f41f7ad35ed19a6877566_20233_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b_huf93f122fa62f41f7ad35ed19a6877566_20233_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8a1e8e63-8bb5-89d2-1617-c0bee9e8339b_huf93f122fa62f41f7ad35ed19a6877566_20233_1024x0_resize_box_3.png 1024w"
@@ -2924,11 +3060,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ファイル保存ダイアログが出るので、好きな名前を付けて保存しましょう。
 この時、ファイルの種類が決められますが、「.nhd」で良いと思います。&lt;/p>
 &lt;p>次にファイルサイズを決めます。MS-DOS 6.2がとりあえず読める最大サイズが2047MBバイトなので、精神衛生的に2048MBにしました。(容量固定式なので、指定したサイズのファイルがいきなり生成されます。ご注意ください)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886_hud31aa88f9dc91028ed8f6e3da5e48f91_4464_282x94_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886.png"
 width="282"
 height="94"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886_hud31aa88f9dc91028ed8f6e3da5e48f91_4464_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3da51abf-34b7-ab52-5997-dd6e27813886_hud31aa88f9dc91028ed8f6e3da5e48f91_4464_1024x0_resize_box_3.png 1024w"
@@ -2936,7 +3075,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="300"
 data-flex-basis="720px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>「OK」を押すと、HDイメージが作成されます。&lt;/p>
 &lt;p>次に、作成したイメージを割り当てます。
 「Harddisk」メニュー→「IDE #0」→「Open」より、先ほど作成したファイルを選択します。&lt;/p>
@@ -2945,7 +3086,8 @@ data-flex-basis="720px"
 &lt;/h2>&lt;p>一番めんどくさい作業です。
 「FDD1」メニュー→「Open」より、インストールフロッピィイメージの1枚目を開きます。
 (以下、MS-DOS側に合わせ、フロッピーではなくフロッピィ表記を使用します)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b_hu7507376c4e46170732f3165aafe4a8a8_6279_166x196_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b.png"
 width="166"
 height="196"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b_hu7507376c4e46170732f3165aafe4a8a8_6279_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/da1c0743-4bf8-ca48-59eb-7be91f71112b_hu7507376c4e46170732f3165aafe4a8a8_6279_1024x0_resize_box_3.png 1024w"
@@ -2953,10 +3095,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="84"
 data-flex-basis="203px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>「Emulate」メニュー→「Reset」で再起動します。&lt;/p>
 &lt;p>再起動すると、インストール先を聞かれます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b_hu036f53aea7744156f3c92a9fe02f76fd_21426_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b_hu036f53aea7744156f3c92a9fe02f76fd_21426_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a336c1f1-2805-4294-725c-070ee5477c9b_hu036f53aea7744156f3c92a9fe02f76fd_21426_1024x0_resize_box_3.png 1024w"
@@ -2965,9 +3110,11 @@ class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
 >
+&lt;/picture>
 固定ディスクを選択します&lt;/p>
 &lt;p>ディスクの初期化をします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e_huae9479eca15766f220599a46e84b2fcb_21888_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e_huae9479eca15766f220599a46e84b2fcb_21888_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/07d1afc5-b5ef-d9c2-77da-46fd334dfb9e_huae9479eca15766f220599a46e84b2fcb_21888_1024x0_resize_box_3.png 1024w"
@@ -2975,9 +3122,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>勝手に初期化してくれます。便利ですね。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1_huec776e5cf120c6fc2c1fec51d35dd5f5_17681_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1_huec776e5cf120c6fc2c1fec51d35dd5f5_17681_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/3e609e30-c8e9-e7a5-210d-e7086e3db6e1_huec776e5cf120c6fc2c1fec51d35dd5f5_17681_1024x0_resize_box_3.png 1024w"
@@ -2985,9 +3135,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>完了すると、MS-DOS領域の作成です。何も考えずEnter押して大丈夫です。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281_huf443899fe66cb569f24f20245aaa2361_22848_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281_huf443899fe66cb569f24f20245aaa2361_22848_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9f7c4e20-1d06-1bf7-dccf-6dda3f688281_huf443899fe66cb569f24f20245aaa2361_22848_1024x0_resize_box_3.png 1024w"
@@ -2995,9 +3148,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>確認されるので、「はい」で続行します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5_hu07c2140ae9ba64c637e0c27f2d1b2a43_21228_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5_hu07c2140ae9ba64c637e0c27f2d1b2a43_21228_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8114b403-a458-2038-7eea-484a77f3ecb5_hu07c2140ae9ba64c637e0c27f2d1b2a43_21228_1024x0_resize_box_3.png 1024w"
@@ -3005,9 +3161,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>何やらすごいプログレスバーが出てきます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08_hu9f421ecba378f753b27e88ec7cfdea8a_18636_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08_hu9f421ecba378f753b27e88ec7cfdea8a_18636_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d0622ad-b826-7024-f363-0fa402ee9e08_hu9f421ecba378f753b27e88ec7cfdea8a_18636_1024x0_resize_box_3.png 1024w"
@@ -3015,9 +3174,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>勝手に再起動して、インストールが続行されます。まず、インストール先のディレクトリの指定です。このままEnterを押します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba_hue5a7346c2007adc410cd5f69e96c4b7e_18311_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba_hue5a7346c2007adc410cd5f69e96c4b7e_18311_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/80a15df9-9536-453f-393d-0b34cd6486ba_hue5a7346c2007adc410cd5f69e96c4b7e_18311_1024x0_resize_box_3.png 1024w"
@@ -3025,10 +3187,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 先程のように確認されるので、「はい」で続行します&lt;/p>
 &lt;p>二枚目のフロッピィディスクを入れろと言われるので、先程と同じ様に「FDD1」メニューより、2枚目のフロッピィディスクを入れます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa_hud2d008450ef836040cdccbfcc5364a0a_22825_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa_hud2d008450ef836040cdccbfcc5364a0a_22825_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/d2300036-7de3-b794-4cb1-d5abd23da1aa_hud2d008450ef836040cdccbfcc5364a0a_22825_1024x0_resize_box_3.png 1024w"
@@ -3036,10 +3201,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>入れたらEnterキーを押します。自動でファイルコピーが行われます。これを8枚目まで行います。(仮想だから転送早いですけど、実機だとものすごい時間かかるんだろうなと)&lt;/p>
 &lt;p>8枚目まで終わると、環境設定が出てきます。特に変更は必要ないので、このままEnterキーを押します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a_hu5c649804f91d65955ef7d55cb61cb6cc_29191_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a_hu5c649804f91d65955ef7d55cb61cb6cc_29191_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/09899f68-d1ca-eafc-c960-8127debe954a_hu5c649804f91d65955ef7d55cb61cb6cc_29191_1024x0_resize_box_3.png 1024w"
@@ -3047,9 +3215,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>インストールが終わりました。速いのか面倒なのかわかりません。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458_hu3ab17c6813b7d85868b7bbf411ae8485_18942_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458_hu3ab17c6813b7d85868b7bbf411ae8485_18942_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b4af0234-4c62-9858-f658-df9dfa06b458_hu3ab17c6813b7d85868b7bbf411ae8485_18942_1024x0_resize_box_3.png 1024w"
@@ -3057,10 +3228,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 「FDD1」メニューより、「Eject」でフロッピィディスクを抜き、Enterキーを押しましょう。&lt;/p>
 &lt;p>再起動すると、MS-DOS Shellが起動してきます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26_hu20ce2bdeb333bdf4eba1e86c4164f209_26558_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26_hu20ce2bdeb333bdf4eba1e86c4164f209_26558_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/4ca2efee-3639-0f9a-afb3-7c20f2997d26_hu20ce2bdeb333bdf4eba1e86c4164f209_26558_1024x0_resize_box_3.png 1024w"
@@ -3068,7 +3242,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 F12キーを押せば、マウスも使えます(ホスト/仮想のマウス切り替えがF12)&lt;/p>
 &lt;h2 id="4-lsi-c-86-ver330-試食版を展開する">4. LSI C-86 Ver.3.30 試食版を展開する
 &lt;/h2>&lt;p>lsic330c.lzhを普通に展開します。&amp;ldquo;lsic86&amp;quot;というフォルダにBINフォルダ等が入ってる感じで展開してください。&lt;/p>
@@ -3083,7 +3259,8 @@ F12キーを押せば、マウスも使えます(ホスト/仮想のマウス切
 &lt;h3 id="2-フォーマットする">2. フォーマットする
 &lt;/h3>&lt;p>「FDD1」より、↑のFloppy.fdiを開きます。今までの手順で行っていた場合、Cドライブにフロッピィディスクが入ります。&lt;/p>
 &lt;p>Shift+F9でDOSのｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄを起動します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462_hu831259151b76d4891587234887e47f1f_13877_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462_hu831259151b76d4891587234887e47f1f_13877_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/738f1a35-5615-5f67-02ea-a1c9b5521462_hu831259151b76d4891587234887e47f1f_13877_1024x0_resize_box_3.png 1024w"
@@ -3091,9 +3268,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>&lt;code>format b: &lt;/code>と入力し、実行します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32_hu34600e9ea78dc7e3332f4fa7a08d1bc5_15675_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32_hu34600e9ea78dc7e3332f4fa7a08d1bc5_15675_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/24ff4b07-6169-34fa-5e8a-91cca6de2c32_hu34600e9ea78dc7e3332f4fa7a08d1bc5_15675_1024x0_resize_box_3.png 1024w"
@@ -3101,10 +3281,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 挿入してあるのでこのままEnterキーを押します。&lt;/p>
 &lt;p>フォーマットされました。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0_hu70ec9e6810432275b387355a5cc14678_22960_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0_hu70ec9e6810432275b387355a5cc14678_22960_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/94bd9337-2189-0931-849e-53d94ad97df0_hu70ec9e6810432275b387355a5cc14678_22960_1024x0_resize_box_3.png 1024w"
@@ -3112,12 +3295,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>別に他のイメージはフォーマットしないので、Nで抜けます。抜けたら、「FDD1」メニューからEjectします。&lt;/p>
 &lt;p>exitでｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄからMS-DOS Shellに戻れます。&lt;/p>
 &lt;h3 id="3-フロッピィイメージ内に書き込む">3. フロッピィイメージ内に書き込む
 &lt;/h3>&lt;p>DiskExplorer(先程ダウンロードしたもの。editdisk.exe)を起動し、今フォーマットしたフロッピィイメージを開きます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a_hub5a6dd7d5beb73ec0c126508eb9980cd_5031_347x132_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a.png"
 width="347"
 height="132"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a_hub5a6dd7d5beb73ec0c126508eb9980cd_5031_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/cd2116a4-09be-6110-3823-73ac487d962a_hub5a6dd7d5beb73ec0c126508eb9980cd_5031_1024x0_resize_box_3.png 1024w"
@@ -3125,10 +3311,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="262"
 data-flex-basis="630px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 このままOKで開きます。&lt;/p>
 &lt;p>フロッピィイメージの中を読み書きできるようになりました。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88_hu31481f560e6cff65c1ba07efc354ddc3_14269_634x435_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88.png"
 width="634"
 height="435"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88_hu31481f560e6cff65c1ba07efc354ddc3_14269_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/8d2c1c70-818a-72de-19e9-b335be3f7a88_hu31481f560e6cff65c1ba07efc354ddc3_14269_1024x0_resize_box_3.png 1024w"
@@ -3136,9 +3325,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="145"
 data-flex-basis="349px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ここに、先程展開されたlsic86のフォルダをドラッグアンドドロップで入れます。(フォルダごと入れてください)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb_hu1c5ad9b9c3d4b957cb6fb3b58918855f_24130_634x435_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb.png"
 width="634"
 height="435"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb_hu1c5ad9b9c3d4b957cb6fb3b58918855f_24130_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e7f5de15-18c6-e38d-2ef2-5d50c339f2eb_hu1c5ad9b9c3d4b957cb6fb3b58918855f_24130_1024x0_resize_box_3.png 1024w"
@@ -3146,9 +3338,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="145"
 data-flex-basis="349px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>書き込んだら、DiskExplorerは閉じ、再びNP21/Wを起動し、FDD1に今のフロッピィイメージを挿入します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b_hu001c5dae669c8b98c4012ff869109f6b_1636_270x75_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b.png"
 width="270"
 height="75"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b_hu001c5dae669c8b98c4012ff869109f6b_1636_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/9cc7ef4d-1ed6-a2a6-6a40-acf5589b7e1b_hu001c5dae669c8b98c4012ff869109f6b_1636_1024x0_resize_box_3.png 1024w"
@@ -3156,7 +3351,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="360"
 data-flex-basis="864px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ちゃんと認識されていますね&lt;/p>
 &lt;h2 id="6-コンパイラのデータをaドライブ内にコピーする">6. コンパイラのデータをAドライブ内にコピーする
 &lt;/h2>&lt;p>Shift+F9でｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄに入ったら、&lt;/p>
@@ -3174,7 +3371,8 @@ data-flex-basis="864px"
 &lt;/div>
 &lt;/div>
 &lt;p>でコピーが出来ます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb_hu6b3571619193cc34de305583f60a8752_15166_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb_hu6b3571619193cc34de305583f60a8752_15166_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/013bb824-b211-25f5-0731-4218e29a71cb_hu6b3571619193cc34de305583f60a8752_15166_1024x0_resize_box_3.png 1024w"
@@ -3182,11 +3380,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>コピーが終わったら、メニューよりEjectしてください。これをしないと再起動時フロッピィディスクから起動しようとして、MS-DOSが起動しません。&lt;/p>
 &lt;h2 id="7-コンパイラのパスを通すためにautoexecbatを編集する">7. コンパイラのパスを通すためにAUTOEXEC.BATを編集する
 &lt;/h2>&lt;p>画面下部「ﾒｲﾝ」より、「ﾌｧｲﾙ操作」を開きます。(マウスまたはTabキー+矢印キー+Enterキーで選択)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5_hu96dc18ead75dbdddc5a0b934216add58_5076_381x143_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5.png"
 width="381"
 height="143"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5_hu96dc18ead75dbdddc5a0b934216add58_5076_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5f3a114e-b59f-b491-37b3-184fafd04da5_hu96dc18ead75dbdddc5a0b934216add58_5076_1024x0_resize_box_3.png 1024w"
@@ -3194,9 +3395,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="266"
 data-flex-basis="639px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>スクロールし、「ﾃｷｽﾄﾌｧｲﾙの内容変更」を起動します&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949_hu635ade175283450952cd88a816c4a229_7040_370x147_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949.png"
 width="370"
 height="147"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949_hu635ade175283450952cd88a816c4a229_7040_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/47ff7b4b-95df-0e72-d863-d697dbdb4949_hu635ade175283450952cd88a816c4a229_7040_1024x0_resize_box_3.png 1024w"
@@ -3204,9 +3408,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="251"
 data-flex-basis="604px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>どのドライブにあるファイルか聞かれるので、&lt;code>a:&lt;/code>と入力しEnter/OKします&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99_hu0f264fe43e9ecf4baee05290db24ecc0_5739_492x160_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99.png"
 width="492"
 height="160"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99_hu0f264fe43e9ecf4baee05290db24ecc0_5739_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/055a3678-9b24-ccfb-56ca-3d8bef987e99_hu0f264fe43e9ecf4baee05290db24ecc0_5739_1024x0_resize_box_3.png 1024w"
@@ -3214,9 +3421,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="307"
 data-flex-basis="738px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 どのファイルを編集するか聞かれるので、&lt;code>autoexec.bat&lt;/code>と入力し、Enter/OKで開きます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6_hu1578e40e622836c6a8f79fe43098c4a3_27521_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6_hu1578e40e622836c6a8f79fe43098c4a3_27521_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b805c96d-99d7-7199-4a37-800d41631ed6_hu1578e40e622836c6a8f79fe43098c4a3_27521_1024x0_resize_box_3.png 1024w"
@@ -3224,9 +3434,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>テキストエディタが開き、autoexec.batの編集ができるようになったので、追記をしていきます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e_hu91026bfcc30bf1a288e0bcc554b5b39d_20259_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e_hu91026bfcc30bf1a288e0bcc554b5b39d_20259_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/ee4fa0d0-30f1-f059-b53f-d0d6362a081e_hu91026bfcc30bf1a288e0bcc554b5b39d_20259_1024x0_resize_box_3.png 1024w"
@@ -3234,7 +3447,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>&lt;code>SET DOSDIR=A:\DOS&lt;/code>と&lt;code>A:\DOS\SMARTDRV.EXE /X&lt;/code>の間に、以下を追記します。&lt;/p>
 &lt;div>&lt;div class="codeblock--name">AUTOEXEC.BAT&lt;/div>
 &lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
@@ -3247,7 +3462,8 @@ data-flex-basis="340px"
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493_huae043fc2cba27e1e679fdd991342ee52_20501_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493_huae043fc2cba27e1e679fdd991342ee52_20501_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/33cf481b-2e62-bee7-497e-993623915493_huae043fc2cba27e1e679fdd991342ee52_20501_1024x0_resize_box_3.png 1024w"
@@ -3255,11 +3471,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 追記したら、F1→&amp;ldquo;E&amp;quot;で保存、終了します&lt;/p>
 &lt;p>MS-DOS Shellに戻ってきたら、EmulateメニューよりResetで再起動します。&lt;/p>
 &lt;p>ｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄを起動して、&lt;code>lcc&lt;/code>と入力後、以下の表示になれば、コンパイラのインストール成功です。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13_hu512519b80a10e9169c40792f306bdd8c_21591_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13_hu512519b80a10e9169c40792f306bdd8c_21591_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/b1bf659c-765c-0469-dee2-9358e5eefd13_hu512519b80a10e9169c40792f306bdd8c_21591_1024x0_resize_box_3.png 1024w"
@@ -3267,10 +3486,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="8-hello-worldしてみる">8. Hello Worldしてみる
 &lt;/h2>&lt;p>さきほどautoexec.batを編集したときと同じ方法で、テキストエディタを起動させ、ファイル名を入力するところで&lt;code>test.c&lt;/code>と入力してみます。(存在しないファイル名を入力することで新規作成)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816_hud9c719805f4680a8b44296bd5f8f7f34_27647_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816_hud9c719805f4680a8b44296bd5f8f7f34_27647_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/5904306c-cd19-ea73-a584-1f2687d0c816_hud9c719805f4680a8b44296bd5f8f7f34_27647_1024x0_resize_box_3.png 1024w"
@@ -3278,7 +3500,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これで先程のようにテキストエディタが起動しますので、以下のHello World + αなテストコードを書いてみます。&lt;/p>
 &lt;div>&lt;div class="codeblock--name">test.c&lt;/div>
 &lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
@@ -3311,7 +3535,8 @@ data-flex-basis="340px"
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4_hu312dd17776bdece983c20afb35f61330_19181_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4_hu312dd17776bdece983c20afb35f61330_19181_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/e5ae462b-f68c-aa2f-77bf-7770e2f4aab4_hu312dd17776bdece983c20afb35f61330_19181_1024x0_resize_box_3.png 1024w"
@@ -3319,7 +3544,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 (デフォルトだとTabがスペース8文字分になりました)&lt;/p>
 &lt;p>書き終わったら先程のようにF1→Eで保存します。&lt;/p>
 &lt;p>Shift+F9でｺﾏﾝﾄﾞﾌﾟﾛﾝﾌﾟﾄに入ったら、&lt;/p>
@@ -3335,7 +3562,8 @@ data-flex-basis="340px"
 &lt;/div>
 &lt;/div>
 &lt;p>でコンパイルしてみましょう&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5_hub7147fd3b4bc807d863e2d4bee4089c2_13958_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5_hub7147fd3b4bc807d863e2d4bee4089c2_13958_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/a502a908-9b49-ae64-c96c-037fa7fd1bd5_hub7147fd3b4bc807d863e2d4bee4089c2_13958_1024x0_resize_box_3.png 1024w"
@@ -3343,10 +3571,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 コンパイルされました。&lt;/p>
 &lt;p>&lt;code>test.exe&lt;/code>と実行し、きちんと動作してることを確認します&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8_hu0044e6c3f581bcb5d6922c19e1da0dcf_14888_644x454_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8.png"
 width="644"
 height="454"
 srcset="https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8_hu0044e6c3f581bcb5d6922c19e1da0dcf_14888_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191204-c-dev-env-for-msdos/img/74d5f7e9-bcd4-a05f-f307-029c286a36c8_hu0044e6c3f581bcb5d6922c19e1da0dcf_14888_1024x0_resize_box_3.png 1024w"
@@ -3354,7 +3585,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="141"
 data-flex-basis="340px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>お疲れさまでした&amp;hellip;! ポータブルなC言語開発環境の構築の完成です&amp;hellip;!!!&lt;br>
 別PCで起動するときは、NP21/WでHDDを再指定するだけで大丈夫です。&lt;br>
 動作が動作なのでUSBメモリなどに入れて気軽に持ち歩きましょう!&lt;/p>

@@ -105,7 +105,8 @@ Androidは、もともと物理QWERTYがついた端末もいくつか存在し�
 &lt;p>毎回毎回Enterを押す。なんでなんでねぇなんで。理解ができないです。&lt;/p>
 &lt;p>あともう一つ。記号を最初から半角入力にする設定をさせてください。全角記号使いたくないんです。*/+-[]#%&amp;amp;を半角で一発で入力させてくださいおねがいします。&lt;/p>
 &lt;p>PC版の設定にはありますよね。そのへんの設定。↓&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2018/20181017-cannotuse-ios_android-for-documentmachine/img/GoogleIME_settings.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2018/20181017-cannotuse-ios_android-for-documentmachine/img/GoogleIME_settings_hu6a94a6831f543f77949228b58a91e6f8_14585_533x467_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2018/20181017-cannotuse-ios_android-for-documentmachine/img/GoogleIME_settings.png"
 width="533"
 height="467"
 srcset="https://blog.mikuta0407.net/posts/2018/20181017-cannotuse-ios_android-for-documentmachine/img/GoogleIME_settings_hu6a94a6831f543f77949228b58a91e6f8_14585_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181017-cannotuse-ios_android-for-documentmachine/img/GoogleIME_settings_hu6a94a6831f543f77949228b58a91e6f8_14585_1024x0_resize_box_3.png 1024w"
@@ -114,7 +115,9 @@ alt="Windows版Google日本語入力の入力補助プロパティ"
 class="gallery-image"
 data-flex-grow="114"
 data-flex-basis="273px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>数字もそうです。日本語入力モード時にShiftキー押しながら打った英単語もそうです。半角にする設定をさせろおおおお&lt;/p>
 &lt;p>確かに細かいですよ。でもこういうのって大事だと思うんです。だってPC版と同じ｢Google日本語入力｣って名前使ってるんですもの。物理キーボードつないだときの挙動くらい同じにしてくれ･･･。&lt;/p>
 &lt;h3>結論?&lt;/h3>

@@ -1397,9 +1397,11 @@
 &lt;li>なんか放置してたら同じくらいのメモリ消費量になっちゃったぞ&lt;/li>
 &lt;li>Tiny11、日本語フォントに游ゴシックとメイリオが入ってないのかも。MSゴシックとMS UI Gothicにフォールバックしてる、&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/img/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2024-04-07-1.10.32-1024x640.png"
+&lt;p>&lt;picture>&lt;img src="https://blog.mikuta0407.net/img/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2024-04-07-1.10.32-1024x640.png"
 loading="lazy"
->&lt;/p></description></item><item><title>Windows11 Insider PreviewをBIOS機に入れてみる(Dism展開)</title><link>https://blog.mikuta0407.net/posts/2021/20210715-install-win11-to-bios-with-dism-command/</link><pubDate>Thu, 15 Jul 2021 19:55:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2021/20210715-install-win11-to-bios-with-dism-command/</guid><description>&lt;p>Windows 11はUEFI機にしか正常な手段だとUEFI機にしか入りません。&lt;/p>
+>
+&lt;/picture>
+&lt;/p></description></item><item><title>Windows11 Insider PreviewをBIOS機に入れてみる(Dism展開)</title><link>https://blog.mikuta0407.net/posts/2021/20210715-install-win11-to-bios-with-dism-command/</link><pubDate>Thu, 15 Jul 2021 19:55:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2021/20210715-install-win11-to-bios-with-dism-command/</guid><description>&lt;p>Windows 11はUEFI機にしか正常な手段だとUEFI機にしか入りません。&lt;/p>
 &lt;p>正当じゃない手段だと入れる方法はあります。&lt;br>
 例えばWindows10→Windows11のアップグレードだとレジストリ編集で突破できるようです。&lt;/p>
 &lt;p>ただ、クリーンインストールでいい場合はそんなめんどくさいことしなくていいです。&lt;/p>
@@ -1429,27 +1431,35 @@ loading="lazy"
 &lt;/h2>&lt;p>&lt;strong>ディスクを初期化します&lt;/strong>&lt;/p>
 &lt;p>インストーラのISO/USBメモリ/DVD等から起動して、コマンドプロンプトを出します。&lt;br>
 よくあるやつなので出し方は割愛します。&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/oE7LbOg.png"
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/oE7LbOg.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>DiskpartでNTFSパーティションを作ります。&lt;br>
 list diskのところでGPTがオフなのが確認できます。&lt;br>
 NTFSでプライマリパーティションを作り、Cドライブとして割り当てました。&lt;br>
-&lt;img src="https://i.imgur.com/k61Tyzf.png"
+&lt;picture>&lt;img src="https://i.imgur.com/k61Tyzf.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ここで、今作ったパーティションをアクティブにします。&lt;br>
-&lt;img src="https://i.imgur.com/XeTooYv.png"
+&lt;picture>&lt;img src="https://i.imgur.com/XeTooYv.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>Diskpartを終わります。&lt;/p>
 &lt;h2 id="dism展開する">Dism展開する
 &lt;/h2>&lt;p>今回はDismで直接install.wimを展開する手法を使い、要件検出をスキップします。&lt;br>
 まずはwimの中身のindexを確認します。&lt;br>
 今の状態では、インストールメディアはDドライブにマウントされています。&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/GRA4rKu.png"
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/GRA4rKu.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;div>
 &lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1462,9 +1472,11 @@ loading="lazy"
 &lt;/div>
 &lt;/div>
 &lt;p>を実行して、Windows 11 Proのindexが1であることを確認します(複数エディション対応とかだと増えるので)&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/Or3zu3l.png"
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/Or3zu3l.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>次に、Cドライブに展開します。&lt;/p>
 &lt;div>
 &lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
@@ -1478,9 +1490,11 @@ loading="lazy"
 &lt;/div>
 &lt;/div>
 &lt;p>展開が終わるまで待ちます&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/7UMvizV.png"
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/7UMvizV.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>最後に、&lt;/p>
 &lt;div>
 &lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
@@ -1494,26 +1508,36 @@ loading="lazy"
 &lt;/div>
 &lt;/div>
 &lt;p>を実行します
-&lt;img src="https://i.imgur.com/EBeJoHl.png"
+&lt;picture>&lt;img src="https://i.imgur.com/EBeJoHl.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="内蔵ストレージから起動する">内蔵ストレージから起動する
 &lt;/h2>&lt;p>コマンドプロンプトを閉じて、電源を切り、インストールメディアを抜きます&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/nW5FxZV.png"
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/nW5FxZV.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>普通にセットアップが始まるので、やっていきます&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/XNEdHTG.png"
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/XNEdHTG.png"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/0oKbErq.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/0oKbErq.png"
 loading="lazy"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="完成">完成
 &lt;/h2>&lt;p>VirtualBoxだと元々要件検出を突破してしまうので画像に説得力がないですが、以上の手順で、&lt;strong>一応、現時点では、&lt;/strong> Windows11をLegacyBoot機にインストールすることができました。&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/WP6BJ3v.png"
+&lt;p>&lt;picture>&lt;img src="https://i.imgur.com/WP6BJ3v.png"
 loading="lazy"
->&lt;/p></description></item><item><title>2DDのフロッピーディスクに"聴ける"音楽を入れる</title><link>https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/</link><pubDate>Wed, 02 Dec 2020 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/</guid><description>&lt;p>この記事は&lt;a class="link" href="https://adventar.org/calendars/5110" target="_blank" rel="noopener"
+>
+&lt;/picture>
+&lt;/p></description></item><item><title>2DDのフロッピーディスクに"聴ける"音楽を入れる</title><link>https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/</link><pubDate>Wed, 02 Dec 2020 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/</guid><description>&lt;p>この記事は&lt;a class="link" href="https://adventar.org/calendars/5110" target="_blank" rel="noopener"
 >Tokyo City University Advent Calendar 2020&lt;/a>の2日目の記事です。&lt;/p>
 &lt;p>昨日の記事は &lt;a class="link" href="https://twitter.com/920OJ" target="_blank" rel="noopener"
 >@920OJ&lt;/a> さんによる &lt;a class="link" href="https://b.920oj.net/what-is-vrsa/" target="_blank" rel="noopener"
@@ -1735,7 +1759,8 @@ opusも、AAC同様ffmpegで簡単に変換できます。&lt;/p>
 &lt;p>ちなみに、こちらは&lt;strong>WSL1&lt;/strong>でやっています。ちょっとだけ理由を。&lt;br>
 先程AACでやったときに34kbpsがちょっとオーバーするくらいだったので、34kbpsでエンコードをしてみました。すると・・・&lt;/p>
 &lt;p>まずはWSL(Ubuntu20.04)。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil_hu4fc752639e6a114adeb2798e0a13bbb3_5962_560x41_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil.png"
 width="560"
 height="41"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil_hu4fc752639e6a114adeb2798e0a13bbb3_5962_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/cROczil_hu4fc752639e6a114adeb2798e0a13bbb3_5962_1024x0_resize_box_3.png 1024w"
@@ -1743,9 +1768,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="1365"
 data-flex-basis="3278px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>次にVPS(Ubuntu18.04)。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B_huaf95963927213bd123bf94d309ee494e_5775_560x43_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B.png"
 width="560"
 height="43"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B_huaf95963927213bd123bf94d309ee494e_5775_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/F803a9B_huaf95963927213bd123bf94d309ee494e_5775_1024x0_resize_box_3.png 1024w"
@@ -1753,7 +1781,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="1302"
 data-flex-basis="3125px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>結構違うんですよね・・・。Opusの場合はWSL1(Ubuntu20.04)のほうが圧縮が良さそうなのと、聴き比べたときに元音源の雰囲気率が高かったのがこちらなので、WSL1の方でやってみます。&lt;/p>
 &lt;p>本題に戻りますが、↑の比較画像を見てわかるかと思いますが、同じ34kbpsでもAACとOPUSで全然容量が違うことがわかります。この段階で一度再生してみると、全然雰囲気が違うので驚くのですが、とりあえず先に進みます。&lt;/p>
 &lt;p>先ほどと同じ用に試していきます。34kbpsでは入ることがわかったので、一旦40kbpsにしてみます。&lt;/p>
@@ -1847,7 +1877,8 @@ Your browser does not support the
 &lt;p>ということで、いろいろと脱線したりしましたが、無事2DDのフロッピーに入る、かつそれなりに良い音質の音源の作成に成功しました!
 　
 &lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4.jpg"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4_hueee198281abc5bf27bd0b3267f422c87_261608_1263x947_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4.jpg"
 width="1263"
 height="947"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4_hueee198281abc5bf27bd0b3267f422c87_261608_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/mkramH4_hueee198281abc5bf27bd0b3267f422c87_261608_1024x0_resize_q75_box.jpg 1024w"
@@ -1855,8 +1886,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA.jpg"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA_hu361401bd2db6211ba5699421afb8805d_214675_1263x947_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA.jpg"
 width="1263"
 height="947"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA_hu361401bd2db6211ba5699421afb8805d_214675_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/z2A5CdA_hu361401bd2db6211ba5699421afb8805d_214675_1024x0_resize_q75_box.jpg 1024w"
@@ -1864,8 +1898,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s.jpg"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s_hub4a28ca685846b1d2e9b6e945c306fcd_192198_1263x947_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s.jpg"
 width="1263"
 height="947"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s_hub4a28ca685846b1d2e9b6e945c306fcd_192198_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/piOjz4s_hub4a28ca685846b1d2e9b6e945c306fcd_192198_1024x0_resize_q75_box.jpg 1024w"
@@ -1873,8 +1910,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd_hu8988078ada5929a26ead889d4e5450d8_21866_741x159_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd.png"
 width="741"
 height="159"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd_hu8988078ada5929a26ead889d4e5450d8_21866_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/Jp8bKbd_hu8988078ada5929a26ead889d4e5450d8_21866_1024x0_resize_box_3.png 1024w"
@@ -1882,8 +1922,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="466"
 data-flex-basis="1118px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24_hue86a2b2cafc2b094eeb0c2d2bf580286_21653_421x548_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24.png"
 width="421"
 height="548"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24_hue86a2b2cafc2b094eeb0c2d2bf580286_21653_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/qLhmf24_hue86a2b2cafc2b094eeb0c2d2bf580286_21653_1024x0_resize_box_3.png 1024w"
@@ -1891,9 +1934,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="76"
 data-flex-basis="184px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ここまでやったら実際に2DDのフロッピーディスクに入れて再生しなきゃ意味がないですよね。というわけで実際に入れていきます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH_hue60a35ddb92c96d44081766b5ad33d5e_6811_495x77_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH.png"
 width="495"
 height="77"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH_hue60a35ddb92c96d44081766b5ad33d5e_6811_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/6Oo8ILH_hue60a35ddb92c96d44081766b5ad33d5e_6811_1024x0_resize_box_3.png 1024w"
@@ -1901,9 +1947,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="642"
 data-flex-basis="1542px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>コピーが終わると、残り0クラスタとなり、空き容量が0Bになりました。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8_hu4a9b3e2039349e73d160913eaed1260e_21854_421x548_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8.png"
 width="421"
 height="548"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8_hu4a9b3e2039349e73d160913eaed1260e_21854_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/ZZisCH8_hu4a9b3e2039349e73d160913eaed1260e_21854_1024x0_resize_box_3.png 1024w"
@@ -1911,9 +1960,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="76"
 data-flex-basis="184px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>2DDのフロッピーディスク、容量いっぱいいっぱいまで使っています。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K_huc2a6a596a8219d9f63bd9b6abd885e95_29490_980x261_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K.png"
 width="980"
 height="261"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K_huc2a6a596a8219d9f63bd9b6abd885e95_29490_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/T2jiS4K_huc2a6a596a8219d9f63bd9b6abd885e95_29490_1024x0_resize_box_3.png 1024w"
@@ -1921,10 +1973,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="375"
 data-flex-basis="901px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ではVLCで再生してみましょう・・・&lt;br>
 転送レートが微妙に足りない・・・!!!!!!!!!!!!!!!&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX_hu2b5f4eb207586c2424cd5d4c5f3a05ec_24621_567x512_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX.png"
 width="567"
 height="512"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX_hu2b5f4eb207586c2424cd5d4c5f3a05ec_24621_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FW1vAaX_hu2b5f4eb207586c2424cd5d4c5f3a05ec_24621_1024x0_resize_box_3.png 1024w"
@@ -1932,12 +1987,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="110"
 data-flex-basis="265px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ある程度止まらず流れるのですが、たまにバッファが足りず止まります・・・。&lt;br>
 リアルタイム再生は流石にギリギリ無理ですね・・・。
 　
 &lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;br>&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV_hue59b93daf2376a03c76b0bafe71707b6_86058_640x400_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV.png"
 width="640"
 height="400"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV_hue59b93daf2376a03c76b0bafe71707b6_86058_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iQwJdQV_hue59b93daf2376a03c76b0bafe71707b6_86058_1024x0_resize_box_3.png 1024w"
@@ -1945,8 +2003,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="160"
 data-flex-basis="384px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ_hu3ebe534b8ee562bc4234ebd12fdac6da_21476_541x239_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ.png"
 width="541"
 height="239"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ_hu3ebe534b8ee562bc4234ebd12fdac6da_21476_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/2j7fgPQ_hu3ebe534b8ee562bc4234ebd12fdac6da_21476_1024x0_resize_box_3.png 1024w"
@@ -1954,8 +2015,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="226"
 data-flex-basis="543px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu_hu30754034534116e811755e9b3c1bcadf_43861_958x674_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu.png"
 width="958"
 height="674"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu_hu30754034534116e811755e9b3c1bcadf_43861_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/iUCvTZu_hu30754034534116e811755e9b3c1bcadf_43861_1024x0_resize_box_3.png 1024w"
@@ -1963,8 +2027,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="142"
 data-flex-basis="341px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq_hu745fcc334a155c4477763bc6cf590563_27746_512x435_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq.png"
 width="512"
 height="435"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq_hu745fcc334a155c4477763bc6cf590563_27746_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/BzWjpmq_hu745fcc334a155c4477763bc6cf590563_27746_1024x0_resize_box_3.png 1024w"
@@ -1972,8 +2039,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="117"
 data-flex-basis="282px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J_hu82428699cad1bb6b0bb097e4767b5b9e_43591_686x535_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J.png"
 width="686"
 height="535"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J_hu82428699cad1bb6b0bb097e4767b5b9e_43591_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/jAzBY2J_hu82428699cad1bb6b0bb097e4767b5b9e_43591_1024x0_resize_box_3.png 1024w"
@@ -1982,9 +2052,11 @@ class="gallery-image"
 data-flex-grow="128"
 data-flex-basis="307px"
 >
+&lt;/picture>
 (&lt;a class="link" href="http://forums.winamp.com/showthread.php?t=452974" target="_blank" rel="noopener"
 >http://forums.winamp.com/showthread.php?t=452974&lt;/a>)&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO_hue2632a191b76e6badc8e2bf54b0ada74_89953_811x490_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO.png"
 width="811"
 height="490"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO_hue2632a191b76e6badc8e2bf54b0ada74_89953_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/bfk2jSO_hue2632a191b76e6badc8e2bf54b0ada74_89953_1024x0_resize_box_3.png 1024w"
@@ -1992,8 +2064,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="165"
 data-flex-basis="397px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo_hu2055178ebce6c536238f035eb2fd0bab_431737_1280x1024_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo.png"
 width="1280"
 height="1024"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo_hu2055178ebce6c536238f035eb2fd0bab_431737_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/8yNVMOo_hu2055178ebce6c536238f035eb2fd0bab_431737_1024x0_resize_box_3.png 1024w"
@@ -2001,8 +2076,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="125"
 data-flex-basis="300px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx_hud17ba6c53b28f53023bcfce7c6c489b8_213567_490x411_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx.png"
 width="490"
 height="411"
 srcset="https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx_hud17ba6c53b28f53023bcfce7c6c489b8_213567_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20201202-music-on-2dd-fd/img/FyUVaLx_hud17ba6c53b28f53023bcfce7c6c489b8_213567_1024x0_resize_box_3.png 1024w"
@@ -2010,7 +2088,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="119"
 data-flex-basis="286px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>以上! #tcuac2020 二日目の記事でした!&lt;/p>
 &lt;p>明日はらぴーとさんの「2HDのフロッピーに動画を入れないか？」です。連続のフロピネタ、お楽しみください。&lt;/p></description></item><item><title>X230のOSをLinuxからWindowsに戻した。</title><link>https://blog.mikuta0407.net/posts/2020/20200326-x230-back-to-windows-from-linux/</link><pubDate>Thu, 26 Mar 2020 22:45:10 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20200326-x230-back-to-windows-from-linux/</guid><description>&lt;h2 id="lubuntu1804からwindows10-proにした">Lubuntu18.04からWindows10 Proにした
 &lt;/h2>&lt;p>大学3年が始まろうとしている春休み(一ヶ月伸びたけど)、X230のOSを入れ替えました。&lt;br>
@@ -2104,7 +2184,8 @@ Win7おじさんからすれば安定性やUI等、まだまだ不満がある�
 今回は&amp;quot;ディスクの管理&amp;quot;を使って行いましたが、VHDが作れるなら何でも良いです。(Diskpartでも)&lt;/p>
 &lt;ol>
 &lt;li>Win+X→「ディスクの管理」→「操作」タブ→「VHDの作成」から、VHD作成画面を呼び出す&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/193cdd2b-fefb-de46-718f-9ffcd8e6992b.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/193cdd2b-fefb-de46-718f-9ffcd8e6992b_hu961ac47b9171a9bce0da4b499dfe1452_17384_259x204_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/193cdd2b-fefb-de46-718f-9ffcd8e6992b.png"
 width="259"
 height="204"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/193cdd2b-fefb-de46-718f-9ffcd8e6992b_hu961ac47b9171a9bce0da4b499dfe1452_17384_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/193cdd2b-fefb-de46-718f-9ffcd8e6992b_hu961ac47b9171a9bce0da4b499dfe1452_17384_1024x0_resize_box_3.png 1024w"
@@ -2113,11 +2194,14 @@ alt=" "
 class="gallery-image"
 data-flex-grow="126"
 data-flex-basis="304px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>200MBの容量可変VHDを作成する&lt;br>
 CDの内容を書き込むだけなので、400MBで良いです。
 ちなみに画像では1000MBで作ってしまっています&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7fad552a-4de4-aef4-7fe0-319de627014a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7fad552a-4de4-aef4-7fe0-319de627014a_hu5647c2f027b24e5c4379364234869b3b_50706_443x536_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7fad552a-4de4-aef4-7fe0-319de627014a.png"
 width="443"
 height="536"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7fad552a-4de4-aef4-7fe0-319de627014a_hu5647c2f027b24e5c4379364234869b3b_50706_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7fad552a-4de4-aef4-7fe0-319de627014a_hu5647c2f027b24e5c4379364234869b3b_50706_1024x0_resize_box_3.png 1024w"
@@ -2126,9 +2210,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="82"
 data-flex-basis="198px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>自動でマウントされたVHDを初期化する&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/44661059-a941-ae2f-6c24-0009f4d52a65.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/44661059-a941-ae2f-6c24-0009f4d52a65_hu23097c41e30b26b0f9efaec6329b1ddd_10978_264x211_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/44661059-a941-ae2f-6c24-0009f4d52a65.png"
 width="264"
 height="211"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/44661059-a941-ae2f-6c24-0009f4d52a65_hu23097c41e30b26b0f9efaec6329b1ddd_10978_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/44661059-a941-ae2f-6c24-0009f4d52a65_hu23097c41e30b26b0f9efaec6329b1ddd_10978_1024x0_resize_box_3.png 1024w"
@@ -2137,9 +2224,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="125"
 data-flex-basis="300px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>GPTなんてDOSは読めないので、MBRにします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d3fe71ca-1998-92e3-8d4d-029b3e6a057d.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d3fe71ca-1998-92e3-8d4d-029b3e6a057d_hu27054923e265cb6083cc39cbe8e5428f_25595_468x362_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d3fe71ca-1998-92e3-8d4d-029b3e6a057d.png"
 width="468"
 height="362"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d3fe71ca-1998-92e3-8d4d-029b3e6a057d_hu27054923e265cb6083cc39cbe8e5428f_25595_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d3fe71ca-1998-92e3-8d4d-029b3e6a057d_hu27054923e265cb6083cc39cbe8e5428f_25595_1024x0_resize_box_3.png 1024w"
@@ -2148,9 +2238,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="129"
 data-flex-basis="310px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>普通にFAT32でフォーマットする&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/be123e91-5f12-410e-07d6-ed646030c93c.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/be123e91-5f12-410e-07d6-ed646030c93c_hud804a55b2f510c78382421a1318f1709_8003_317x142_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/be123e91-5f12-410e-07d6-ed646030c93c.png"
 width="317"
 height="142"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/be123e91-5f12-410e-07d6-ed646030c93c_hud804a55b2f510c78382421a1318f1709_8003_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/be123e91-5f12-410e-07d6-ed646030c93c_hud804a55b2f510c78382421a1318f1709_8003_1024x0_resize_box_3.png 1024w"
@@ -2159,8 +2252,11 @@ alt=" "
 class="gallery-image"
 data-flex-grow="223"
 data-flex-basis="535px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7c0d985b-5d81-4609-10bd-d7f01dc9edac.png"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7c0d985b-5d81-4609-10bd-d7f01dc9edac_hu1037a88e85caafecc8b24cb4762eb977_37865_582x448_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7c0d985b-5d81-4609-10bd-d7f01dc9edac.png"
 width="582"
 height="448"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7c0d985b-5d81-4609-10bd-d7f01dc9edac_hu1037a88e85caafecc8b24cb4762eb977_37865_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/7c0d985b-5d81-4609-10bd-d7f01dc9edac_hu1037a88e85caafecc8b24cb4762eb977_37865_1024x0_resize_box_3.png 1024w"
@@ -2169,13 +2265,16 @@ alt=" "
 class="gallery-image"
 data-flex-grow="129"
 data-flex-basis="311px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;/ol>
 &lt;p>これで、フォーマット時に指定したドライブレターに、作成したVHDがマウントされました。&lt;/p>
 &lt;h2 id="2-windows95のcd内のデータをすべてvhdにコピー">2. Windows95のCD内のデータをすべてVHDにコピー
 &lt;/h2>&lt;p>さて、なんでいちいちCDのデータをVHDにコピーするかというと、Windows95の起動ディスクが&lt;strong>CD-ROMを読まない&lt;/strong>からです。ドライバがないんですね。&lt;br>
 ちなみにWindows98の起動ディスクであったり、FreeDOSを使う場合にはCDの認識が可能なんですが、どちらにせよCDではなくHDDにデータを入れたほうが成功率があがる(気がする)ので、HDD経由でのインストールをします。データ転送方法ですが、わざわざCDの読めるDOSの起動ディスクを使ってxcopy駆使するくらいならホストマシン側で楽をしましょうということで、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/402faea9-3ad2-5fd0-74a3-bb9138ae2e9f.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/402faea9-3ad2-5fd0-74a3-bb9138ae2e9f_hu9561129e85fed4930f4526923c7dacf2_10235_193x286_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/402faea9-3ad2-5fd0-74a3-bb9138ae2e9f.png"
 width="193"
 height="286"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/402faea9-3ad2-5fd0-74a3-bb9138ae2e9f_hu9561129e85fed4930f4526923c7dacf2_10235_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/402faea9-3ad2-5fd0-74a3-bb9138ae2e9f_hu9561129e85fed4930f4526923c7dacf2_10235_1024x0_resize_box_3.png 1024w"
@@ -2184,12 +2283,15 @@ alt=" "
 class="gallery-image"
 data-flex-grow="67"
 data-flex-basis="161px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>コピーしました。&lt;/p>
 &lt;p>VHDはこのあと仮想マシンで使うので、切り離しておきましょう。切り離さないとVirtualBoxに怒られます。&lt;br>
 「ディスクの管理」→画面下部から対象ドライブ(青いやつ)を右クリック→「VHDの切断」→「OK」&lt;/p>
 &lt;h2 id="3-virtualboxで仮想マシンを作成">3. VirtualBoxで仮想マシンを作成
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9c0f8562-29e0-9e71-3b8a-e3af843edb65.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9c0f8562-29e0-9e71-3b8a-e3af843edb65_hu516f7c765eb11bcf69b339534c74f83c_24148_558x493_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9c0f8562-29e0-9e71-3b8a-e3af843edb65.png"
 width="558"
 height="493"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9c0f8562-29e0-9e71-3b8a-e3af843edb65_hu516f7c765eb11bcf69b339534c74f83c_24148_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9c0f8562-29e0-9e71-3b8a-e3af843edb65_hu516f7c765eb11bcf69b339534c74f83c_24148_1024x0_resize_box_3.png 1024w"
@@ -2198,13 +2300,16 @@ alt=" "
 class="gallery-image"
 data-flex-grow="113"
 data-flex-basis="271px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>メモリは贅沢に256MB割り当てちゃいましょう。&lt;br>
 ハードディスクは新規作成で8GBくらいで作っておきましょう。(仮想イメージ形式はVHDがおすすめです。ホスト側Windowsでも特別なソフトを使わずに簡単に読み書きできるので。)&lt;/p>
 &lt;h2 id="4-仮想マシンの設定">4. 仮想マシンの設定
 &lt;/h2>&lt;p>作った仮想マシンを起動する前に、設定→ストレージより、IDEプライマリスレーブに先程作ったVHDを割り当てます。&lt;br>
 「既存のディスクを選択」→「追加」→ファイル選択ダイアログから選ぶ→一覧に追加されているので「選択」&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1ce8c3d7-1c1f-efb8-c8b1-8c939cdf7877.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1ce8c3d7-1c1f-efb8-c8b1-8c939cdf7877_hu15a9d8bf762f0fe3e82a97f7dd777e3f_32704_642x392_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1ce8c3d7-1c1f-efb8-c8b1-8c939cdf7877.png"
 width="642"
 height="392"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1ce8c3d7-1c1f-efb8-c8b1-8c939cdf7877_hu15a9d8bf762f0fe3e82a97f7dd777e3f_32704_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1ce8c3d7-1c1f-efb8-c8b1-8c939cdf7877_hu15a9d8bf762f0fe3e82a97f7dd777e3f_32704_1024x0_resize_box_3.png 1024w"
@@ -2213,11 +2318,14 @@ alt=" "
 class="gallery-image"
 data-flex-grow="163"
 data-flex-basis="393px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そしてHDDと同じ要領でフロッピードライブに、起動ディスクを割り当てます。&lt;br>
 「ディスクを選択」→「追加」→ファイル選択ダイアログから選択→「選択」&lt;/p>
 &lt;p>最終的にこうなります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/077ca328-8fa8-b475-b5ed-b9a5c3a904a6.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/077ca328-8fa8-b475-b5ed-b9a5c3a904a6_hu605d5fb52154f309cbd3d5aac231ecc3_7751_275x196_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/077ca328-8fa8-b475-b5ed-b9a5c3a904a6.png"
 width="275"
 height="196"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/077ca328-8fa8-b475-b5ed-b9a5c3a904a6_hu605d5fb52154f309cbd3d5aac231ecc3_7751_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/077ca328-8fa8-b475-b5ed-b9a5c3a904a6_hu605d5fb52154f309cbd3d5aac231ecc3_7751_1024x0_resize_box_3.png 1024w"
@@ -2226,11 +2334,14 @@ alt=" "
 class="gallery-image"
 data-flex-grow="140"
 data-flex-basis="336px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>次に、USBを切ります。&lt;br>
 Windows95の頃にはUSBなんて普及してなかったので、インストール時にコケたりしないように切ります。&lt;br>
 設定→USBより、「USBコントローラを有効化」のチェックを外します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bea23e9e-fe61-ec8c-e3f1-b9344a056718.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bea23e9e-fe61-ec8c-e3f1-b9344a056718_hubc4a9c014be1983d807076f8ea6d4169_4010_229x148_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bea23e9e-fe61-ec8c-e3f1-b9344a056718.png"
 width="229"
 height="148"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bea23e9e-fe61-ec8c-e3f1-b9344a056718_hubc4a9c014be1983d807076f8ea6d4169_4010_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bea23e9e-fe61-ec8c-e3f1-b9344a056718_hubc4a9c014be1983d807076f8ea6d4169_4010_1024x0_resize_box_3.png 1024w"
@@ -2239,12 +2350,15 @@ alt=" "
 class="gallery-image"
 data-flex-grow="154"
 data-flex-basis="371px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これでひとまず設定は終了です。&lt;br>
 仮想マシンを起動しましょう。&lt;/p>
 &lt;h2 id="5-cドライブをフォーマットする">5. Cドライブをフォーマットする
 &lt;/h2>&lt;p>仮想マシンを起動すると、「Starting Windows 95&amp;hellip;」の表示のあと、(日本語版の起動ディスクなので)キーボード配列の選択が出てきました。「半角/全角」キーを押すことでJISと認識させます。(FreeDOS等ではこの画面は出なかったはずです)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d1b1448d-5d17-a6c1-8936-dc407a2c2cac.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d1b1448d-5d17-a6c1-8936-dc407a2c2cac_hu595e84935b2b367ca288340de640069e_35157_642x549_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d1b1448d-5d17-a6c1-8936-dc407a2c2cac.png"
 width="642"
 height="549"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d1b1448d-5d17-a6c1-8936-dc407a2c2cac_hu595e84935b2b367ca288340de640069e_35157_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d1b1448d-5d17-a6c1-8936-dc407a2c2cac_hu595e84935b2b367ca288340de640069e_35157_1024x0_resize_box_3.png 1024w"
@@ -2253,13 +2367,16 @@ alt=" "
 class="gallery-image"
 data-flex-grow="116"
 data-flex-basis="280px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>選択後はDOSが使えます。ここから、fdiskを利用して、先程OS用に作成したハードディスクのフォーマットを行います。(FreeDOSでも、表記は英語ですが手順はほぼ同じです)&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>FDISKの実行&lt;br>
 fdiskコマンドでFDISKを起動させます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/17703321-4591-ed94-22fb-d9060315ace8.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/17703321-4591-ed94-22fb-d9060315ace8_hu57c04c797bdee4982e3b143df750dacc_13571_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/17703321-4591-ed94-22fb-d9060315ace8.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/17703321-4591-ed94-22fb-d9060315ace8_hu57c04c797bdee4982e3b143df750dacc_13571_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/17703321-4591-ed94-22fb-d9060315ace8_hu57c04c797bdee4982e3b143df750dacc_13571_1024x0_resize_box_3.png 1024w"
@@ -2267,9 +2384,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ここではYキー→Enterで、大容量ディスクのサポートをオンにします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4309b9a-c7de-052f-157b-8239f5aa9a2a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4309b9a-c7de-052f-157b-8239f5aa9a2a_hu6824c1892d6de42ef41bdbd75976e492_9007_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4309b9a-c7de-052f-157b-8239f5aa9a2a.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4309b9a-c7de-052f-157b-8239f5aa9a2a_hu6824c1892d6de42ef41bdbd75976e492_9007_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4309b9a-c7de-052f-157b-8239f5aa9a2a_hu6824c1892d6de42ef41bdbd75976e492_9007_1024x0_resize_box_3.png 1024w"
@@ -2277,9 +2397,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 1番で「MS-DOS領域または論理MS-DOSドライブを作成」を選択します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/612258f4-bf77-e248-63f0-3d59991a9329.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/612258f4-bf77-e248-63f0-3d59991a9329_huea5393b12dd5e083a999b4a86d17b2a2_6837_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/612258f4-bf77-e248-63f0-3d59991a9329.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/612258f4-bf77-e248-63f0-3d59991a9329_huea5393b12dd5e083a999b4a86d17b2a2_6837_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/612258f4-bf77-e248-63f0-3d59991a9329_huea5393b12dd5e083a999b4a86d17b2a2_6837_1024x0_resize_box_3.png 1024w"
@@ -2287,10 +2410,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 1番で「基本MS-DOS領域を作成」を選択します。&lt;br>
 MBRで初期化してくれます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/154a69cc-a738-e41c-e8a7-cb147fa73001.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/154a69cc-a738-e41c-e8a7-cb147fa73001_hu91317c9353481eb971bb6058386af6c6_5113_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/154a69cc-a738-e41c-e8a7-cb147fa73001.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/154a69cc-a738-e41c-e8a7-cb147fa73001_hu91317c9353481eb971bb6058386af6c6_5113_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/154a69cc-a738-e41c-e8a7-cb147fa73001_hu91317c9353481eb971bb6058386af6c6_5113_1024x0_resize_box_3.png 1024w"
@@ -2298,10 +2424,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 最大サイズを割り当てましょう。&lt;br>
 終了後はEscキーを2回押してFDISKを終了しようとすると、再起動しろとのメッセージが表示されます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/976357a8-c85d-0c41-556c-cc90db9ef7c4.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/976357a8-c85d-0c41-556c-cc90db9ef7c4_hue3f2db47a6e214c5795006dc69b23f01_5447_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/976357a8-c85d-0c41-556c-cc90db9ef7c4.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/976357a8-c85d-0c41-556c-cc90db9ef7c4_hue3f2db47a6e214c5795006dc69b23f01_5447_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/976357a8-c85d-0c41-556c-cc90db9ef7c4_hue3f2db47a6e214c5795006dc69b23f01_5447_1024x0_resize_box_3.png 1024w"
@@ -2309,7 +2438,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 もう一度EscキーでDOSでに戻り、仮想マシンを再起動させます。(仮想マシン→リセット)&lt;/p>
 &lt;/li>
 &lt;li>
@@ -2318,7 +2449,8 @@ data-flex-basis="323px"
 &lt;code>format c:&lt;/code>&lt;br>
 を実行します。&lt;br>
 (もしJIS認識されていない場合は、「:」はShift+「;」です。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/35cfe3b0-b87d-72f9-a94c-8f0dcf32c687.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/35cfe3b0-b87d-72f9-a94c-8f0dcf32c687_huefb6f023309146a53f7e30b4e145ee3b_11241_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/35cfe3b0-b87d-72f9-a94c-8f0dcf32c687.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/35cfe3b0-b87d-72f9-a94c-8f0dcf32c687_huefb6f023309146a53f7e30b4e145ee3b_11241_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/35cfe3b0-b87d-72f9-a94c-8f0dcf32c687_huefb6f023309146a53f7e30b4e145ee3b_11241_1024x0_resize_box_3.png 1024w"
@@ -2327,8 +2459,10 @@ class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
 >
+&lt;/picture>
 ファイルなんてなにもないので、y→Enterでフォーマットします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b06f4d7c-a770-8720-aea7-13fac9ad7e63.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b06f4d7c-a770-8720-aea7-13fac9ad7e63_hufedcc56af0fa7078bc1affaeebbcab39_10202_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b06f4d7c-a770-8720-aea7-13fac9ad7e63.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b06f4d7c-a770-8720-aea7-13fac9ad7e63_hufedcc56af0fa7078bc1affaeebbcab39_10202_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b06f4d7c-a770-8720-aea7-13fac9ad7e63_hufedcc56af0fa7078bc1affaeebbcab39_10202_1024x0_resize_box_3.png 1024w"
@@ -2336,9 +2470,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ボリュームラベルを決められます。安直にWindows95にしました。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5173759d-ca0c-2c17-5fd1-b7539ebd348c.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5173759d-ca0c-2c17-5fd1-b7539ebd348c_hu0f49646dc7faea60086e352fcd132554_11093_640x475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5173759d-ca0c-2c17-5fd1-b7539ebd348c.png"
 width="640"
 height="475"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5173759d-ca0c-2c17-5fd1-b7539ebd348c_hu0f49646dc7faea60086e352fcd132554_11093_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5173759d-ca0c-2c17-5fd1-b7539ebd348c_hu0f49646dc7faea60086e352fcd132554_11093_1024x0_resize_box_3.png 1024w"
@@ -2346,7 +2483,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="134"
 data-flex-basis="323px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 フォーマットが完了し、使えるようになりました。&lt;/p>
 &lt;/li>
 &lt;/ol>
@@ -2354,7 +2493,8 @@ data-flex-basis="323px"
 &lt;/h2>&lt;p>先程、CDの内容が入っているHDDをプライマリスレーブに割り当てたので、そのHDDはDドライブになっているはずです。&lt;code>d:&lt;/code>でドライブを変更しましょう。&lt;br>
 変更後、&lt;code>SETUP&lt;/code>と打ち込んでインストーラを起動しましょう。&lt;/p>
 &lt;p>実行するとこうなります&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/55446aba-d6af-86d5-36d6-92ce5ef748a6.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/55446aba-d6af-86d5-36d6-92ce5ef748a6_hue25c8775d8879b96bfa543dbd43a984f_5997_603x115_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/55446aba-d6af-86d5-36d6-92ce5ef748a6.png"
 width="603"
 height="115"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/55446aba-d6af-86d5-36d6-92ce5ef748a6_hue25c8775d8879b96bfa543dbd43a984f_5997_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/55446aba-d6af-86d5-36d6-92ce5ef748a6_hue25c8775d8879b96bfa543dbd43a984f_5997_1024x0_resize_box_3.png 1024w"
@@ -2363,9 +2503,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="524"
 data-flex-basis="1258px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 チェックをしてくれるらしいのでお願いしましょう。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/c1d120a2-6c51-9e65-4c56-d468962b372d.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/c1d120a2-6c51-9e65-4c56-d468962b372d_hu7e5f9411e92bc1c483c83b80569043f3_26084_642x549_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/c1d120a2-6c51-9e65-4c56-d468962b372d.png"
 width="642"
 height="549"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/c1d120a2-6c51-9e65-4c56-d468962b372d_hu7e5f9411e92bc1c483c83b80569043f3_26084_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/c1d120a2-6c51-9e65-4c56-d468962b372d_hu7e5f9411e92bc1c483c83b80569043f3_26084_1024x0_resize_box_3.png 1024w"
@@ -2374,10 +2517,13 @@ alt=" "
 class="gallery-image"
 data-flex-grow="116"
 data-flex-basis="280px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ScanDiskが実行されました。Xキーを押してScanDiskを終了させます。&lt;br>
 すると、以下のようにWindows 95のGUIインストーラが起動してきます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57bc8a67-9ce3-d435-f740-06d30cb4078f.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57bc8a67-9ce3-d435-f740-06d30cb4078f_hufb483e82560e502a7a20e4ebb8a55ddc_54351_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57bc8a67-9ce3-d435-f740-06d30cb4078f.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57bc8a67-9ce3-d435-f740-06d30cb4078f_hufb483e82560e502a7a20e4ebb8a55ddc_54351_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57bc8a67-9ce3-d435-f740-06d30cb4078f_hufb483e82560e502a7a20e4ebb8a55ddc_54351_1024x0_resize_box_3.png 1024w"
@@ -2385,9 +2531,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 普段のWindowsのインストールのようにライセンスに同意したら、セットアップウィザードです。ここらへんは昔から変わってません。どんどん進めていきましょう。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/424e9c4c-cf04-0396-7835-2ddb55d3630a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/424e9c4c-cf04-0396-7835-2ddb55d3630a_hu078492e44bf02479975c22382b0a3b92_40956_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/424e9c4c-cf04-0396-7835-2ddb55d3630a.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/424e9c4c-cf04-0396-7835-2ddb55d3630a_hu078492e44bf02479975c22382b0a3b92_40956_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/424e9c4c-cf04-0396-7835-2ddb55d3630a_hu078492e44bf02479975c22382b0a3b92_40956_1024x0_resize_box_3.png 1024w"
@@ -2395,9 +2544,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ドライバは全部入れちゃいましょう&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/96ee01e8-3ad1-e988-9ce6-cb488b02920a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/96ee01e8-3ad1-e988-9ce6-cb488b02920a_hu61bedc2e14d6961cf5f9da7971385bd0_40304_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/96ee01e8-3ad1-e988-9ce6-cb488b02920a.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/96ee01e8-3ad1-e988-9ce6-cb488b02920a_hu61bedc2e14d6961cf5f9da7971385bd0_40304_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/96ee01e8-3ad1-e988-9ce6-cb488b02920a_hu61bedc2e14d6961cf5f9da7971385bd0_40304_1024x0_resize_box_3.png 1024w"
@@ -2405,9 +2557,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>起動ディスクの項目は、FreeDOSからインストールしている場合は念の為に作っておきましょう。「はい」を選び、VirtualBoxで「デバイス」→「新規フロッピーディスクの作成」からイメージを作っておきましょう。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a95e8c53-df69-19e8-fde1-f8efcf412534.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a95e8c53-df69-19e8-fde1-f8efcf412534_hud65fc650353cdc30ea98f0049ea45f4a_40853_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a95e8c53-df69-19e8-fde1-f8efcf412534.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a95e8c53-df69-19e8-fde1-f8efcf412534_hud65fc650353cdc30ea98f0049ea45f4a_40853_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a95e8c53-df69-19e8-fde1-f8efcf412534_hud65fc650353cdc30ea98f0049ea45f4a_40853_1024x0_resize_box_3.png 1024w"
@@ -2415,9 +2570,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ファイルコピーの進捗度に合わせてスライドが変わるのですが、速くてなんにも読めません。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/937ef1d5-f648-2a4e-3141-b3e2c5d0504a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/937ef1d5-f648-2a4e-3141-b3e2c5d0504a_hu71524f9035f669c42f65b810e0dfb076_40316_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/937ef1d5-f648-2a4e-3141-b3e2c5d0504a.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/937ef1d5-f648-2a4e-3141-b3e2c5d0504a_hu71524f9035f669c42f65b810e0dfb076_40316_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/937ef1d5-f648-2a4e-3141-b3e2c5d0504a_hu71524f9035f669c42f65b810e0dfb076_40316_1024x0_resize_box_3.png 1024w"
@@ -2425,9 +2583,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ファイルのコピーが終わり、マシンの再起動を求められます。まずフロッピーを抜きましょう。(デバイス→フロッピーディスク→仮想ドライブからディスクを除去)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/886e9f9c-75ad-2f0d-c4f1-ab4bd74186f2.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/886e9f9c-75ad-2f0d-c4f1-ab4bd74186f2_hucda11872410478916f8e36b5fbd67035_38378_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/886e9f9c-75ad-2f0d-c4f1-ab4bd74186f2.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/886e9f9c-75ad-2f0d-c4f1-ab4bd74186f2_hucda11872410478916f8e36b5fbd67035_38378_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/886e9f9c-75ad-2f0d-c4f1-ab4bd74186f2_hucda11872410478916f8e36b5fbd67035_38378_1024x0_resize_box_3.png 1024w"
@@ -2435,9 +2596,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そうしたら、&lt;strong>OKを押した瞬間からF12を連打&lt;/strong> します。(VirtualBoxのブートメニューを表示させる)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5041eaef-fa10-fdf0-a91d-904d7e04aad7.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5041eaef-fa10-fdf0-a91d-904d7e04aad7_hu68eed9dcf577eaa998d675bb5bc73838_3719_720x400_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5041eaef-fa10-fdf0-a91d-904d7e04aad7.png"
 width="720"
 height="400"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5041eaef-fa10-fdf0-a91d-904d7e04aad7_hu68eed9dcf577eaa998d675bb5bc73838_3719_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/5041eaef-fa10-fdf0-a91d-904d7e04aad7_hu68eed9dcf577eaa998d675bb5bc73838_3719_1024x0_resize_box_3.png 1024w"
@@ -2445,12 +2609,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="180"
 data-flex-basis="432px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>表示されたら、&lt;strong>一切ブートせず&lt;/strong>、仮想マシンの電源を切ります。(画面を閉じます)&lt;/p>
 &lt;h2 id="7-高速cpu対応用のパッチを当てる">7. 高速CPU対応用のパッチを当てる
 &lt;/h2>&lt;p>実はここが今のPCの仮想マシンにWindows95を入れるときの罠です。&lt;br>
 仮想マシンなんだから古いOSが簡単に動いてもいいのですが、Windows95は(今に比べたら)遥かに遅いCPUを前提に作られているOSです。今のPCのCPUは速すぎるのです。それゆえ、このまま再起動してしまうとこうなります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/3df5e4cb-d0d0-ae08-c676-7cd6512f6a62.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/3df5e4cb-d0d0-ae08-c676-7cd6512f6a62_hu9619bf51802b901bea6ee1423ab8f3e5_20865_722x474_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/3df5e4cb-d0d0-ae08-c676-7cd6512f6a62.png"
 width="722"
 height="474"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/3df5e4cb-d0d0-ae08-c676-7cd6512f6a62_hu9619bf51802b901bea6ee1423ab8f3e5_20865_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/3df5e4cb-d0d0-ae08-c676-7cd6512f6a62_hu9619bf51802b901bea6ee1423ab8f3e5_20865_1024x0_resize_box_3.png 1024w"
@@ -2459,13 +2626,16 @@ alt=" "
 class="gallery-image"
 data-flex-grow="152"
 data-flex-basis="365px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これでは何も出来ません。なので、高速CPUに対応させるためのパッチを当てます。(作った人すごいですね)&lt;br>
 &lt;a class="link" href="http://www.tmeeco.eu/9X4EVER/GOODIES/FIX95CPU_V3_FINAL.ZIP" target="_blank" rel="noopener"
 >http://www.tmeeco.eu/9X4EVER/GOODIES/FIX95CPU_V3_FINAL.ZIP&lt;/a>&lt;br>
 ↑これをダウンロードすると、中にISOが入っているZIPが手に入りますので、展開してISOを取り出しておきます。&lt;/p>
 &lt;p>次に、仮想マシンの設定を開き、「ストレージ」→光学ドライブからイメージ割当→先程手に入った「FIX95CPU.ISO」を割り当てます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4df22289-d1d4-f27a-8ba9-b39ab151d0d4.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4df22289-d1d4-f27a-8ba9-b39ab151d0d4_hu29dbbf63ffa5a50c83e4e58585fb27e2_13982_612x261_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4df22289-d1d4-f27a-8ba9-b39ab151d0d4.png"
 width="612"
 height="261"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4df22289-d1d4-f27a-8ba9-b39ab151d0d4_hu29dbbf63ffa5a50c83e4e58585fb27e2_13982_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4df22289-d1d4-f27a-8ba9-b39ab151d0d4_hu29dbbf63ffa5a50c83e4e58585fb27e2_13982_1024x0_resize_box_3.png 1024w"
@@ -2474,8 +2644,11 @@ alt=" "
 class="gallery-image"
 data-flex-grow="234"
 data-flex-basis="562px"
->&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/106673d6-6c88-9df1-123c-5eea0df3c7e7.png"
+>
+&lt;/picture>
+&lt;br>
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/106673d6-6c88-9df1-123c-5eea0df3c7e7_hu99b01227b74b251c63ee235d169229e6_6474_287x162_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/106673d6-6c88-9df1-123c-5eea0df3c7e7.png"
 width="287"
 height="162"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/106673d6-6c88-9df1-123c-5eea0df3c7e7_hu99b01227b74b251c63ee235d169229e6_6474_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/106673d6-6c88-9df1-123c-5eea0df3c7e7_hu99b01227b74b251c63ee235d169229e6_6474_1024x0_resize_box_3.png 1024w"
@@ -2484,9 +2657,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="177"
 data-flex-basis="425px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ついでに、「ディスプレイ」→「ビデオメモリ」を贅沢に128MBにしちゃいましょう。(しなくてもいい)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f2778e9b-66ce-1378-d66b-087869c8a8d2.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f2778e9b-66ce-1378-d66b-087869c8a8d2_hu57601f1b85225449e08ee15fbf0525ca_4402_601x113_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f2778e9b-66ce-1378-d66b-087869c8a8d2.png"
 width="601"
 height="113"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f2778e9b-66ce-1378-d66b-087869c8a8d2_hu57601f1b85225449e08ee15fbf0525ca_4402_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f2778e9b-66ce-1378-d66b-087869c8a8d2_hu57601f1b85225449e08ee15fbf0525ca_4402_1024x0_resize_box_3.png 1024w"
@@ -2495,10 +2671,13 @@ alt=" "
 class="gallery-image"
 data-flex-grow="531"
 data-flex-basis="1276px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>では、改めて仮想マシンを起動しましょう。&lt;/p>
 &lt;p>起動すると、こんな真っ赤な画面が出てきます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/2bb5f4a1-8a12-d21a-0e33-824d8d4f7b2f.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/2bb5f4a1-8a12-d21a-0e33-824d8d4f7b2f_hu40c626f7c5889d33259599908f0407a4_5240_720x400_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/2bb5f4a1-8a12-d21a-0e33-824d8d4f7b2f.png"
 width="720"
 height="400"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/2bb5f4a1-8a12-d21a-0e33-824d8d4f7b2f_hu40c626f7c5889d33259599908f0407a4_5240_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/2bb5f4a1-8a12-d21a-0e33-824d8d4f7b2f_hu40c626f7c5889d33259599908f0407a4_5240_1024x0_resize_box_3.png 1024w"
@@ -2506,11 +2685,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="180"
 data-flex-basis="432px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 High-Speed Processor Support、直球ですね。&lt;/p>
 &lt;p>指示通り、なにかキーを押します。&lt;br>
 すると、README読むか聞かれますが、読まなくても別にいいのでNキーで飛ばします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57899411-86f6-8d7e-59e1-7474fb8c92fc.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57899411-86f6-8d7e-59e1-7474fb8c92fc_hu280effa7bb4b6531810971dca84b5544_9615_720x400_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57899411-86f6-8d7e-59e1-7474fb8c92fc.png"
 width="720"
 height="400"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57899411-86f6-8d7e-59e1-7474fb8c92fc_hu280effa7bb4b6531810971dca84b5544_9615_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/57899411-86f6-8d7e-59e1-7474fb8c92fc_hu280effa7bb4b6531810971dca84b5544_9615_1024x0_resize_box_3.png 1024w"
@@ -2518,9 +2700,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="180"
 data-flex-basis="432px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>また何かキーを押すと、パッチが当たります&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4b8c2f3d-1ecf-8441-e839-0fc68bb24a21.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4b8c2f3d-1ecf-8441-e839-0fc68bb24a21_hub2615ed05c6509b0855be111bd920930_9816_720x400_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4b8c2f3d-1ecf-8441-e839-0fc68bb24a21.png"
 width="720"
 height="400"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4b8c2f3d-1ecf-8441-e839-0fc68bb24a21_hub2615ed05c6509b0855be111bd920930_9816_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4b8c2f3d-1ecf-8441-e839-0fc68bb24a21_hub2615ed05c6509b0855be111bd920930_9816_1024x0_resize_box_3.png 1024w"
@@ -2528,9 +2713,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="180"
 data-flex-basis="432px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これで高速CPU対応が出来ました。何かキーを押し、「デバイス」→「光学ドライブ」→「仮想マシンからディスクを除去」でCDを抜いて再起動しましょう&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4e542521-85f6-60d9-6095-47b9b4e42e8e.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4e542521-85f6-60d9-6095-47b9b4e42e8e_hu2334d0394a6f1bcadfe7f7155ecd93f8_4585_720x400_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4e542521-85f6-60d9-6095-47b9b4e42e8e.png"
 width="720"
 height="400"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4e542521-85f6-60d9-6095-47b9b4e42e8e_hu2334d0394a6f1bcadfe7f7155ecd93f8_4585_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4e542521-85f6-60d9-6095-47b9b4e42e8e_hu2334d0394a6f1bcadfe7f7155ecd93f8_4585_1024x0_resize_box_3.png 1024w"
@@ -2538,10 +2726,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="180"
 data-flex-basis="432px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="8-セットアップ続行">8. セットアップ続行
 &lt;/h2>&lt;p>もし、Startup Menuが出てきたら、Safe ModeではなくNormalを押して通常起動させます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/8cdd8d5a-1dec-ca18-75d8-7c6b5a1ce9ae.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/8cdd8d5a-1dec-ca18-75d8-7c6b5a1ce9ae_hu7be425b597ead77549ea20af2ba07859_6474_720x400_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/8cdd8d5a-1dec-ca18-75d8-7c6b5a1ce9ae.png"
 width="720"
 height="400"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/8cdd8d5a-1dec-ca18-75d8-7c6b5a1ce9ae_hu7be425b597ead77549ea20af2ba07859_6474_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/8cdd8d5a-1dec-ca18-75d8-7c6b5a1ce9ae_hu7be425b597ead77549ea20af2ba07859_6474_1024x0_resize_box_3.png 1024w"
@@ -2549,11 +2740,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="180"
 data-flex-basis="432px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>コンピュータ名などの入力が始まります。&lt;br>
 ひとまずコンピュータ名を入力し、ワークグループも入力(WORKGROUPで良いと思います)したら、左側のタブ「ﾈｯﾄﾜｰｸの設定」に行きます。&lt;/p>
 &lt;p>このままではTCP/IPが使えないので、「追加」を押し、&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bb3c0a65-bb95-71cc-babe-d92bf9d53bc6.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bb3c0a65-bb95-71cc-babe-d92bf9d53bc6_hu9d3dbc8eba7452193d2469f7a4cc1112_70985_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bb3c0a65-bb95-71cc-babe-d92bf9d53bc6.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bb3c0a65-bb95-71cc-babe-d92bf9d53bc6_hu9d3dbc8eba7452193d2469f7a4cc1112_70985_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/bb3c0a65-bb95-71cc-babe-d92bf9d53bc6_hu9d3dbc8eba7452193d2469f7a4cc1112_70985_1024x0_resize_box_3.png 1024w"
@@ -2562,9 +2756,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>「プロトコル」をクリックしてから「追加」を押します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/dde164a4-5f82-4bee-185d-969b52a2b767.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/dde164a4-5f82-4bee-185d-969b52a2b767_hu860d2e226c508acf58ecf986c462425a_11863_486x214_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/dde164a4-5f82-4bee-185d-969b52a2b767.png"
 width="486"
 height="214"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/dde164a4-5f82-4bee-185d-969b52a2b767_hu860d2e226c508acf58ecf986c462425a_11863_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/dde164a4-5f82-4bee-185d-969b52a2b767_hu860d2e226c508acf58ecf986c462425a_11863_1024x0_resize_box_3.png 1024w"
@@ -2573,9 +2770,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="227"
 data-flex-basis="545px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>「Microsoft」から「TCP/IP」を選択し、「OK」で決定します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/04456770-6e4f-cace-41da-a7660ca9e70c.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/04456770-6e4f-cace-41da-a7660ca9e70c_hue20b75e9b15c9b62322dd9753a4c82ca_22981_562x346_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/04456770-6e4f-cace-41da-a7660ca9e70c.png"
 width="562"
 height="346"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/04456770-6e4f-cace-41da-a7660ca9e70c_hue20b75e9b15c9b62322dd9753a4c82ca_22981_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/04456770-6e4f-cace-41da-a7660ca9e70c_hue20b75e9b15c9b62322dd9753a4c82ca_22981_1024x0_resize_box_3.png 1024w"
@@ -2584,9 +2784,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="162"
 data-flex-basis="389px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ネットワーク構成欄にTCP/IPがあることを確認したら、「閉じる」で続行します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/fefa651f-f728-8478-aec2-5a04fb282268.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/fefa651f-f728-8478-aec2-5a04fb282268_hua0167e5341f891090e1da6d4823c952d_22243_444x441_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/fefa651f-f728-8478-aec2-5a04fb282268.png"
 width="444"
 height="441"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/fefa651f-f728-8478-aec2-5a04fb282268_hua0167e5341f891090e1da6d4823c952d_22243_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/fefa651f-f728-8478-aec2-5a04fb282268_hua0167e5341f891090e1da6d4823c952d_22243_1024x0_resize_box_3.png 1024w"
@@ -2595,10 +2798,13 @@ alt=" "
 class="gallery-image"
 data-flex-grow="100"
 data-flex-basis="241px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>バージョンの競合とか言ってくることがありますが、コピー元はどうせ一緒なので「現在のファイルをそのまま使う」にしましょう。&lt;/p>
 &lt;p>すると、今のPCでもたまに見かけるような画面が出てきます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/e09ed589-42b7-09b2-a199-7b9ca423302c.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/e09ed589-42b7-09b2-a199-7b9ca423302c_hudd0cd489862d8986d2b077c9baabd930_55085_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/e09ed589-42b7-09b2-a199-7b9ca423302c.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/e09ed589-42b7-09b2-a199-7b9ca423302c_hudd0cd489862d8986d2b077c9baabd930_55085_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/e09ed589-42b7-09b2-a199-7b9ca423302c_hudd0cd489862d8986d2b077c9baabd930_55085_1024x0_resize_box_3.png 1024w"
@@ -2606,11 +2812,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このあとはタイムゾーンやプリンタ等の設定ですが、タイムゾーンは別に弄らなくていいので「閉じる」で続行します。&lt;br>
 プリンタも仮想マシンには必要無い(と思っている)ので、「ｷｬﾝｾﾙ」します。&lt;/p>
 &lt;p>セットアップが完了し、再起動を求められます。再起動しましょう。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4466d4c4-e36c-de0f-5284-2dd0a18081eb.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4466d4c4-e36c-de0f-5284-2dd0a18081eb_hua4848163a5ea26d32a9c8c301ba2a27e_7726_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4466d4c4-e36c-de0f-5284-2dd0a18081eb.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4466d4c4-e36c-de0f-5284-2dd0a18081eb_hua4848163a5ea26d32a9c8c301ba2a27e_7726_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4466d4c4-e36c-de0f-5284-2dd0a18081eb_hua4848163a5ea26d32a9c8c301ba2a27e_7726_1024x0_resize_box_3.png 1024w"
@@ -2618,9 +2827,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ログイン画面が出てきました。ユーザー名は先程入力したものを、パスワードは今考えたものを入力しましょう。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/31c9d3a0-397b-89c2-21d4-0c2a17f84b1c.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/31c9d3a0-397b-89c2-21d4-0c2a17f84b1c_hu779601fb0a7724e5eeb577e0a03b8968_5352_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/31c9d3a0-397b-89c2-21d4-0c2a17f84b1c.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/31c9d3a0-397b-89c2-21d4-0c2a17f84b1c_hu779601fb0a7724e5eeb577e0a03b8968_5352_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/31c9d3a0-397b-89c2-21d4-0c2a17f84b1c_hu779601fb0a7724e5eeb577e0a03b8968_5352_1024x0_resize_box_3.png 1024w"
@@ -2628,8 +2840,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/6cb1eef9-f1c9-fe50-303c-24e1193c6bc6.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/6cb1eef9-f1c9-fe50-303c-24e1193c6bc6_hud155d92e24827b07aef406d5851784b3_16687_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/6cb1eef9-f1c9-fe50-303c-24e1193c6bc6.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/6cb1eef9-f1c9-fe50-303c-24e1193c6bc6_hud155d92e24827b07aef406d5851784b3_16687_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/6cb1eef9-f1c9-fe50-303c-24e1193c6bc6_hud155d92e24827b07aef406d5851784b3_16687_1024x0_resize_box_3.png 1024w"
@@ -2637,12 +2852,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 お疲れ様でした。Windows95がインストールできました。&lt;br>
 最後に、グラフィックドライバを入れましょう。&lt;/p>
 &lt;h2 id="9-グラフィックドライバを当てる">9. グラフィックドライバを当てる
 &lt;/h2>&lt;p>このままだと16色しか使えないので、&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1e828f04-fe05-dcde-3419-edf5111bd0e7.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1e828f04-fe05-dcde-3419-edf5111bd0e7_hu51c492b3e57700ee36b89777093c60b0_12454_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1e828f04-fe05-dcde-3419-edf5111bd0e7.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1e828f04-fe05-dcde-3419-edf5111bd0e7_hu51c492b3e57700ee36b89777093c60b0_12454_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/1e828f04-fe05-dcde-3419-edf5111bd0e7_hu51c492b3e57700ee36b89777093c60b0_12454_1024x0_resize_box_3.png 1024w"
@@ -2650,13 +2868,16 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>↓を落としてきます。&lt;br>
 &lt;a class="link" href="https://web.archive.org/web/20190210203844/http://bearwindows.boot-land.net/140214.zip" target="_blank" rel="noopener"
 >https://web.archive.org/web/20190210203844/http://bearwindows.boot-land.net/140214.zip&lt;/a>&lt;br>
 (出典:https://web.archive.org/web/20190210203844/http://bearwindows.boot-land.net/vbe9x.htm)&lt;/p>
 &lt;p>展開するとこんな感じです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/0bdfd2e6-9f3b-0776-32f1-4bde030343bb.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/0bdfd2e6-9f3b-0776-32f1-4bde030343bb_hu4ff751e1e6bde340382c5bf32caa90a9_6276_175x215_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/0bdfd2e6-9f3b-0776-32f1-4bde030343bb.png"
 width="175"
 height="215"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/0bdfd2e6-9f3b-0776-32f1-4bde030343bb_hu4ff751e1e6bde340382c5bf32caa90a9_6276_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/0bdfd2e6-9f3b-0776-32f1-4bde030343bb_hu4ff751e1e6bde340382c5bf32caa90a9_6276_1024x0_resize_box_3.png 1024w"
@@ -2665,11 +2886,14 @@ alt=" "
 class="gallery-image"
 data-flex-grow="81"
 data-flex-basis="195px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>次に、仮想マシンのメニューから、「デバイス」→「光学ドライブ」→「新規アドホックVISOの作成」に行きます。&lt;br>
 これは、ホストマシンからゲストマシンへ、拡張機能等入れずにも仮想マシンのCDドライブ経由でデータが渡せるｽｯｺﾞｲ便利な機能です。(本当にありがたい)&lt;br>
 上部のファイラーから、先程展開したフォルダを下部にドラッグします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/06a0233c-c722-5dec-d4c1-06b2d82c65b2.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/06a0233c-c722-5dec-d4c1-06b2d82c65b2_hu3fbb4352807e17b87f74fc6bfa8c7668_44346_549x590_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/06a0233c-c722-5dec-d4c1-06b2d82c65b2.png"
 width="549"
 height="590"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/06a0233c-c722-5dec-d4c1-06b2d82c65b2_hu3fbb4352807e17b87f74fc6bfa8c7668_44346_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/06a0233c-c722-5dec-d4c1-06b2d82c65b2_hu3fbb4352807e17b87f74fc6bfa8c7668_44346_1024x0_resize_box_3.png 1024w"
@@ -2678,9 +2902,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="93"
 data-flex-basis="223px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>OKを押せば、今下側に入れたファイルが入った(ように見える)仮想ディスクが仮想マシンに挿入されます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d128b53d-0076-3574-fa68-0e791846db3a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d128b53d-0076-3574-fa68-0e791846db3a_huff75c10723e450c4cb242cda86c2f34d_10220_296x301_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d128b53d-0076-3574-fa68-0e791846db3a.png"
 width="296"
 height="301"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d128b53d-0076-3574-fa68-0e791846db3a_huff75c10723e450c4cb242cda86c2f34d_10220_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/d128b53d-0076-3574-fa68-0e791846db3a_huff75c10723e450c4cb242cda86c2f34d_10220_1024x0_resize_box_3.png 1024w"
@@ -2689,11 +2916,14 @@ alt=" "
 class="gallery-image"
 data-flex-grow="98"
 data-flex-basis="236px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>デスクトップ→右クリック→「画面のﾌﾟﾛﾊﾟﾃｨ」→「ﾃﾞｨｽﾌﾟﾚｲの詳細」→「詳細ﾌﾟﾛﾊﾟﾃｨ」→「変更」でアダプタの変更ができます。&lt;br>
 現在は「ｽﾀﾝﾀﾞｰﾄﾞ PCI ｸﾞﾗﾌｨｯｸｽ ｱﾀﾞﾌﾟﾀ(VGA)」になってるはずです。&lt;/p>
 &lt;p>右下の「ﾃﾞｨｽｸ使用」から、&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b5ff2111-378c-0ec3-2f36-d91f5688d451.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b5ff2111-378c-0ec3-2f36-d91f5688d451_hu273c8d0fa67b2bd797f8ea0282bb44e5_22106_561x356_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b5ff2111-378c-0ec3-2f36-d91f5688d451.png"
 width="561"
 height="356"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b5ff2111-378c-0ec3-2f36-d91f5688d451_hu273c8d0fa67b2bd797f8ea0282bb44e5_22106_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b5ff2111-378c-0ec3-2f36-d91f5688d451_hu273c8d0fa67b2bd797f8ea0282bb44e5_22106_1024x0_resize_box_3.png 1024w"
@@ -2702,9 +2932,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="157"
 data-flex-basis="378px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>「参照」をクリックし、ドライブ欄から先程のディスクを選択、&lt;code>140214\128mb&lt;/code>を選択し「OK」を押します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4ce2705-31f1-b6e8-95a5-27bcdeb612c7.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4ce2705-31f1-b6e8-95a5-27bcdeb612c7_hudf5408c0578dfac3b1b8a50c3e263234_11476_529x252_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4ce2705-31f1-b6e8-95a5-27bcdeb612c7.png"
 width="529"
 height="252"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4ce2705-31f1-b6e8-95a5-27bcdeb612c7_hudf5408c0578dfac3b1b8a50c3e263234_11476_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b4ce2705-31f1-b6e8-95a5-27bcdeb612c7_hudf5408c0578dfac3b1b8a50c3e263234_11476_1024x0_resize_box_3.png 1024w"
@@ -2713,9 +2946,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="209"
 data-flex-basis="503px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 もう一度OKを押すと、このようなダイアログが出てくるので、また「OK」を押します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f9914a93-65bf-9687-1239-89eefc66ce1a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f9914a93-65bf-9687-1239-89eefc66ce1a_huc6ee6830b6b0ee96287d5d933ffeeb88_16024_559x333_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f9914a93-65bf-9687-1239-89eefc66ce1a.png"
 width="559"
 height="333"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f9914a93-65bf-9687-1239-89eefc66ce1a_huc6ee6830b6b0ee96287d5d933ffeeb88_16024_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/f9914a93-65bf-9687-1239-89eefc66ce1a_huc6ee6830b6b0ee96287d5d933ffeeb88_16024_1024x0_resize_box_3.png 1024w"
@@ -2724,9 +2960,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="167"
 data-flex-basis="402px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ディスプレイアダプタが変更されました。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/16fdac73-7a5c-a9d4-cf6c-44ef935cfa78.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/16fdac73-7a5c-a9d4-cf6c-44ef935cfa78_hu4f6717e59b0cc455c31e38eb89aa3bba_7927_460x197_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/16fdac73-7a5c-a9d4-cf6c-44ef935cfa78.png"
 width="460"
 height="197"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/16fdac73-7a5c-a9d4-cf6c-44ef935cfa78_hu4f6717e59b0cc455c31e38eb89aa3bba_7927_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/16fdac73-7a5c-a9d4-cf6c-44ef935cfa78_hu4f6717e59b0cc455c31e38eb89aa3bba_7927_1024x0_resize_box_3.png 1024w"
@@ -2735,9 +2974,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="233"
 data-flex-basis="560px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このままOKをするとこんなのが出てきますが、閉じて、&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4f224e79-7dbb-a73f-29cf-b81794729600.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4f224e79-7dbb-a73f-29cf-b81794729600_hu8a67bea14065db25cda2bec16dafecfa_11820_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4f224e79-7dbb-a73f-29cf-b81794729600.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4f224e79-7dbb-a73f-29cf-b81794729600_hu8a67bea14065db25cda2bec16dafecfa_11820_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/4f224e79-7dbb-a73f-29cf-b81794729600_hu8a67bea14065db25cda2bec16dafecfa_11820_1024x0_resize_box_3.png 1024w"
@@ -2745,9 +2987,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>閉じましょう&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9da539a8-7bd1-7672-78f7-d3e75c44edd3.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9da539a8-7bd1-7672-78f7-d3e75c44edd3_hu13b35d46114c9cbb75c86af9261a58b3_6558_477x151_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9da539a8-7bd1-7672-78f7-d3e75c44edd3.png"
 width="477"
 height="151"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9da539a8-7bd1-7672-78f7-d3e75c44edd3_hu13b35d46114c9cbb75c86af9261a58b3_6558_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/9da539a8-7bd1-7672-78f7-d3e75c44edd3_hu13b35d46114c9cbb75c86af9261a58b3_6558_1024x0_resize_box_3.png 1024w"
@@ -2756,9 +3001,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="315"
 data-flex-basis="758px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このままだとRundll32がエラー吐いたせいで何も出来ないのでスタートメニューから再起動します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b8e9bd9a-53df-4c95-ddff-84255945e541.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b8e9bd9a-53df-4c95-ddff-84255945e541_hua1632f1b2660d74f346ae17151cb8e82_11795_423x230_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b8e9bd9a-53df-4c95-ddff-84255945e541.png"
 width="423"
 height="230"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b8e9bd9a-53df-4c95-ddff-84255945e541_hua1632f1b2660d74f346ae17151cb8e82_11795_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b8e9bd9a-53df-4c95-ddff-84255945e541_hua1632f1b2660d74f346ae17151cb8e82_11795_1024x0_resize_box_3.png 1024w"
@@ -2767,10 +3015,13 @@ alt=" "
 class="gallery-image"
 data-flex-grow="183"
 data-flex-basis="441px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>再起動したのに勝手に電源が落ちた場合は、手動で起動し、セーフモードではなくNormalで起動します。&lt;/p>
 &lt;p>再起動すると、色がたくさん選べるように。どうせなので「&lt;del>TRUE COLORS&lt;/del> True Color (32ﾋﾞｯﾄ)」を選択しましょう。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b3180091-e21e-bd9a-e201-fafa936fe397.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b3180091-e21e-bd9a-e201-fafa936fe397_hu08c4beab8e5998cfd33e500b9b3f3207_17094_640x480_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b3180091-e21e-bd9a-e201-fafa936fe397.png"
 width="640"
 height="480"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b3180091-e21e-bd9a-e201-fafa936fe397_hu08c4beab8e5998cfd33e500b9b3f3207_17094_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/b3180091-e21e-bd9a-e201-fafa936fe397_hu08c4beab8e5998cfd33e500b9b3f3207_17094_1024x0_resize_box_3.png 1024w"
@@ -2778,9 +3029,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>右下の「詳細ﾌﾟﾛﾊﾟﾃｨ」から、「ﾓﾆﾀｰ」→「変更」に行きます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a53f8fbf-d7d8-9f91-cb13-b56de13fc0cb.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a53f8fbf-d7d8-9f91-cb13-b56de13fc0cb_hu97a0ef209a734973e92fef2267e01ffa_20634_548x322_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a53f8fbf-d7d8-9f91-cb13-b56de13fc0cb.png"
 width="548"
 height="322"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a53f8fbf-d7d8-9f91-cb13-b56de13fc0cb_hu97a0ef209a734973e92fef2267e01ffa_20634_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/a53f8fbf-d7d8-9f91-cb13-b56de13fc0cb_hu97a0ef209a734973e92fef2267e01ffa_20634_1024x0_resize_box_3.png 1024w"
@@ -2789,11 +3043,14 @@ alt=" "
 class="gallery-image"
 data-flex-grow="170"
 data-flex-basis="408px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 「Super VGA」の中から好きな解像度を選びましょう。&lt;br>
 ダイアログを閉じるとリフレッシュレートの云々がですが、指示に従いましょう。&lt;/p>
 &lt;p>解像度が800x600や、それ以外にも自分で今選んだモニタの解像度までの解像度がいくつか選択できるようになっています。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/52903e41-6a62-1254-5e94-90b177451a5a.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/52903e41-6a62-1254-5e94-90b177451a5a_huef1a77ddd40ca1cc168b70f3b81ea90e_18353_489x437_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/52903e41-6a62-1254-5e94-90b177451a5a.png"
 width="489"
 height="437"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/52903e41-6a62-1254-5e94-90b177451a5a_huef1a77ddd40ca1cc168b70f3b81ea90e_18353_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/52903e41-6a62-1254-5e94-90b177451a5a_huef1a77ddd40ca1cc168b70f3b81ea90e_18353_1024x0_resize_box_3.png 1024w"
@@ -2802,9 +3059,12 @@ alt=" "
 class="gallery-image"
 data-flex-grow="111"
 data-flex-basis="268px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>好きな解像度にして、「OK」を押して再起動すれば・・・&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/00aee441-a3cd-dda2-d7af-0780576f1ee4.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/00aee441-a3cd-dda2-d7af-0780576f1ee4_huf7b5e884336d8a581237de1e899538b7_56072_1026x842_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/00aee441-a3cd-dda2-d7af-0780576f1ee4.png"
 width="1026"
 height="842"
 srcset="https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/00aee441-a3cd-dda2-d7af-0780576f1ee4_huf7b5e884336d8a581237de1e899538b7_56072_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191214-win95-on-virtualbox-with-modern-pc/img/00aee441-a3cd-dda2-d7af-0780576f1ee4_huf7b5e884336d8a581237de1e899538b7_56072_1024x0_resize_box_3.png 1024w"
@@ -2813,7 +3073,9 @@ alt=" "
 class="gallery-image"
 data-flex-grow="121"
 data-flex-basis="292px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 きれいなフルカラーの表示、1024x768の広大な画面領域が手に入ります!&lt;/p>
 &lt;p>あとはFirefox1.0を入れてブラウジングするなりして、Windows95を楽しみましょう!!&lt;/p>
 &lt;h2 id="あとがき">あとがき
@@ -2907,7 +3169,8 @@ Windows7/8用のドライバなのに､中のファイル見てみるとRTX系�
 注意点として､DX12は使えません。DX11までです。レイトレはもちろん無理です。 ですが､普通にゲームする分には問題ないです。&lt;/p>
 &lt;p>作業は以上です。お疲れさまでした!&lt;/p>
 &lt;h3 id="残りの5ヶ月をエンジョイする">残りの5ヶ月をエンジョイする
-&lt;/h3>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8.png"
+&lt;/h3>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_720x464_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8.png"
 width="720"
 height="464"
 srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_1024x0_resize_box_3.png 1024w"
@@ -2915,8 +3178,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="155"
 data-flex-basis="372px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_720x464_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947.png"
 width="720"
 height="464"
 srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_1024x0_resize_box_3.png 1024w"
@@ -2924,7 +3190,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="155"
 data-flex-basis="372px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>Win7は御存知の通り2020年の1月にサポートが切れます。
 それまでの期間､めいいっぱい第3世代RyzenとRTX20系のグラボで楽しみましょう!&lt;/p>
 &lt;p>※ちなみに環境変更されたこともあり､ライセンス認証しろと言われますが､当環境ではオンライン認証で普通に通りました。&lt;/p>
@@ -2961,7 +3229,8 @@ Win7を使いたいけどRyzen使いたい･･･そんな人(いるかな)に
 &lt;p>その後、言語やキーボード、アップデート周りの項目を進めていきます&lt;/p>
 &lt;h2 id="パーティションを構成する">パーティションを構成する
 &lt;/h2>&lt;p>どのようにインストールするかを聞かれた際、一番下の「&lt;strong>それ以外&lt;/strong>」を選択します。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_1024x0_resize_box_3.png 1024w"
@@ -2969,11 +3238,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>パーティションの分割については人それぞれあると思うので、ここで詳しくは触れませんが、今回はこのようにしました。&lt;br>
 先頭のWindowsXPのパーティションは基本パーティション、後ろは全て一つの論理(拡張)パーティションです。&lt;br>
 メモリが2GBあるので、Swapに4GBとりました。「/」には52GBもあれば大丈夫でしょう。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_1024x0_resize_box_3.png 1024w"
@@ -2981,11 +3253,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そして大事なのが一番下の項目の「ブートローダをインストールするデバイス」です。&lt;br>
 これを/dev/sdaにしてしまうと、ブートローダがNTLDRやWindowsBootManagerからGrubに書き変わってしまいます。&lt;br>
 今回の場合はLinuxをインストールする領域が/dev/sda5なので、プルダウンメニューから「/dev/sda5」に切り替えます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_1024x0_resize_box_3.png 1024w"
@@ -2993,7 +3268,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>その後は画面に従ってタイムゾーンやユーザー名を設定し、ファイルコピーを開始させます。&lt;/p>
 &lt;h2 id="windowsvista以降の場合">WindowsVista以降の場合
 &lt;/h2>&lt;p>~&lt;del>WindowsVista以降(NT6.x以降)の場合は、EasyBCDが利用できるので、この先の作業は適用できません。&lt;br>
@@ -3101,7 +3378,8 @@ WindowsVista以降の場合は｢grldr.mbr｣をコピーします。&lt;/p>
 &lt;h3 id="grub4dosを起動する">Grub4DOSを起動する
 &lt;/h3>&lt;p>再起動すると、ブートメニューに「SereneLinux(さっきboot.ini/cmdで打った名前）」が出てくるはずです。&lt;br>
 それを選択し、Enterで起動させると、Grubが表示されます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_1024x0_resize_box_3.png 1024w"
@@ -3109,7 +3387,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ここでEnterで起動させたとき、うまくいけば起動するのですが、おそらく起動しない場合がほとんどのはず？です。&lt;br>
 本来は5-3の段階で正しく記載していればいいのですが、私の場合ダメでした(以下の方法で調べた結果がhd0,4です)&lt;/p>
 &lt;ol>
@@ -3117,7 +3397,8 @@ data-flex-basis="320px"
 &lt;li>「root (」まで打ってTabキー&lt;br>
 &lt;strong>注意&lt;/strong> JISキーボードの場合&amp;quot;(&amp;ldquo;はShift+8ですが、GrubではUSキーボード判定なので、Shift+&lt;strong>9&lt;/strong>です。&lt;br>
 これで候補におそらく「hd0 rd」といった表示が出てくるはずです。(読み込んでいるドライブの番号を確認。ドライブが一個しかなければ0のはず)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_1024x0_resize_box_3.png 1024w"
@@ -3125,9 +3406,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>「root (hd0,」まで打ってTabキー&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_1024x0_resize_box_3.png 1024w"
@@ -3135,7 +3419,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>ext2fsと表示されている番号を確認
 ↑この写真の場合はFilesystem type is ext2fsと表示されているのが”Partition num: 4”なので、4番ということになります。
 もし4であれば、変更の必要はないのでEscを押し、9.に飛んでください。&lt;/li>
@@ -3147,7 +3433,8 @@ data-flex-basis="320px"
 &lt;/ol>
 &lt;p>これで/dev/sda5に入ったGrubが起動するはずです。(ちょっとややこしいですね)&lt;br>
 その後、一番上の項目をEnterで起動すれば、無事にインストールしたLinuxが起動します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_1024x0_resize_box_3.png 1024w"
@@ -3155,7 +3442,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="menulstを編集する">menu.lstを編集する
 &lt;/h3>&lt;p>前項で番号を編集した場合、その編集はmenu.lstに書き込まれてはいないので、menu.lstを編集する必要があります。&lt;br>
 これはLinuxやWindowsどちらからでもできますので、変えておきましょう。&lt;br>
@@ -3169,7 +3458,8 @@ data-flex-basis="320px"
 これでWubiを使わないでも、Windowsのブート周りに大きな改変を加えないでLinuxを起動させることができます。&lt;br>
 今回はUbuntu系ディストリ(SereneLinux)でしたが、Grub2を使うLinuxディストリであればほとんど使うことができるはずです。&lt;br>
 良いLinuxライフをお過ごしください。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_1024x0_resize_box_3.png 1024w"
@@ -3177,7 +3467,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="参考にしたurl">参考にしたURL
 &lt;/h2>&lt;ul>
 &lt;li>大まかな流れ(Windows10のWBMを使ってUbuntu16.10?をインストールしている。今回の場合のWBM版)

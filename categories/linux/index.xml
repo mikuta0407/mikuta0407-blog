@@ -4,7 +4,8 @@
 &lt;p>GoでMisskeyのCLIクライアントを作ったので、宣伝も兼ねてアドカレに参加してみようと思います。よろしくお願いします。&lt;/p>
 &lt;hr>
 &lt;p>早速ですが、こんな感じのCLIなMisskeyクライアントを作りました。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_3886x2475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4.png"
 width="3886"
 height="2475"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_1024x0_resize_box_3.png 1024w"
@@ -12,12 +13,16 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="157"
 data-flex-basis="376px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
->&lt;img src="https://gh-card.dev/repos/mikuta0407/misskey-cli.svg"
+>&lt;picture>&lt;img src="https://gh-card.dev/repos/mikuta0407/misskey-cli.svg"
 loading="lazy"
 alt="mikuta0407/misskey-cli"
->&lt;/a>&lt;/p>
+>
+&lt;/picture>
+&lt;/a>&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
 >https://github.com/mikuta0407/misskey-cli&lt;/a>&lt;/p>
 &lt;p>ここで配布してます。&lt;/p>
@@ -359,7 +364,8 @@ alt="mikuta0407/misskey-cli"
 &lt;/div>
 &lt;/div>
 &lt;p>を実行すれば、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_870x858_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG.png"
 width="870"
 height="858"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_1024x0_resize_box_3.png 1024w"
@@ -367,7 +373,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="101"
 data-flex-basis="243px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このように投稿ができます。(投稿したらすぐにスタンプが付いた。これぞMisskey)&lt;/p>
 &lt;p>この新規投稿に関しては、Client構造体のメソッド&lt;code>CreateNote&lt;/code>として実装しました。&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L10-L40" target="_blank" rel="noopener"
@@ -821,10 +829,13 @@ data-flex-basis="243px"
 &lt;p>また、リノートの場合は行頭に&lt;code>[RN]&lt;/code>を付加することでリノートであることを表現しています。&lt;/p>
 &lt;h3 id="その他表示に関わる部分いつかなにか改善したら追記">その他表示に関わる部分(いつかなにか改善したら追記)
 &lt;/h3>&lt;h4 id="1行の文字数">1行の文字数
-&lt;/h4>&lt;p>&lt;img src="https://blog.mikuta0407.net/img/CQPvwPK.png"
+&lt;/h4>&lt;p>&lt;picture>&lt;img src="https://blog.mikuta0407.net/img/CQPvwPK.png"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD.jpg"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_3100x1974_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD.jpg"
 width="3100"
 height="1974"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_1024x0_resize_q75_box.jpg 1024w"
@@ -832,7 +843,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="157"
 data-flex-basis="376px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>misskey-cliでコマンドを叩くと、ヘッダ部分の「=======」の長さがコンソールの幅によって変わることがわかります。&lt;/p>
 &lt;p>この「=======」を表示するのは各機能の関数で&lt;code>fmt.Println&lt;/code>内に書かれている&lt;code>printLine()&lt;/code>という関数が表示しています。&lt;/p>
 &lt;p>このprintLine()は&lt;/p>
@@ -1451,7 +1464,8 @@ Windowsユーザーの人はこの記事通りに行いたい場合はWSL1で良
 &lt;/h2>&lt;p>基本はMarkdownなのですが、一部専用の書き方を行います。&lt;/p>
 &lt;h3 id="冒頭について">冒頭について
 &lt;/h3>&lt;p>PandocでTitleやAuthorをつけると自動でいい感じにタイトルや著者名をやってくれるのですが、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_717x188_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE.png"
 width="717"
 height="188"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/aSgu1zE_hu94e126b98fc697720a799bbe0e310341_9791_1024x0_resize_box_3.png 1024w"
@@ -1459,7 +1473,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="381"
 data-flex-basis="915px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 (これはWord)&lt;/p>
 &lt;p>こういうことをしたいので、自作します。&lt;/p>
 &lt;p>yamlで二段組を指定していますが、ここは一段組になるため、&lt;code>\twocolumn[]&lt;/code>で囲って一段組にします。&lt;/p>
@@ -1508,7 +1524,8 @@ data-flex-basis="915px"
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_1024x298_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung.png"
 width="1024"
 height="298"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/mK57Ung_hu3ac0f573df353ba83f553435dbe0cebd_26512_1024x0_resize_box_3.png 1024w"
@@ -1516,7 +1533,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="343"
 data-flex-basis="824px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>(出力したPDF)&lt;/p>
 &lt;p>こんな感じです。&lt;/p>
 &lt;h3 id="キャプション参照について">キャプション・参照について
@@ -1685,7 +1704,8 @@ data-flex-basis="824px"
 &lt;/div>
 &lt;/div>
 &lt;h3 id="pdf">PDF
-&lt;/h3>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr.png"
+&lt;/h3>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_1241x1754_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr.png"
 width="1241"
 height="1754"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/4XdXbrr_hu730a5114261a8868ffc93b96109f6af0_550187_1024x0_resize_box_3.png 1024w"
@@ -1693,8 +1713,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="70"
 data-flex-basis="169px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_1241x1754_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K.png"
 width="1241"
 height="1754"
 srcset="https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211203-tcu-yc-summary-in-md-and-pandoc/img/cME4e9K_hu0c30ee082dd3a6b648a62b652426fd73_576436_1024x0_resize_box_3.png 1024w"
@@ -1702,7 +1725,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="70"
 data-flex-basis="169px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="〆">〆
 &lt;/h2>&lt;p>YCの卒業研究概要集をMarkdown+Pandocで書くセットアップについて書きましたが、セットアップに割いた時間をおとなしくWordで書くことに費やしていれば今頃7割位完成していたような気がします。&lt;/p>
 &lt;p>慣れない作業でめちゃくちゃ疲れましたが、いつか誰かの役に立てば・・・。&lt;/p>
@@ -1752,7 +1777,8 @@ data-flex-basis="169px"
 この場合、GoogleDriveを何らかの形で通常のディレクトリと同じように扱えるようにしてあげる必要が出てきます。&lt;/p>
 &lt;p>ということで、今回はSubsonicのストレージとしてgoogle-drive-ocamlfuseでGoogleDriveを使うお話です。&lt;/p>
 &lt;h2 id="構成概要図">構成概要図
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz_hu3a7b7044c3994015a2e7856aeceaa640_273955_1925x1565_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz.png"
 width="1925"
 height="1565"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz_hu3a7b7044c3994015a2e7856aeceaa640_273955_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/pRRrLqz_hu3a7b7044c3994015a2e7856aeceaa640_273955_1024x0_resize_box_3.png 1024w"
@@ -1760,7 +1786,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="123"
 data-flex-basis="295px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>よくわからない図ですが、まぁネットワークドライブをマウントして、という感じですね。&lt;/p>
 &lt;p>毎回インターネットからデータを引っ張ってくるということはその分曲の再生までに時間がかかることにはなりますが、FLACの曲でも一曲十数MBだったりするので、思ったより再生までには時間かからないです。ここはサーバー側の下り回線速度依存ですね。&lt;/p>
 &lt;p>今回はサーバーとして使うLinux機はUbuntu 18.04を使っています。ソフトウェアのインストール系とかは適宜読み替えてください。&lt;/p>
@@ -1910,7 +1938,8 @@ data-flex-basis="295px"
 &lt;p>これで、&lt;code>/mnt/gdrive&lt;/code>にアクセスすると、レスポンスは少し遅いですがGoogleDriveの中身が見れるようになったはずです。&lt;/p>
 &lt;h3 id="subsonicでディレクトリの指定初回スキャン">Subsonicでディレクトリの指定+初回スキャン
 &lt;/h3>&lt;p>こんな感じでディレクトリの指定をしてあげます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA_huaa1a6c62baf8f57e10ca44c275cd2344_2975_549x27_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA.png"
 width="549"
 height="27"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA_huaa1a6c62baf8f57e10ca44c275cd2344_2975_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/Oms5eAA_huaa1a6c62baf8f57e10ca44c275cd2344_2975_1024x0_resize_box_3.png 1024w"
@@ -1918,9 +1947,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="2033"
 data-flex-basis="4880px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>保存ボタンを押した後勝手にスキャンが始まれば良いのですが、始まらない場合は手動でスキャン開始させてあげます。ネットワークドライブということもあって、初回スキャンはまぁまぁ時間がかかってしまいます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6_hud81ae6122ec3c0451bc6437312b32954_50324_711x376_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6.png"
 width="711"
 height="376"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6_hud81ae6122ec3c0451bc6437312b32954_50324_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/qhKMZs6_hud81ae6122ec3c0451bc6437312b32954_50324_1024x0_resize_box_3.png 1024w"
@@ -1928,7 +1960,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="189"
 data-flex-basis="453px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>高速アクセスモードに関しては、設定すればサーバー内にキャッシュをしてくれるようになるのですが、容量を食わせたくない場合やラズパイのように容量が少ない場合はオフにしといても良いです。一度再生された曲を再び再生するときにGoogleDriveから引っ張ってこないだけです。&lt;/p>
 &lt;p>スキャンが終わると、一覧に曲が表示されます。再生するとちょっと待ちはありますが、許容範囲の時間で曲が表示されます。&lt;/p>
 &lt;p>おめでとうございます!環境構築成功です!&lt;br>
@@ -1942,7 +1976,8 @@ data-flex-basis="453px"
 &lt;p>どういうことなのか、先にタイムスタンプの話について、画像を交えながらご説明します。&lt;/p>
 &lt;h3 id="通常のlinuxのディレクトリの場合">通常のLinuxのディレクトリの場合
 &lt;/h3>&lt;p>例として、こんなディレクトリ構造があったとします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV_hu59727809d2bf1b5d9ba7a18a34a00d36_6939_424x148_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV.png"
 width="424"
 height="148"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV_hu59727809d2bf1b5d9ba7a18a34a00d36_6939_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/n7vEwFV_hu59727809d2bf1b5d9ba7a18a34a00d36_6939_1024x0_resize_box_3.png 1024w"
@@ -1950,9 +1985,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="286"
 data-flex-basis="687px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>この時、dir1とdir2のタイムスタンプは00:21になっています。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv_hu87ad565addf3f2289796f69466948843_6311_535x48_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv.png"
 width="535"
 height="48"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv_hu87ad565addf3f2289796f69466948843_6311_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/H6Jpcxv_hu87ad565addf3f2289796f69466948843_6311_1024x0_resize_box_3.png 1024w"
@@ -1960,9 +1998,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="1114"
 data-flex-basis="2675px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>では、この後の00:25に、dir1にaというディレクトリと、dir1/a/test.txtを作成したとします。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv_hu82dd600bcfd9b8f73c27b4ad048c8146_8492_416x197_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv.png"
 width="416"
 height="197"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv_hu82dd600bcfd9b8f73c27b4ad048c8146_8492_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/p86roJv_hu82dd600bcfd9b8f73c27b4ad048c8146_8492_1024x0_resize_box_3.png 1024w"
@@ -1970,9 +2011,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="211"
 data-flex-basis="506px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そうすると、dir1のタイムスタンプが00:25に変わります。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ_hu723be59a5f488717592169fc57ebebb7_6313_545x48_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ.png"
 width="545"
 height="48"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ_hu723be59a5f488717592169fc57ebebb7_6313_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/M08AEZJ_hu723be59a5f488717592169fc57ebebb7_6313_1024x0_resize_box_3.png 1024w"
@@ -1980,12 +2024,15 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="1135"
 data-flex-basis="2725px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これは純粋に、ディレクトリの中が書き換わったのでタイムスタンプも変わったということになります。&lt;/p>
 &lt;h3 id="googledriveの場合">GoogleDriveの場合
 &lt;/h3>&lt;p>同様の操作を行ってみます。まず、GoogleDrive内にdir1とdir2を作成しました。&lt;br>
 タイムスタンプは00:27になっています。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI_hu5cb7316361a8008878b89b44e99bafc3_22643_705x172_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI.png"
 width="705"
 height="172"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI_hu5cb7316361a8008878b89b44e99bafc3_22643_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/KkKohdI_hu5cb7316361a8008878b89b44e99bafc3_22643_1024x0_resize_box_3.png 1024w"
@@ -1993,9 +2040,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="409"
 data-flex-basis="983px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そして00:30にdir1/aとdir1/a/test.txtを作成します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D_hua62067d284977656fde4eec0bec80a8c_2140_339x21_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D.png"
 width="339"
 height="21"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D_hua62067d284977656fde4eec0bec80a8c_2140_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/OY90r4D_hua62067d284977656fde4eec0bec80a8c_2140_1024x0_resize_box_3.png 1024w"
@@ -2003,8 +2053,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="1614"
 data-flex-basis="3874px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk_hu9961e8c6316b0460e8beb4bbdcafa8ff_9998_544x192_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk.png"
 width="544"
 height="192"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk_hu9961e8c6316b0460e8beb4bbdcafa8ff_9998_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/An3Pqzk_hu9961e8c6316b0460e8beb4bbdcafa8ff_9998_1024x0_resize_box_3.png 1024w"
@@ -2012,10 +2065,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="283"
 data-flex-basis="680px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>この場合、通常のLinuxのファイルシステムであれば、先程記載したようにdir1のタイムスタンプが00:30になっているはずです。&lt;br>
 ところが、ls -laをしてみると、00:27のままになっています(念の為dir1の中もls -la)&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL_hu20002128c584de609e41b3ca02217a2e_46433_632x384_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL.png"
 width="632"
 height="384"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL_hu20002128c584de609e41b3ca02217a2e_46433_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/sk2qYEL_hu20002128c584de609e41b3ca02217a2e_46433_1024x0_resize_box_3.png 1024w"
@@ -2023,7 +2079,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="164"
 data-flex-basis="395px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>つまり、GoogleDriveのタイムスタンプのシステムは、「&lt;strong>追加・更新されたものに対してだけタイムスタンプが変更され、そのファイル/ディレクトリがある親ディレクトリのタイムスタンプは更新されない&lt;/strong>」ということになります。&lt;/p>
 &lt;p>これがSubsonicにとっては非常に厄介な問題です。&lt;/p>
 &lt;p>&lt;a class="link" href="https://sourceforge.net/p/subsonic/bugs/222/" target="_blank" rel="noopener"
@@ -2044,7 +2102,8 @@ data-flex-basis="395px"
 &lt;p>さてどうするか、となると、ユーザーには唯一の手段が残されています。タイムスタンプの更新です。&lt;/p>
 &lt;p>幸い、google-drive-ocamlfuseは、touchコマンドでタイムスタンプだけの更新が行えます。&lt;br>
 上記例の場合、aというディレクトリを追加した親ディレクトリ(本来勝手にタイムスタンプが更新されるディレクトリ)であるdir1のタイムスタンプを、touchで更新してあげれば良くなります。
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ_huecf0b197fe018ec3b624b2235ab90325_32256_629x265_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ.png"
 width="629"
 height="265"
 srcset="https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ_huecf0b197fe018ec3b624b2235ab90325_32256_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20210306-subsonic-with-googledrive/img/1WfyGhJ_huecf0b197fe018ec3b624b2235ab90325_32256_1024x0_resize_box_3.png 1024w"
@@ -2052,7 +2111,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="237"
 data-flex-basis="569px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="シェルスクリプトを書く">シェルスクリプトを書く
 &lt;/h3>&lt;p>シェルスクリプトといっても大層なものではありませんが、&lt;/p>
 &lt;ul>
@@ -2255,7 +2316,8 @@ Win7おじさんからすれば安定性やUI等、まだまだ不満がある�
 &lt;/h2>&lt;p>&amp;ldquo;PCリモート起動&amp;quot;とはどういう画面だったかを思い出すと……&lt;/p>
 &lt;p>こんな感じでした(実機をしまってしまったので、 &lt;a class="link" href="https://michisugara.jp/archives/2015/home_ip.html" target="_blank" rel="noopener"
 >https://michisugara.jp/archives/2015/home_ip.html&lt;/a> からお借りしました。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_198x150_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317.png"
 width="198"
 height="150"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_1024x0_resize_box_3.png 1024w"
@@ -2263,7 +2325,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="132"
 data-flex-basis="316px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 題名と端末選択と起動ボタンですね。&lt;br>
 自宅LANで使うだけの無くなった機能を復活させたいだけなので、プルダウンメニューは再現せずに行きます。&lt;/p>
 &lt;h2 id="方針">方針
@@ -2395,7 +2459,8 @@ data-flex-basis="316px"
 &lt;/div>
 &lt;/div>
 &lt;p>こんな感じになります&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_408x164_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709.png"
 width="408"
 height="164"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_1024x0_resize_box_3.png 1024w"
@@ -2403,7 +2468,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="248"
 data-flex-basis="597px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="シェルスクリプトを書く">シェルスクリプトを書く
 &lt;/h2>&lt;p>/var/www/cgi-binに、wol.shという名前で書きました。&lt;/p>
 &lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/wol.sh&lt;/div>
@@ -2448,7 +2515,8 @@ data-flex-basis="597px"
 &lt;/div>
 &lt;/div>
 &lt;h2 id="試す">試す
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_529x97_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a.png"
 width="529"
 height="97"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_1024x0_resize_box_3.png 1024w"
@@ -2456,7 +2524,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="545"
 data-flex-basis="1308px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これで対象のマシンが起動してきたら成功です。&lt;/p>
 &lt;h2 id="〆">〆
 &lt;/h2>&lt;p>元の機能よりだいぶ簡略化されましたけど、これで目的が果たされたので満足です。&lt;br>
@@ -2511,7 +2581,8 @@ data-flex-basis="1308px"
 &lt;p>その後、言語やキーボード、アップデート周りの項目を進めていきます&lt;/p>
 &lt;h2 id="パーティションを構成する">パーティションを構成する
 &lt;/h2>&lt;p>どのようにインストールするかを聞かれた際、一番下の「&lt;strong>それ以外&lt;/strong>」を選択します。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_1024x0_resize_box_3.png 1024w"
@@ -2519,11 +2590,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>パーティションの分割については人それぞれあると思うので、ここで詳しくは触れませんが、今回はこのようにしました。&lt;br>
 先頭のWindowsXPのパーティションは基本パーティション、後ろは全て一つの論理(拡張)パーティションです。&lt;br>
 メモリが2GBあるので、Swapに4GBとりました。「/」には52GBもあれば大丈夫でしょう。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_1024x0_resize_box_3.png 1024w"
@@ -2531,11 +2605,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そして大事なのが一番下の項目の「ブートローダをインストールするデバイス」です。&lt;br>
 これを/dev/sdaにしてしまうと、ブートローダがNTLDRやWindowsBootManagerからGrubに書き変わってしまいます。&lt;br>
 今回の場合はLinuxをインストールする領域が/dev/sda5なので、プルダウンメニューから「/dev/sda5」に切り替えます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_1024x0_resize_box_3.png 1024w"
@@ -2543,7 +2620,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>その後は画面に従ってタイムゾーンやユーザー名を設定し、ファイルコピーを開始させます。&lt;/p>
 &lt;h2 id="windowsvista以降の場合">WindowsVista以降の場合
 &lt;/h2>&lt;p>~&lt;del>WindowsVista以降(NT6.x以降)の場合は、EasyBCDが利用できるので、この先の作業は適用できません。&lt;br>
@@ -2651,7 +2730,8 @@ WindowsVista以降の場合は｢grldr.mbr｣をコピーします。&lt;/p>
 &lt;h3 id="grub4dosを起動する">Grub4DOSを起動する
 &lt;/h3>&lt;p>再起動すると、ブートメニューに「SereneLinux(さっきboot.ini/cmdで打った名前）」が出てくるはずです。&lt;br>
 それを選択し、Enterで起動させると、Grubが表示されます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_1024x0_resize_box_3.png 1024w"
@@ -2659,7 +2739,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ここでEnterで起動させたとき、うまくいけば起動するのですが、おそらく起動しない場合がほとんどのはず？です。&lt;br>
 本来は5-3の段階で正しく記載していればいいのですが、私の場合ダメでした(以下の方法で調べた結果がhd0,4です)&lt;/p>
 &lt;ol>
@@ -2667,7 +2749,8 @@ data-flex-basis="320px"
 &lt;li>「root (」まで打ってTabキー&lt;br>
 &lt;strong>注意&lt;/strong> JISキーボードの場合&amp;quot;(&amp;ldquo;はShift+8ですが、GrubではUSキーボード判定なので、Shift+&lt;strong>9&lt;/strong>です。&lt;br>
 これで候補におそらく「hd0 rd」といった表示が出てくるはずです。(読み込んでいるドライブの番号を確認。ドライブが一個しかなければ0のはず)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_1024x0_resize_box_3.png 1024w"
@@ -2675,9 +2758,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>「root (hd0,」まで打ってTabキー&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_1024x0_resize_box_3.png 1024w"
@@ -2685,7 +2771,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>ext2fsと表示されている番号を確認
 ↑この写真の場合はFilesystem type is ext2fsと表示されているのが”Partition num: 4”なので、4番ということになります。
 もし4であれば、変更の必要はないのでEscを押し、9.に飛んでください。&lt;/li>
@@ -2697,7 +2785,8 @@ data-flex-basis="320px"
 &lt;/ol>
 &lt;p>これで/dev/sda5に入ったGrubが起動するはずです。(ちょっとややこしいですね)&lt;br>
 その後、一番上の項目をEnterで起動すれば、無事にインストールしたLinuxが起動します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_1024x0_resize_box_3.png 1024w"
@@ -2705,7 +2794,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="menulstを編集する">menu.lstを編集する
 &lt;/h3>&lt;p>前項で番号を編集した場合、その編集はmenu.lstに書き込まれてはいないので、menu.lstを編集する必要があります。&lt;br>
 これはLinuxやWindowsどちらからでもできますので、変えておきましょう。&lt;br>
@@ -2719,7 +2810,8 @@ data-flex-basis="320px"
 これでWubiを使わないでも、Windowsのブート周りに大きな改変を加えないでLinuxを起動させることができます。&lt;br>
 今回はUbuntu系ディストリ(SereneLinux)でしたが、Grub2を使うLinuxディストリであればほとんど使うことができるはずです。&lt;br>
 良いLinuxライフをお過ごしください。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_1024x0_resize_box_3.png 1024w"
@@ -2727,7 +2819,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="参考にしたurl">参考にしたURL
 &lt;/h2>&lt;ul>
 &lt;li>大まかな流れ(Windows10のWBMを使ってUbuntu16.10?をインストールしている。今回の場合のWBM版)
@@ -2840,7 +2934,8 @@ xorgxrdpがちゃんと対応しない間はこれで凌ごうと思います。
 Apacheバージョン:2.4.25
 SoftEtherVPNインストール済み&lt;/p>
 &lt;h2 id="1-softether-vpn-serverで443のlistenを止める">1. SoftEther VPN Serverで443のListenを止める
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc_hu000b559a9ba106b75b642ea6e1bcd726_8698_315x187_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc.png"
 width="315"
 height="187"
 srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc_hu000b559a9ba106b75b642ea6e1bcd726_8698_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc_hu000b559a9ba106b75b642ea6e1bcd726_8698_1024x0_resize_box_3.png 1024w"
@@ -2849,7 +2944,9 @@ alt="リスナーポート一覧"
 class="gallery-image"
 data-flex-grow="168"
 data-flex-basis="404px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>443はApacheに明け渡してしまい､SoftEtherからは443を止めてしまいましょう&lt;/p>
 &lt;h2 id="2-apacheにproxyのmodを読ませる">2. ApacheにproxyのMODを読ませる
 &lt;/h2>&lt;div>
@@ -2901,7 +2998,8 @@ data-flex-basis="404px"
 &lt;/div>
 &lt;p>で再起動&lt;/p>
 &lt;h2 id="4-確認">4. 確認
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b_hu28114c9c70e0c2d95704e0f7802c0608_31861_703x271_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b.png"
 width="703"
 height="271"
 srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b_hu28114c9c70e0c2d95704e0f7802c0608_31861_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b_hu28114c9c70e0c2d95704e0f7802c0608_31861_1024x0_resize_box_3.png 1024w"
@@ -2910,7 +3008,9 @@ alt="接続ポート情報"
 class="gallery-image"
 data-flex-grow="259"
 data-flex-basis="622px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>実際に繋いでみると､サーバー側では443を止めていても､クライアントからは443でつながっていることがわかります。&lt;/p>
 &lt;p>実際セキュリティがどうなのかはわかりませんが､Apache2でのHTTPS接続と､443番を使わざるを得ない状況でのSoftEtherVPN Serverの両立ができました。&lt;/p>
 &lt;p>もし同じことで悩んでいる方に役立てば嬉しいです。&lt;/p></description></item><item><title>Java AppletをIDEを使わずにコマンドラインで簡単に使いたい</title><link>https://blog.mikuta0407.net/posts/2018/20181011-javaapplet-with-cli/</link><pubDate>Thu, 11 Oct 2018 16:59:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2018/20181011-javaapplet-with-cli/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>

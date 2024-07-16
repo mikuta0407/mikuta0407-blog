@@ -24,7 +24,8 @@
 &lt;p>その後、言語やキーボード、アップデート周りの項目を進めていきます&lt;/p>
 &lt;h2 id="パーティションを構成する">パーティションを構成する
 &lt;/h2>&lt;p>どのようにインストールするかを聞かれた際、一番下の「&lt;strong>それ以外&lt;/strong>」を選択します。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/771dfc23-471d-2ecf-a218-d5fe1ea4b542_hu1af6071b57f02bbdda17191b8a4fc65e_655426_1024x0_resize_box_3.png 1024w"
@@ -32,11 +33,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>パーティションの分割については人それぞれあると思うので、ここで詳しくは触れませんが、今回はこのようにしました。&lt;br>
 先頭のWindowsXPのパーティションは基本パーティション、後ろは全て一つの論理(拡張)パーティションです。&lt;br>
 メモリが2GBあるので、Swapに4GBとりました。「/」には52GBもあれば大丈夫でしょう。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/981e2f88-5754-368a-bb98-36ec317ab50e_hu2a15bd438b835ae08a2ac96701d8976f_672609_1024x0_resize_box_3.png 1024w"
@@ -44,11 +48,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そして大事なのが一番下の項目の「ブートローダをインストールするデバイス」です。&lt;br>
 これを/dev/sdaにしてしまうと、ブートローダがNTLDRやWindowsBootManagerからGrubに書き変わってしまいます。&lt;br>
 今回の場合はLinuxをインストールする領域が/dev/sda5なので、プルダウンメニューから「/dev/sda5」に切り替えます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/973c9c19-f3f6-1cec-db56-e81104d22541_huf202bd317f6338664486a48587cede11_957157_1024x0_resize_box_3.png 1024w"
@@ -56,7 +63,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>その後は画面に従ってタイムゾーンやユーザー名を設定し、ファイルコピーを開始させます。&lt;/p>
 &lt;h2 id="windowsvista以降の場合">WindowsVista以降の場合
 &lt;/h2>&lt;p>~&lt;del>WindowsVista以降(NT6.x以降)の場合は、EasyBCDが利用できるので、この先の作業は適用できません。&lt;br>
@@ -164,7 +173,8 @@ WindowsVista以降の場合は｢grldr.mbr｣をコピーします。&lt;/p>
 &lt;h3 id="grub4dosを起動する">Grub4DOSを起動する
 &lt;/h3>&lt;p>再起動すると、ブートメニューに「SereneLinux(さっきboot.ini/cmdで打った名前）」が出てくるはずです。&lt;br>
 それを選択し、Enterで起動させると、Grubが表示されます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/91f46c42-a3e6-164c-d0af-86119361f142_hu9c55ae3826f273995aa273029ea18bf9_529244_1024x0_resize_box_3.png 1024w"
@@ -172,7 +182,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 ここでEnterで起動させたとき、うまくいけば起動するのですが、おそらく起動しない場合がほとんどのはず？です。&lt;br>
 本来は5-3の段階で正しく記載していればいいのですが、私の場合ダメでした(以下の方法で調べた結果がhd0,4です)&lt;/p>
 &lt;ol>
@@ -180,7 +192,8 @@ data-flex-basis="320px"
 &lt;li>「root (」まで打ってTabキー&lt;br>
 &lt;strong>注意&lt;/strong> JISキーボードの場合&amp;quot;(&amp;ldquo;はShift+8ですが、GrubではUSキーボード判定なので、Shift+&lt;strong>9&lt;/strong>です。&lt;br>
 これで候補におそらく「hd0 rd」といった表示が出てくるはずです。(読み込んでいるドライブの番号を確認。ドライブが一個しかなければ0のはず)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/f84b4560-9088-241c-3c09-fca182cdda7d_hu01bc57345a57931e7504b8e5f328a104_580200_1024x0_resize_box_3.png 1024w"
@@ -188,9 +201,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>「root (hd0,」まで打ってTabキー&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/a37a5d49-1204-7ed6-27e4-a29dd7a361f1_hua31c00f4f335a09d2b5713dbd91e6598_644508_1024x0_resize_box_3.png 1024w"
@@ -198,7 +214,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>ext2fsと表示されている番号を確認
 ↑この写真の場合はFilesystem type is ext2fsと表示されているのが”Partition num: 4”なので、4番ということになります。
 もし4であれば、変更の必要はないのでEscを押し、9.に飛んでください。&lt;/li>
@@ -210,7 +228,8 @@ data-flex-basis="320px"
 &lt;/ol>
 &lt;p>これで/dev/sda5に入ったGrubが起動するはずです。(ちょっとややこしいですね)&lt;br>
 その後、一番上の項目をEnterで起動すれば、無事にインストールしたLinuxが起動します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/77d80afe-ef89-d096-9476-4456cb70c568_hubfce73eafdc8761223c11f14b2ee861e_664595_1024x0_resize_box_3.png 1024w"
@@ -218,7 +237,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h3 id="menulstを編集する">menu.lstを編集する
 &lt;/h3>&lt;p>前項で番号を編集した場合、その編集はmenu.lstに書き込まれてはいないので、menu.lstを編集する必要があります。&lt;br>
 これはLinuxやWindowsどちらからでもできますので、変えておきましょう。&lt;br>
@@ -232,7 +253,8 @@ data-flex-basis="320px"
 これでWubiを使わないでも、Windowsのブート周りに大きな改変を加えないでLinuxを起動させることができます。&lt;br>
 今回はUbuntu系ディストリ(SereneLinux)でしたが、Grub2を使うLinuxディストリであればほとんど使うことができるはずです。&lt;br>
 良いLinuxライフをお過ごしください。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_912x684_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46.png"
 width="912"
 height="684"
 srcset="https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190409-linux-installation-with-ntldr-wbm/img/891d078d-31a4-cf14-8b44-8e570bb72f46_hu1501e6713b9c22b19b4b1d0a749a7b42_934108_1024x0_resize_box_3.png 1024w"
@@ -240,7 +262,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="参考にしたurl">参考にしたURL
 &lt;/h2>&lt;ul>
 &lt;li>大まかな流れ(Windows10のWBMを使ってUbuntu16.10?をインストールしている。今回の場合のWBM版)

@@ -13,7 +13,8 @@
 &lt;p>そこで、この記事の前半では、「Wiiリモコンはプレゼンリモコンとしていいよ」という紹介をしようと思います。&lt;/p>
 &lt;h2 id="プレゼンリモコンは高い">プレゼンリモコンは高い
 &lt;/h2>&lt;p>プレゼンリモコンとは、PowerPointなどでプレゼン資料を出しているときのリモコンをよく指しますが、専門の製品は思ったより価格が高いです。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2XsgGld.jpg"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2XsgGld_huedc7a0a730cbb87808a079b5aa0eab6e_199670_2346x1076_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2XsgGld.jpg"
 width="2346"
 height="1076"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2XsgGld_huedc7a0a730cbb87808a079b5aa0eab6e_199670_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2XsgGld_huedc7a0a730cbb87808a079b5aa0eab6e_199670_1024x0_resize_q75_box.jpg 1024w"
@@ -21,7 +22,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="218"
 data-flex-basis="523px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>もちろんこれはレーザーポインターが付いてるからなんですが、レーザーポインターが必要ない純粋なページ送りをするには高いです。&lt;br>
 (もちろんもっと安い製品はいろいろありますが)&lt;/p>
 &lt;p>そこで活躍するのがWiiリモコンです。&lt;br>
@@ -33,7 +36,8 @@ data-flex-basis="523px"
 Wiiリモコンのペアリングは設定アプリからだと行えません。次の手順で行ってください。(パスコードが無いのに強制的に入力させられてしまうので)&lt;/p>
 &lt;ol>
 &lt;li>タスクバーのBluetoothアイコンを右クリックして、「パーソナルエリアネットワークへ接続」をクリックします(厳密に言うと、コントロールパネルの「デバイスとプリンター」が開ければOKです。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/HHhmuyO.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/HHhmuyO_huf05a6c0bf908932eae7f407abad7bed0_25859_400x365_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/HHhmuyO.png"
 width="400"
 height="365"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/HHhmuyO_huf05a6c0bf908932eae7f407abad7bed0_25859_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/HHhmuyO_huf05a6c0bf908932eae7f407abad7bed0_25859_1024x0_resize_box_3.png 1024w"
@@ -41,9 +45,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="109"
 data-flex-basis="263px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>左上の「デバイスの追加」をクリックします&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/QNqIprS.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/QNqIprS_hucd22d3011b763d9c3c4ca374ad575b85_13817_307x241_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/QNqIprS.png"
 width="307"
 height="241"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/QNqIprS_hucd22d3011b763d9c3c4ca374ad575b85_13817_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/QNqIprS_hucd22d3011b763d9c3c4ca374ad575b85_13817_1024x0_resize_box_3.png 1024w"
@@ -51,9 +58,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="127"
 data-flex-basis="305px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>WiiリモコンのSyncボタンを押し、「デバイスの追加」画面に「入力デバイス」や「Nintendo RVL-CNT-01」等が出てきたらクリックして「次へ」をクリックします&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6FNXWyf.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6FNXWyf_hu02329b49d17096b7e17fc106b5263c0e_28227_633x432_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6FNXWyf.png"
 width="633"
 height="432"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6FNXWyf_hu02329b49d17096b7e17fc106b5263c0e_28227_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6FNXWyf_hu02329b49d17096b7e17fc106b5263c0e_28227_1024x0_resize_box_3.png 1024w"
@@ -61,9 +71,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="146"
 data-flex-basis="351px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>パスコードはないので「次へ」をクリックします&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2GBKVPO.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2GBKVPO_hu969dc9394274acb8d922cb77c29cddb9_20878_633x432_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2GBKVPO.png"
 width="633"
 height="432"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2GBKVPO_hu969dc9394274acb8d922cb77c29cddb9_20878_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/2GBKVPO_hu969dc9394274acb8d922cb77c29cddb9_20878_1024x0_resize_box_3.png 1024w"
@@ -71,9 +84,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="146"
 data-flex-basis="351px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>ペアリングが行われます&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/mcG9I5S.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/mcG9I5S_hu94d0c0e5b98ca609df3eff6264f66483_20442_633x432_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/mcG9I5S.png"
 width="633"
 height="432"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/mcG9I5S_hu94d0c0e5b98ca609df3eff6264f66483_20442_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/mcG9I5S_hu94d0c0e5b98ca609df3eff6264f66483_20442_1024x0_resize_box_3.png 1024w"
@@ -81,9 +97,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="146"
 data-flex-basis="351px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;li>成功すると設定アプリに「接続済み」と表示されるほか、WiiリモコンのLEDが点滅し続けます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/GCtEhSP.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/GCtEhSP_hu3a86a14f7f602da31b1bae12618785e2_7545_493x185_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/GCtEhSP.png"
 width="493"
 height="185"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/GCtEhSP_hu3a86a14f7f602da31b1bae12618785e2_7545_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/GCtEhSP_hu3a86a14f7f602da31b1bae12618785e2_7545_1024x0_resize_box_3.png 1024w"
@@ -91,7 +110,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="266"
 data-flex-basis="639px"
->&lt;/li>
+>
+&lt;/picture>
+&lt;/li>
 &lt;/ol>
 &lt;h3 id="キーとして利用する">キーとして利用する
 &lt;/h3>&lt;p>ペアリングが出来たらあとはキーボードとして認識させるソフトを利用します。&lt;/p>
@@ -101,7 +122,8 @@ data-flex-basis="639px"
 &lt;p>&lt;a class="link" href="https://www.vector.co.jp/soft/winnt/util/se482864.html" target="_blank" rel="noopener"
 >Weyの詳細情報 : Vector ソフトを探す！&lt;/a>&lt;/p>
 &lt;p>Weyを起動させると、Wiiリモコンが接続されているということで青枠が表示されるほか、WiiリモコンのLEDが1Pで点灯します。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/OjGpnqd.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/OjGpnqd_hue9001d90742975b0d61e663b65366b67_18130_605x600_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/OjGpnqd.png"
 width="605"
 height="600"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/OjGpnqd_hue9001d90742975b0d61e663b65366b67_18130_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/OjGpnqd_hue9001d90742975b0d61e663b65366b67_18130_1024x0_resize_box_3.png 1024w"
@@ -109,9 +131,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="100"
 data-flex-basis="242px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そしてこの各ボタンにキーを割り当てていきます&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/iMCrOrc.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/iMCrOrc_hu45840ac412236a64fb2d66414a2b0173_6011_370x224_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/iMCrOrc.png"
 width="370"
 height="224"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/iMCrOrc_hu45840ac412236a64fb2d66414a2b0173_6011_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/iMCrOrc_hu45840ac412236a64fb2d66414a2b0173_6011_1024x0_resize_box_3.png 1024w"
@@ -119,9 +144,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="165"
 data-flex-basis="396px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>プレゼンリモコンという使い方だとこんな感じになりますね&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/q4PtdSK.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/q4PtdSK_hu5505b2f4a672e4e8fe97894ac55a58ff_20323_605x600_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/q4PtdSK.png"
 width="605"
 height="600"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/q4PtdSK_hu5505b2f4a672e4e8fe97894ac55a58ff_20323_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/q4PtdSK_hu5505b2f4a672e4e8fe97894ac55a58ff_20323_1024x0_resize_box_3.png 1024w"
@@ -129,14 +157,17 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="100"
 data-flex-basis="242px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h4 id="wiinremote">WiinRemote
 &lt;/h4>&lt;p>WiinRemoteを使用してもプレゼンリモコンとして使えます。&lt;br>
 WiinRemoteはボタンを利用するだけでなく、マウスポインタとして使う事もできるソフトです。(その代わりWeyと異なり、各キーに好きなキーを割り当てる、ということはあまり出来ません)&lt;/p>
 &lt;p>&lt;a class="link" href="http://onakasuita.org/wii/" target="_blank" rel="noopener"
 >WiinRemote&lt;/a>&lt;/p>
 &lt;p>こちらのサイトから WiinRemote_v2007.1.13.zip をダウンロードし、展開、起動します。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/s79Tcd6.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/s79Tcd6_hu0fd1e461bc6758a8fb59a1841dc9e2c1_26666_353x317_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/s79Tcd6.png"
 width="353"
 height="317"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/s79Tcd6_hu0fd1e461bc6758a8fb59a1841dc9e2c1_26666_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/s79Tcd6_hu0fd1e461bc6758a8fb59a1841dc9e2c1_26666_1024x0_resize_box_3.png 1024w"
@@ -144,7 +175,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="111"
 data-flex-basis="267px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これだけで十字キーがすでに矢印キーとして割り当てられているので、プレゼンリモコンとして利用できます。&lt;/p>
 &lt;p>Bボタンを押すと加速度センサーを利用したマウスポインタが利用できます。(Bボタンでマウス機能のオンオフ)&lt;/p>
 &lt;p>(他にもセンサーバーを利用したマウスポインタ機能も利用できます)&lt;/p>
@@ -168,7 +201,8 @@ Wiiリモコンを持って発表する姿はちょっと面白いかもしれ�
 >Wiiのセンサーバーはろうそくで代用可能 - Engadget 日本版&lt;/a>&lt;/p>
 &lt;p>脱線しましたが、つまりセンサーバーをパソコンの前に持ってきてやれば、ポインタ操作が出来るわけです。ところが、純正や互換センサーバーはテレビ用です。机の上にあるディスプレイで使うには&lt;strong>距離が短すぎる&lt;/strong>のです。&lt;/p>
 &lt;p>どうにか机やノートパソコンで使えないか・・・そう考えていると、とあるものを思い出しました。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6051.jpg"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6051_huf57f4d4f096ad3154ddc0e33a8aa57eb_1451778_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6051.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6051_huf57f4d4f096ad3154ddc0e33a8aa57eb_1451778_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6051_huf57f4d4f096ad3154ddc0e33a8aa57eb_1451778_1024x0_resize_q75_box.jpg 1024w"
@@ -176,8 +210,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6052.jpg"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6052_hu4f68f526f90371e871e71606b530d069_1194027_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6052.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6052_hu4f68f526f90371e871e71606b530d069_1194027_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6052_hu4f68f526f90371e871e71606b530d069_1194027_1024x0_resize_q75_box.jpg 1024w"
@@ -185,10 +222,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そう、WiiUゲームパッドです。&lt;br>
 WiiUゲームパッドは上部にセンサーバーがついていて、これを使うことでテレビとセンサーバーがなくてもWiiのゲームが遊べるようになっています。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/Ojfbpej.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/Ojfbpej_hu0f0adefa2cde1e1f11a593e97c8b7871_90830_270x410_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/Ojfbpej.png"
 width="270"
 height="410"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/Ojfbpej_hu0f0adefa2cde1e1f11a593e97c8b7871_90830_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/Ojfbpej_hu0f0adefa2cde1e1f11a593e97c8b7871_90830_1024x0_resize_box_3.png 1024w"
@@ -196,7 +236,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="65"
 data-flex-basis="158px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 出典: &lt;a class="link" href="https://www.nintendo.co.jp/hardware/wiiu/features/index.html" target="_blank" rel="noopener"
 >Wiiのソフトで遊ぶ | Wii U｜任天堂&lt;/a>&lt;/p>
 &lt;p>ゲームパッドの画面は小さいので、当然Wiiリモコンとセンサーバーが至近距離になります。それでもちゃんと動くわけです。&lt;br>
@@ -212,7 +254,8 @@ data-flex-basis="158px"
 &lt;p>ということで、電子工作の経験が高校の技術の授業以外存在していない僕が、全力の技術提供を受けながら小さい持ち運び型のセンサーバーを作るお話です。&lt;/p>
 &lt;h2 id="構想を練る">構想を練る
 &lt;/h2>&lt;p>まず生まれた図です。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/RdolHJj.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/RdolHJj_hu07da45281880d59c7f9f823363253c87_5364_372x235_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/RdolHJj.png"
 width="372"
 height="235"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/RdolHJj_hu07da45281880d59c7f9f823363253c87_5364_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/RdolHJj_hu07da45281880d59c7f9f823363253c87_5364_1024x0_resize_box_3.png 1024w"
@@ -220,9 +263,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="158"
 data-flex-basis="379px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>そして次に生まれた図がこちらです。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/vc5YBXw.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/vc5YBXw_hu41d3f66fb5ec559911052992525e6348_9875_633x418_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/vc5YBXw.png"
 width="633"
 height="418"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/vc5YBXw_hu41d3f66fb5ec559911052992525e6348_9875_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/vc5YBXw_hu41d3f66fb5ec559911052992525e6348_9875_1024x0_resize_box_3.png 1024w"
@@ -230,7 +276,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="151"
 data-flex-basis="363px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ノートパソコンの上にクリップ的に固定されてる図ですね。我ながら酷い図だ。&lt;/p>
 &lt;p>このあたりの構想を練っている最中、&lt;a class="link" href="https://twitter.com/mewl_msh" target="_blank" rel="noopener"
 >ましま&lt;/a>さんにより、&lt;/p>
@@ -247,7 +295,8 @@ data-flex-basis="363px"
 &lt;/h2>&lt;p>デスクトップPCならモニタの足あたりに置いておけばいいですが、ノートパソコンでも使いたいとなると固定方法を考えなければいけません。&lt;/p>
 &lt;p>ノートパソコン上部にメモをクリップで止められる製品を使う・・・?3Dプリンタで引っかかりを作る・・・? といろいろ考えました。&lt;/p>
 &lt;p>ふと机を見ると、こんなものがあります。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image0.jpg"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image0_hu172f223eb3f3f835306fe14635c28d9d_1140209_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image0.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image0_hu172f223eb3f3f835306fe14635c28d9d_1140209_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image0_hu172f223eb3f3f835306fe14635c28d9d_1140209_1024x0_resize_q75_box.jpg 1024w"
@@ -255,10 +304,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これは昨今のオンライン会議用にと売られているライトです。(後ろにあるダイヤルを回すとめちゃくちゃ強く光ります。TypeC充電なので便利。)&lt;/p>
 &lt;p>で、これのクランプ部分を取り外すと、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image1.jpg"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image1_hu4c5eb30e4586cbc8e5f53f0e8a0252b3_1412695_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image1.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image1_hu4c5eb30e4586cbc8e5f53f0e8a0252b3_1412695_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/image1_hu4c5eb30e4586cbc8e5f53f0e8a0252b3_1412695_1024x0_resize_q75_box.jpg 1024w"
@@ -266,10 +318,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>カメラでよく見るアクセサリーシューのやつになります。つまり、スマホやノートパソコンの上部にそういったアクセサリを固定できるアダプタになるわけです。(今全く同じものが売ってるかは知りませんが、似たようなものは売ってるはずです。)&lt;/p>
 &lt;p>これを固定具にして、なにかいい感じの台座となる幅があるもの・・・&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/R51a3I2.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/R51a3I2_huc6fb3edccc9522ca6c209ed5eaaa93bc_426258_1500x759_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/R51a3I2.png"
 width="1500"
 height="759"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/R51a3I2_huc6fb3edccc9522ca6c209ed5eaaa93bc_426258_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/R51a3I2_huc6fb3edccc9522ca6c209ed5eaaa93bc_426258_1024x0_resize_box_3.png 1024w"
@@ -277,7 +332,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="197"
 data-flex-basis="474px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 出典:&lt;a class="link" href="https://www.amazon.co.jp/gp/product/B08LSXZD3H/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&amp;amp;psc=1" target="_blank" rel="noopener"
 >Amazon | MOSHUSOデュアルコールドシューベースアダプターマウントエクステンションブラケットマイクLEDライトフラッシュ用 | MOSHUSO | シューマウント&lt;/a>&lt;/p>
 &lt;p>&lt;strong>ありました&lt;/strong>&lt;/p>
@@ -300,7 +357,8 @@ data-flex-basis="474px"
 &lt;h2 id="試しにパーツを配線してみる">試しにパーツを配線してみる
 &lt;/h2>&lt;p>回路はこういう感じですね。(Tinkercadで適当にやってみました)&lt;br>
 電源と抵抗とLEDが並列で接続されている、シンプルなものです。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/VY1NfzN.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/VY1NfzN_hu4845695a6adc5b435e6c3fa7866609b1_66761_948x640_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/VY1NfzN.png"
 width="948"
 height="640"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/VY1NfzN_hu4845695a6adc5b435e6c3fa7866609b1_66761_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/VY1NfzN_hu4845695a6adc5b435e6c3fa7866609b1_66761_1024x0_resize_box_3.png 1024w"
@@ -308,9 +366,12 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="148"
 data-flex-basis="355px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これを実際に組み立ててみます。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5704.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5704_hu26d77c532ef35fcc627aabf44af1bf16_1586561_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5704.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5704_hu26d77c532ef35fcc627aabf44af1bf16_1586561_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5704_hu26d77c532ef35fcc627aabf44af1bf16_1586561_1024x0_resize_q75_box.jpg 1024w"
@@ -318,11 +379,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>とりあえずこういうことになりますね。DIPのはんだ付けは&lt;a class="link" href="https://twitter.com/mewl_msh" target="_blank" rel="noopener"
 >ましま&lt;/a>さんにやっていただきました。&lt;/p>
 &lt;p>この状態で動作確認をしてみました。ちゃんと点灯しています。うれしい。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_20211104_142628165.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_20211104_142628165_hu9487157be1a341d7b11ad67ea3913881_2359267_4608x3456_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_20211104_142628165.jpg"
 width="4608"
 height="3456"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_20211104_142628165_hu9487157be1a341d7b11ad67ea3913881_2359267_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_20211104_142628165_hu9487157be1a341d7b11ad67ea3913881_2359267_1024x0_resize_q75_box.jpg 1024w"
@@ -330,11 +394,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>ちなみにこの状態でWiinremoteを使ってIRセンサーが認識していることを確認しました。&lt;/p>
 &lt;h2 id="組み立てていく">組み立てていく
 &lt;/h2>&lt;p>とりあえずそれっぽい感じにしてみました。まだはんだ付けは指定ない状態です。&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5705.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5705_hufd2279b43a69c07cc587b32eaffae2c9_1121174_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5705.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5705_hufd2279b43a69c07cc587b32eaffae2c9_1121174_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5705_hufd2279b43a69c07cc587b32eaffae2c9_1121174_1024x0_resize_q75_box.jpg 1024w"
@@ -342,13 +409,16 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>LEDと電源の配線をテープで固定する訳にも行かないので、みの虫クリップで配線しようかと思ったのですが、流石にグチャグチャしてしまうので、お力を借りつつそこははんだ付けしていくことにしました。&lt;/p>
 &lt;p>ここまでやって、しばらくしていると&lt;strong>ミニブレッドボードがマスキングテープもろとも剥がれる&lt;/strong>事がわかったので、この段階でマスキングテープを剥がしました。&lt;/p>
 &lt;h2 id="完成">完成・・・?
 &lt;/h2>&lt;p>そして、LEDと線材を &lt;a class="link" href="https://twitter.com/mewl_msh" target="_blank" rel="noopener"
 >ましま&lt;/a>さんにハンダ付けしてもらい、配線が完了しました。ありがとうございます。構想だけ考えて実装を全部やってもらっていますね()&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5749.jpg"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5749_hu5b55d0e1cc5fc1b836d712c0ad3dd7ec_1175038_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5749.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5749_hu5b55d0e1cc5fc1b836d712c0ad3dd7ec_1175038_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_5749_hu5b55d0e1cc5fc1b836d712c0ad3dd7ec_1175038_1024x0_resize_q75_box.jpg 1024w"
@@ -356,10 +426,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>なんというか、テープが汚かったりするのでどうにか3Dプリンタで筐体をどうにかしたいところではありますが、ひとまず完成!&lt;/p>
 &lt;p>・・・完成したので、大学の研究室から持ち帰ろうと、その辺にあった箱に入れて持ち帰ったところ、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/flvCh3A.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/flvCh3A_huef5c0a62a4d6973fe1c4c0ca36dfbc01_863339_710x947_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/flvCh3A.png"
 width="710"
 height="947"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/flvCh3A_huef5c0a62a4d6973fe1c4c0ca36dfbc01_863339_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/flvCh3A_huef5c0a62a4d6973fe1c4c0ca36dfbc01_863339_1024x0_resize_box_3.png 1024w"
@@ -367,11 +440,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="74"
 data-flex-basis="179px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>分離しました。&lt;/p>
 &lt;h2 id="完成-1">完成
 &lt;/h2>&lt;p>ということで、グルーガンで固めてしまうことにしました。とりあえずこれでいいでしょう。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6030.jpg"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6030_hu2ccaf7830f3b942b1d63135e582552e4_1508001_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6030.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6030_hu2ccaf7830f3b942b1d63135e582552e4_1508001_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6030_hu2ccaf7830f3b942b1d63135e582552e4_1508001_1024x0_resize_q75_box.jpg 1024w"
@@ -379,11 +455,14 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>&lt;del>&lt;strong>汚ねぇ&lt;/strong>&lt;/del>&lt;/p>
 &lt;h2 id="動かしてみる">動かしてみる
 &lt;/h2>&lt;p>まずはノートパソコンに取り付けます。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6050.jpg"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6050_hu92c5bfcd7b4ceaf43cc9c0ccf1447d52_1457592_3024x4032_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6050.jpg"
 width="3024"
 height="4032"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6050_hu92c5bfcd7b4ceaf43cc9c0ccf1447d52_1457592_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6050_hu92c5bfcd7b4ceaf43cc9c0ccf1447d52_1457592_1024x0_resize_q75_box.jpg 1024w"
@@ -391,8 +470,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="75"
 data-flex-basis="180px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6049.jpg"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6049_hue83b2c0caceeddd6f50df59a1ab00d41_1199457_4032x3024_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6049.jpg"
 width="4032"
 height="3024"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6049_hue83b2c0caceeddd6f50df59a1ab00d41_1199457_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/IMG_6049_hue83b2c0caceeddd6f50df59a1ab00d41_1199457_1024x0_resize_q75_box.jpg 1024w"
@@ -400,10 +482,13 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="133"
 data-flex-basis="320px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>・・・予想図に近いのではないでしょうか。&lt;/p>
 &lt;p>さて、WiinRemoteで動作を見てみましょう。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6xrRZRG.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6xrRZRG_hubccb63fe748d01983ed57523060af943_26804_353x317_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6xrRZRG.png"
 width="353"
 height="317"
 srcset="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6xrRZRG_hubccb63fe748d01983ed57523060af943_26804_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/6xrRZRG_hubccb63fe748d01983ed57523060af943_26804_1024x0_resize_box_3.png 1024w"
@@ -411,7 +496,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="111"
 data-flex-basis="267px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;video controls preload="auto" width="100%" playsinline class="html-video">
 &lt;source src="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/wiinremote.mp4" type="video/mp4">
 &lt;span>お使いのブラウザは埋め込み動画をサポートしていませんが、&lt;a href="https://blog.mikuta0407.net/posts/2021/20211207-making-wii-sensorbar-for-notepc/img/wiinremote.mp4">ダウンロード&lt;/a> して、お好きなメディアプレーヤーで再生できます。&lt;/span>

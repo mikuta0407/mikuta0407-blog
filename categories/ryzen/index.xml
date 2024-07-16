@@ -79,7 +79,8 @@ Windows7/8用のドライバなのに､中のファイル見てみるとRTX系�
 注意点として､DX12は使えません。DX11までです。レイトレはもちろん無理です。 ですが､普通にゲームする分には問題ないです。&lt;/p>
 &lt;p>作業は以上です。お疲れさまでした!&lt;/p>
 &lt;h3 id="残りの5ヶ月をエンジョイする">残りの5ヶ月をエンジョイする
-&lt;/h3>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8.png"
+&lt;/h3>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_720x464_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8.png"
 width="720"
 height="464"
 srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/1ca5d680-42e6-1458-9e65-cd137eaa20e8_hu05cfac4bdbe51acaf1c0b55e43fd14e3_62089_1024x0_resize_box_3.png 1024w"
@@ -87,8 +88,11 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="155"
 data-flex-basis="372px"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947.png"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_720x464_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947.png"
 width="720"
 height="464"
 srcset="https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20190905-windows7-with-ryzen3thgen-and-rtx2000-series/img/69505bdf-4baf-275d-e31e-909fe98d0947_hu56eea277bf75707fb4e0094bc924a864_57209_1024x0_resize_box_3.png 1024w"
@@ -96,7 +100,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="155"
 data-flex-basis="372px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>Win7は御存知の通り2020年の1月にサポートが切れます。
 それまでの期間､めいいっぱい第3世代RyzenとRTX20系のグラボで楽しみましょう!&lt;/p>
 &lt;p>※ちなみに環境変更されたこともあり､ライセンス認証しろと言われますが､当環境ではオンライン認証で普通に通りました。&lt;/p>

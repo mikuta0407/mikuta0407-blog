@@ -4,7 +4,8 @@
 &lt;p>GoでMisskeyのCLIクライアントを作ったので、宣伝も兼ねてアドカレに参加してみようと思います。よろしくお願いします。&lt;/p>
 &lt;hr>
 &lt;p>早速ですが、こんな感じのCLIなMisskeyクライアントを作りました。&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_3886x2475_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4.png"
 width="3886"
 height="2475"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/194720200-8dbf0394-9d4b-4e84-ad91-739eb0fec1c4_hu951e91d74c3322dab0f9ffb021ed0c8b_6422243_1024x0_resize_box_3.png 1024w"
@@ -12,12 +13,16 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="157"
 data-flex-basis="376px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
->&lt;img src="https://gh-card.dev/repos/mikuta0407/misskey-cli.svg"
+>&lt;picture>&lt;img src="https://gh-card.dev/repos/mikuta0407/misskey-cli.svg"
 loading="lazy"
 alt="mikuta0407/misskey-cli"
->&lt;/a>&lt;/p>
+>
+&lt;/picture>
+&lt;/a>&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli" target="_blank" rel="noopener"
 >https://github.com/mikuta0407/misskey-cli&lt;/a>&lt;/p>
 &lt;p>ここで配布してます。&lt;/p>
@@ -359,7 +364,8 @@ alt="mikuta0407/misskey-cli"
 &lt;/div>
 &lt;/div>
 &lt;p>を実行すれば、&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_870x858_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG.png"
 width="870"
 height="858"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/zPc5DtG_hufd45c83c60526d2ad294b771fd737848_96456_1024x0_resize_box_3.png 1024w"
@@ -367,7 +373,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="101"
 data-flex-basis="243px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>このように投稿ができます。(投稿したらすぐにスタンプが付いた。これぞMisskey)&lt;/p>
 &lt;p>この新規投稿に関しては、Client構造体のメソッド&lt;code>CreateNote&lt;/code>として実装しました。&lt;/p>
 &lt;p>&lt;a class="link" href="https://github.com/mikuta0407/misskey-cli/blob/67d17a15d3bff0e7c258f42a61b5d99679e2d164/misskey/postnotes.go#L10-L40" target="_blank" rel="noopener"
@@ -821,10 +829,13 @@ data-flex-basis="243px"
 &lt;p>また、リノートの場合は行頭に&lt;code>[RN]&lt;/code>を付加することでリノートであることを表現しています。&lt;/p>
 &lt;h3 id="その他表示に関わる部分いつかなにか改善したら追記">その他表示に関わる部分(いつかなにか改善したら追記)
 &lt;/h3>&lt;h4 id="1行の文字数">1行の文字数
-&lt;/h4>&lt;p>&lt;img src="https://blog.mikuta0407.net/img/CQPvwPK.png"
+&lt;/h4>&lt;p>&lt;picture>&lt;img src="https://blog.mikuta0407.net/img/CQPvwPK.png"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD.jpg"
+>
+&lt;/picture>
+&lt;/p>
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_3100x1974_resize_q75_h2_box.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD.jpg"
 width="3100"
 height="1974"
 srcset="https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_480x0_resize_q75_box.jpg 480w, https://blog.mikuta0407.net/posts/2022/20221216-misskey-cli/img/18Q90SD_huef44955d97f1b701c4935c959c937c0c_144711_1024x0_resize_q75_box.jpg 1024w"
@@ -832,7 +843,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="157"
 data-flex-basis="376px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>misskey-cliでコマンドを叩くと、ヘッダ部分の「=======」の長さがコンソールの幅によって変わることがわかります。&lt;/p>
 &lt;p>この「=======」を表示するのは各機能の関数で&lt;code>fmt.Println&lt;/code>内に書かれている&lt;code>printLine()&lt;/code>という関数が表示しています。&lt;/p>
 &lt;p>このprintLine()は&lt;/p>

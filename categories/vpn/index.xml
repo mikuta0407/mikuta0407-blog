@@ -7,7 +7,8 @@
 Apacheバージョン:2.4.25
 SoftEtherVPNインストール済み&lt;/p>
 &lt;h2 id="1-softether-vpn-serverで443のlistenを止める">1. SoftEther VPN Serverで443のListenを止める
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc_hu000b559a9ba106b75b642ea6e1bcd726_8698_315x187_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc.png"
 width="315"
 height="187"
 srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc_hu000b559a9ba106b75b642ea6e1bcd726_8698_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/48263f8a-add4-5d68-7fde-9ec12019f9bc_hu000b559a9ba106b75b642ea6e1bcd726_8698_1024x0_resize_box_3.png 1024w"
@@ -16,7 +17,9 @@ alt="リスナーポート一覧"
 class="gallery-image"
 data-flex-grow="168"
 data-flex-basis="404px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>443はApacheに明け渡してしまい､SoftEtherからは443を止めてしまいましょう&lt;/p>
 &lt;h2 id="2-apacheにproxyのmodを読ませる">2. ApacheにproxyのMODを読ませる
 &lt;/h2>&lt;div>
@@ -68,7 +71,8 @@ data-flex-basis="404px"
 &lt;/div>
 &lt;p>で再起動&lt;/p>
 &lt;h2 id="4-確認">4. 確認
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b_hu28114c9c70e0c2d95704e0f7802c0608_31861_703x271_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b.png"
 width="703"
 height="271"
 srcset="https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b_hu28114c9c70e0c2d95704e0f7802c0608_31861_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181022-use443-apache2-and-sevpn/img/6a94b33e-9ab4-e5be-1881-41fda945dd8b_hu28114c9c70e0c2d95704e0f7802c0608_31861_1024x0_resize_box_3.png 1024w"
@@ -77,7 +81,9 @@ alt="接続ポート情報"
 class="gallery-image"
 data-flex-grow="259"
 data-flex-basis="622px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>実際に繋いでみると､サーバー側では443を止めていても､クライアントからは443でつながっていることがわかります。&lt;/p>
 &lt;p>実際セキュリティがどうなのかはわかりませんが､Apache2でのHTTPS接続と､443番を使わざるを得ない状況でのSoftEtherVPN Serverの両立ができました。&lt;/p>
 &lt;p>もし同じことで悩んでいる方に役立てば嬉しいです。&lt;/p></description></item></channel></rss>

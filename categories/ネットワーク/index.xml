@@ -9,7 +9,8 @@
 &lt;/h2>&lt;p>&amp;ldquo;PCリモート起動&amp;quot;とはどういう画面だったかを思い出すと……&lt;/p>
 &lt;p>こんな感じでした(実機をしまってしまったので、 &lt;a class="link" href="https://michisugara.jp/archives/2015/home_ip.html" target="_blank" rel="noopener"
 >https://michisugara.jp/archives/2015/home_ip.html&lt;/a> からお借りしました。)&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_198x150_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317.png"
 width="198"
 height="150"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/a45114d2-40b7-e03f-7ed3-8af46238a317_hu6be33e9ea5c07560ff2b4da92d7e6148_9830_1024x0_resize_box_3.png 1024w"
@@ -17,7 +18,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="132"
 data-flex-basis="316px"
->&lt;br>
+>
+&lt;/picture>
+&lt;br>
 題名と端末選択と起動ボタンですね。&lt;br>
 自宅LANで使うだけの無くなった機能を復活させたいだけなので、プルダウンメニューは再現せずに行きます。&lt;/p>
 &lt;h2 id="方針">方針
@@ -149,7 +152,8 @@ data-flex-basis="316px"
 &lt;/div>
 &lt;/div>
 &lt;p>こんな感じになります&lt;br>
-&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_408x164_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709.png"
 width="408"
 height="164"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/1a1eb851-f351-6bb5-c782-acc4b1ad0709_huef61ed0f3dd2ebc1e51e8aeb5abced21_7146_1024x0_resize_box_3.png 1024w"
@@ -157,7 +161,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="248"
 data-flex-basis="597px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="シェルスクリプトを書く">シェルスクリプトを書く
 &lt;/h2>&lt;p>/var/www/cgi-binに、wol.shという名前で書きました。&lt;/p>
 &lt;div>&lt;div class="codeblock--name">/var/www/cgi-bin/wol.sh&lt;/div>
@@ -202,7 +208,8 @@ data-flex-basis="597px"
 &lt;/div>
 &lt;/div>
 &lt;h2 id="試す">試す
-&lt;/h2>&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a.png"
+&lt;/h2>&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_529x97_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a.png"
 width="529"
 height="97"
 srcset="https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/img/3b3a4b0d-9d86-e79f-b6b4-c01b0f63271a_hu105844c49fd91e5c59ea5125fd0d8519_6291_1024x0_resize_box_3.png 1024w"
@@ -210,7 +217,9 @@ loading="lazy"
 class="gallery-image"
 data-flex-grow="545"
 data-flex-basis="1308px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これで対象のマシンが起動してきたら成功です。&lt;/p>
 &lt;h2 id="〆">〆
 &lt;/h2>&lt;p>元の機能よりだいぶ簡略化されましたけど、これで目的が果たされたので満足です。&lt;br>
@@ -241,7 +250,8 @@ data-flex-basis="1308px"
 &lt;/li>
 &lt;/ul></description></item><item><title>個人シンクライアント運用のすゝめ</title><link>https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/</link><pubDate>Tue, 10 Dec 2019 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark.png" alt="Featured image of post 個人シンクライアント運用のすゝめ" />&lt;p>&lt;strong>この記事は&lt;a class="link" href="https://adventar.org/calendars/4282" target="_blank" rel="noopener"
 >Tokyo City University Advent Calendar 2019&lt;/a>の10日目の記事です&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark.png"
+&lt;p>&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark_hu5bd1b6055c12d9959a8816cf7fd67d6e_798226_1316x1310_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark.png"
 width="1316"
 height="1310"
 srcset="https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark_hu5bd1b6055c12d9959a8816cf7fd67d6e_798226_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2019/20191210-recommendations-for-thin-client/img/internet_mark_hu5bd1b6055c12d9959a8816cf7fd67d6e_798226_1024x0_resize_box_3.png 1024w"
@@ -250,7 +260,9 @@ alt="シンクライアントを表したかった"
 class="gallery-image"
 data-flex-grow="100"
 data-flex-basis="241px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>昨日はらぴーとさんの&lt;a class="link" href="https://rapit.hatenablog.jp/entry/2019/12/09/000000" target="_blank" rel="noopener"
 >SKKを使おう！&lt;/a>でした。GoogleIMEの挙動に指が慣れすぎてるのでなかなかIMEを変えるという発想にはならないのですが、今度仮想のWindows2000かなんかに入れて、ちょっと試してみようかなってなりました。&lt;/p>
 &lt;p>さて、アドベントカレンダー、なんかまだ空きがあるようなのでやってみます。ただそこまで技術系でもないので、放置しまくっていたこのブログに書いてみようと思います。&lt;/p>
@@ -477,7 +489,8 @@ TeamViewerとかChromeRDとかもありますけど､RDPです。&lt;/p>
 &lt;li>家にラズパイなりなんなりのそういう機器がある&lt;/li>
 &lt;/ul>
 &lt;p>つまりこういうことです。
-&lt;img src="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f_hu82472a618d73da31cc86968e996a6347_35058_711x310_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f.png"
 width="711"
 height="310"
 srcset="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f_hu82472a618d73da31cc86968e996a6347_35058_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/0c984256-e3ad-fa6e-d2ff-92c1584bd12f_hu82472a618d73da31cc86968e996a6347_35058_1024x0_resize_box_3.png 1024w"
@@ -486,7 +499,9 @@ alt="構成概要図"
 class="gallery-image"
 data-flex-grow="229"
 data-flex-basis="550px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;h2 id="ラズパイからvpsにssh接続をする">ラズパイからVPSにSSH接続をする
 &lt;/h2>&lt;p>通常のSSHコマンドに､&lt;code>-N -R 任意のポート番号:自宅マシンのIP:3389&lt;/code>を付属させます。&lt;/p>
 &lt;div>
@@ -520,7 +535,8 @@ data-flex-basis="550px"
 これだけで繋がります。&lt;/p>
 &lt;h2 id="まとめ">まとめ
 &lt;/h2>&lt;p>つまりこういうことをしたわけです
-&lt;img src="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026.png"
+&lt;picture>
+&lt;source srcset="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026_hu533de56782e493fa607373b238ddd2e4_44040_782x291_resize_q75_h2_box_3.webp" type="image/webp">&lt;img src="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026.png"
 width="782"
 height="291"
 srcset="https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026_hu533de56782e493fa607373b238ddd2e4_44040_480x0_resize_box_3.png 480w, https://blog.mikuta0407.net/posts/2018/20181108-reverse-port-forward-for-non-vpn-rdp/img/ca3d49b4-41b1-818b-7220-f55ed1a01026_hu533de56782e493fa607373b238ddd2e4_44040_1024x0_resize_box_3.png 1024w"
@@ -529,7 +545,9 @@ alt="接続後の概要図"
 class="gallery-image"
 data-flex-grow="268"
 data-flex-basis="644px"
->&lt;/p>
+>
+&lt;/picture>
+&lt;/p>
 &lt;p>これをすることで､SHARPのNetWalkerみたいにVPNつなぐのにも一苦労みたいな端末でも､簡単にポート開放せずにRDPで自宅マシンを操作することが出来ます。&lt;/p>
 &lt;p>また､管理者権限がなかったりしてVPNを繋げることは出来ないけどSSHはできるという環境でも使えますね。&lt;/p>
 &lt;p>参考URL:
