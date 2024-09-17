@@ -16,7 +16,7 @@ languages:
         title: 平和に生きたい
         weight: 1
         params:
-            description: mikuta0407の書いた虚無。ﾖﾜﾖﾜ技術系からアイマスとかガジェットとかごった煮。
+            description: mikuta0407の書いた虚無。ﾖﾜﾖﾜ技術系からアイマスとかガジェットとかその他ごった煮。
 
 
 services:
@@ -45,7 +45,7 @@ params:
 
     sidebar:
         # emoji: 🍥
-        subtitle: mikuta0407の書いた虚無。ﾖﾜﾖﾜ技術系からアイマスとかガジェットとかごった煮。
+        subtitle: mikuta0407の書いた虚無。ﾖﾜﾖﾜ技術系からアイマスとかガジェットとかその他ごった煮。
         avatar:
             enabled: true
             local: true
@@ -57,7 +57,7 @@ params:
         readingTime: true
         license:
             enabled: true
-            default: Licensed under CC BY-NC-SA 4.0
+            default: Licensed under CC BY-SA 4.0
 
     comments:
         enabled: true
