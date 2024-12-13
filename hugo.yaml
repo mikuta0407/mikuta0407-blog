@@ -3,7 +3,8 @@ languageCode: ja-jp
 theme: 
 - hugo-video
 - hugo-theme-stack
-paginate: 10
+pagination:
+    pagerSize: 10
 title: 平和に生きたい
 copyright: mikuta0407
 DefaultContentLanguage: ja
