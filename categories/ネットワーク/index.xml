@@ -1,4 +1,364 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ネットワーク on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/</link><description>Recent content in ネットワーク on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Thu, 13 Feb 2020 16:48:10 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>ブラウザ経由でシェルスクリプト叩いてWake on LANする</title><link>https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/</link><pubDate>Thu, 13 Feb 2020 16:48:10 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ネットワーク on 平和に生きたい</title><link>https://blog.mikuta0407.net/categories/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/</link><description>Recent content in ネットワーク on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Fri, 07 Feb 2025 15:00:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/categories/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>KAGOYA CLOUD VPSを新基盤側に移行した</title><link>https://blog.mikuta0407.net/posts/2025/20250207-kagoya-migration/</link><pubDate>Fri, 07 Feb 2025 15:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2025/20250207-kagoya-migration/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2025/20250207-kagoya-migration/img/eyecatch.png" alt="Featured image of post KAGOYA CLOUD VPSを新基盤側に移行した" />&lt;h2 id="kagoyaのvpsが強くなったらしい">KAGOYAのVPSが強くなったらしい
+&lt;/h2>&lt;p>2025年2月6日、国内事業者が運営するVPSのKAGOYA CLOUD VPSの新基盤開始が告知されました。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">【お知らせ】&lt;br>2月6日(木)より、国内事業者VPSとして13年の実績のある「KAGOYA CLOUD VPS」の全プランにて新基盤を採用し、性能を大幅に強化しました。 &lt;a href="https://t.co/ikoPMLFIQf">pic.twitter.com/ikoPMLFIQf&lt;/a>&lt;/p>&amp;mdash; カゴヤ・ジャパン (@kagoya_inc) &lt;a href="https://twitter.com/kagoya_inc/status/1887381905253048617?ref_src=twsrc%5Etfw">February 6, 2025&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>&lt;a class="link" href="https://www.kagoya.jp/news/2025020631681/?argument=vqHX23Xs&amp;amp;dmai=a67a44bf8e26c6" target="_blank" rel="noopener"
+>【VPS】KAGOYA CLOUD VPS リニューアルのお知らせ | KAGOYA&lt;/a>&lt;/p>
+&lt;p>これまで私は大容量プランで、「2コア/2GB/200GB」を月額880円で使用していましたが、新基盤ではなんとストレージも外足速度も強くなって、110円も安い770円です。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;/th>
+&lt;th style="text-align:left">旧基盤&lt;/th>
+&lt;th style="text-align:left">新基盤&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">コア数&lt;/td>
+&lt;td style="text-align:left">2vCPU&lt;/td>
+&lt;td style="text-align:left">2vCPU&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RAM&lt;/td>
+&lt;td style="text-align:left">2GB&lt;/td>
+&lt;td style="text-align:left">2GB&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">ストレージ&lt;/td>
+&lt;td style="text-align:left">200GB&lt;/td>
+&lt;td style="text-align:left">200GB&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">NW速度(実測)&lt;/td>
+&lt;td style="text-align:left">70Mbps程&lt;/td>
+&lt;td style="text-align:left">200Mbps程&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">値段&lt;/td>
+&lt;td style="text-align:left">880円&lt;/td>
+&lt;td style="text-align:left">770円&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>ちなみに年払いにしたら毎月715円相当。OCIのAlways Free以外なら安定性的にもKAGOYAが強すぎます。新基盤すごい。&lt;/p>
+&lt;p>(WebARENA IndigoのVPSを使っていたことがあるのですが、回線品質が不安定すぎて何度も疎通断アラートが鳴ったことがありましたが、KAGOYA移行後はほぼ発生していないので助かります)&lt;/p>
+&lt;p>ということで早速移行してみたので、移行手順の記録と、簡単な性能比較をしてみました。&lt;/p>
+&lt;p>ちなみに:&lt;/p>
+&lt;ul>
+&lt;li>旧プラン情報: &lt;a class="link" href="https://web.archive.org/web/20241003141651/https://www.kagoya.jp/vps/function-plan/#anchor-standard" target="_blank" rel="noopener"
+>料金・機能・テンプレート | KAGOYA (Wayback Machine)&lt;/a>&lt;/li>
+&lt;li>新プラン情報: &lt;a class="link" href="https://www.kagoya.jp/vps/" target="_blank" rel="noopener"
+>KAGOYA CLOUD VPS | 柔軟でパワフルな環境を格安で&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="既存インスタンスは">既存インスタンスは?
+&lt;/h2>&lt;p>新基盤が出はしましたが、告知メール文には&lt;/p>
+&lt;blockquote>
+&lt;p>2025年2月6日(木)より、「KAGOYA CLOUD VPS」を大幅に刷新しました。
+本リリースにより、読み込み・書き込み性能が大幅に向上し、業界No.1(※1)のコストパフォーマンスで、さらに快適で高速なVPS環境をご利用いただけるようになりました。&lt;/p>
+&lt;/blockquote>
+&lt;p>という記載だけで、プレスリリースの文言やFAQを読んでも既存インスタンスがどういう扱いになるのかが読み取れませんでした。&lt;/p>
+&lt;p>自動でマイグレーションされるのか、はたまた借り換えをしないといけないのか、そこ書いてほしかったな……。&lt;/p>
+&lt;h2 id="どうやらスナップショットを使うと移行できるっぽい">どうやらスナップショットを使うと移行できるっぽい
+&lt;/h2>&lt;p>どうやらスナップショットは既存インスタンスと新基盤で共有できるようで、既存インスタンスでスナップショットを取って、それを元に新規インスタンスを立てることでIPアドレスは変化してしまいますが移行ができる、という人柱報告を得ることが出来ました。&lt;/p>
+&lt;h2 id="移行手順">移行手順
+&lt;/h2>&lt;p>ということで、以下の手順を踏んで、式年遷宮で全部を作り直すこと無く、新基盤へ移行します。&lt;/p>
+&lt;ol>
+&lt;li>既存インスタンスをシャットダウン&lt;/li>
+&lt;li>既存インスタンスのスナップショット作成
+&lt;ul>
+&lt;li>10GBあたり4.4円/日とのこと。200GBなので88円/日ですね。実質タダ。&lt;/li>
+&lt;li>スナップショット作成には2時間弱かかりました。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>新規インスタンス作成
+&lt;ul>
+&lt;li>このときベースイメージをスナップショットにする&lt;/li>
+&lt;li>1時間くらいかかりました。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Webコンソールから起動確認&lt;/li>
+&lt;li>IP直指定でのSSH疎通確認&lt;/li>
+&lt;li>DNS向け先変更&lt;/li>
+&lt;li>外部からの疎通確認&lt;/li>
+&lt;li>旧インスタンス削除&lt;/li>
+&lt;li>スナップショット削除&lt;/li>
+&lt;/ol>
+&lt;h2 id="細かい修正">細かい修正
+&lt;/h2>&lt;p>外足のIPアドレスが変わるので、いくつかを適当に修正していきます。&lt;/p>
+&lt;ul>
+&lt;li>別ホストのApache2でIPのホワイトリストベースのACL&lt;/li>
+&lt;li>HAProxyの掴むIPアドレス&lt;/li>
+&lt;li>スタティックルート書いてたホストのルーティング&lt;/li>
+&lt;/ul>
+&lt;h2 id="性能確認">性能確認
+&lt;/h2>&lt;h3 id="fastfetch結果hw部分系のみ">fastfetch結果(HW部分系のみ)
+&lt;/h3>&lt;p>見える変化&lt;/p>
+&lt;ul>
+&lt;li>仮想化基盤がOpenStack NovaからOpenStack Computeに&lt;/li>
+&lt;li>CPUがIntel Xeon Silver 4210からIntel Xeon Silver 4416+に&lt;/li>
+&lt;li>仮想GPUがCirrus Logic GD 5446からRedHat Virtio 1.0 GPUに&lt;/li>
+&lt;/ul>
+&lt;h4 id="旧基盤">旧基盤
+&lt;/h4>&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">OS: Ubuntu 22.04.5 LTS x86_64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host: OpenStack Nova (13.1.2-1.el7)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Kernel: Linux 6.8.0-52-generic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CPU: 2 x Intel(R) Xeon(R) Silver 4210 (2) @ 2.19 GHz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GPU: Cirrus Logic GD 5446
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Memory: 1.19 GiB / 1.92 GiB (62%)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Swap: 268.00 KiB / 8.93 GiB (0%)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disk (/): 147.77 GiB / 196.68 GiB (75%) - ext4&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h4 id="新基盤">新基盤
+&lt;/h4>&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">OS: Ubuntu 22.04.5 LTS x86_64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host: OpenStack Compute (25.3.0-1.el9s)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Kernel: Linux 6.8.0-52-generic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Uptime: 14 mins
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">CPU: 2 x Intel(R) Xeon(R) Silver 4416+ (2) @ 2.00 GHz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">GPU: RedHat Virtio 1.0 GPU
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Memory: 1.20 GiB / 1.92 GiB (62%)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Swap: 268.00 KiB / 8.93 GiB (0%)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disk (/): 147.65 GiB / 196.68 GiB (75%) - ext4&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="外足の速度測定">外足の速度測定
+&lt;/h3>&lt;p>新基盤は3倍という謳い文句はそのとおりです。ちなみに新基盤では初速だけ500Mbps以上の数値が見えました。&lt;/p>
+&lt;h4 id="旧基盤-1">旧基盤
+&lt;/h4>&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span> &lt;span class="o">./&lt;/span>&lt;span class="n">speedtest&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">s&lt;/span> &lt;span class="mi">7139&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Speedtest&lt;/span> &lt;span class="n">by&lt;/span> &lt;span class="n">Ookla&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Server&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">SoftEther&lt;/span> &lt;span class="n">Corporation&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">Tsukuba&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">7139&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ISP&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">KAGOYA&lt;/span> &lt;span class="n">JAPAN&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Idle&lt;/span> &lt;span class="n">Latency&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.48&lt;/span> &lt;span class="n">ms&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">jitter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.43&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">low&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.35&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">11.93&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Download&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">76.95&lt;/span> &lt;span class="n">Mbps&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="n">used&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">35.5&lt;/span> &lt;span class="n">MB&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mf">160.79&lt;/span> &lt;span class="n">ms&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">jitter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">53.67&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">low&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">11.17&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">314.71&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Upload&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">77.04&lt;/span> &lt;span class="n">Mbps&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="n">used&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">39.6&lt;/span> &lt;span class="n">MB&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mf">181.38&lt;/span> &lt;span class="n">ms&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">jitter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">56.09&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">low&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.97&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">291.02&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Packet&lt;/span> &lt;span class="n">Loss&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.0&lt;/span>&lt;span class="o">%&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h4 id="新基盤-1">新基盤
+&lt;/h4>&lt;div>
+&lt;div class="codeblock--content">&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span> &lt;span class="o">./&lt;/span>&lt;span class="n">speedtest&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">s&lt;/span> &lt;span class="mi">7139&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Speedtest&lt;/span> &lt;span class="n">by&lt;/span> &lt;span class="n">Ookla&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Server&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">SoftEther&lt;/span> &lt;span class="n">Corporation&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">Tsukuba&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">7139&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ISP&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">KAGOYA&lt;/span> &lt;span class="n">JAPAN&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Idle&lt;/span> &lt;span class="n">Latency&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.32&lt;/span> &lt;span class="n">ms&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">jitter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.22&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">low&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.23&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.92&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Download&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">243.23&lt;/span> &lt;span class="n">Mbps&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="n">used&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">320.1&lt;/span> &lt;span class="n">MB&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mf">31.21&lt;/span> &lt;span class="n">ms&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">jitter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">18.27&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">low&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.25&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">510.81&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Upload&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">234.95&lt;/span> &lt;span class="n">Mbps&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="n">used&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">365.7&lt;/span> &lt;span class="n">MB&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="mf">10.46&lt;/span> &lt;span class="n">ms&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">jitter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">2.29&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">low&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">10.19&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">239.22&lt;/span>&lt;span class="n">ms&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Packet&lt;/span> &lt;span class="n">Loss&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.0&lt;/span>&lt;span class="o">%&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="ストレージ速度測定">ストレージ速度測定
+&lt;/h3>&lt;p>&lt;a class="link" href="https://hackers-high.com/linux/storage-benchmark-like-crystaldiskmark/" target="_blank" rel="noopener"
+>【diskspd】ストレージのベンチマーク方法（Linux版CrystalDiskMarkを作ってみた） – Hacker&amp;rsquo;s High&lt;/a> で作られている、 &lt;a class="link" href="https://github.com/haxyier/DiskMark-linux-sh/blob/master/DiskMark-linux.sh" target="_blank" rel="noopener"
+>DiskMark-linux.sh &lt;/a> をお借りしました。&lt;/p>
+&lt;p>旧基盤と新基盤でシーケンシャルの最大速度が11GB/s前後で、大体9Gbps弱となります。おそらく10GのNICでiSCSI接続しているのでしょう。文句はないです。&lt;/p>
+&lt;p>大きく進化しているのがランダムR/Wです。旧ではQ32T16が50MB/sを切っていましたが、新では501.66MB/sと10倍以上高速化しています。また、Q1T1に関してもかなりの速度上昇が見られます。&lt;/p>
+&lt;p>NVMe化によるランダムR/Wの改善がよくわかりますね。&lt;/p>
+&lt;h4 id="mbs">MB/s
+&lt;/h4>&lt;h5 id="旧基盤-2">旧基盤
+&lt;/h5>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;/th>
+&lt;th style="text-align:left">Read&lt;/th>
+&lt;th style="text-align:left">Write&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q8T1&lt;/td>
+&lt;td style="text-align:left">1141.20&lt;/td>
+&lt;td style="text-align:left">2032.80&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q1T1&lt;/td>
+&lt;td style="text-align:left">142.60&lt;/td>
+&lt;td style="text-align:left">1372.20&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q32T16&lt;/td>
+&lt;td style="text-align:left">47.43&lt;/td>
+&lt;td style="text-align:left">78.44&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q1T1&lt;/td>
+&lt;td style="text-align:left">0.07&lt;/td>
+&lt;td style="text-align:left">41.50&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h5 id="新基盤-2">新基盤
+&lt;/h5>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;/th>
+&lt;th style="text-align:left">Read&lt;/th>
+&lt;th style="text-align:left">Write&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q8T1&lt;/td>
+&lt;td style="text-align:left">1044.40&lt;/td>
+&lt;td style="text-align:left">1044.20&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q1T1&lt;/td>
+&lt;td style="text-align:left">1044.40&lt;/td>
+&lt;td style="text-align:left">1044.40&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q32T16&lt;/td>
+&lt;td style="text-align:left">501.66&lt;/td>
+&lt;td style="text-align:left">429.67&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q1T1&lt;/td>
+&lt;td style="text-align:left">53.23&lt;/td>
+&lt;td style="text-align:left">52.79&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="iops">IOPS
+&lt;/h4>&lt;h5 id="旧基盤-3">旧基盤
+&lt;/h5>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;/th>
+&lt;th style="text-align:left">Read&lt;/th>
+&lt;th style="text-align:left">Write&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q8T1&lt;/td>
+&lt;td style="text-align:left">1141.20&lt;/td>
+&lt;td style="text-align:left">2032.80&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q1T1&lt;/td>
+&lt;td style="text-align:left">142.60&lt;/td>
+&lt;td style="text-align:left">1372.20&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q32T16&lt;/td>
+&lt;td style="text-align:left">12141.00&lt;/td>
+&lt;td style="text-align:left">20079.60&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q1T1&lt;/td>
+&lt;td style="text-align:left">17.80&lt;/td>
+&lt;td style="text-align:left">10623.60&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h5 id="新基盤-3">新基盤
+&lt;/h5>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;/th>
+&lt;th style="text-align:left">Read&lt;/th>
+&lt;th style="text-align:left">Write&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q8T1&lt;/td>
+&lt;td style="text-align:left">1044.40&lt;/td>
+&lt;td style="text-align:left">1044.20&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">SEQ1M Q1T1&lt;/td>
+&lt;td style="text-align:left">1044.40&lt;/td>
+&lt;td style="text-align:left">1044.40&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q32T16&lt;/td>
+&lt;td style="text-align:left">128424.80&lt;/td>
+&lt;td style="text-align:left">109996.60&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">RND4K Q1T1&lt;/td>
+&lt;td style="text-align:left">13627.00&lt;/td>
+&lt;td style="text-align:left">13513.00&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>ブラウザ経由でシェルスクリプト叩いてWake on LANする</title><link>https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/</link><pubDate>Thu, 13 Feb 2020 16:48:10 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2020/20200213-wakeonlan-from-browser/</guid><description>&lt;p>(この記事はQiitaからのコピーです。 本記事の投稿日はQiitaでの投稿日としています。)&lt;/p>
 &lt;p>WiFiルーターを買い替えたら、発売日的に6年後のモデルなのに、以前の機種にあった&amp;quot;PCリモート起動&amp;quot;(ルーターのWebツールでWoLのマジックパケットを飛ばせる機能)が消え失せました。(WR8750N→WG1200HS3)&lt;/p>
 &lt;p>ブラウザでWoL飛ばせるのがすごい便利だったのですが、無くなったものは仕方ない。自分でどうにかせねばということで、可能な限り手間を掛けずに今までと同じような機能を作ってみます。&lt;/p>
 &lt;h2 id="必要なもの">必要なもの
