@@ -28,7 +28,7 @@ image: img/eyecatch.png
 
 ちなみに年払いにしたら毎月715円相当。OCIのAlways Free以外なら安定性的にもKAGOYAが強すぎます。新基盤すごい。
 
-(WebARENA IndigoのVPSを使っていたことがあるのですが、回線品質が不安定すぎて何度も疎通断アラートが鳴ったことがありましたが、KAGOYA移行後はほぼ発生していないので助かります)
+(WebARENA IndigoのVPSを監視基盤用のサブVPSとして使っていたころ、回線品質が不安定すぎて何度も疎通断アラートが鳴ったことがありました。その後KAGOYAへ移行後はほぼ発生していないので助かります。)
 
 ということで早速移行してみたので、移行手順の記録と、簡単な性能比較をしてみました。
 
@@ -155,7 +155,7 @@ Idle Latency:    10.32 ms   (jitter: 0.22ms, low: 10.23ms, high: 10.92ms)
 
 [【diskspd】ストレージのベンチマーク方法（Linux版CrystalDiskMarkを作ってみた） – Hacker's High](https://hackers-high.com/linux/storage-benchmark-like-crystaldiskmark/) で作られている、 [DiskMark-linux.sh ](https://github.com/haxyier/DiskMark-linux-sh/blob/master/DiskMark-linux.sh) をお借りしました。
 
-旧基盤と新基盤でシーケンシャルの最大速度が11GB/s前後で、大体9Gbps弱となります。おそらく10GのNICでiSCSI接続しているのでしょう。文句はないです。
+旧基盤と新基盤でシーケンシャルの最大速度が1.1GB/s前後で、大体9Gbps弱となります。おそらく10GのNICでiSCSI接続しているのでしょう。文句はないです。
 
 大きく進化しているのがランダムR/Wです。旧ではQ32T16が50MB/sを切っていましたが、新では501.66MB/sと10倍以上高速化しています。また、Q1T1に関してもかなりの速度上昇が見られます。
 
