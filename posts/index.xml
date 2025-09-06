@@ -1,4 +1,71 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 平和に生きたい</title><link>https://blog.mikuta0407.net/posts/</link><description>Recent content in Posts on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Sun, 07 Sep 2025 00:00:00 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>本格雑談くちをひらくの更新通知Botを全面的に作り直していた話</title><link>https://blog.mikuta0407.net/posts/2025/20250907-kuchihira-bot_refactoring/</link><pubDate>Sun, 07 Sep 2025 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2025/20250907-kuchihira-bot_refactoring/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2025/20250907-kuchihira-bot_refactoring/img/eyecatch.png" alt="Featured image of post 本格雑談くちをひらくの更新通知Botを全面的に作り直していた話" />&lt;p>2023年に &lt;a class="link" href="https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 平和に生きたい</title><link>https://blog.mikuta0407.net/posts/</link><description>Recent content in Posts on 平和に生きたい</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>mikuta0407</copyright><lastBuildDate>Sun, 07 Sep 2025 00:00:01 +0900</lastBuildDate><atom:link href="https://blog.mikuta0407.net/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>本格雑談くちをひらくのプレミアムリスナー回の収録をしてきました</title><link>https://blog.mikuta0407.net/posts/2025/20250900-prelis/</link><pubDate>Sun, 07 Sep 2025 00:00:01 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2025/20250900-prelis/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2025/20250900-prelis/img/eyecatch.JPG" alt="Featured image of post 本格雑談くちをひらくのプレミアムリスナー回の収録をしてきました" />&lt;p>Podcast番組「本格雑談くちをひらく」では、Voicyのプレミアムリスナーの仕組みを使い、リスナーが繪里子さん・吉田さんと1時間ほど、ラジオブースでトークができるという、どう考えてもとんでもない企画をやっています。 (2025/09/07現在、新規募集は停止しているとのこと)&lt;/p>
+&lt;p>詳しいことはぴけさんのnoteを御覧ください。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">&lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a> プレミアムリスナー収録の体験記をまとめました。&lt;br>ネタバレがっつりなので、これから収録の人は注意で。&lt;br>&lt;br>『中村繪里子・吉田尚記の本格雑談くちをひらく』Voicyプレミアムリスナー特典で、一般人が中村繪里子さん、吉田尚記さんとラジオの収録をしてみた。&lt;a href="https://t.co/mV9Take3V1">https://t.co/mV9Take3V1&lt;/a>&lt;/p>&amp;mdash; ぴけ (@PiquePiquet) &lt;a href="https://twitter.com/PiquePiquet/status/1331609849956757509?ref_src=twsrc%5Etfw">November 25, 2020&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>僕はボーナスが出るたびに1話ずつ購入し、今年春に購入を完了していました。&lt;/p>
+&lt;p>そしてなんと先日、僕の番が回ってきまして、8月下旬に収録がありました。その収録をしたスペシャル回が、9/6に公開されました!! ぜひ聴いてくれるとうれしいです。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">『VoicyプレミアムリスナーSP Vol.15 [中村繪里子・吉田尚記の本格雑談くちをひらく]』 &lt;a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;amp;ref_src=twsrc%5Etfw">#くちをひらく&lt;/a>&lt;br>&lt;br>Web: &lt;a href="https://t.co/HAcuUwZSyh">https://t.co/HAcuUwZSyh&lt;/a>&lt;br>Voicy: &lt;a href="https://t.co/9nC07beZxn">https://t.co/9nC07beZxn&lt;/a>&lt;a href="https://twitter.com/yoshidahisanori?ref_src=twsrc%5Etfw">@yoshidahisanori&lt;/a> &lt;a href="https://twitter.com/eriko_co_log?ref_src=twsrc%5Etfw">@eriko_co_log&lt;/a> &lt;a href="https://twitter.com/kuchiwohiraku?ref_src=twsrc%5Etfw">@kuchiwohiraku&lt;/a> &lt;a href="https://t.co/VFmNBHIRHK">https://t.co/VFmNBHIRHK&lt;/a>&lt;/p>&amp;mdash; 本格雑談くちをひらく 更新通知【公黙認】 (@kuchihira_bot) &lt;a href="https://twitter.com/kuchihira_bot/status/1964238859186950300?ref_src=twsrc%5Etfw">September 6, 2025&lt;/a>&lt;/blockquote> &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;p>今回は、この収録周りで、ブログとして書いておける範囲で、出来事を書き記しておこうと思います。
+(心のなかで大切にしたい部分もあるので、なんだかぼんやり記事かもしれません。写真もないです、すみません。)&lt;/p>
+&lt;h2 id="の前に宣伝">…の前に宣伝
+&lt;/h2>&lt;p>本ブログでは、以下の2つの記事で本格雑談くちをひらくについて触れています。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/" target="_blank" rel="noopener"
+>リスナーが勝手にPodcast番組の更新通知Botを作って遊んだ話&lt;/a> (2023年)&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.mikuta0407.net/posts/2025/20250907-kuchihira-bot_refactoring/" target="_blank" rel="noopener"
+>本格雑談くちをひらくの更新通知Botを全面的に作り直していた話&lt;/a> (2025年)&lt;/li>
+&lt;/ul>
+&lt;p>よろしくお願いします。&lt;/p>
+&lt;h2 id="はじまりの購入完了">はじまりの購入完了
+&lt;/h2>&lt;p>まず、プレミアムリスナーを全部購入したのは2025年春でした。&lt;/p>
+&lt;p>購入すると、Voicyの担当の方から意図の確認や、ディレクターの石川さんにお伝えする連絡先等の確認、その後は石川さんからメールにて諸々の確認がありました。いよいよ順番待ちに並べることに。&lt;/p>
+&lt;p>このとき僕は、「よーし、いつかの収録を楽しみにするぞー! まぁ今年はないだろうし!」という、とても楽観的な心持ちでした。&lt;/p>
+&lt;h2 id="突然のオファー">突然のオファー
+&lt;/h2>&lt;p>8/18の夜、石川さんから1通のメールが。要約すると、8/25に収録が可能か、という連絡でした。&lt;/p>
+&lt;ul>
+&lt;li>そもそも購入してから半年未満&lt;/li>
+&lt;li>1週間後&lt;/li>
+&lt;li>えっ1週間後に皆さんと話せるの&lt;/li>
+&lt;li>1週間後!?&lt;/li>
+&lt;/ul>
+&lt;p>まぁ驚きというか、驚愕というか、眠気が全部吹き飛びました。&lt;/p>
+&lt;p>とにかくびっくりしつつ、そこから数日かけて詳細な時間の調整がありました。ちなみにメールが来た翌日には、会社のスケジュールに午後休をぶっこんで、スケジュール的には万全の状態にしておきました。&lt;/p>
+&lt;h2 id="心ここにあらずな1週間">心ここにあらずな1週間
+&lt;/h2>&lt;p>何を話せる? 既に緊張してきた どうしよう えぇーほんとにぃ? と頭が高速回転しながらの日々が始まります。&lt;/p>
+&lt;p>とりあえず落ち着けるためにも、「こんなこと話せるかな?」みたいなことを書き出してみたりしても、途中で「いやぁやっぱりなんもわからん。頭が真っ白だぞ」みたいなことになるので、結局はふわふわした状態だった気がします。&lt;/p>
+&lt;p>そんな中で週末になりましたが、土曜日は別件でお誘いを受けて食事をしたり、日曜日はオタクとコストコいったりマリオカートしまくったりして、いい意味で頭をリセットできました。&lt;/p>
+&lt;h2 id="もはや何もわからない月曜日">もはや何もわからない月曜日
+&lt;/h2>&lt;p>いよいよ迎えた収録当日の月曜日、午前だけの勤務も正直あんまり進捗がなかった(ごめんなさい)ですが、とりあえずやることはやって、昼食を取り、有楽町のニッポン放送の本社に向かいます。&lt;/p>
+&lt;p>日比谷駅に着いたあたりから、緊張がずっとピークになり、誰かに「今から繪里子さんや吉田さんと話すんですがどうにかなりそうです」と相談したくなる衝動に駆られます。結局はしなかったですが、あの緊張は就活のときの最終面接よりも上だった気がします。&lt;/p>
+&lt;p>あとからApple Watch見たら日比谷駅についたときあたりから心拍数がすごいことになっていました。(その時間のあたりの心拍数が150になってた)&lt;/p>
+&lt;h2 id="いざブースへ">いざブースへ
+&lt;/h2>&lt;p>石川さんに案内されながらブースへ。繪里子さん・吉田さんがいらっしゃるまでは、石川さんと軽く雑談し、ピークを迎えた緊張が徐々に落ち着いてきます。&lt;/p>
+&lt;p>なにか話したいことありますか?と聞いていただいていましたが、頭が真っ白になるので何も思い浮かんでいません、と答えていました。&lt;/p>
+&lt;p>そして登場されるお二方。僕はガチガチでしたが、お二人が「いつもの感じ」でいらっしゃったので、自然と僕もほぐれていきます。(ほぐれていくと言っても目の前にいらっしゃるわけですからまぁ限度はあります。)&lt;/p>
+&lt;h2 id="収録">収録
+&lt;/h2>&lt;p>そこから少しのアイドリングをはさみ、いざ収録開始。&lt;/p>
+&lt;p>完全にノープランで収録が始まりましたが、幸いなことに普段のメールや更新通知Bot等で僕を少し知っていてくださったので、そのあたりの話からトークが膨らんでいきました。&lt;/p>
+&lt;p>あぁ、繪里子さんや吉田さんと話しているぞ、という感動をしつつ、話が進みます。&lt;/p>
+&lt;p>どんなことを話しているかは配信を聴いていただけるとわかりますが、正直あそこまでソフトウェア屋として、現状のAIの話をするとは思っていませんでした。繪里子さんや吉田さんと対面でじっくり話してるだけでも貴重な体験ですが、あんな話を仲の良いオタクや会社の同僚以外にすることは人生でもほぼないと思うので、その点でも貴重な体験でした。&lt;/p>
+&lt;p>吉田さんが僕の話した内容を噛み砕きつつ繪里子さんに説明するなどもあり、流石だなぁと思ったりしていたら、視界に入る時計が1時間を超えています。ひゃあ。そろそろ終わってしまう、でもめちゃくちゃ話せた。そんなことを思いながら、エンディングを迎えました。&lt;/p>
+&lt;h2 id="写真撮影">写真撮影
+&lt;/h2>&lt;p>終わったあとは記念写真を撮影していただきました。&lt;/p>
+&lt;p>そんな中で、とあるブツと繪里子さんが持ってきていただいていたもののツーショットを取ったりと、なかなかシュールな撮影もあったり……。&lt;/p>
+&lt;p>よくSNSで見かけるラジオブースでの写真撮影を自分もできたこと自体も嬉しかったですね。&lt;/p>
+&lt;h2 id="通常放送収録見学">通常放送収録見学
+&lt;/h2>&lt;p>写真撮影が終わったあとは、ご挨拶しつつブースの外へ。石川さんと同じサブに行き、ミキサー(全部デジタルなんですね。そりゃそうか。)の前の椅子に座って、通常放送の収録の見学です。&lt;/p>
+&lt;p>「あぁ、こうやって録ってるんだなぁ〜〜」と肉眼で見ながら感動していました。個人的にはミキサーに搭載されているタイマーも面白かったです。機材系にも(わからないながら)興味があるので、機材もじっくり眺めていました。サブとブース間の声のやり取りがどうやって行われているかとかも知ることができました。&lt;/p>
+&lt;h2 id="終了後">終了後
+&lt;/h2>&lt;p>ブースから出てこられたお二人と少しお話ができました。&lt;/p>
+&lt;p>いやぁ、確かにらじ繪ほのイベントでは経験してない距離ではないものの、普段見ているだけの立場の僕が、目の前にいらっしゃる繪里子さんと1:1で話したんですよね。ということに後から実感が湧いたりして、本当にすごい時間を過ごしたんだなぁと。&lt;/p>
+&lt;p>その後、繪里子さんをエレベーターまでお見送りして、イベント本編が終了しました。&lt;/p>
+&lt;h2 id="〆">〆
+&lt;/h2>&lt;p>連絡をいただいた8/18から収録の8/25までの1週間、収録をした8/25から放送日の9/6までの12日間、合計大体3週間。本当にとんでもない経験が出来ました。&lt;/p>
+&lt;p>特に連絡をいただいてからの1週間は、なんだか生きた心地がしなかったような気がします。&lt;/p>
+&lt;p>「普段聞いてる番組に1時間も喋って参加できる」という、人生で1度経験できるかどうかみたいな異常な出来事ですが、本当に楽しかったです。
+終わってから、「なんか変なこと喋った気がする…」とか「声小さかったな絶対…」みたいに若干怖くなってしまった時もありましたが、それも含めて、くちをひらくのリスナーとして、そして中村繪里子さんのファンとして、最高の思い出にになりました。一生の宝ものです。&lt;/p>
+&lt;p>これからもリスナーとして、そして公黙認の更新通知Botの運営として、楽しませていただきます。&lt;/p>
+&lt;h2 id="ps">P.S.
+&lt;/h2>&lt;p>当日、繪里子さんかわいい、という感情がそれなりの頻度で現れました。かわいかったです。&lt;/p></description></item><item><title>本格雑談くちをひらくの更新通知Botを全面的に作り直していた話</title><link>https://blog.mikuta0407.net/posts/2025/20250907-kuchihira-bot_refactoring/</link><pubDate>Sun, 07 Sep 2025 00:00:00 +0900</pubDate><guid>https://blog.mikuta0407.net/posts/2025/20250907-kuchihira-bot_refactoring/</guid><description>&lt;img src="https://blog.mikuta0407.net/posts/2025/20250907-kuchihira-bot_refactoring/img/eyecatch.png" alt="Featured image of post 本格雑談くちをひらくの更新通知Botを全面的に作り直していた話" />&lt;p>2023年に &lt;a class="link" href="https://blog.mikuta0407.net/posts/2023/20230807-making-of-x-bot-for-kuchiwohiraku/" target="_blank" rel="noopener"
 >リスナーが勝手にPodcast番組の更新通知Botを作って遊んだ話&lt;/a> という記事を投稿しました。&lt;/p>
 &lt;p>記事の内容をざっくり3行で説明します。&lt;/p>
 &lt;ul>
