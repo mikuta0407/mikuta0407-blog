@@ -3,7 +3,7 @@ title: '本格雑談くちをひらくの更新通知Botを全面的に作り直
 date: 2025-09-07T00:00:00+09:00
 draft: false
 categories: ["盆栽システム開発", "Go", "Twitter", "本格雑談くちをひらく"]
-description: 以前作った本格雑談くちをひらくの更新通知Botをリファクタリングしていたので、なにをしたのかをまとめた記事です。
+description: 以前作った本格雑談くちをひらくの更新通知Botをリファクタリングしていたので、何をしたかをまとめた記事です。
 image: "img/eyecatch.png"
 # original: 
 ---
@@ -16,7 +16,9 @@ image: "img/eyecatch.png"
 - 原因はIFTTTとXの連携有料化
 - リスナーが勝手にBotを自作して動かし始めたら公式的に黙認された
 
-このBotは2023/06/26の回から正式稼働を始めました。 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">[2023/06/26 17:00 up!] 『公式黙認宣言。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→<a href="https://t.co/TP5MAG1NbF">https://t.co/TP5MAG1NbF</a> Web→<a href="https://t.co/vvzhK2UK72">https://t.co/vvzhK2UK72</a> <a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;ref_src=twsrc%5Etfw">#くちをひらく</a> <a href="https://t.co/XR3seEd0p7">https://t.co/XR3seEd0p7</a> <a href="https://twitter.com/yoshidahisanori?ref_src=twsrc%5Etfw">@yoshidahisanori</a> <a href="https://twitter.com/eriko_co_log?ref_src=twsrc%5Etfw">@eriko_co_log</a></p>&mdash; 本格雑談くちをひらく 更新通知【公黙認】 (@kuchihira_bot) <a href="https://twitter.com/kuchihira_bot/status/1673254488294178817?ref_src=twsrc%5Etfw">June 26, 2023</a></blockquote>  
+このBotは2023/06/26の回から正式稼働を始めました。
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">[2023/06/26 17:00 up!] 『公式黙認宣言。[中村繪里子・吉田尚記の本格雑談くちをひらく]』 podcast→<a href="https://t.co/TP5MAG1NbF">https://t.co/TP5MAG1NbF</a> Web→<a href="https://t.co/vvzhK2UK72">https://t.co/vvzhK2UK72</a> <a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;ref_src=twsrc%5Etfw">#くちをひらく</a> <a href="https://t.co/XR3seEd0p7">https://t.co/XR3seEd0p7</a> <a href="https://twitter.com/yoshidahisanori?ref_src=twsrc%5Etfw">@yoshidahisanori</a> <a href="https://twitter.com/eriko_co_log?ref_src=twsrc%5Etfw">@eriko_co_log</a></p>&mdash; 本格雑談くちをひらく 更新通知【公黙認】 (@kuchihira_bot) <a href="https://twitter.com/kuchihira_bot/status/1673254488294178817?ref_src=twsrc%5Etfw">June 26, 2023</a></blockquote>  
 
 それから1年が経過し、先日2024/06/26の回で1周年についてのメールを取り上げていただきました。
 
@@ -61,15 +63,15 @@ image: "img/eyecatch.png"
 
 ## 更新漏れとの戦い
 
-くちをひらくでは、この1年で数回、想定外の更新が数度発生しました。
+くちをひらくでは、初回リリースから1年間で数回、想定外の更新が数度発生しました。
 
 ### 1日2回の更新
 
-例えば更新設定漏れによる一括投稿では、2023/7/28に、2023/7/26日分と2023/07/27分が同時に更新されたときの話です。(注: ディレクターの石川さんを責めている意図はまったくありません。)
+例えば更新設定漏れによる一括投稿では、2023/07/28に、2023/07/26日分と2023/07/27分が同時に更新されたときの話です。(注: ディレクターの石川さんを責めている意図はまったくありません。)
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">これは例の更新通知Botの裏話ですが、7/27分は手動でスクリプト実行、26日分は手でツイート作りました(この方が早い)</p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1684583506192769024?ref_src=twsrc%5Etfw">July 27, 2023</a></blockquote> 
 
-このときの更新は7/28の0時頃に2つ更新されました。このとき、当時のBotは「スクリプトが実行されたタイミングでRSSから取得できたアイテムの**最新のものがその日の日付の更新だった場合に**、それをツイートする、という動作になので、0時に2つ投稿されたあとにスクリプトだけを実行してしまうと、7/27予定分のみがツイートされてしまいます。
+このときの更新は7/28の0時頃に2つ更新されました。このとき、当時のBotは「スクリプトが実行されたタイミングでRSSから取得できたアイテムの**最新のものがその日の日付の更新だった場合に**、それをツイートする、という動作なので、0時に2つ投稿されたあとにスクリプトだけを実行してしまうと、7/27予定分のみがツイートされてしまいます。
 
 そのため、7/26分を手でツイートし、7/27分をスクリプトで投稿する、といった運用を行いました。(手でツイート、普通にiPhoneでコピペで作っていました。(たまたまPCが手元になかった))
 
@@ -130,7 +132,7 @@ Blueskyへの投稿をPHPで行えないか模索してみましたが、ライ�
 
 本番だけど完全公式じゃないからできる技ではありますね。
 
-結果としてTwitterへの投稿とBlueskyがうまく行きました。これはほんとに安心した記憶があります。いくら自分のアカウントでテストしていたとはいえ、本番動作では吉田さんと中村さんにメンションが飛びます。一応は間違った内容を出してはいけないので、かなりの緊張がありましたが、無事にPHP→Goのリファクタリングに成功しました。
+結果としてTwitterへの投稿とBlueskyがうまく行きました。これは本当に安心した記憶があります。いくら自分のアカウントでテストしていたとはいえ、本番動作では吉田さんと中村さんにメンションが飛びます。一応は間違った内容を出してはいけないので、かなりの緊張がありましたが、無事にPHP→Goのリファクタリングに成功しました。
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E3%81%8F%E3%81%A1%E3%82%92%E3%81%B2%E3%82%89%E3%81%8F?src=hash&amp;ref_src=twsrc%5Etfw">#くちをひらく</a> のBotをGoでリファクタリングして、今日無事に動いたのでリポジトリ公開しておきます<a href="https://t.co/I4NZ4cRFDu">https://t.co/I4NZ4cRFDu</a></p>&mdash; たっくん (@mikuta0407) <a href="https://twitter.com/mikuta0407/status/1756958545558536588?ref_src=twsrc%5Etfw">February 12, 2024</a></blockquote> 
 
@@ -197,15 +199,14 @@ Blueskyへの投稿をPHPで行えないか模索してみましたが、ライ�
 
 デーモンモードを追加した現在のソースコード自体は [mikuta0407/kuchihira-bot v1.2.1](https://github.com/mikuta0407/kuchihira-bot/releases/tag/v1.2.1) に置いてあります。 (v1.2.0とv1.2.1の違いはREADME.mdのため、動作に関してはv1.2.0と同一です。)
 
-ここからは現状のGo製のkuchihira-botのデーモンモード動作について説明します。  
-単発実行の挙動や、ここでは本質ではないBluesky周りについては割愛します。
+ここからは現状のGo製のkuchihira-botのデーモンモード動作について説明します。単発実行の挙動や、ここでは本質ではないBluesky周りについては割愛します。
 
 ### パッケージの役割
 
 - cmd
   - cobraでサブコマンドを実装するための部分。サブコマンドは以下
     - `post`: 単発実行用(説明割愛)
-    - `login`: BlueSkyログイン
+    - `login`: Blueskyログイン
     - `daemon`: デーモンモード実行
 - internal
   - core    
@@ -252,7 +253,7 @@ Blueskyへの投稿をPHPで行えないか模索してみましたが、ライ�
   - 差分として出てきたアイテムに対してシーケンシャルにそれぞれTwitterとBlueskyへ投稿処理
   - 最後に投稿したアイテムのGUIDをファイルシステムに記録
 
-Omny.fmに対してずっとアクセスし続けてることになりますが、こればかりは許してもらいたいところです。
+Omny.fmに対してずっとアクセスし続けていることになりますが、こればかりは許してもらいたいところです。
 
 ## 余談
 
