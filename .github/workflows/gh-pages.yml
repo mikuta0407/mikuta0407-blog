@@ -14,14 +14,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: true
+          fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.128.2'
           extended: true
+
+      - name: Cache Hugo resources
+        uses: actions/cache@v4
+        with:
+          # キャッシュ対象ディレクトリ (hugo.toml等で変更していなければ 'resources')
+          path: resources 
+          # キャッシュのキー。設定ファイルやモジュール定義ファイルが変更されたらキャッシュを無効化する
+          key: ${{ runner.os }}-hugo-${{ hashFiles('**/hugo.toml', '**/go.mod') }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-
 
       - name: Build
         run: hugo --minify
