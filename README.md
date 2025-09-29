@@ -21,3 +21,8 @@ convert hoge.JPG -rotate 90 -strip hoge-port.JPG
 ```
 hugo server --bind <IPアドレス>
 ```
+
+HEIC to JPG on macOS
+```
+for f in *.[Hh][Ee][Ii][Cc]; do [ -e "$f" ] && sips --setProperty format jpeg "$f" --out "${f%.*}.jpg"; done
+```
